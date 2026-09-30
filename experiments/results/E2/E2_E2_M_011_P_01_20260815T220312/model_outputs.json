@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_011",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成，记录为 **calc#1**：\n\n| 项目 | 数值 |\n|------|------|\n| 抗拉强度 σb | 600 MPa |\n| 对称循环弯曲疲劳极限 σ₋₁ | 255 MPa |\n| 安全系数 S | 1.5 |\n| **许用弯曲应力 [σ₋₁]** | **170 MPa** |\n\n---\n\n### ⚠️ 需要提醒你注意\n\n**你给的数值与材料库标准数据有差异：**\n\n| 参数 | 你给的 | 材料库 `45钢调质` (GB/T 699-2015) |\n|------|--------|-----------------------------------|\n| σb | 600 MPa | **640 MPa** |\n| σ₋₁（疲劳极限原始值） | 255 MPa | 未直接列出 |\n| [σ₋₁]（许用弯曲应力，已扣安全系数） | 170 MPa（你算的） | **60 MPa**（材料库直接给出） |\n\n材料库中 `sigma_minus1: 60 MPa` 已经是**对称循环许用弯曲应力**，即已经考虑过安全系数的最终许用值。你用的 σ₋₁=255 M"
+}

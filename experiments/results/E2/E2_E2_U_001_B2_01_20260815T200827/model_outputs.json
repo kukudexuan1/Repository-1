@@ -1,0 +1,56 @@
+{
+  "case_id": "E2_U_001",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "solve_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n| 项目 | 数值 | 来源 |\n|------|------|------|\n| 分度圆直径 d₁ | **75 mm** | d = m·z = 3×25，`calc#1` |\n| 齿面接触应力 σ_H | **880.7 MPa** | 式 10-9，`calc#2` |\n| 许用接触应力 σ_HP | **500 MPa**（粗估） | — |\n| **判据** | **❌ 不通过** | 超出 **76.1%** |\n\n---\n\n### ⚠️ 这个结果需要你审慎看待\n\n上面算出的 **880.7 MPa** 中，你只给了三个参数（T=320,000 N·mm、m=3、z₁=25），其余 **5 个关键输入是我用工程惯用值假设的**：\n\n| 参数 | 假设值 | 含义 |\n|------|--------|------|\n| b | 75 mm | 齿宽，假设 b/d₁ = 1.0 |\n| u | 1 | 齿数比，假设 z₂=25（等速传动） |\n| K_H | 1.5 | 载荷系数，中值估计 |\n| σ_HP | 500 MPa | 许用接触应力，未经材料查"
+}

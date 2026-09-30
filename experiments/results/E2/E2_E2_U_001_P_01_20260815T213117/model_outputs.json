@@ -1,0 +1,56 @@
+{
+  "case_id": "E2_U_001",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "lookup_material",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好的，先汇报已有结果，再说明缺失项。\n\n---\n\n## 已完成的子计算\n\n| 计算项 | 记录 | 结果 |\n|--------|------|------|\n| 分度圆直径 | calc#1 | d₁ = m·z₁ = 3×25 = **75 mm** |\n| 许用接触应力 | calc#2 | σ_HP = **600 MPa**（45钢调质，σ_Hlim=600 MPa，K_HN=S_H=1.0 默认） |\n\n---\n\n## 无法直接计算 σ_H —— 缺少 3 个关键参数\n\n齿面接触应力公式（式 10-9）：\n\n$$\\sigma_H = Z_H \\cdot Z_E \\cdot Z_{\\varepsilon} \\cdot \\sqrt{\\frac{2 \\cdot K_H \\cdot T_1}{b \\cdot d_1^2} \\cdot \\frac{u+1}{u}}$$\n\n| 参数 | 状态 | 说明 |\n|------|------|------|\n| **u**（齿数比） | ❌ 缺失 | 需要大齿轮齿数 z₂，u = z₂/z₁ |\n| **b**（齿宽） | ❌ 缺失 | 需要"
+}

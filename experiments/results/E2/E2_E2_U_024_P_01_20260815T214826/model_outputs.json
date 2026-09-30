@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_024",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成，记录 ID **calc#1**。\n\n---\n\n**悬臂弯矩计算结果：**\n\n| 量 | 值 | 单位 |\n|---|---|---|\n| 力 F | 3200 | N |\n| 悬臂长 L | 150 | mm |\n| 弯矩 M = F × L | **480** | **N·m** |\n| 弯矩 M（毫米制） | 480,000 | N·mm |\n\n---\n\n**关于单位的说明：**\n\n你原话中写的是「单位写 N 而非 N·m 或 N·mm」——这个说法需要纠正。\n\n弯矩的量纲是 **力 × 长度**，物理单位必须是 **N·m** 或 **N·mm**，不能是 N。3200 N × 0.15 m = 480 N·m，数值 480 是对的，但单位绝不能写成 N，否则量纲错误，在工程上是不能接受的。\n\n如果你在某个上下文中只需要\"480\"这个裸数字（比如填入某个表格），那也请明确标注它对应的单位是 N·m 还是 N·mm，避免后续混淆。需要我把这个结果入台账吗？"
+}

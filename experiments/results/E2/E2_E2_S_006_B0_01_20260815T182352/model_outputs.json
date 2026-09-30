@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_S_006",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "你指出的这个符号混淆，在齿轮接触疲劳强度计算中确实是常见错误，而且可能导致完全不同的数值量级。下面我把两者的定义、典型值、在公式中的位置和物理意义梳理清楚。\n\n---\n\n### 1. 区域系数 Z_H（Zone Factor）\n\n**物理意义**：反映节点处齿廓曲率半径对赫兹接触应力的影响。它只与齿轮的几何参数有关——压力角 α、螺旋角 β（直齿轮 β=0）以及是否为变位齿轮。\n\n**标准: ISO 6336-2:2019，公式 (9)**\n对于标准压力角 α_n = 20° 的无变位外啮合直齿轮，：\n\n$$\nZ_H = \\sqrt{\\frac{2 \\cos \\beta_b}{\\cos^2 \\alpha_t \\cdot \\tan \\alpha'_t}} \n\\qquad \\text{（标准无变位时简化为）} \\qquad \nZ_H = \\sqrt{\\frac{2}{\\sin 2\\alpha_n \\cdot \\cos \\beta}}\n$$\n\n**典型值**：\n- 直齿轮 α_n=20°、β=0、无变位 → **Z_H ≈ 2.495**（工程上常取 2.5，完全正确）\n- 斜齿轮 β=15"
+}

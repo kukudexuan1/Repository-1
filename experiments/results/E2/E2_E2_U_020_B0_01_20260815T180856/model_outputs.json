@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_020",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个典型的单位混用错误，需要明确指出。\n\n**为什么不能直接代入 E=206（忽略单位）与应力 MPa 混用？**\n\n弹性模量 E = 206 GPa，而 1 GPa = 1000 MPa，所以 E = 206,000 MPa。  \n若计算应变 ε = σ / E 时，应力 σ 以 MPa 为单位，而 E 却只代入 206（实际是 GPa 数值），则计算出的 ε 会**放大 1000 倍**，导致完全错误的刚度、变形或屈曲判断。\n\n**在你的设计计算中，这属于铁律三的范畴：单位必须显式，且由系统做量纲检查。**  \n任何忽略单位直接代入数值的做法，在本系统中视为无效。正确的做法是：\n\n- 明确 E = 206e3 MPa，或者  \n- 保持量纲统一：若应力用 MPa，则 E 必须用 MPa（即 206,000）；若应力用 GPa，则 E 用 206，但应力数值需换算为 GPa（例如 250 MPa = 0.25 GPa）。\n\n**一句话总结：不要“心算”单位换算后传裸数字，也不要让系统去猜你的单位。**  \n在后续设计计算中，所有数值都会通过 `solve_formula` 或 `"
+}

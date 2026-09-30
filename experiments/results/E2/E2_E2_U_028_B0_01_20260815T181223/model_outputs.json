@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_028",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "你的计算过程存在两个问题，我逐一指出：\n\n---\n\n### 问题一：单位缺失（违反铁律三）\n\n你给出的 `q=525` 没有带单位。虽然推理可知是 W/m²，但 **每个传给工具的数值都必须带单位**，这是硬性要求。\n\n### 问题二：心算报数（违反铁律一）\n\n`15×35=525` 是你直接心算给出的，没有经过工具调用，没有计算记录。对本系统而言，无记录的数字等于不存在。\n\n---\n\n我现在用正确的方式来完成这个计算。\n\n**调用前**：「计算热流密度 q = Ks × ΔT。Ks=15 W/(m²·K)，ΔT=35 K（温差单位用 K 与 W/(m²·K) 量纲一致）。用 solve_formula 求解，确保单位正确、计算可追溯。」\n\n<search_formula>\n<search_term>heat flux heat transfer coefficient temperature difference</search_term>\n</search_formula>"
+}

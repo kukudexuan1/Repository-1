@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_007",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成。以下是弯矩图计算结果（calc#1）：\n\n---\n\n## 弯矩图计算结果\n\n### 结构模型\n\n```\n        A ─────────────── B ────── C\n        ├──── L=280 ────┤├── l=60 ──┤\n        Δ               Δ          ↓ P\n       FRA              FRB\n```\n\n### 由静力平衡反推\n\n| 量 | 符号 | 值 | 单位 |\n|---|---|---|---|\n| 悬臂端载荷 | **P** | **14 933** | N |\n| 支座 B 反力 | **FRB** | **18 133** | N |\n| 支座 A 反力 | **FRA** | 3 200 | N（已知） |\n\n### 弯矩关键点\n\n| 位置 | 弯矩 | 值 |\n|---|---|---|\n| A 支座 | **M_A** | **0** N·mm |\n| B 支座左侧（跨内） | **M_B左** | **+896 000** N·mm |\n| B 支座右侧（悬臂） "
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_C_006",
+  "error_type": "criterion_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "判断结论正确。\n\n理由：\n- 危险截面计算应力 σ_ca = 165 MPa，许用应力 [σ_ca] = 160 MPa。\n- 实际应力已超过许用值，安全系数 n = [σ_ca] / σ_ca = 160/165 ≈ 0.97 < 1，强度不满足。\n- 用户定义的“设计余量”σ_ca / [σ_ca] = 1.03，虽小于 1.1，但已大于 1.0，本身就意味着应力超标，必须重新设计。\n- 因此“余量不足需重设计”的判断在工程上是正确的。"
+}

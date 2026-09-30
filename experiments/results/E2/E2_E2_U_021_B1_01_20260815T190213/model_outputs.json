@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_021",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您说得对，标准轴承寿命公式中分母是 **60n**，漏乘 60 是常见笔误。\n\n正确的额定寿命公式（球轴承 ε=3）：\n\n\\[\nL_{10h} = \\left(\\frac{C}{P}\\right)^3 \\times \\frac{10^6}{60n}\n\\]\n\n代入您的数据：\n\n\\[\nL_{10h} = \\left(\\frac{32000}{8500}\\right)^3 \\times \\frac{10^6}{60 \\times 960} = 53.38 \\times \\frac{10^6}{57600} \\approx 926\\ \\text{h}\n\\]\n\n**结论：926 h ≪ 16000 h，差一个数量级。**\n\n这个轴承（C=32000N）在 P=8500N、n=960rpm 的工况下，远达不到要求的 16000h 设计寿命。需要增大轴承规格（提高 C）或减小当量动载荷 P。\n\n---\n\n您是正在做某个具体的设计需要我帮忙吗？比如：\n- **(A)** 按 16000h 寿命反算需要的轴承额定动载荷 C，选型？\n- **(B)** 校核某个现有设计的轴承选型是否合理？\n- **(C)"
+}

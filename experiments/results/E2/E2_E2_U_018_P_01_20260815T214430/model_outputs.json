@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_018",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 键连接挤压强度校核结论\n\n**校核通过。** ✅\n\n| 项目 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 工作挤压应力 | σp | 85 | MPa |\n| 许用挤压应力 | [σp] | 120 | MPa |\n| 安全余量 | — | **29.2%** | — |\n\n**判据**：σp = 85 MPa ≤ [σp] = 120 MPa，满足要求。\n\n**评价**：有近 30% 的安全余量，键连接在挤压强度方面是安全的。这个余量在工程上属于合理范围——既不过于保守（不至于浪费材料），也留有应对载荷波动和制造偏差的裕度。\n\n---\n\n如果这是你正在进行的某项设计中的校核环节，需要我把这个结果录入参数台账（`commit_parameter`）吗？另外，还需要同步做剪切强度校核吗？普通平键虽然以挤压失效为主，但剪切复核也是标准流程。"
+}

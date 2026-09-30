@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_U_012",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成，结果如下（记录 **calc#1**）：\n\n---\n\n## 齿轮分度圆线速度\n\n| 参数 | 符号 | 值 |\n|------|------|-----|\n| 分度圆直径 | d | 120 mm |\n| 转速 | n | 960 rpm |\n| 线速度（mm/s） | v | **6032 mm/s** |\n| 线速度（m/s） | v | **6.03 m/s** |\n\n---\n\n### 计算过程\n\n$$v = \\frac{\\pi \\cdot d \\cdot n}{60} = \\frac{\\pi \\times 120 \\times 960}{60} = 6031.86 \\ \\text{mm/s}$$\n\n换算为 m/s：\n\n$$v = 6031.86 \\div 1000 = 6.03 \\ \\text{m/s}$$\n\n---\n\n你之前心算的 6032 mm/s 数值是对的，但单位换算上有个小问题：**6032 mm/s = 6.03 m/s**，而不是留在 mm/s 就完事了。在齿轮设计中，线速度通常用 **m/s** 表达，因为 6.03 m/s 这个量级直接对应精度等级选"
+}

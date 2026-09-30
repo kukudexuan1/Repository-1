@@ -1,0 +1,83 @@
+# 键连接与滚动轴承的设计校核公式
+# 出处：濮良贵《机械设计》第十版 第六章、第十三章；GB/T 6391
+formulas:
+  - id: key_crushing_check
+    name: 普通平键连接挤压强度校核
+    category: key
+    source: 机械设计（第十版）式 6-1
+    expression: "sigma_p = 4 * T / (d * h * l)"
+    symbols:
+      sigma_p:   { desc: 键连接工作面挤压应力, unit: MPa, role: output }
+      T:         { desc: 传递的转矩, unit: N*mm, role: input }
+      d:         { desc: 轴的直径, unit: mm, role: input }
+      h:         { desc: 键的高度, unit: mm, role: input }
+      l:         { desc: 键的工作长度, unit: mm, role: input, note: "圆头平键 l = L - b；平头平键 l = L" }
+      sigma_pP:  { desc: 许用挤压应力, unit: MPa, role: input, note: "钢制静载荷取 125~150MPa，轻微冲击 100~120MPa" }
+    criterion: "sigma_p <= sigma_pP"
+    criterion_expr: "sigma_p <= sigma_pP"
+    is_check: true
+    applicability: 静连接普通平键，键与轮毂材料中较弱者控制
+    notes: 若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键
+    tags: [键, 挤压应力, 校核]
+
+  - id: key_shear_check
+    name: 普通平键连接剪切强度校核
+    category: key
+    source: 机械设计（第十版）§6.2
+    expression: "tau = 2 * T / (d * b * l)"
+    symbols:
+      tau:    { desc: 键的剪切应力, unit: MPa, role: output }
+      T:      { desc: 传递的转矩, unit: N*mm, role: input }
+      d:      { desc: 轴的直径, unit: mm, role: input }
+      b:      { desc: 键的宽度, unit: mm, role: input }
+      l:      { desc: 键的工作长度, unit: mm, role: input }
+      tau_P:  { desc: 许用剪切应力, unit: MPa, role: input, default: 90.0, typical: [80, 120] }
+    criterion: "tau <= tau_P"
+    criterion_expr: "tau <= tau_P"
+    is_check: true
+    notes: 普通平键通常挤压强度先失效，剪切校核多为复核
+    tags: [键, 剪切, 校核]
+
+  - id: bearing_equivalent_load
+    name: 滚动轴承当量动载荷
+    category: bearing
+    source: 机械设计（第十版）式 13-8a
+    expression: "P_eq = f_p * (X * F_r + Y * F_a)"
+    symbols:
+      P_eq: { desc: 当量动载荷, unit: N, role: output }
+      f_p:  { desc: 载荷系数, role: input, default: 1.2, typical: [1.0, 3.0], note: "平稳载荷 1.0~1.2；中等冲击 1.2~1.8；强烈冲击 1.8~3.0" }
+      X:    { desc: 径向载荷系数, role: input, default: 1.0, note: "深沟球轴承 Fa/Fr ≤ e 时 X=1" }
+      F_r:  { desc: 径向载荷, unit: N, role: input }
+      Y:    { desc: 轴向载荷系数, role: input, default: 0.0 }
+      F_a:  { desc: 轴向载荷, unit: N, role: input, default: 0.0 }
+    tags: [轴承, 当量动载荷]
+
+  - id: bearing_life_check
+    name: 滚动轴承基本额定寿命校核
+    category: bearing
+    source: 机械设计（第十版）式 13-5；GB/T 6391-2010
+    expression: "L_10h = 1000000 / (60 * n) * (f_t * C_r / P_eq) ** epsilon"
+    symbols:
+      L_10h:     { desc: 基本额定寿命, unit: hour, role: output }
+      n:         { desc: 轴承转速, unit: r/min, role: input }
+      f_t:       { desc: 温度系数, role: input, default: 1.0, note: "工作温度 ≤120℃ 取 1.0" }
+      C_r:       { desc: 轴承基本额定动载荷, unit: N, role: input, note: "由 lookup_standard_part('bearing') 查得" }
+      P_eq:      { desc: 当量动载荷, unit: N, role: input }
+      epsilon:   { desc: 寿命指数, role: input, default: 3.0, note: "球轴承 3；滚子轴承 10/3" }
+      L_h_required: { desc: 要求的工作寿命, unit: hour, role: input }
+    criterion: "L_10h >= L_h_required"
+    criterion_expr: "L_10h >= L_h_required"
+    is_check: true
+    notes: 不满足时按顺序考虑：加大轴承尺寸系列、改用滚子轴承、降低载荷系数假设、缩短维护周期
+    tags: [轴承, 寿命, 校核]
+
+  - id: bearing_radial_load_from_reactions
+    name: 由支反力求轴承径向载荷
+    category: bearing
+    source: 机械设计（第十版）§13.4
+    expression: "F_r = (R_H ** 2 + R_V ** 2) ** 0.5"
+    symbols:
+      F_r: { desc: 轴承径向载荷, unit: N, role: output }
+      R_H: { desc: 水平面支反力, unit: N, role: input }
+      R_V: { desc: 垂直面支反力, unit: N, role: input }
+    tags: [轴承, 受力分析]

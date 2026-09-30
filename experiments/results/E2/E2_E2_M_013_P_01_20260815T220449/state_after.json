@@ -1,0 +1,74 @@
+{
+  "session_id": "88e950da-c7b7-4fed-9dd8-b8cc46d398d2",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "6658a707-ad1f-494d-8abf-6ef683262cf3",
+      "role": "user",
+      "content": "深沟球轴承6210：Cr=35000，C0r=19800，内径d=50，外径D=90，宽度B=20",
+      "timestamp": "2026-08-15T22:04:55.823595Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "6cf0c722-a207-40a4-9cef-aba264fdbd2f",
+      "role": "assistant",
+      "content": "查到了。你提供的数据与 **GB/T 276-2013** 标准数据对比如下：\n\n| 参数 | 你的数据 | 标准值 (GB/T 276-2013) | 是否一致 |\n|------|----------|------------------------|----------|\n| 内径 d | 50 mm | 50 mm | ✅ |\n| 外径 D | 90 mm | 90 mm | ✅ |\n| 宽度 B | 20 mm | 20 mm | ✅ |\n| 基本额定动载荷 Cr | 35000 N | 35000 N | ✅ |\n| 基本额定静载荷 C0r | **19800 N** | **23200 N** | ❌ 有差异 |\n\n**C0r 差约 17%**。如果你是用这个 C0r 做静强度校核，建议用标准值 23200 N，你的数据偏保守（偏安全），但静载荷判据会偏严。如果是从某本旧手册或老版本标准查到的，可能是版本差异——GB/T 276 在 2013 年有过一次修订。\n\n你是要用这个轴承做后续设计计算吗？需要我帮你走寿命校核流程吗？",
+      "timestamp": "2026-08-15T22:05:13.231708Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T22:05:13.231708Z"
+}

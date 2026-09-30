@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_P_001",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "model_judgment",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 分析\n\n扭矩公式为（来自《机械设计》第十版式 15-1）：\n\n$$T = 9550000 \\times \\frac{P}{n}$$\n\n其中：**T** — 扭矩（N·mm），**P** — 功率（kW），**n** — 转速（r/min）。\n\n---\n\n## 仅凭传动比 i=3.15 无法确定扭矩\n\n原因很简单：这个公式里有两个独立未知数——**功率 P** 和 **转速 n**，而你只给了传动比 i=3.15，它只约束了输入输出转速的关系：\n\n$$n_{out} = \\frac{n_{in}}{3.15}$$\n\n但 **n_in 本身是未知的**，**P_out（或 P_in）也是未知的**。扭矩可以是任意值：\n\n| 场景 | 输入功率 | 输入转速 | 输出扭矩（粗估） |\n|------|----------|----------|------------------|\n| 小功率 | 1 kW | 1440 r/min | ~20.8 N·m |\n| 中等 | 5.5 kW | 1440 r/min | ~114 N·m |\n| 大功率 | 15 kW | 960 r/m"
+}

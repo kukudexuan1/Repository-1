@@ -1,0 +1,38 @@
+{
+  "task_id": "G_009",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "test",
+  "description": "设计一台单级斜齿圆柱齿轮减速器，用于印刷机传动，均匀载荷，要求低振动，每天工作16小时。",
+  "explicit_inputs": {
+    "input_power_kW": 4.0,
+    "input_speed_rpm": 1440,
+    "transmission_ratio": 3.15,
+    "design_life_h": 18000,
+    "load_type": "均匀载荷",
+    "working_hours_per_day": 16,
+    "ambient_temperature_C": 22,
+    "vibration_requirement": "低振动"
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "扭矩"],
+    "material_candidates": ["40Cr调质", "20CrMnTi渗碳淬火"],
+    "standard_series": ["模数系列GB/T1357"],
+    "standard_parts": ["深沟球轴承", "平键"]
+  },
+  "decisions_required": ["精度等级（低振动取高精度）", "齿轮材料", "润滑方式"],
+  "expert_reference": {
+    "reference_module": "G_009",
+    "key_param_ranges": {
+      "module_mm": [2, 3],
+      "z1_teeth": [24, 40],
+      "helix_angle_deg": [10, 18],
+      "face_width_mm": [50, 90],
+      "center_distance_mm": [80, 140],
+      "precision_grade": [6, 7]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴强度", "轴承寿命"],
+    "forbidden_errors": ["低振动场合精度等级低于7级", "模数未取标准值"]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

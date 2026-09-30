@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_022",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个简单的算术，但根据铁律三，我必须指出：**单位不能\"隐式\"变成 m**。\n\n---\n\n**计算本身：**\n\n$$a = \\frac{d_1 + d_2}{2} = \\frac{120\\,\\text{mm} + 360\\,\\text{mm}}{2} = 240\\,\\text{mm}$$\n\n**关于单位转换：**\n\n$$240\\,\\text{mm} = 0.24\\,\\text{m}$$\n\n两者数值不同但物理量相同——这不是问题。问题在于：**后续计算中如果混用 mm 和 m，会出大错。**\n\n举个例子：如果后续公式是 $F = \\frac{T}{a}$，$T = 100\\,\\text{N·m}$：\n- 用 $a = 0.24\\,\\text{m}$ → $F = 100/0.24 = 416.7\\,\\text{N}$ ✓\n- 用 $a = 240\\,\\text{mm}$ → $F = 100/240 = 0.417$（错，因为 $\\text{N·m}/\\text{mm} \\neq \\text{N}$）\n\n**所以铁律三要求每个量都显式带单位，就是为了杜绝这种\"隐式假设\"造成的量纲灾难"
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_M_019",
+  "error_type": "unit_missing",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "get_design_status"
+  ],
+  "tool_events": [
+    {
+      "name": "get_design_status",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "您说得对，齿宽系数 ψd = b/d1 = 80/90 ≈ 0.89 确实是无量纲量，两个长度相除，单位抵消。在 `commit_parameter` 时，unit 字段留空即可，系统不应因单位问题拒绝它。\n\n您提到\"不应被拒绝\"——看起来之前提交这个参数时遇到了问题。能帮您看一下具体是什么原因被拒的吗？可能的情况：\n\n1. **单位问题**：如果填了 unit 为 `mm` 或写了带量纲的值，系统会校验不过——无量纲参数 unit 应留空\n2. **依据缺失**：`source` 为 `calculated` 时必须关联计算记录 `calc#N`；`design_choice` 时必须填写 `rationale`；`assumed` 时两者都需要\n3. **当前无设计会话**：目前设计任务书尚未建立，参数台账为空，直接调用 `commit_parameter` 也会被拒\n\n当前系统状态是：设计尚未开始，没有任务书、没有台账、没有计算记录。\n\n请问您是：\n- **(A)** 想基于已有的设计条件（如 b=80mm, d1=90mm，可能是一对齿轮）启动一个新设计，让我从头走流程；\n- "
+}

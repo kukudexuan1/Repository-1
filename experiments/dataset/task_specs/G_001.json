@@ -1,0 +1,46 @@
+{
+  "task_id": "G_001",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "dev",
+  "description": "设计一台单级斜齿圆柱齿轮减速器，用于带式输送机传动。",
+  "explicit_inputs": {
+    "input_power_kW": 7.5,
+    "input_speed_rpm": 960,
+    "transmission_ratio": 3.15,
+    "design_life_h": 16000,
+    "load_type": "轻微冲击",
+    "working_hours_per_day": 16,
+    "ambient_temperature_C": 25
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "轴功率", "扭矩"],
+    "material_candidates": ["45钢调质", "40Cr调质", "20CrMnTi渗碳淬火"],
+    "standard_series": ["模数系列GB/T1357", "标准公差IT"],
+    "standard_parts": ["深沟球轴承", "圆锥滚子轴承", "平键"]
+  },
+  "decisions_required": [
+    "齿轮材料与热处理方案",
+    "精度等级",
+    "齿轮结构方案（实心/腹板）",
+    "润滑方式"
+  ],
+  "expert_reference": {
+    "reference_module": "G_001",
+    "key_param_ranges": {
+      "module_mm": [2, 4],
+      "z1_teeth": [20, 40],
+      "helix_angle_deg": [8, 20],
+      "face_width_mm": [60, 120],
+      "center_distance_mm": [100, 200]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴强度", "轴承寿命"],
+    "forbidden_errors": [
+      "模数未取标准值",
+      "齿宽系数超出推荐范围",
+      "材料选用与热处理不匹配",
+      "轴承未验算寿命"
+    ]
+  },
+  "_note": "占位模板，关键参数区间和参考方案需机械工程专家填写后方可用于正式评测"
+}

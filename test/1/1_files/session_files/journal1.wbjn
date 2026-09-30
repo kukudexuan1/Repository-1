@@ -1,0 +1,100 @@
+# encoding: utf-8
+# 2025 R2
+SetScriptVersion(Version="25.2.170")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath="C:/Users/14170/Desktop/研究生课题/test/1/1.ipt")
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+favorites1 = EngData.LoadFavoriteItems()
+library1 = EngData.OpenLibrary(
+    Name="ANSYS GRANTA Materials Data for Simulation (Sample)",
+    Source="Granta_Design_Typical_Materials.xml")
+library2 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+library3 = EngData.OpenLibrary(
+    Name="Additive Manufacturing Materials",
+    Source="Additive_Manufacturing_Materials.xml")
+library4 = EngData.OpenLibrary(
+    Name="Composite Materials",
+    Source="Composite_Materials.xml")
+library5 = EngData.OpenLibrary(
+    Name="Thermal Materials",
+    Source="Thermal_Materials.xml")
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+matl1 = engineeringData1.ImportMaterial(
+    Name="Chromium",
+    Source="Thermal_Materials.xml")
+material1 = library1.GetMaterial(Name="碳钢，1020，退火")
+material1.AddToFavorites()
+matl2 = engineeringData1.ImportMaterial(
+    Name="Carbon steel, 1020, annealed",
+    Source="Granta_Design_Typical_Materials.xml")
+resultsComponent1 = system1.GetComponent(Name="Results")
+resultsComponent1.Update(AllDependencies=True)
+template2 = GetTemplate(TemplateName="Rigid Dynamics")
+system2 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+modelComponent2 = system2.GetComponent(Name="Model")
+modelComponent1.TransferData(TargetComponent=modelComponent2)
+modelComponent2.Refresh()
+modelComponent2.Refresh()
+system1.Delete()
+geometry2 = system2.GetContainer(ComponentName="Geometry")
+geometry2.SetFile(FilePath="C:/Users/14170/Desktop/研究生课题/test/1/1.ipt")
+modelComponent2.Refresh()
+geometry2.SetFile(FilePath="C:/Users/14170/Desktop/研究生课题/test/1/1.stp")
+modelComponent2.Refresh()
+model1 = system2.GetContainer(ComponentName="Model")
+model1.Edit()
+model1.Exit()
+system2.Delete()
+system3 = template1.CreateSystem()
+geometry3 = system3.GetContainer(ComponentName="Geometry")
+geometry3.SetFile(FilePath="C:/Users/14170/Desktop/研究生课题/test/1/1.stp")
+modelComponent3 = system3.GetComponent(Name="Model")
+modelComponent3.Refresh()
+model2 = system3.GetContainer(ComponentName="Model")
+model2.Edit()
+engineeringData2 = system3.GetContainer(ComponentName="Engineering Data")
+material2 = engineeringData2.GetMaterial(Name="结构钢")
+matlProp1 = material2.GetProperty(Name="Tensile Yield Strength")
+matlProp1.SetData(
+    Variables=["Tensile Yield Strength"],
+    Values=[["550000000 [Pa]"]])
+matlProp2 = material2.GetProperty(Name="Compressive Yield Strength")
+matlProp2.SetData(
+    Variables=["Compressive Yield Strength"],
+    Values=[["550000000 [Pa]"]])
+model2.Exit()
+Save(Overwrite=True)
+Reset()
+Extensions.UnloadExtension(
+    Id="5e7e01a6-8601-11e8-9f8c-28f10e13ffe6",
+    Version="2025.2",
+    Format="Binary")
+Extensions.UnloadExtension(
+    Id="5f463412-bd3e-484b-87e7-cbc0a665e474",
+    Version="2025.2",
+    Format="Binary")
+Extensions.UnloadExtension(
+    Id="ba012e44-4f35-4a97-aeff-8fe60efc33c9",
+    Version="25.2",
+    Format="Binary")
+Extensions.UnloadExtension(
+    Id="7b0e9e84-396d-4099-9602-2ced9dddc253",
+    Version="2025.2",
+    Format="Binary")
+Extensions.UnloadExtension(
+    Id="20180725-3f81-49eb-9f31-41364844c769",
+    Version="2025.2",
+    Format="Binary")
+Extensions.UnloadExtension(
+    Id="f3e3da52-fb02-4910-8cc9-980efd047bc6",
+    Version="2023.1",
+    Format="Binary")

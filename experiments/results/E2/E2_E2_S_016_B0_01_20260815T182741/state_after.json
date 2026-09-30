@@ -1,0 +1,74 @@
+{
+  "session_id": "a70a1c2d-89f0-4f31-8799-3d8bf372c7a3",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "33b32191-4283-41d1-828d-d2342cb2e5c3",
+      "role": "user",
+      "content": "轴承寿命系数fT（温度系数，高温降额）被写为ft，与动载荷修正系数fd（冲击系数）混淆",
+      "timestamp": "2026-08-15T18:27:48.106909Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "396c5948-b3d3-4248-9065-7dcfffce5bad",
+      "role": "assistant",
+      "content": "您指出了一个很常见的工程术语混淆问题。这两个系数确实容易搞混，但它们在轴承寿命计算中是完全不同的角色：\n\n---\n\n## 符号澄清\n\n| 符号 | 正式名称 | 作用 | 典型值 |\n|------|----------|------|--------|\n| **f_T** | 温度系数（Temperature factor） | 高温下轴承材料硬度下降，导致许用动载荷降低。环境温度超过 120°C 时需要引入此系数 | ≤120°C：1.0；150°C：0.95；200°C：0.90；250°C：0.75 |\n| **f_d** | 载荷系数 / 冲击系数（Load factor） | 补偿实际使用中冲击、振动等额外动载荷对寿命的影响。平稳运转取小值，强烈冲击取大值 | 平稳：1.0~1.2；中等冲击：1.2~1.5；强烈冲击：1.5~3.0 |\n\n---\n\n## 在轴承寿命公式中的位置\n\nISO 281 标准的轴承寿命基本公式为：\n\n\\[\nL_{10h} = \\frac{10^6}{60n} \\times \\left( \\frac{C}{P} \\right)^p\n\\]\n\n当引入修正系数后（SKF 或 ISO 281:2007 修正形式）：\n\n\\[\nL_{10h} = \\frac{10^6}{60n} \\times \\left( \\frac{C \\cdot f_T}{P \\cdot f_d} \\right)^p\n\\]\n\n**关键点：**\n\n- **f_T 在分子上，降额的是轴承固有的许用动载荷 C**——轴承在高温下变软，能承受的动载荷降低。\n- **f_d 在分母上，放大的是当量动载荷 P**——实际使用中有冲击，等效载荷比名义载荷大。\n\n两者物理意义完全不同，不能互换，也不能合并为一个系数。\n\n---\n\n## 常见混淆场景\n\n有些教材或手册把 f_T 写成 ft（下标漏写），把 f_d 写成 fd，在中文手写或早期文献中确实容易混用。更糟糕的是，有些资料把 f_T 称为\"温度系数\"、f_d 称为\"工况系数\"或\"安全系数\"，名称不统一，进一步加剧混淆。\n\n**工程实践中区分两者的方法：**\n\n1. **看符号来源**——f_T 的 T 是 Temperature，f_d 的 d 是 dynamic（或德语 dynamisch）。如果看到 f_t 且 t 是小写，大概率是温度系数被误写。\n2. **看数值范围**——温度系数通常 ≤1.0，冲击系数通常 ≥1.0。如果一个系数取值 1.5，那它绝不可能是温度系数。\n3. **看公式位置**——温度系数乘 C，冲击系数乘 P。如果看到某个系数在分母上放大载荷，它就是 f_d，不是 f_T。\n\n---\n\n## 对设计的影响\n\n如果把冲击系数 f_d=1.5 误当成温度系数 f_T=1.5 用（即把 f_T 取 1.5 放在分子上），轴承寿命会高估 **126%**（1.5³ ≈ 3.375 倍，vs 实际的 1/1.5³ ≈ 0.296 倍），设计严重偏危险。\n\n反之，如果把温度系数 f_T=0.9 误当成冲击系数 f_d=0.9 放在分母上，轴承寿命会低估约 37%，造成不必要的过度设计。\n\n---\n\n**总结：f_T 和 f_d 是轴承寿命计算中两个独立的修正系数，物理意义不同、取值方向相反、在公式中分处分子和分母。设计计算书中必须分开标注，不得混用。**\n\n如果您正在做轴承选型计算，需要我帮您查标准公式或调用计算工具，随时说。",
+      "timestamp": "2026-08-15T18:28:11.301127Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T18:28:11.301127Z"
+}

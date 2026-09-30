@@ -1,0 +1,74 @@
+{
+  "session_id": "56b749f9-dec2-4c92-80f7-8c9a78f2477e",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "d323a79a-88b8-438b-8f4d-805af8209c98",
+      "role": "user",
+      "content": "键挤压应力校核：传递扭矩T=420，轴径d=55，键高h=9，接触长度lw=60",
+      "timestamp": "2026-08-15T19:10:16.333556Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "4f2a09ce-d207-42e1-ae19-f12e66e83090",
+      "role": "assistant",
+      "content": "## 键挤压应力校核 —— 手工估算结果\n\n> ⚠️ **重要提示**：`solve_formula` 与 `run_calculation` 工具当前均不可用，以下计算为手工估算，**无正式计算记录，不可落账**，仅供你判断方案可行性参考。\n\n---\n\n### 已知条件（你给出的）\n\n| 参数 | 符号 | 数值 | 单位 | 说明 |\n|------|------|------|------|------|\n| 传递扭矩 | T | 420 | **N·m（假设）** | 需你确认单位 |\n| 轴径 | d | 55 | mm | |\n| 键高 | h | 9 | mm | |\n| 工作长度 | l | 60 | mm | 你给的 lw，已假设为工作长度 |\n\n### 公式\n\n**键挤压应力**（机械设计第十版 式 6-1）：\n\n\\[\n\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l}\n\\]\n\n其中 T 单位须为 **N·mm**。\n\n### 计算\n\n\\[\nT = 420\\ \\text{N·m} = 420,000\\ \\text{N·mm}\n\\]\n\n\\[\n\\sigma_p = \\frac{4 \\times 420,000}{55 \\times 9 \\times 60} = \\frac{1,680,000}{29,700} \\approx 56.6\\ \\text{MPa}\n\\]\n\n### 判据\n\n静连接普通平键，钢制键与钢制轮毂，许用挤压应力通常取：\n\n\\[\n[\\sigma_p] = 120 \\sim 150\\ \\text{MPa}\n\\]\n\n### 结论\n\n\\[\n\\sigma_p = 56.6\\ \\text{MPa} \\ll [\\sigma_p] = 120\\ \\text{MPa}\n\\]\n\n**通过**，安全余量约 **53%**（相对 120 MPa），强度充裕。\n\n---\n\n### 需要你确认的两件事\n\n1. **T=420 的单位**：是 N·m 吗？如果是，则本估算有效；如果是别的单位（如 kgf·m），结果会不同。\n2. **lw=60 是工作长度还是键全长**？如果是 A 型（圆头）键的键全长 L=60，则工作长度 l = L - b，需要你补充键宽 b 才能重算。\n\n确认后，若 `solve_formula` 恢复可用，我可以补出正式计算记录并落账。",
+      "timestamp": "2026-08-15T19:11:11.376323Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T19:11:11.376323Z"
+}

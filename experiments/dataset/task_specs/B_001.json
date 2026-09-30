@@ -1,0 +1,42 @@
+{
+  "task_id": "B_001",
+  "family": "B",
+  "family_name": "轴承—键—轴组合",
+  "split": "dev",
+  "description": "对一根已知直径和载荷的轴进行标准轴承选型、键连接设计和挤压强度校核。",
+  "explicit_inputs": {
+    "shaft_diameter_mm": 50,
+    "radial_load_N": 8500,
+    "axial_load_N": 1200,
+    "shaft_speed_rpm": 305,
+    "design_life_h": 16000,
+    "transmitted_torque_Nm": 320,
+    "key_hub_length_mm": 80
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴承当量动载荷", "轴承寿命L10", "键挤压强度"],
+    "material_candidates": ["键材料35钢", "键材料45钢"],
+    "standard_series": ["深沟球轴承系列GB/T276", "圆锥滚子轴承系列GB/T297", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承", "圆锥滚子轴承", "平键A型"]
+  },
+  "decisions_required": [
+    "轴承类型选择（深沟球/圆锥滚子）",
+    "轴承型号",
+    "键截面规格"
+  ],
+  "expert_reference": {
+    "reference_module": "B_001",
+    "key_param_ranges": {
+      "bearing_model": ["6210", "6310", "30210"],
+      "key_b_mm": [14, 16],
+      "key_h_mm": [9, 10]
+    },
+    "must_pass_checks": ["轴承额定寿命≥设计寿命", "键挤压应力≤许用值"],
+    "forbidden_errors": [
+      "未按标准系列选轴承型号",
+      "键长超出轮毂长度",
+      "轴承寿命计算未考虑轴向载荷的影响系数"
+    ]
+  },
+  "_note": "占位模板，关键参数区间和参考方案需机械工程专家填写后方可用于正式评测"
+}

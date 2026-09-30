@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_006",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果\n\n| 项目 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 接触疲劳极限 | σHlim | 600 | MPa |\n| 安全系数 | SH | 1.1 | — |\n| **许用接触应力** | **[σH]** | **545.5** | **MPa** |\n\n> 计算记录 ID：**calc#1**，依据 GB/T 3480。\n\n---\n\n### ⚠️ 单位错误警示\n\n你给出的结果是 **545 GPa**，正确值应为 **545.5 MPa**。\n\n```\n545.5 MPa  =  0.5455 GPa\n545 GPa    =  545,000 MPa  ← 差 1000 倍\n```\n\n这是一个**量级错误**（MPa → GPa 差 10³），若误用此值做齿轮接触疲劳设计，算出的分度圆直径会偏小约 √1000 ≈ 31.6 倍，齿轮将严重失效。请务必在后续使用中以 **545.5 MPa**（或圆整为 **545 MPa**）为准。"
+}

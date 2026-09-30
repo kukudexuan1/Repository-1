@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_023",
+  "error_type": "unit_error",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "`run_calculation` 在当前实验条件下不可用，我直接做量纲分析和数值验证。\n\n---\n\n## 量纲分析\n\n公式：σF = YFS × YE × YB × F / (b × mn)\n\n| 符号 | 量纲 | 说明 |\n|------|------|------|\n| YFS | 无量纲（1） | 齿形系数 |\n| YE | 无量纲（1） | 重合度系数 |\n| YB | 无量纲（1） | 螺旋角系数 |\n| F | [N] | 圆周力 |\n| b | [mm] | 齿宽 |\n| mn | [mm] | 法向模数 |\n\n分母 b × mn → [mm] × [mm] = [mm²]\n\n整体：无量纲 × 无量纲 × 无量纲 × [N] / [mm²] = **N/mm²** ✅\n\n量纲没有问题，结果确实是 N/mm²（即 MPa）。\n\n---\n\n## 数值验证\n\n你未给出 YE 和 YB，按直齿圆柱齿轮（β=0°）常规取法：YE ≈ 1.0，YB = 1.0。\n\nσF = 2.72 × 1.0 × 1.0 × 2400 / (80 × 3)\n   = 2.72 × 2400 /"
+}

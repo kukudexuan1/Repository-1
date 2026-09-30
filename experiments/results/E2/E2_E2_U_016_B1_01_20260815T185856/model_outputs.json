@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_U_016",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "公式库中没有弯曲正应力这条基础公式的独立条目（它是材料力学的基本公式 $\\sigma_b = M_b / W$，广泛存在于各类设计手册中），`run_calculation` 目前也被实验框架限制不能用。但错误原因非常清晰，我直接说明：\n\n---\n\n## 错误根因：单位不统一\n\n你代入的是：\n\n$$\n\\sigma_b = \\frac{M_b}{W} = \\frac{180 \\ \\text{N·m}}{12271 \\ \\text{mm}^3}\n$$\n\n**分子是 N·m，分母是 mm³，两个长度单位不一致（m vs mm），差了 1000 倍。**\n\n---\n\n## 正确计算\n\n必须先把弯矩单位统一为 N·mm：\n\n$$\nM_b = 180 \\ \\text{N·m} = 180 \\times 1000 = 180\\,000 \\ \\text{N·mm}\n$$\n\n然后：\n\n$$\n\\sigma_b = \\frac{180\\,000 \\ \\text{N·mm}}{12\\,271 \\ \\text{mm}^3} = 14.67 \\ \\text{N/mm}^2 = 14.67 \\ \\text{MPa}"
+}

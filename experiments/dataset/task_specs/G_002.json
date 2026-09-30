@@ -1,0 +1,45 @@
+{
+  "task_id": "G_002",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "dev",
+  "description": "设计一台单级直齿圆柱齿轮减速器，用于螺旋输送机传动，工作环境有粉尘。",
+  "explicit_inputs": {
+    "input_power_kW": 4.0,
+    "input_speed_rpm": 1440,
+    "transmission_ratio": 4.0,
+    "design_life_h": 12000,
+    "load_type": "均匀载荷",
+    "working_hours_per_day": 8,
+    "ambient_temperature_C": 30,
+    "dusty_environment": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "轴功率", "扭矩"],
+    "material_candidates": ["45钢正火", "45钢调质", "40Cr调质"],
+    "standard_series": ["模数系列GB/T1357", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承", "平键", "毡圈密封"]
+  },
+  "decisions_required": [
+    "齿轮材料与热处理方案",
+    "精度等级",
+    "密封方式（考虑粉尘环境）",
+    "箱体通气装置"
+  ],
+  "expert_reference": {
+    "reference_module": "G_002",
+    "key_param_ranges": {
+      "module_mm": [2, 4],
+      "z1_teeth": [18, 30],
+      "face_width_mm": [50, 100],
+      "center_distance_mm": [80, 160]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴强度", "轴承寿命"],
+    "forbidden_errors": [
+      "模数未取标准值",
+      "忽略粉尘环境对密封的要求",
+      "轴承未验算寿命"
+    ]
+  },
+  "_note": "占位模板，关键参数区间和参考方案需机械工程专家填写后方可用于正式评测"
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_012",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成，结果如下：\n\n---\n\n**当量弯矩计算** （calc#1）\n\n| 参数 | 符号 | 数值 |\n|------|------|------|\n| 合成弯矩 | *M* | 240 N·m |\n| 转矩 | *T* | 320 N·m |\n| 折合系数 | *α* | 0.6 |\n| **当量弯矩** | **Me** | **307.4 N·m** |\n\n**计算过程：**\n\n\\[\nMe = \\sqrt{M^2 + (\\alpha T)^2}\n    = \\sqrt{240^2 + (0.6 \\times 320)^2}\n    = \\sqrt{57600 + 36864}\n    = \\sqrt{94464}\n    \\approx 307.4\\ \\text{N·m}\n\\]\n\n**依据**：《机械设计》轴设计——第三强度理论当量弯矩公式，α 按扭转切应力循环特性（脉动循环）取 0.6。\n\n---\n\n如果你需要把这个当量弯矩用于后续的轴径校核（比如按 \\(d \\geq \\sqrt[3]{\\frac{Me}{0.1[\\sigma_{-1b}]}}\\) 估算危险截面直径），可"
+}

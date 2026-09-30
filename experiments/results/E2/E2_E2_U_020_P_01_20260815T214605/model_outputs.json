@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_020",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个非常经典的工程计算\"单位陷阱\"，值得说清楚。\n\n---\n\n## 核心答案：**不能混用，会差 1000 倍**\n\n$$E = 206\\ \\text{GPa} = 206 \\times 10^9\\ \\text{Pa} = 206\\,000\\ \\text{MPa}$$\n\n如果你在应力公式中代入 $E = 206$（隐含 GPa），而应力期望的是 MPa，那么：\n\n$$\\sigma = \\varepsilon \\cdot E$$\n\n- 代入 $E = 206$（GPa）→ $\\sigma$ 的单位是 **GPa**，不是 MPa\n- 1 GPa = 1000 MPa，所以算出来的应力值比实际小 **1000 倍**\n\n**举例**：应变 $\\varepsilon = 0.001$，$E = 206$ GPa：\n\n| 做法 | 结果 | 对不对 |\n|------|------|--------|\n| $E = 206$，直接当 MPa 用 | $\\sigma = 0.206$ \"MPa\" | ❌ 错了，实际是 206 MPa |\n| $E = 206\\,000$ MPa | $\\si"
+}

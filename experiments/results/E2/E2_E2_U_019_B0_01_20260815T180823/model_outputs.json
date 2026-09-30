@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_019",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您指出的这个问题很关键——在工程计算中，单位一致性是极其重要的，稍有不慎就会导致量级错误。我来解释一下：\n\n**N·mm·rad/s 实际上就是功率单位，只是量纲前缀不同。**\n\n- 功率的 SI 单位是 **瓦特 (W)**，量纲为 **N·m/s**（牛顿·米/秒）。\n- **rad（弧度）** 在量纲上是无量纲的，它只是一个角度比值，所以 rad/s 本质上就是 1/s。\n- 因此，N·mm·rad/s = N·mm/s，它仍然是一个功率单位，只是长度单位用的是毫米而不是米。\n\n换算关系：\n1 N·mm/s = 0.001 N·m/s = 0.001 W  \n所以，**320 N·mm × 100.5 rad/s = 32160 N·mm/s = 32.16 W**。\n\n之所以看起来别扭，是因为扭矩用了 N·mm 而不是 N·m。正确的做法是先将扭矩统一到 N·m：\n\n> T = 320 N·mm = 0.32 N·m，  \n> ω = 100.5 rad/s，  \n> P = 0.32 N·m × 100.5 rad/s = 32.16 W。\n\n或者直接算乘积后除以 1000，"
+}

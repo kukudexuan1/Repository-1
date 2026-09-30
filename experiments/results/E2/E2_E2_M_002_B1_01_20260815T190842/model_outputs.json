@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_M_002",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "search_formula",
+    "lookup_standard_series"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_standard_series",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "### 回代校核\n\n圆整后 \\(d = 36\\ \\text{mm}\\)，验算实际切应力：\n\n$$W_t = \\frac{\\pi \\times 36^3}{16} = \\frac{\\pi \\times 46\\,656}{16} \\approx 9\\,161\\ \\text{mm}^3$$\n\n$$\\tau = \\frac{320\\,000}{9\\,161} \\approx 34.93\\ \\text{MPa} < [\\tau] = 35\\ \\text{MPa} \\quad \\checkmark$$\n\n---\n\n## 结论\n\n| 项目 | 值 |\n|------|-----|\n| 计算原值 | **35.97 mm** |\n| 圆整后（GB/T 2822） | **36 mm** |\n| 实际切应力 | **34.93 MPa** |\n| 安全余量 | 35 − 34.93 = **0.07 MPa（0.2%）** |\n\n⚠️ **注意**：\n- 余量很紧（仅 0.2%），若轴上开有**一个键槽**，按规范需放大 3%~5%，即 \\(36 \\times 1.03 \\approx 37.1\\ \\t"
+}

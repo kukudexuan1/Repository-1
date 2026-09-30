@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_017",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "收到，你提供了一条材料性能数据：弯曲疲劳极限 σFlim = 380（单位未标，但工程惯例中弯曲疲劳极限为 MPa 级，我暂按 MPa 理解，后续由工具返回印证）。\n\n在设计流程中，材料性能必须通过工具查证确认，不能凭用户口头提供直接落账——这是铁律一的硬性要求。因此我先用 `lookup_material` 查一下 45 钢调质的标准性能数据，看看手册值与你给的 380 是否一致。\n\n**调用前**：查询 45 钢调质（应为 45 号钢调质处理）的力学性能，重点关注弯曲疲劳极限 σFlim，为后续设计计算提供可靠的材料参数依据。\n\n**调用工具**：`lookup_material`"
+}

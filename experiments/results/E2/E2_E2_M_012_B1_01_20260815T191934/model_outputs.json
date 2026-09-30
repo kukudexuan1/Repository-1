@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_M_012",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "这是一个简单的工程计算，不是正式设计任务。当前环境下 `solve_formula` 和 `run_calculation` 均不可用，按系统规则，我给出粗估结果并标注。\n\n---\n\n**计算过程：**\n\n公式来自《机械设计（第十版）》式 15-5 弯扭合成当量弯矩：\n\n\\[\nM_e = \\sqrt{M^2 + (\\alpha T)^2}\n\\]\n\n代入：\\(M = 240\\ \\text{N·m}\\)，\\(T = 320\\ \\text{N·m}\\)，\\(\\alpha = 0.6\\)\n\n\\[\n\\begin{aligned}\nM^2 &= 240^2 = 57\\,600 \\\\\n(\\alpha T)^2 &= (0.6 \\times 320)^2 = 192^2 = 36\\,864 \\\\\nM_e &= \\sqrt{57\\,600 + 36\\,864} = \\sqrt{94\\,464} \\approx 307.4\\ \\text{N·m}\n\\end{aligned}\n\\]\n\n---\n\n**结果：** \\(M_e \\approx \\mathbf{307.4\\ \\text{N·m}}\\)\n\n> ⚠️ "
+}

@@ -1,0 +1,125 @@
+{
+  "session_id": "8a373d58-e94e-40ce-80c0-da160addb33b",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "滚动轴承基本额定寿命校核",
+      "formula_id": "bearing_life_check",
+      "expression": "L_10h = 1000000 / (60 * n) * (f_t * C_r / P_eq) ** epsilon",
+      "inputs": {
+        "n": {
+          "value": 1450.0,
+          "unit": "r/min"
+        },
+        "f_t": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "C_r": {
+          "value": 32000.0,
+          "unit": "N"
+        },
+        "P_eq": {
+          "value": 5200.0,
+          "unit": "N"
+        },
+        "epsilon": {
+          "value": 3.0,
+          "unit": ""
+        },
+        "L_h_required": {
+          "value": 8000.0,
+          "unit": "hour"
+        }
+      },
+      "substitution": "n=1450 r/min；f_t=1；C_r=3.2e+04 N；P_eq=5200 N；epsilon=3；L_h_required=8000 hour",
+      "result": {
+        "L_10h": {
+          "value": 2678.67886721182,
+          "unit": "hour"
+        }
+      },
+      "criterion": "L_10h >= L_h_required",
+      "verdict": "fail",
+      "margin_percent": 198.65468749999994,
+      "source": "机械设计（第十版）式 13-5；GB/T 6391-2010",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "不满足时按顺序考虑：加大轴承尺寸系列、改用滚子轴承、降低载荷系数假设、缩短维护周期",
+      "script": "",
+      "created_at": "2026-08-15T21:37:49.856472Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "c9d66300-5a45-4bf6-9b5f-12a5bcb3a640",
+      "role": "user",
+      "content": "轴承寿命计算，转速n=1450 r/s（应为r/min），载荷P=5200N，Cr=32000N",
+      "timestamp": "2026-08-15T21:37:16.945399Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "bcf38ba8-ceb2-4868-99a2-57794cdb7640",
+      "role": "assistant",
+      "content": "## 计算结果\n\n公式：**滚动轴承基本额定寿命**（机械设计第十版 式 13-5；GB/T 6391-2010）\n\n$$\nL_{10h} = \\frac{10^6}{60n} \\left( \\frac{f_t C_r}{P_{eq}} \\right)^\\varepsilon\n$$\n\n| 参数 | 符号 | 数值 | 说明 |\n|------|------|------|------|\n| 转速 | n | 1450 r/min | 你给的（已按 r/min 理解，r/s 是笔误） |\n| 额定动载荷 | Cr | 32000 N | 你给的 |\n| 当量动载荷 | Peq | 5200 N | 你给的 |\n| 温度系数 | ft | 1.0 | 默认（常温） |\n| 寿命指数 | ε | 3.0 | 球轴承 |\n| 要求寿命 | Lh_req | 8000 h | 一般工业设备惯例（待你确认） |\n\n---\n\n### 结果：**校核不通过** ✗\n\n| | 数值 |\n|---|---|\n| 计算寿命 L₁₀h | **2,679 h** |\n| 要求寿命 | 8,000 h |\n| 差距 | 短了 **198.7%**（仅达要求的 33%） |\n\n---\n\n### 原因分析\n\nCr=32000 N 的轴承在 5200 N 当量载荷下，寿命指数 ε=3 时，载荷比 Cr/P=6.15，看似不小，但 1450 r/min 的高转速把寿命压得很低。\n\n---\n\n### 改善路径\n\n我帮你算了几条路（粗估，以计算为准）：\n\n| 路径 | 所需 Cr | 可行性 |\n|------|---------|--------|\n| **A. 加大球轴承** | Cr ≥ **~46,000 N** | 需跳 1~2 个尺寸系列 |\n| **B. 改用滚子轴承**（ε=10/3） | Cr ≥ **~37,000 N** | 同尺寸下滚子轴承 Cr 通常更高 |\n| **C. 降低当量载荷** | Peq ≤ **~3,750 N** | 需减小外载或优化支承布局 |\n\n---\n\n你接下来想怎么走？另外，请确认：\n1. 转速确实是 **1450 r/min**（不是 r/s）？\n2. 要求的工作寿命 **Lh_req** 是多少？（我暂用了 8000 h 惯例值）",
+      "timestamp": "2026-08-15T21:38:19.766848Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:38:19.766848Z"
+}

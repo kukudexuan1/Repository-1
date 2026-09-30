@@ -1,0 +1,175 @@
+# 常用机械结构钢力学性能
+# 出处：GB/T 699-2015、GB/T 3077-2015；濮良贵《机械设计》第十版 表 15-1、图 10-20~10-23
+materials:
+  - id: steel_45_normalized
+    grade: "45"
+    name: 45 钢正火
+    standard: GB/T 699-2015
+    heat_treatment: 正火
+    category: 优质碳素结构钢
+    hardness: "170~217 HBW"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 206000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 600,    unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 300,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 55,     unit: MPa, desc: 对称循环许用弯曲应力 }
+      sigma_Hlim:     { value: 550,    unit: MPa, desc: 接触疲劳极限 }
+      sigma_Flim:     { value: 190,    unit: MPa, desc: 弯曲疲劳极限 }
+      A_0:            { value: 118,    unit: "",  desc: 轴径初估系数 }
+    applications: [大齿轮, 一般传动轴, 中等载荷零件]
+    notes: 常与 45 钢调质小齿轮配对使用，形成软齿面组合；成本低、工艺简单
+
+  - id: steel_45_quenched_tempered
+    grade: "45"
+    name: 45 钢调质
+    standard: GB/T 699-2015
+    heat_treatment: 调质
+    category: 优质碳素结构钢
+    hardness: "217~255 HBW"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 206000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 640,    unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 355,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 60,     unit: MPa, desc: 对称循环许用弯曲应力 }
+      sigma_Hlim:     { value: 600,    unit: MPa, desc: 接触疲劳极限 }
+      sigma_Flim:     { value: 210,    unit: MPa, desc: 弯曲疲劳极限 }
+      A_0:            { value: 112,    unit: "",  desc: 轴径初估系数 }
+    applications: [小齿轮, 传动轴, 中等载荷齿轮轴]
+    notes: 软齿面齿轮传动最常用材料；小齿轮齿面硬度应比大齿轮高 30~50 HBW
+
+  - id: steel_40cr_quenched_tempered
+    grade: "40Cr"
+    name: 40Cr 调质
+    standard: GB/T 3077-2015
+    heat_treatment: 调质
+    category: 合金结构钢
+    hardness: "241~286 HBW"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 206000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 750,    unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 550,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 70,     unit: MPa, desc: 对称循环许用弯曲应力 }
+      sigma_Hlim:     { value: 680,    unit: MPa, desc: 接触疲劳极限 }
+      sigma_Flim:     { value: 250,    unit: MPa, desc: 弯曲疲劳极限 }
+      A_0:            { value: 105,    unit: "",  desc: 轴径初估系数 }
+    applications: [重载传动轴, 齿轮轴, 高强度齿轮]
+    notes: 承载高于 45 钢，淬透性好；成本略高
+
+  - id: steel_20crmnti_carburized
+    grade: "20CrMnTi"
+    name: 20CrMnTi 渗碳淬火
+    standard: GB/T 3077-2015
+    heat_treatment: 渗碳淬火
+    category: 合金渗碳钢
+    hardness: "56~62 HRC（表面）"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 207000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 1080,   unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 850,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 100,    unit: MPa, desc: 对称循环许用弯曲应力 }
+      sigma_Hlim:     { value: 1500,   unit: MPa, desc: 接触疲劳极限 }
+      sigma_Flim:     { value: 850,    unit: MPa, desc: 弯曲疲劳极限 }
+      A_0:            { value: 100,    unit: "",  desc: 轴径初估系数 }
+    applications: [硬齿面齿轮, 高速重载齿轮, 汽车变速箱齿轮]
+    notes: 硬齿面方案，承载约为软齿面 2 倍；需磨齿，成本显著提高，小批量不经济
+
+  - id: steel_q235
+    grade: "Q235"
+    name: Q235 碳素结构钢
+    standard: GB/T 700-2006
+    heat_treatment: 热轧
+    category: 普通碳素结构钢
+    hardness: "≈120 HBW"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 206000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 400,    unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 235,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 40,     unit: MPa, desc: 对称循环许用弯曲应力 }
+      A_0:            { value: 150,    unit: "",  desc: 轴径初估系数 }
+    applications: [箱体焊接件, 轻载支架, 非重要连接件]
+    notes: 不用于齿轮和重要传动轴
+
+  - id: cast_iron_ht200
+    grade: "HT200"
+    name: HT200 灰铸铁
+    standard: GB/T 9439-2010
+    heat_treatment: 铸态
+    category: 灰铸铁
+    hardness: "170~220 HBW"
+    properties:
+      density:        { value: 7200,   unit: kg/m**3 }
+      elastic_modulus: { value: 110000, unit: MPa }
+      poisson_ratio:  { value: 0.25,   unit: "" }
+      sigma_b:        { value: 200,    unit: MPa, desc: 抗拉强度 }
+      sigma_bc:       { value: 750,    unit: MPa, desc: 抗压强度 }
+    applications: [减速器箱体, 机座, 支承件]
+    notes: 减速器箱体最常用材料，减振性好、铸造性好；最小壁厚 8mm
+
+  - id: steel_42crmo_quenched_tempered
+    grade: "42CrMo"
+    name: 42CrMo 调质
+    standard: GB/T 3077-2015
+    heat_treatment: 调质
+    category: 合金结构钢
+    hardness: "241~286 HBW"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 206000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 980,    unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 835,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 85,     unit: MPa, desc: 对称循环许用弯曲应力 }
+      sigma_Hlim:     { value: 780,    unit: MPa, desc: 接触疲劳极限 }
+      sigma_Flim:     { value: 320,    unit: MPa, desc: 弯曲疲劳极限 }
+      A_0:            { value: 100,    unit: "", desc: 轴径初估系数 }
+      impact_energy:  { value: 39,     unit: J, desc: 室温冲击功典型值 }
+    applications: [重载传动轴, 高强度轴, 高载荷齿轮]
+    notes: 高强度合金结构钢，调质后具有较好的强韧性；具体性能随截面尺寸和热处理工艺变化
+
+  - id: steel_34crni3mo_quenched_tempered
+    grade: "34CrNi3Mo"
+    name: 34CrNi3Mo 调质
+    standard: GB/T 3077-2015
+    heat_treatment: 调质
+    category: 合金结构钢
+    hardness: "269~321 HBW"
+    properties:
+      density:        { value: 7850,   unit: kg/m**3 }
+      elastic_modulus: { value: 206000, unit: MPa }
+      poisson_ratio:  { value: 0.3,    unit: "" }
+      sigma_b:        { value: 1080,   unit: MPa, desc: 抗拉强度 }
+      sigma_s:        { value: 930,    unit: MPa, desc: 屈服强度 }
+      sigma_minus1:   { value: 95,     unit: MPa, desc: 对称循环许用弯曲应力 }
+      sigma_Hlim:     { value: 850,    unit: MPa, desc: 接触疲劳极限 }
+      sigma_Flim:     { value: 360,    unit: MPa, desc: 弯曲疲劳极限 }
+      A_0:            { value: 96,     unit: "", desc: 轴径初估系数 }
+      impact_energy:  { value: 39,     unit: J, desc: 室温冲击功典型值 }
+    applications: [大型传动轴, 重载齿轮轴, 高强度连接件]
+    notes: 高强度镍铬钼合金钢，适用于重载轴类；设计时应结合供货状态和试样尺寸核实性能
+
+  - id: cast_iron_ht250
+    grade: "HT250"
+    name: HT250 灰铸铁
+    standard: GB/T 9439-2010
+    heat_treatment: 铸态
+    category: 灰铸铁
+    hardness: "180~240 HBW"
+    properties:
+      density:        { value: 7200,   unit: kg/m**3 }
+      elastic_modulus: { value: 130000, unit: MPa }
+      poisson_ratio:  { value: 0.25,   unit: "" }
+      sigma_b:        { value: 250,    unit: MPa, desc: 抗拉强度 }
+      sigma_bc:       { value: 950,    unit: MPa, desc: 抗压强度 }
+      thermal_expansion: { value: 10.5, unit: 1/K, desc: 线膨胀系数典型值 }
+    applications: [中等载荷减速器箱体, 机座, 支承件]
+    notes: 强度和耐磨性高于 HT200，铸造性与减振性较好；壁厚和铸造工艺会影响实际性能

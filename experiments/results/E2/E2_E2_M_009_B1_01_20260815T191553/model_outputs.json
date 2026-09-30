@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_009",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "公式本身是正确的，推导如下：\n\n---\n\n### 公式推导\n\n从标准圆柱齿轮啮合的基本几何关系出发：\n\n- **中心距**：\\( a = \\dfrac{d_1 + d_2}{2} \\)\n- **传动比**：\\( i = \\dfrac{d_2}{d_1} \\quad\\Rightarrow\\quad d_2 = i \\cdot d_1 \\)\n\n代入：\n\n\\[\na = \\frac{d_1 + i \\cdot d_1}{2} = \\frac{d_1 (1 + i)}{2}\n\\]\n\n整理得：\n\n\\[\n\\boxed{d_1 = \\frac{2a}{i + 1}}\n\\]\n\n你给的公式完全正确。\n\n---\n\n### 代入数值（粗估）\n\n\\( d_1 = \\dfrac{2 \\times 150}{3.15 + 1} = \\dfrac{300}{4.15} \\approx 72.29 \\ \\text{mm} \\)\n\n> ⚠️ **此为粗估，以计算结果为准。** 当前 `solve_formula` 与 `run_calculation` 工具均不可用，该数值没有计算记录，不能落账。如果这是正式设计任务，需"
+}

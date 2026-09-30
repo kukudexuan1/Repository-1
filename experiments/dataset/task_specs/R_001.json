@@ -1,0 +1,44 @@
+{
+  "task_id": "R_001",
+  "family": "R",
+  "family_name": "逆向建模/图纸理解",
+  "split": "dev",
+  "description": "从提供的阶梯轴二维工程图中提取所有关键尺寸，建立尺寸链并验证。",
+  "explicit_inputs": {
+    "drawing_type": "阶梯轴二维工程图",
+    "dimension_count_approx": 18,
+    "dimension_chain_levels": 2,
+    "tolerances_provided": true,
+    "surface_roughness_provided": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["尺寸链封闭环计算", "公差累积"],
+    "standard_series": ["线性尺寸公差GB/T1800", "形位公差GB/T1182"],
+    "standard_parts": []
+  },
+  "decisions_required": [
+    "封闭环识别",
+    "公差分配验证"
+  ],
+  "image_input": {
+    "required": true,
+    "format": "jpg/png",
+    "path_placeholder": "dataset/task_specs/images/R_001_drawing.png",
+    "_note": "图纸文件需单独准备，路径为占位符"
+  },
+  "expert_reference": {
+    "reference_module": "R_001",
+    "expected_dimensions": {
+      "overall_length_mm": null,
+      "step_diameters_mm": [],
+      "key_tolerances": []
+    },
+    "must_pass_checks": ["尺寸链封闭环误差≤标注公差", "所有标注尺寸已提取"],
+    "forbidden_errors": [
+      "遗漏重要定位尺寸",
+      "封闭环识别错误",
+      "公差方向搞反"
+    ]
+  },
+  "_note": "占位模板，需配套工程图纸文件。图纸和参考尺寸由专家标注后填入expert_reference。"
+}

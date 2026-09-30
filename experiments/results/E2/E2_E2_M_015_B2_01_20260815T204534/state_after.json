@@ -1,0 +1,121 @@
+{
+  "session_id": "777a9d7b-37b0-49d0-af4f-0d682ad876ad",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "普通平键连接剪切强度校核",
+      "formula_id": "key_shear_check",
+      "expression": "tau = 2 * T / (d * b * l)",
+      "inputs": {
+        "T": {
+          "value": 420.0,
+          "unit": "N*m"
+        },
+        "d": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "b": {
+          "value": 16.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 60.0,
+          "unit": "mm"
+        },
+        "tau_P": {
+          "value": 90.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=4.2e+05 N*mm；d=55 mm；b=16 mm；l=60 mm；tau_P=90 MPa",
+      "result": {
+        "tau": {
+          "value": 15.909090909090908,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "tau <= tau_P",
+      "verdict": "pass",
+      "margin_percent": 82.32323232323233,
+      "source": "机械设计（第十版）§6.2",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "普通平键通常挤压强度先失效，剪切校核多为复核",
+      "script": "",
+      "created_at": "2026-08-15T20:46:06.703589Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "003d313f-7b70-4320-b7a3-8b5bcdb389ad",
+      "role": "user",
+      "content": "平键剪切强度校核，τk=2T/(d×b×l)，T=420，d=55，b=16，l=60",
+      "timestamp": "2026-08-15T20:45:40.293019Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "77dbdd9b-ef2e-46ef-a6d9-f2814392b769",
+      "role": "assistant",
+      "content": "## 平键剪切强度校核结果\n\n**公式**：`τ = 2T / (d × b × l)`（机械设计第十版 §6.2）\n\n| 参数 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 传递转矩 | T | 420 | N·m |\n| 轴径 | d | 55 | mm |\n| 键宽 | b | 16 | mm |\n| 键工作长度 | l | 60 | mm |\n| 许用剪切应力 | τ_P | 90（默认） | MPa |\n\n**代入过程**：T = 420 N·m = 4.2×10⁵ N·mm\n\nτ = 2 × 4.2×10⁵ / (55 × 16 × 60) = **15.91 MPa**\n\n---\n\n**判据**：τ ≤ τ_P  →  **通过 ✅**\n\n| | 数值 |\n|---|---|\n| 剪切应力 | 15.91 MPa |\n| 许用值 | 90 MPa |\n| 余量 | **82.3%** |\n\n剪切强度非常充裕，远低于许用值。不过提醒一点：普通平键的失效模式通常是**挤压强度**先于剪切强度，建议也对挤压强度做一次复核（`σ_p = 4T/(d × h × l)`），需要键高 h 值。需要我顺带做吗？",
+      "timestamp": "2026-08-15T20:46:15.887554Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T20:46:15.887554Z"
+}

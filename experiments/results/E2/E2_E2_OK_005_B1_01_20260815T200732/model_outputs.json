@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_OK_005",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "公式已从公式库确认（`gear_normal_transverse_module`、`gear_pitch_diameter`、`gear_helical_axial_force`）。`solve_formula` 在当前实验条件下不可用，以下基于已确认的公式手动计算，过程透明可追溯：\n\n---\n\n## 计算过程\n\n### 1. 端面模数 \\(m_t\\)\n\n公式：\\(m_t = \\dfrac{m_n}{\\cos\\beta}\\)（出处：机械设计第十版第十章，GB/T 1357）\n\n\\[\nm_t = \\frac{3}{\\cos 12^\\circ} = \\frac{3}{0.97815} = 3.067\\ \\text{mm}\n\\]\n\n### 2. 分度圆直径 \\(d_1\\)\n\n公式：\\(d = m_t \\cdot z\\)（斜齿轮用端面模数）\n\n\\[\nd_1 = 3.067 \\times 24 = 73.61\\ \\text{mm}\n\\]\n\n### 3. 轴向力 \\(F_a\\)\n\n公式：\\(F_a = F_t \\cdot \\tan\\beta\\)（出处：机械设计第十版式 10-3）\n\n\\[\nF_a"
+}

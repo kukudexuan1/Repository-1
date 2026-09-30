@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_M_008",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "公式库中未收录该疲劳安全系数公式，这属于非标计算，需要用 `run_calculation` 在沙箱中执行。但计算前需要确认缺失的参数：\n\n---\n\n**已知：**\n- σ₋₁ = 270 MPa（材料疲劳极限）\n- σₐ = 85 MPa（应力幅）\n- σₘ = 40 MPa（平均应力）\n\n**缺失：**\n- **Kσ** — 有效应力集中系数（取决于截面过渡圆角、键槽、螺纹等几何特征）\n- **εσ** — 尺寸系数（取决于轴径，通常 0.6~0.85）\n- **ψσ** — 平均应力折算系数（碳钢约 0.1~0.2，合金钢约 0.2~0.3）\n\n---\n\n这三个参数直接决定安全系数 S 的大小，不能随意假定。请提供：\n\n1. **轴的材料牌号**（如 45、40Cr）→ 可确定 ψσ，也可查 εσ 参考值\n2. **危险截面处的轴径** → 确定 εσ\n3. **应力集中来源**（如是否有键槽、过渡圆角半径/轴径比）→ 确定 Kσ\n\n或者，如果你已有这三个参数的具体值，直接给我即可。"
+}

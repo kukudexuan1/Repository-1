@@ -1,0 +1,121 @@
+{
+  "session_id": "d7b01436-be2c-41a1-9911-ea10aa129308",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "普通平键连接挤压强度校核",
+      "formula_id": "key_crushing_check",
+      "expression": "sigma_p = 4 * T / (d * h * l)",
+      "inputs": {
+        "T": {
+          "value": 320000.0,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 50.0,
+          "unit": "mm"
+        },
+        "h": {
+          "value": 9.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 60.0,
+          "unit": "mm"
+        },
+        "sigma_pP": {
+          "value": 100.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=3.2e+05 N*mm；d=50 mm；h=9 mm；l=60 mm；sigma_pP=100 MPa",
+      "result": {
+        "sigma_p": {
+          "value": 47.407407407407405,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_p <= sigma_pP",
+      "verdict": "pass",
+      "margin_percent": 52.59259259259259,
+      "source": "机械设计（第十版）式 6-1",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+      "script": "",
+      "created_at": "2026-08-15T21:39:02.479163Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "44dd6ebb-8f7f-4808-abec-2ea83485c5eb",
+      "role": "user",
+      "content": "计算键挤压应力，传递扭矩T=0.32 N·m（应为320N·m），轴径d=50mm，键高h=9mm，接触长度l=60mm",
+      "timestamp": "2026-08-15T21:38:28.020150Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "9eaa44ae-3da4-40bd-b677-6bbd4a7fc9a2",
+      "role": "assistant",
+      "content": "---\n\n## 计算结果\n\n| 参数 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 传递扭矩 | `T` | 320 N·m = 320,000 | N·mm |\n| 轴径 | `d` | 50 | mm |\n| 键高 | `h` | 9 | mm |\n| 工作长度 | `l` | 60 | mm |\n| 许用挤压应力 | `σ_pP` | 100 | MPa |\n| **挤压应力** | **`σ_p`** | **47.41** | **MPa** |\n\n---\n\n### 校核结论：✅ **通过**\n\n**σ_p = 47.41 MPa ≪ σ_pP = 100 MPa**，安全余量约 **52.6%**。\n\n公式出自《机械设计（第十版）》式 6-1：\n\n\\[\n\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} = \\frac{4 \\times 320\\,000}{50 \\times 9 \\times 60} = 47.41\\ \\text{MPa}\n\\]\n\n---\n\n### 补充说明\n\n- 许用挤压应力取 **100 MPa**（静连接、钢键+钢轮毂，按《机械设计》表 6-2 取下限，偏保守）。\n- 若实际工况为轻微冲击，许用值需降至 70~80 MPa，校核仍通过（47.41 < 70）。\n- 若为双向冲击或频繁正反转，许用值降至 50 MPa，此时余量仅约 5%，接近临界，需关注。\n\n> 计算记录已保存为 `calc#1`。如需将此结果录入门槛或进一步分析，请告知。",
+      "timestamp": "2026-08-15T21:39:12.210963Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:39:12.210963Z"
+}

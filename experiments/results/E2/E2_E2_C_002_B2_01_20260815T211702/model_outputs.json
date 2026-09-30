@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_C_002",
+  "error_type": "criterion_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 校核结果：**❌ 不通过**\n\n| 项目 | 数值 | 单位 |\n|:---|:---:|:---:|\n| 计算接触应力 σH | **590** | MPa |\n| 许用接触应力 σHP | **560** | MPa |\n| 安全余量 | **−5.36%** | — |\n\n**判据**：σH ≤ σHP（机械设计第十版 式 10-9）\n\nσH = 590 MPa > σHP = 560 MPa，**超限约 5.4%**，校核不通过。\n\n---\n\n### 这意味着什么\n\n接触应力超出许用值 5.4%，齿面有发生点蚀失效的风险。在工程中，5% 的超限不算致命但也不能忽略——它意味着要么当前参数组合偏紧，要么许用值没有留够余地。\n\n### 常见的应对方向\n\n1. **增大齿宽 b** —— 接触应力与 √b 成反比，增大齿宽可降低 σH，但需注意齿宽系数不要超限\n2. **增大中心距 / 分度圆直径 d₁** —— 接触应力与 d₁ 成反比，效果最显著\n3. **提高材料或热处理等级** —— 换用更高许用接触应力的材料（如 40Cr 调质替代 45 钢正火）\n4. *"
+}

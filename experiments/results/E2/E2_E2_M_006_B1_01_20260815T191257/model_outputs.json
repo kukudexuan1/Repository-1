@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_M_006",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "你的公式少了一个关键常数。正确的转矩公式是：\n\n---\n\n**正确公式：** `T = 9550000 × P / n`\n\n出处：机械设计（第十版）式 15-1\n- **T** — 转矩，单位 **N·mm**\n- **P** — 功率，单位 **kW**\n- **n** — 转速，单位 **r/min**\n- **系数 9550000** — 来自单位换算：`60 × 10⁶ / (2π) ≈ 9.55 × 10⁶`\n\n你写的 `T2 = P × η / n2` 少乘了这个系数，算出来的数值会差六个数量级。\n\n---\n\n**代入你的数据：**\n\n输出轴功率：`P_out = P × η = 7.5 × 0.97 = 7.275 kW`\n\n> ⚠️ 以下为粗估，因为当前计算工具不可用，确切数值以 `solve_formula` 实际计算结果为准：\n\nT₂ ≈ 9550000 × 7.275 / 305 ≈ **227,800 N·mm ≈ 227.8 N·m**\n\n---\n\n**小结：**\n\n| 项目 | 值 |\n|------|-----|\n| 输入功率 P | 7.5 kW |\n|"
+}

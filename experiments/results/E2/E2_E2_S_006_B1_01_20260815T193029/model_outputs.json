@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_S_006",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "经核实，本系统公式库中两条接触强度公式的符号定义如下：\n\n---\n\n### 公式库现状：符号正确，无混淆\n\n| 符号 | 名称 | 默认值 | 物理意义 |\n|------|------|--------|----------|\n| **Z_H** | 区域系数 | 2.5 | 反映节点处齿廓曲率对接触应力的影响，标准压力角 α=20° 时 ≈2.5 |\n| **Z_E** | 弹性影响系数 | 189.8 MPa^½ | 反映两齿轮材料弹性模量与泊松比对接触应力的影响，钢对钢 =189.8 |\n| **Z_eps** | 重合度系数 | 0.87 | 反映重合度对接触应力的影响 |\n\n两条公式中的表达式均为 **`Z_H * Z_E * Z_eps`**，三者是乘积关系，各司其职：\n\n- **设计式** `gear_contact_design_d1`：`d_1t = (… × (Z_H · Z_E · Z_eps / σ_HP)²)^(1/3)`\n- **校核式** `gear_contact_check`：`σ_H = Z_H · Z_E · Z_eps × √(…)`\n\n---"
+}

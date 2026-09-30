@@ -1,0 +1,368 @@
+{
+  "session_id": "26cf81a7-0574-4ced-ae6e-239162601dee",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "single_part",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {
+      "T_key": {
+        "symbol": "T_key",
+        "name": "键传递转矩",
+        "value": {
+          "value": 420.0,
+          "unit": "N*m"
+        },
+        "source": "user_given",
+        "basis": [],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.296269Z"
+      },
+      "d_shaft_key": {
+        "symbol": "d_shaft_key",
+        "name": "键处轴径",
+        "value": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "source": "user_given",
+        "basis": [],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.296269Z"
+      },
+      "b_key": {
+        "symbol": "b_key",
+        "name": "键宽",
+        "value": {
+          "value": 16.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1096-2003",
+          "轴径 55mm 对应截面 b×h=16×10"
+        ],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.296269Z"
+      },
+      "h_key": {
+        "symbol": "h_key",
+        "name": "键高",
+        "value": {
+          "value": 10.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1096-2003"
+        ],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.297312Z"
+      },
+      "L_key": {
+        "symbol": "L_key",
+        "name": "键长（公称）",
+        "value": {
+          "value": 60.0,
+          "unit": "mm"
+        },
+        "source": "user_given",
+        "basis": [],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.297312Z"
+      },
+      "sigma_p_key": {
+        "symbol": "sigma_p_key",
+        "name": "键挤压应力",
+        "value": {
+          "value": 69.42,
+          "unit": "MPa"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#1"
+        ],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.298309Z"
+      },
+      "sigma_pP_key": {
+        "symbol": "sigma_pP_key",
+        "name": "许用挤压应力",
+        "value": {
+          "value": 120.0,
+          "unit": "MPa"
+        },
+        "source": "assumed",
+        "basis": [
+          "机械设计（第十版）表6-2，静连接、钢、载荷平稳"
+        ],
+        "rationale": "轮毂材料45钢调质，静连接，载荷平稳取120MPa；若载荷有冲击应降至60~90MPa",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.298309Z"
+      },
+      "tau_key": {
+        "symbol": "tau_key",
+        "name": "键剪切应力",
+        "value": {
+          "value": 21.69,
+          "unit": "MPa"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#2"
+        ],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:26.298309Z"
+      },
+      "l_key_work": {
+        "symbol": "l_key_work",
+        "name": "键工作长度（A型，L−b）",
+        "value": {
+          "value": 44.0,
+          "unit": "mm"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#3"
+        ],
+        "rationale": "",
+        "status": "tentative",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T22:46:43.660623Z"
+      }
+    },
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "普通平键连接挤压强度校核",
+      "formula_id": "key_crushing_check",
+      "expression": "sigma_p = 4 * T / (d * h * l)",
+      "inputs": {
+        "T": {
+          "value": 420000.0,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "h": {
+          "value": 10.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 44.0,
+          "unit": "mm"
+        },
+        "sigma_pP": {
+          "value": 120.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=4.2e+05 N*mm；d=55 mm；h=10 mm；l=44 mm；sigma_pP=120 MPa",
+      "result": {
+        "sigma_p": {
+          "value": 69.42148760330579,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_p <= sigma_pP",
+      "verdict": "pass",
+      "margin_percent": 42.148760330578504,
+      "source": "机械设计（第十版）式 6-1",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+      "script": "",
+      "created_at": "2026-08-15T22:45:58.148043Z"
+    },
+    "calc#2": {
+      "record_id": "calc#2",
+      "title": "普通平键连接剪切强度校核",
+      "formula_id": "key_shear_check",
+      "expression": "tau = 2 * T / (d * b * l)",
+      "inputs": {
+        "T": {
+          "value": 420000.0,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "b": {
+          "value": 16.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 44.0,
+          "unit": "mm"
+        },
+        "tau_P": {
+          "value": 90.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=4.2e+05 N*mm；d=55 mm；b=16 mm；l=44 mm；tau_P=90.0（公式默认值）",
+      "result": {
+        "tau": {
+          "value": 21.694214876033058,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "tau <= tau_P",
+      "verdict": "pass",
+      "margin_percent": 75.89531680440771,
+      "source": "机械设计（第十版）§6.2",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "普通平键通常挤压强度先失效，剪切校核多为复核",
+      "script": "",
+      "created_at": "2026-08-15T22:46:02.540446Z"
+    },
+    "calc#3": {
+      "record_id": "calc#3",
+      "title": "A型平键工作长度计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "L": {
+          "value": 60.0,
+          "unit": "mm"
+        },
+        "b": {
+          "value": 16.0,
+          "unit": "mm"
+        }
+      },
+      "substitution": "L=60 mm；b=16 mm",
+      "result": {
+        "l": {
+          "value": 44.0,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "GB/T 1096-2003，A型平键两端圆头，工作长度 l = L − b",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "L = 60  # mm\nb = 16  # mm\nl = L - b  # A型平键，两端圆头，工作长度 = 公称长度 - 键宽\noutputs['l'] = l",
+      "created_at": "2026-08-15T22:46:39.150207Z"
+    }
+  },
+  "calc_seq": 3,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "ce9b7005-465a-4a35-9855-0896141b9ba0",
+      "role": "user",
+      "content": "键16×10×60，轴径55mm，传递扭矩T=420N·m，键材料45钢，轮毂材料45钢调质，校核挤压强度",
+      "timestamp": "2026-08-15T22:45:00.961045Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "33c0f765-74fd-4855-95a7-5891bcbb4a09",
+      "role": "assistant",
+      "content": "所有计算完成，台账已建立。下面是校核结果汇总。\n\n---\n\n## 键 16×10×60 挤压强度校核报告\n\n### 已知条件\n\n| 参数 | 数值 | 来源 |\n|------|------|------|\n| 键截面 b×h | 16×10 mm | GB/T 1096-2003，轴径 55mm 对应 ✓ |\n| 键公称长度 L | 60 mm | 用户给定 |\n| 键型 | A 型（两端圆头） | — |\n| 工作长度 l | L − b = **44 mm** | calc#3 |\n| 轴径 d | 55 mm | 用户给定 |\n| 传递转矩 T | 420 N·m | 用户给定 |\n| 键材料 | 45 钢 | 用户给定 |\n| 轮毂材料 | 45 钢调质 | 用户给定 |\n\n### 校核结果\n\n| 项目 | 计算值 | 许用值 | 余量 | 结论 |\n|------|--------|--------|------|------|\n| **挤压强度** | σ_p = **69.42 MPa** | [σ_p] = 120 MPa | **42.1%** | ✅ 通过 |\n| 剪切强度（复核） | τ = **21.69 MPa** | [τ] = 90 MPa | **75.9%** | ✅ 通过 |\n\n**挤压校核计算**（calc#1，机械设计第十版式 6-1）：\n\n$$\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} = \\frac{4 \\times 420\\,000}{55 \\times 10 \\times 44} = 69.42 \\text{ MPa} \\leq 120 \\text{ MPa}$$\n\n**剪切复核**（calc#2，机械设计第十版 §6.2）：\n\n$$\\tau = \\frac{2T}{d \\cdot b \\cdot l} = \\frac{2 \\times 420\\,000}{55 \\times 16 \\times 44} = 21.69 \\text{ MPa} \\leq 90 \\text{ MPa}$$\n\n### ⚠️ 需确认的假设\n\n许用挤压应力 [σ_p] = **120 MPa** 是按「静连接、钢制轮毂、载荷平稳」从《机械设计》表 6-2 取值的。如果实际工况有冲击或频繁启停，应降至 60~90 MPa。以当前 69.42 MPa 来看，即使降档到 90 MPa 仍有 ~23% 余量，但若降到 60 MPa 则**不满足**（超 15.7%）。\n\n**请确认：该键连接的实际工况是平稳载荷，还是有冲击/频繁启停？**",
+      "timestamp": "2026-08-15T22:47:00.025522Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T22:47:00.025522Z"
+}

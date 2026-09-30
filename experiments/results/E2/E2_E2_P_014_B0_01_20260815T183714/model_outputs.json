@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_014",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "你问的是斜齿轮齿根弯曲应力的计算。公式本身是明确的，但要把数算出来，**齿形系数 YF 和应力修正系数 YS 不是靠猜的**——它们取决于当量齿数 Zv = Z / cos³β，而 Zv 又依赖实际齿数 Z 和螺旋角 β。这两项你都没给，硬算等于瞎算。\n\n先帮你把公式理清，再指出缺什么。\n\n---\n\n**斜齿轮齿根弯曲应力公式**（源自 GB/T 3480 或 ISO 6336，齿根弯曲疲劳强度校核式）：\n\nσ_F = (F_t / (b · m_n)) · Y_F · Y_S · Y_β · K_A · K_V · K_Fβ · K_Fα\n\n其中：\n- F_t = 2400 N（已知）\n- b = 80 mm（已知）\n- m_n = 3 mm（已知）\n- Y_F —— 齿形系数，查当量齿数 Zv\n- Y_S —— 应力修正系数，同样查 Zv\n- Y_β —— 螺旋角系数，Y_β = 1 - ε_β · β / 120°（近似，ε_β 为轴向重合度，β 为螺旋角）\n- K_A, K_V, K_Fβ, K_Fα —— 各载荷系数（使用系数、动载系数、齿向载荷分布系数、齿间载荷分配系数），"
+}

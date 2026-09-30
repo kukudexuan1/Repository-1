@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_M_007",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "我先确认一下结构，才好给出正确的弯矩图。\n\n你给的三个参数是：\n- **FRA = 3200 N**（支点 A 的反力）\n- **L = 280 mm**（两支点间距）\n- **l = 60 mm**（悬臂长度）\n\n我需要确认以下两点：\n\n---\n\n### 问题 1：结构布置\n\n你描述的是哪种情况？\n\n| 选项 | 示意图 | 说明 |\n|------|--------|------|\n| **(A)** | `A ─── L ─── B ─ l ─→ F↓` | 悬臂在 B 点外侧，悬臂端受集中力 F |\n| **(B)** | `F↓ ─ l ─ A ─── L ─── B` | 悬臂在 A 点外侧，悬臂端受集中力 F |\n| **(C)** | 其他结构 | 请描述 |\n\n---\n\n### 问题 2：载荷位置\n\nFRA=3200N 这个支反力，是由**悬臂端的一个集中力**引起的，还是还有**跨间其他载荷**（比如跨中也有力、或有均布载荷）？\n\n---\n\n### 我的推测（粗估，以确认后结果为准）\n\n如果你说的是情况 **(A)**，且只有悬臂端集中力，那么：\n\n对 B 点取矩："
+}

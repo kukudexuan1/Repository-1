@@ -1,0 +1,39 @@
+{
+  "task_id": "R_003",
+  "family": "R",
+  "family_name": "逆向建模/图纸理解",
+  "split": "test",
+  "description": "从提供的斜齿轮工程图中提取齿轮几何参数（模数、齿数、螺旋角、齿宽）和轴孔配合尺寸，验证分度圆直径计算一致性。",
+  "explicit_inputs": {
+    "drawing_type": "斜齿圆柱齿轮二维工程图",
+    "dimension_count_approx": 20,
+    "dimension_chain_levels": 2,
+    "tolerances_provided": true,
+    "surface_roughness_provided": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["斜齿轮分度圆直径计算", "齿顶圆直径", "尺寸链封闭环计算"],
+    "standard_series": ["模数GB/T1357", "齿轮精度GB/T10095", "孔轴配合GB/T1801"],
+    "standard_parts": []
+  },
+  "decisions_required": ["螺旋角读取方法确认", "轴孔公差配合等级确认"],
+  "image_input": {
+    "required": true,
+    "format": "jpg/png",
+    "path_placeholder": "dataset/task_specs/images/R_003_drawing.png",
+    "_note": "图纸文件需单独准备"
+  },
+  "expert_reference": {
+    "reference_module": "R_003",
+    "expected_dimensions": {
+      "module_mm": null,
+      "tooth_count": null,
+      "helix_angle_deg": null,
+      "face_width_mm": null,
+      "bore_diameter_mm": null
+    },
+    "must_pass_checks": ["分度圆直径与模数×齿数一致", "齿顶圆直径计算正确", "所有标注尺寸已提取"],
+    "forbidden_errors": ["螺旋角符号读取错误", "法向模数与端面模数混淆", "遗漏轴孔配合公差"]
+  },
+  "_note": "测试集，需配套工程图纸文件，锁定后不得修改系统配置"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_010",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "我理解您想计算弯曲疲劳安全系数，但目前的输入信息严重不足，无法直接给出数值。我先说明缺什么，再给您几个推进路径，请您选择。\n\n---\n\n### 弯曲疲劳安全系数的基本公式（GB/T 3480 思路）\n\n常规校核形式：\n\n\\[\nS_\\sigma = \\frac{\\sigma_{-1}}{K_\\sigma \\cdot \\sigma_a + \\psi_\\sigma \\cdot \\sigma_m} \\quad \\text{或简化为} \\quad S = \\frac{\\sigma_{-1}}{\\sigma_{\\text{max}}}\n\\]\n\n后者仅在**对称循环、无应力集中、无尺寸效应**的粗略估算中可用。\n\n### 目前缺失的关键输入\n\n1. **材料弯曲疲劳极限 \\(\\sigma_{-1}\\)**——这是最核心的缺失项，没有它算不出任何数。需要您提供材料牌号，我才能通过 `lookup_material` 从手册中查出可信的 \\(\\sigma_{-1}\\) 值（附出处），不能靠记忆直接报数。\n\n2. **应力循环特性**  \n   - 您给的 σ=95 MPa 是**最大应力**、**应力幅"
+}

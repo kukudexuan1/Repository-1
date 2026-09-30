@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_C_002",
+  "error_type": "criterion_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "## 校核结论：**不通过** ❌\n\n| 项目 | 数值 |\n|------|------|\n| 计算接触应力 σH | 590 MPa |\n| 许用接触应力 [σH] | 560 MPa |\n| 判据 | σH ≤ [σH]（依据《机械设计》第十版式 10-9） |\n| 余量 | **+5.4%**（超出许用值 30 MPa） |\n\n---\n\n**590 MPa > 560 MPa，齿面接触疲劳强度不足。**\n\n> ⚠️ 说明：当前实验条件下 `solve_formula` 与 `run_calculation` 均不可用，但这是一个简单的数值比较判断（590 < 560 为 False），不涉及从记忆提取工程数据，判断逻辑是确定的。\n\n---\n\n### 建议处理方向\n\n通常在工程中遇到这种情况，可以从以下几方面调整后重新校核：\n\n1. **增大齿宽** b → 直接降低 σH（σH ∝ 1/√b），这是最经济的调整\n2. **增大中心距 / 分度圆直径** d₁ → σH ∝ 1/d₁，效果显著但会增大结构尺寸\n3. **改用更高许用应力的材料或热处理**（如调质→渗碳淬火），提高"
+}

@@ -1,0 +1,167 @@
+{
+  "session_id": "4c81c7bb-23d3-4937-b19e-26958716593c",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "普通平键连接挤压强度校核",
+      "formula_id": "key_crushing_check",
+      "expression": "sigma_p = 4 * T / (d * h * l)",
+      "inputs": {
+        "T": {
+          "value": 420000.0,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "h": {
+          "value": 10.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 44.0,
+          "unit": "mm"
+        },
+        "sigma_pP": {
+          "value": 110.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=4.2e+05 N*mm；d=55 mm；h=10 mm；l=44 mm；sigma_pP=110 MPa",
+      "result": {
+        "sigma_p": {
+          "value": 69.42148760330579,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_p <= sigma_pP",
+      "verdict": "pass",
+      "margin_percent": 36.889556724267464,
+      "source": "机械设计（第十版）式 6-1",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+      "script": "",
+      "created_at": "2026-08-15T21:29:19.155492Z"
+    },
+    "calc#2": {
+      "record_id": "calc#2",
+      "title": "普通平键连接剪切强度校核",
+      "formula_id": "key_shear_check",
+      "expression": "tau = 2 * T / (d * b * l)",
+      "inputs": {
+        "T": {
+          "value": 420000.0,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "b": {
+          "value": 16.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 44.0,
+          "unit": "mm"
+        },
+        "tau_P": {
+          "value": 90.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=4.2e+05 N*mm；d=55 mm；b=16 mm；l=44 mm；tau_P=90 MPa",
+      "result": {
+        "tau": {
+          "value": 21.694214876033058,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "tau <= tau_P",
+      "verdict": "pass",
+      "margin_percent": 75.89531680440771,
+      "source": "机械设计（第十版）§6.2",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "普通平键通常挤压强度先失效，剪切校核多为复核",
+      "script": "",
+      "created_at": "2026-08-15T21:29:28.720927Z"
+    }
+  },
+  "calc_seq": 2,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "7054db33-15d3-46a0-9cf8-d9b67e3f91cd",
+      "role": "user",
+      "content": "键16×10×60，轴径55mm，传递扭矩T=420N·m，键材料45钢，轮毂材料45钢调质，校核挤压强度",
+      "timestamp": "2026-08-15T21:28:36.572540Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "433613ba-ef59-448f-baca-0bdb9622597d",
+      "role": "assistant",
+      "content": "---\n\n## 键 16×10×60 挤压强度校核结果\n\n### 已知条件\n\n| 参数 | 数值 |\n|------|------|\n| 键规格 (b×h×L) | 16×10×60 mm |\n| 轴径 d | 55 mm |\n| 传递扭矩 T | 420 N·m |\n| 键材料 | 45 钢 |\n| 轮毂材料 | 45 钢调质 |\n\n### 计算假定\n\n- **键型**：A 型（圆头）普通平键 —— 工作长度 `l = L - b = 60 - 16 = 44 mm`\n- **载荷性质**：轻微冲击，许用挤压应力取 `[σ_p] = 110 MPa`（键为较弱件，45 钢静连接，100~120 MPa 取中值）⚠️ *待确认*\n- **许用剪切应力**：取 `[τ] = 90 MPa`\n\n---\n\n### 挤压强度校核（calc#1）\n\n$$\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} = \\frac{4 \\times 420\\,000}{55 \\times 10 \\times 44} = \\mathbf{69.42\\ MPa}$$\n\n| 判据 | 许用值 | 计算值 | 余量 |\n|------|--------|--------|------|\n| σ_p ≤ [σ_p] | 110 MPa | 69.42 MPa | **36.9%** ✅ 通过 |\n\n---\n\n### 剪切强度复核（calc#2）\n\n$$\\tau = \\frac{2T}{d \\cdot b \\cdot l} = \\frac{2 \\times 420\\,000}{55 \\times 16 \\times 44} = \\mathbf{21.69\\ MPa}$$\n\n| 判据 | 许用值 | 计算值 | 余量 |\n|------|--------|--------|------|\n| τ ≤ [τ] | 90 MPa | 21.69 MPa | **75.9%** ✅ 通过 |\n\n---\n\n### 结论\n\n**两项校核均通过，键连接强度满足要求。** 挤压应力余量约 37%，剪切余量约 76%，安全储备充足。普通平键以挤压强度为控制工况，剪切强度远低于许用值，符合预期。\n\n> ⚠️ **需确认**：上述计算假定载荷性质为\"轻微冲击\"，若实际为剧烈冲击或频繁正反转，许用挤压应力需下调至 50~60 MPa，届时挤压应力 69.42 MPa 将**不满足**要求，需改用双键或花键。请确认实际工况。",
+      "timestamp": "2026-08-15T21:29:44.355475Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:29:44.355475Z"
+}

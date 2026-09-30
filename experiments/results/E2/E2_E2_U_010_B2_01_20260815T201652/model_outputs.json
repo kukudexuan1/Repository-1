@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_010",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个常见的工程单位陷阱，解释如下：\n\n**单位链的一致性**\n\n支反力 \\( R \\) 的单位是 N，跨距 \\( L = 0.18\\,\\text{m} \\)，则弯矩：\n\n\\[\nM = R \\times L \\quad \\rightarrow \\quad \\text{N} \\times \\text{m} = \\text{N·m}\n\\]\n\n如果弯矩图直接标注 N·mm，那就存在 \\( 1000\\times \\) 的偏差——要么跨距改用 \\( L = 180\\,\\text{mm} \\)，要么算完后乘 1000 换算。\n\n**轴设计中的惯用做法**\n\n轴的弯曲应力公式是：\n\n\\[\n\\sigma = \\frac{M}{W} \\qquad W \\text{ 单位是 } \\text{mm}^3\n\\]\n\n为了让 \\( M \\) 和 \\( W \\) 单位直接匹配，工程上通常**统一用 mm 制**：\n\n- 跨距 \\( L = 180\\,\\text{mm} \\)（不用 0.18 m）\n- 弯矩 \\( M \\) 自然就是 **N·mm**\n- 应力 \\( \\sigma \\) 直接出 **MPa**（即 "
+}

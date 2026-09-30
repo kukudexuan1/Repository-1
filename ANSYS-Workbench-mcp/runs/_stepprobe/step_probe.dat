@@ -1,0 +1,16 @@
+/BATCH,LIST
+/TITLE, STEP import capability probe
+/AUX15
+! Attempt STEP import via MAPDL connection command (v25 syntax)
+~STEPIN,'D:\Inventor_Export\stepped_shaft','stp'
+FINISH
+
+/PREP7
+! Report how many volumes/areas were created from the import
+VLIST
+*GET,NV,VOLU,0,COUNT
+*GET,NA,AREA,0,COUNT
+/GO
+*MSG,INFO,NV,NA
+IMPORTED VOLUMES = %I   AREAS = %I
+FINISH

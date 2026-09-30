@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_M_013",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "lookup_standard_part"
+  ],
+  "tool_events": [
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "查到了。你提供的数据与 **GB/T 276-2013** 标准数据对比如下：\n\n| 参数 | 你的数据 | 标准值 (GB/T 276-2013) | 是否一致 |\n|------|----------|------------------------|----------|\n| 内径 d | 50 mm | 50 mm | ✅ |\n| 外径 D | 90 mm | 90 mm | ✅ |\n| 宽度 B | 20 mm | 20 mm | ✅ |\n| 基本额定动载荷 Cr | 35000 N | 35000 N | ✅ |\n| 基本额定静载荷 C0r | **19800 N** | **23200 N** | ❌ 有差异 |\n\n**C0r 差约 17%**。如果你是用这个 C0r 做静强度校核，建议用标准值 23200 N，你的数据偏保守（偏安全），但静载荷判据会偏严。如果是从某本旧手册或老版本标准查到的，可能是版本差异——GB/T 276 在 2013 年有过一次修订。\n\n你是要用这个轴承做后续设计计算吗？需要我帮你走寿命校核流程吗？"
+}

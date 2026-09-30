@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_002",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "这是一个纯工程计算咨询，不是设计任务，我直接给出公式和推算。\n\n---\n\n## 轴承寿命计算\n\n**公式**（ISO 281 / GB/T 6391）：\n\n$$L_{10h} = \\frac{10^6}{60n} \\cdot \\left( \\frac{C}{P} \\right)^\\varepsilon$$\n\n**已知参数**（单位已统一）：\n\n| 符号 | 含义 | 数值 |\n|------|------|------|\n| C | 基本额定动载荷 | 32 000 N |\n| P | 当量动载荷 | 8 500 N（即 8.5 kN） |\n| n | 转速 | 305 r/min |\n| ε | 寿命指数 | 球轴承=3，滚子轴承=10/3 |\n\n**C/P = 32 000 / 8 500 ≈ 3.7647**\n\n---\n\n### 若为球轴承（ε=3）\n\n$$L_{10h} = \\frac{10^6}{60 \\times 305} \\times 3.7647^3 = 54.64 \\times 53.36 \\approx 2\\,915\\ \\text{h}$$\n\n≈ **121 天**"
+}

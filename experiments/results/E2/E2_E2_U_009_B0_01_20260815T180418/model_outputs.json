@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_009",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个典型的公式误用。你给出的计算有两个错误：\n\n1. **公式错误**：斜齿轮轴向力公式是 \\(F_a = F_t \\cdot \\tan\\beta\\)，不是 \\(F_t \\cdot \\beta\\)。\n2. **单位混淆**：三角函数计算时角度必须用数值，但 \\(\\tan\\beta\\) 是取正切值，不是直接乘以角度值。\\(\\tan 12^\\circ \\approx 0.2126\\)（此为粗估，以计算结果为准），不是 \\(12\\)。\n\n正确估算：\\(F_a \\approx 2400 \\times 0.2126 \\approx 510 \\,\\text{N}\\)，远小于你给出的 28800 N。\n\n**在正式设计中，这类计算必须通过系统的 `solve_formula` 工具完成**，以保证单位、公式出处和计算过程可追溯。如果你需要我按规范流程把这个轴向力算出来并落账，我可以立刻调用公式库和计算工具，但需要先明确这是否属于当前设计任务的一部分（目前设计任务书尚未建立，本对话处于设计输入收敛阶段）。"
+}

@@ -1,0 +1,56 @@
+{
+  "case_id": "E2_OK_004",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果汇总\n\n### 已知条件\n\n| 参数 | 数值 | \n|------|------|\n| 材料 | 45 钢调质（GB/T 699-2015） |\n| 对称循环许用弯曲应力 [σ₋₁] | **60 MPa** |\n| 轴径 d | **50 mm** |\n| 弯矩 M | **185 N·m**（= 185,000 N·mm） |\n| 扭矩 T | **320 N·m**（= 320,000 N·mm） |\n| 折合系数 α | **0.6**（默认，脉动循环转矩） |\n\n---\n\n### 步骤一：抗弯截面系数 W\n\n> 公式：\\( W = \\frac{\\pi d^3}{32} \\)（机械设计第十版 表15-4）\n\n\\[\nW = \\frac{\\pi \\times 50^3}{32} = 12,271.85 \\ \\text{mm}^3\n\\]\n\n---\n\n### 步骤二：弯扭合成当量弯矩 \\( M_e \\)\n\n> 公式：\\( M_e = \\sqrt{M^2 + (\\alpha T)^2} \\)（机械设计第十版 式15-5）\n\n\\[\n\\alpha T = 0.6 \\"
+}

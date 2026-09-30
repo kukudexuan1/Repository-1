@@ -1,0 +1,296 @@
+
+ Ansys Mechanical Enterprise Academic Student      
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL 2026 R1          LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright (c) 2026 Synopsys, Inc. and ANSYS, Inc.           *
+ * All rights reserved.                                        *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+ 2026 R1 
+     
+ Point Releases and Patches installed:   
+     
+ Ansys, Inc. License Manager 2026 R1 
+ Discovery (full install) 2026 R1
+ Core WB Files 2026 R1   
+ optiSLang Core UI 2026 R1   
+ CFX (includes CFD-Post) 2026 R1 
+ Chemkin 2026 R1 
+ EnSight 2026 R1 
+ FENSAP-ICE 2026 R1  
+ Fluent (includes CFD-Post) 2026 R1  
+ Polyflow (includes CFD-Post) 2026 R1
+ Forte (includes EnSight) 2026 R1
+ Rocky 2026 R1   
+ TurboGrid 2026 R1   
+ ACIS Geometry Interface 2026 R1 
+ AutoCAD Geometry Interface 2026 R1  
+ Catia, Version 4 Geometry Interface 2026 R1 
+ Catia, Version 5 Geometry Interface 2026 R1 
+ Catia, Version 6 Geometry Interface 2026 R1 
+ Creo Elements/Direct Modeling Geometry Interface 2026 R1
+ Creo Parametric Geometry Interface 2026 R1  
+ Inventor Geometry Interface 2026 R1 
+ JTOpen Geometry Interface 2026 R1   
+ NX Geometry Interface 2026 R1   
+ Parasolid Geometry Interface  2026 R1   
+ Solid Edge Geometry Interface 2026 R1   
+ SOLIDWORKS Geometry Interface 2026 R1   
+ Speos 2026 R1   
+ SpaceClaim 2026 R1  
+ Speos RPC 2026 R1   
+ Zemax OpticStudio 2026 R1   
+ Dynamic Reporting 2026 R1   
+ Aqwa 2026 R1
+ Autodyn 2026 R1 
+ Material Calibration App 2026 R1
+ Mechanical Products 2026 R1 
+ Motion 2026 R1  
+ Academic Student 2026 R1
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  INITIAL JOBNAME              = ansys_mcp_job                                                                                                                                                                                                                                           
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+  INPUT FILE NAME              = C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe\step_probe.dat
+  OUTPUT FILE NAME             = C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe\ansys_mcp_job.out
+
+ RELEASE= 2026 R1              BUILD= 26.1      UP20260202   VERSION=WINDOWS x64 
+ CURRENT JOBNAME=ansys_mcp_job0  12:59:27  JUL 23, 2026  Elapsed Time=       0.062
+
+     1  /BATCH,LIST 
+     2  /TITLE, STEP import capability probe
+     3  /AUX15  
+     4  ! Attempt STEP import via MAPDL connection command (v25 syntax) 
+     5  ~STEPIN,'D:\Inventor_Export\stepped_shaft','stp'
+     6  FINISH  
+     7      
+     8  /PREP7  
+     9  ! Report how many volumes/areas were created from the import
+    10  VLIST   
+    11  *GET,NV,VOLU,0,COUNT
+    12  *GET,NA,AREA,0,COUNT
+    13  /GO 
+    14  *MSG,INFO,NV,NA 
+    15  IMPORTED VOLUMES = %I   AREAS = %I  
+    16  FINISH  
+
+ RUN SETUP PROCEDURE FROM FILE= C:\Program Files\ANSYS Inc\v252\Ansys\apdl\start.ans
+
+ /INPUT FILE= C:\Program Files\ANSYS Inc\v252\Ansys\apdl\start.ans  LINE=       0
+
+ TITLE= 
+  STEP import capability probe                                                 
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2026 R1          26.1     ***
+ Ansys Mechanical Enterprise Academic Student      
+ 01055371  VERSION=WINDOWS x64   12:59:27  JUL 23, 2026 Elapsed Time=      1.984
+
+  STEP import capability probe                                                 
+
+
+
+                    ***** INPUT DATA FILE CONVERSION UTILITY (AUX15) *****
+
+
+ IGES IS AVAILABLE IN THIS UTILITY.
+
+ NOTE-  DEFAULT INPUT FILE NAME IS ansys_mcp_job.cad.
+
+ ENTER  FINISH  TO EXIT AUX15.
+
+ *** WARNING ***                         ELAPSED TIME =       1.997   TIME= 12:59:27
+ ~STEPIN is not a recognized AUX15 command, abbreviation, or macro.      
+  This command will be ignored.                                          
+
+
+ ***** ROUTINE COMPLETED *****  ELAPSED TIME =         1.998
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE 2026 R1          26.1     ***
+ Ansys Mechanical Enterprise Academic Student      
+ 01055371  VERSION=WINDOWS x64   12:59:27  JUL 23, 2026 Elapsed Time=      2.000
+
+  STEP import capability probe                                                 
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ *** NOTE ***                            ELAPSED TIME =       2.000   TIME= 12:59:27
+ No volumes to list.                                                     
+
+ *** NOTE ***                            ELAPSED TIME =       2.002   TIME= 12:59:27
+ There are no VOLUMES defined.  Parameter NV on the *GET command will be 
+ set to zero.                                                            
+
+ *GET  NV        FROM  VOLU  ITEM=COUN       VALUE=  0.00000000    
+
+ *** NOTE ***                            ELAPSED TIME =       2.005   TIME= 12:59:27
+ There are no AREAS defined.                                             
+  Parameter NA on the *GET command will be set to zero.                  
+
+ *GET  NA        FROM  AREA  ITEM=COUN       VALUE=  0.00000000    
+ IMPORTED VOLUMES = 0 AREAS = 0.                                         
+
+
+ ***** ROUTINE COMPLETED *****  ELAPSED TIME =         2.006
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= ansys_mcp_job.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          1
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release: 2026 R1            Build: 26.1       Update: UP20260202   Platform: WINDOWS x64 
+Date Run: 07/23/2026   Time: 12:59     Process ID: 11400
+Operating System: Windows 11  (Build: 26200)
+
+Processor Model: 13th Gen Intel(R) Core(TM) i7-13620H
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) oneAPI Math Kernel Library Version 2024.2.3-Product Build 20250403
+
+Number of machines requested            :    1
+Total number of cores available         :   16
+Number of physical cores available      :   10
+Number of processes requested           :    4
+Number of threads per process requested :    1
+Total number of cores requested         :    4 (Distributed Memory Parallel)               
+MPI Type: INTELMPI
+MPI Version: Intel(R) MPI Library 2021.16 for Windows* OS
+
+
+GPU Acceleration: Not Requested
+
+Job Name: ansys_mcp_job0
+Input File: C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe\step_probe.dat
+
+  Core                Machine Name   Working Directory
+ -----------------------------------------------------
+     0                 B���������   C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe
+     1                 B���������   C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe
+     2                 B���������   C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe
+     3                 B���������   C:\Users\14170\Desktop\�о�������\ANSYS-Workbench-mcp\runs\_stepprobe
+ 
+Latency time from master to core     1 =    1.421 microseconds
+Latency time from master to core     2 =    1.419 microseconds
+Latency time from master to core     3 =    1.413 microseconds
+ 
+Communication speed from master to core     1 =  8212.29 MB/sec
+Communication speed from master to core     2 = 10112.25 MB/sec
+Communication speed from master to core     3 = 10317.92 MB/sec
+
+Total CPU time for main thread                    :        0.5 seconds
+Total CPU time summed for all threads             :        0.2 seconds
+
+Elapsed time spent obtaining a license            :        1.7 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.0 seconds
+   Elapsed time in element formation & assembly   :        0.0 seconds
+   Elapsed time in equation solver                :        0.0 seconds
+   Elapsed time in element result calculations    :        0.0 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+ 
+
+Sum of disk space used on all processes           :        0.0 MB
+
+Sum of memory used on all processes               :       34.0 MB
+Sum of memory allocated on all processes          :     2880.0 MB
+Physical memory available                         :         16 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL 2026 R1         Build 26.1         UP20260202    WINDOWS x64   |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)     1024 MB     Scratch Memory Requested   1024 MB |
+ |  Max Database Used(Master)      1 MB     Max Scratch Used(Master)      9 MB |
+ |  Max Database Used(Workers)     1 MB     Max Scratch Used(Workers)     7 MB |
+ |  Sum Database Used(All)         4 MB     Sum Scratch Used(All)        30 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =          0.250       Time  =  12:59:27          |
+ |        Elapsed Time (sec) =          2.073       Date  =  07/23/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

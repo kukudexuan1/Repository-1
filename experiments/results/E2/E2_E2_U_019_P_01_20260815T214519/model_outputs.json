@@ -1,0 +1,16 @@
+{
+  "case_id": "E2_U_019",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "get_design_status",
+    "list_design_families",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "系统支持两类设计：\n\n| 零件族 | 适用范围 |\n|--------|----------|\n| **gearbox_single_stage** | 单级圆柱齿轮减速器（装配体，含齿轮、两根轴、四个轴承、箱体） |\n| **generic_part** | 通用单零件（轴、板、支架、法兰等独立零件） |\n\n---\n\n从您刚才关注的参数来看——T=320 N·mm、ω=100.5 rad/s、P≈32.16 W，这似乎是某根轴的工况。但在我启动任务书之前，需要先确认\n\n您要设计的是什么？请明确设计对象与范围。\n\n目前只有 T=320 N·mm、ω=100.5 rad/s、P≈32.16 W 这几个工况参数，尚不清楚设计对象是一根单独的轴，还是一个包含齿轮传动的装配体。这决定了后续全部流程形态。\n\n1. 设计一根单独的传动轴（single_part）——已知扭矩 320 N·mm、转速约 960 r/min（ω=100.5 rad/s），功率约 32 W。仅涉及一根轴的设计计算、建模与校核。 ← 推荐\n   优点：流程简洁，聚焦单一零件；从设计计算到建模到校核一气呵成\n   缺点：不涉"
+}

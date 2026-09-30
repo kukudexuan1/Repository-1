@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_P_006",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 轴最小直径估算——转速缺失，无法给出有效结果\n\n### 公式\n\n按扭转强度初估轴径（《机械设计》第十版 式 15-2）：\n\n\\[\nd_{\\min} = A_0 \\cdot \\sqrt[3]{\\frac{P}{n}}\n\\]\n\n| 符号 | 含义 | 你给的 |\n|------|------|--------|\n| \\(P\\) | 传递功率 (kW) | **7.5 kW** ✅ |\n| \\(n\\) | 轴的工作转速 (r/min) | **缺失** ❌ |\n| \\(A_0\\) | 材料系数，按许用扭剪应力查表 | 取决于材料，暂不是阻塞项 |\n| \\(d_{\\min}\\) | 最小轴径 (mm) | 待求 |\n\n---\n\n### 为什么转速是致命的\n\n\\(d_{\\min}\\) 与 \\(n\\) 的 **立方根成反比**——转速差 8 倍，轴径就翻倍或减半。以常见材料 \\(A_0=110\\)（45 钢调质）为例，粗估量级如下：\n\n| 转速 \\(n\\) (r/min) | 粗估 \\(d_{\\min}\\) (mm) | 典型场景 |\n|:---:|:---:|:---|\n| 100 | *"
+}

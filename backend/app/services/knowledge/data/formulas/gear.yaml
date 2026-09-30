@@ -1,0 +1,260 @@
+# 圆柱齿轮传动设计与校核公式
+# 出处：濮良贵《机械设计》第十版 第十章；GB/T 3480
+formulas:
+  - id: gear_allowable_contact_stress
+    name: 许用接触应力
+    category: gear
+    source: 机械设计（第十版）式 10-14
+    expression: "sigma_HP = sigma_Hlim * K_HN / S_H"
+    symbols:
+      sigma_HP:    { desc: 许用接触应力, unit: MPa, role: output }
+      sigma_Hlim:  { desc: 试验齿轮接触疲劳极限, unit: MPa, role: input, note: "查 lookup_material 得到" }
+      K_HN:        { desc: 接触疲劳寿命系数, role: input, default: 1.0, typical: [0.9, 1.2] }
+      S_H:         { desc: 接触疲劳安全系数, role: input, default: 1.0, typical: [1.0, 1.1], note: "一般可靠度软齿面取 1.0" }
+    tags: [齿轮, 许用应力, 接触]
+
+  - id: gear_allowable_bending_stress
+    name: 许用弯曲应力
+    category: gear
+    source: 机械设计（第十版）式 10-14
+    expression: "sigma_FP = sigma_Flim * K_FN / S_F"
+    symbols:
+      sigma_FP:   { desc: 许用弯曲应力, unit: MPa, role: output }
+      sigma_Flim: { desc: 试验齿轮弯曲疲劳极限, unit: MPa, role: input }
+      K_FN:       { desc: 弯曲疲劳寿命系数, role: input, default: 1.0, typical: [0.85, 1.0] }
+      S_F:        { desc: 弯曲疲劳安全系数, role: input, default: 1.4, typical: [1.25, 1.6], note: "弯曲折断后果严重，取值高于 S_H" }
+    tags: [齿轮, 许用应力, 弯曲]
+
+  - id: gear_contact_design_d1
+    name: 按齿面接触疲劳强度设计小齿轮分度圆直径
+    category: gear
+    source: 机械设计（第十版）式 10-11
+    expression: "d_1t = (2 * K_Ht * T_1 / phi_d * (u + 1) / u * (Z_H * Z_E * Z_eps / sigma_HP) ** 2) ** (1/3)"
+    symbols:
+      d_1t:      { desc: 小齿轮分度圆直径试算值, unit: mm, role: output }
+      K_Ht:      { desc: 载荷系数试算值, role: input, default: 1.3, typical: [1.2, 1.4], note: "载荷平稳取 1.3；后续需按实际 K_H 修正 d1" }
+      T_1:       { desc: 小齿轮传递的转矩, unit: N*mm, role: input }
+      phi_d:     { desc: 齿宽系数, role: input, typical: [0.5, 1.2], note: "齿轮对称布置于两轴承间取 0.9~1.4，非对称取 0.6~1.2，悬臂取 0.3~0.4" }
+      u:         { desc: 齿数比 z2/z1, role: input }
+      Z_H:       { desc: 区域系数, role: input, default: 2.5, note: "标准直齿圆柱齿轮 α=20° 时为 2.5" }
+      Z_E:       { desc: 弹性影响系数, unit: MPa**0.5, role: input, default: 189.8, note: "钢对钢为 189.8" }
+      Z_eps:     { desc: 重合度系数, role: input, default: 0.87, typical: [0.85, 0.92] }
+      sigma_HP:  { desc: 许用接触应力（取大小齿轮中的较小值）, unit: MPa, role: input }
+    applicability: 渐开线标准直齿圆柱齿轮，闭式软齿面或硬齿面，未变位
+    notes: 试算所得 d_1t 需按齿数定模数并圆整到标准模数（GB/T 1357），再回代校核齿根弯曲疲劳强度
+    tags: [齿轮, 接触强度, 设计, 分度圆直径]
+
+  - id: gear_module_from_d1
+    name: 由分度圆直径与齿数求模数
+    category: gear
+    source: 机械设计（第十版）式 10-1
+    expression: "m_t = d_1t / z_1"
+    symbols:
+      m_t:  { desc: 模数计算值, unit: mm, role: output }
+      d_1t: { desc: 小齿轮分度圆直径试算值, unit: mm, role: input }
+      z_1:  { desc: 小齿轮齿数, role: input, typical: [17, 40], note: "闭式软齿面取 20~40，硬齿面取 17~20" }
+    notes: 算得 m_t 后必须用 lookup_standard_series('gb1357_modulus') 向上圆整到标准模数
+    tags: [齿轮, 模数]
+
+  - id: gear_pitch_diameter
+    name: 齿轮分度圆直径
+    category: gear
+    source: 机械设计（第十版）表 10-2
+    expression: "d = m * z"
+    symbols:
+      d: { desc: 分度圆直径, unit: mm, role: output }
+      m: { desc: 模数, unit: mm, role: input }
+      z: { desc: 齿数, role: input }
+    tags: [齿轮, 几何尺寸]
+
+  - id: gear_center_distance
+    name: 标准中心距
+    category: gear
+    source: 机械设计（第十版）式 10-2
+    expression: "a = m * (z_1 + z_2) / 2"
+    symbols:
+      a:   { desc: 中心距, unit: mm, role: output }
+      m:   { desc: 模数, unit: mm, role: input }
+      z_1: { desc: 小齿轮齿数, role: input }
+      z_2: { desc: 大齿轮齿数, role: input }
+    notes: 中心距宜圆整为尾数 0 或 5 的整数；圆整后需变位或微调齿数，并重新校核
+    tags: [齿轮, 中心距, 几何尺寸]
+
+  - id: gear_tip_diameter
+    name: 齿顶圆直径
+    category: gear
+    source: 机械设计（第十版）表 10-2
+    expression: "d_a = m * (z + 2 * h_a_star)"
+    symbols:
+      d_a:        { desc: 齿顶圆直径, unit: mm, role: output }
+      m:          { desc: 模数, unit: mm, role: input }
+      z:          { desc: 齿数, role: input }
+      h_a_star:   { desc: 齿顶高系数, role: input, default: 1.0 }
+    tags: [齿轮, 几何尺寸]
+
+  - id: gear_root_diameter
+    name: 齿根圆直径
+    category: gear
+    source: 机械设计（第十版）表 10-2
+    expression: "d_f = m * (z - 2 * h_a_star - 2 * c_star)"
+    symbols:
+      d_f:      { desc: 齿根圆直径, unit: mm, role: output }
+      m:        { desc: 模数, unit: mm, role: input }
+      z:        { desc: 齿数, role: input }
+      h_a_star: { desc: 齿顶高系数, role: input, default: 1.0 }
+      c_star:   { desc: 顶隙系数, role: input, default: 0.25 }
+    tags: [齿轮, 几何尺寸]
+
+  - id: gear_face_width
+    name: 齿宽
+    category: gear
+    source: 机械设计（第十版）§10.4
+    expression: "b = phi_d * d_1"
+    symbols:
+      b:     { desc: 齿宽（大齿轮齿宽 b2）, unit: mm, role: output }
+      phi_d: { desc: 齿宽系数, role: input }
+      d_1:   { desc: 小齿轮分度圆直径, unit: mm, role: input }
+    notes: 大齿轮取 b2 = b（圆整为整数），小齿轮取 b1 = b2 + 5~10mm 以保证full接触
+    tags: [齿轮, 齿宽, 几何尺寸]
+
+  - id: gear_bending_check
+    name: 齿根弯曲疲劳强度校核
+    category: gear
+    source: 机械设计（第十版）式 10-17
+    expression: "sigma_F = 2 * K_F * T_1 * Y_Fa * Y_Sa * Y_eps / (b * d_1 * m)"
+    symbols:
+      sigma_F:  { desc: 齿根弯曲应力, unit: MPa, role: output }
+      K_F:      { desc: 弯曲强度计算的载荷系数, role: input, typical: [1.3, 2.0] }
+      T_1:      { desc: 小齿轮转矩, unit: N*mm, role: input }
+      Y_Fa:     { desc: 齿形系数, role: input, note: "查机械设计表 10-17，按齿数取值" }
+      Y_Sa:     { desc: 应力校正系数, role: input, note: "查机械设计表 10-18" }
+      Y_eps:    { desc: 弯曲强度重合度系数, role: input, default: 0.7, typical: [0.65, 0.75] }
+      b:        { desc: 齿宽, unit: mm, role: input }
+      d_1:      { desc: 小齿轮分度圆直径, unit: mm, role: input }
+      m:        { desc: 模数, unit: mm, role: input }
+      sigma_FP: { desc: 许用弯曲应力, unit: MPa, role: input }
+    criterion: "sigma_F <= sigma_FP"
+    criterion_expr: "sigma_F <= sigma_FP"
+    is_check: true
+    applicability: 大小齿轮需分别校核，取各自的 Y_Fa / Y_Sa / sigma_FP
+    tags: [齿轮, 弯曲强度, 校核]
+
+  - id: gear_contact_check
+    name: 齿面接触疲劳强度校核
+    category: gear
+    source: 机械设计（第十版）式 10-9
+    expression: "sigma_H = Z_H * Z_E * Z_eps * (2 * K_H * T_1 / (b * d_1 ** 2) * (u + 1) / u) ** 0.5"
+    symbols:
+      sigma_H:  { desc: 齿面接触应力, unit: MPa, role: output }
+      Z_H:      { desc: 区域系数, role: input, default: 2.5 }
+      Z_E:      { desc: 弹性影响系数, unit: MPa**0.5, role: input, default: 189.8 }
+      Z_eps:    { desc: 重合度系数, role: input, default: 0.87 }
+      K_H:      { desc: 接触强度载荷系数, role: input, typical: [1.2, 2.0] }
+      T_1:      { desc: 小齿轮转矩, unit: N*mm, role: input }
+      b:        { desc: 齿宽, unit: mm, role: input }
+      d_1:      { desc: 小齿轮分度圆直径, unit: mm, role: input }
+      u:        { desc: 齿数比, role: input }
+      sigma_HP: { desc: 许用接触应力, unit: MPa, role: input }
+    criterion: "sigma_H <= sigma_HP"
+    criterion_expr: "sigma_H <= sigma_HP"
+    is_check: true
+    notes: 用于模数与齿宽圆整后的回代校核
+    tags: [齿轮, 接触强度, 校核]
+
+  - id: gear_pitch_line_velocity
+    name: 齿轮圆周速度
+    category: gear
+    source: 机械设计（第十版）§10.2
+    expression: "v = pi * d_1 * n_1 / 60000"
+    symbols:
+      v:   { desc: 齿轮圆周速度, unit: m/s, role: output }
+      d_1: { desc: 小齿轮分度圆直径, unit: mm, role: input }
+      n_1: { desc: 小齿轮转速, unit: r/min, role: input }
+    notes: 用于确定齿轮精度等级与润滑方式；v<12m/s 可用浸油润滑，v>2m/s 时精度不宜低于 8 级
+    tags: [齿轮, 圆周速度, 精度等级]
+
+  - id: gear_helical_bending_check
+    name: 斜齿轮齿根弯曲疲劳强度校核
+    category: gear
+    source: 机械设计（第十版）第十章；GB/T 3480
+    expression: "sigma_F = 2 * K_F * T_1 * Y_Fa * Y_Sa * Y_eps * Y_beta / (b * d_1 * m_n)"
+    symbols:
+      sigma_F:  { desc: 齿根弯曲应力, unit: MPa, role: output }
+      K_F:      { desc: 弯曲强度计算的载荷系数, role: input, typical: [1.3, 2.0] }
+      T_1:      { desc: 小齿轮转矩, unit: N*mm, role: input }
+      Y_Fa:     { desc: 齿形系数, role: input }
+      Y_Sa:     { desc: 应力校正系数, role: input }
+      Y_eps:    { desc: 螺旋齿重合度系数, role: input, default: 0.7, typical: [0.65, 0.75] }
+      Y_beta:   { desc: 螺旋角系数, role: input, default: 1.0, typical: [0.8, 1.0] }
+      b:        { desc: 齿宽, unit: mm, role: input }
+      d_1:      { desc: 小齿轮分度圆直径, unit: mm, role: input }
+      m_n:      { desc: 法向模数, unit: mm, role: input }
+      sigma_FP: { desc: 许用弯曲应力, unit: MPa, role: input }
+    criterion: "sigma_F <= sigma_FP"
+    criterion_expr: "sigma_F <= sigma_FP"
+    is_check: true
+    applicability: 标准渐开线斜齿圆柱齿轮，需按法向模数、螺旋角和齿数查取齿形及螺旋角系数
+    tags: [齿轮, 斜齿轮, 弯曲强度, 校核]
+
+  - id: gear_helical_axial_force
+    name: 斜齿轮轴向力
+    category: gear
+    source: 机械设计（第十版）式 10-3
+    expression: "F_a = F_t * tan(beta_rad)"
+    symbols:
+      F_a:      { desc: 齿轮轴向力, unit: N, role: output }
+      F_t:      { desc: 齿轮圆周力, unit: N, role: input }
+      beta_rad: { desc: 螺旋角, unit: rad, role: input }
+    applicability: 斜齿圆柱齿轮；beta_rad 必须使用弧度
+    notes: 轴向力方向由螺旋线方向和转向共同确定，轴承选型时应结合方向进行受力分析
+    tags: [齿轮, 斜齿轮, 轴向力, 受力分析]
+
+  - id: gear_helical_contact_ratio
+    name: 斜齿轮螺旋角对重合度的影响
+    category: gear
+    source: 机械设计（第十版）第十章
+    expression: "eps_beta = b * sin(beta_rad) / (pi * m_n)"
+    symbols:
+      eps_beta: { desc: 轴向重合度, role: output }
+      b:        { desc: 齿宽, unit: mm, role: input }
+      beta_rad: { desc: 螺旋角, unit: rad, role: input }
+      m_n:      { desc: 法向模数, unit: mm, role: input }
+    applicability: 标准斜齿圆柱齿轮，忽略端部修形影响
+    notes: 螺旋角增大或齿宽增加通常会提高轴向重合度，但需同时校核轴向力、制造和啮合质量
+    tags: [齿轮, 斜齿轮, 螺旋角, 重合度]
+
+  - id: gear_normal_transverse_module
+    name: 斜齿轮法向模数与端面模数关系
+    category: gear
+    source: 机械设计（第十版）第十章；GB/T 1357
+    expression: "m_t = m_n / cos(beta_rad)"
+    symbols:
+      m_t:      { desc: 端面模数, unit: mm, role: output }
+      m_n:      { desc: 法向模数, unit: mm, role: input }
+      beta_rad: { desc: 螺旋角, unit: rad, role: input }
+    applicability: 斜齿圆柱齿轮，法向制模数与端面几何关系
+    notes: 标准化设计通常优先选法向模数；端面模数用于分度圆和中心距计算
+    tags: [齿轮, 斜齿轮, 模数, 几何尺寸]
+
+  - id: gear_tangential_force
+    name: 齿轮圆周力
+    category: gear
+    source: 机械设计（第十版）式 10-3
+    expression: "F_t = 2 * T_1 / d_1"
+    symbols:
+      F_t: { desc: 圆周力, unit: N, role: output }
+      T_1: { desc: 转矩, unit: N*mm, role: input }
+      d_1: { desc: 分度圆直径, unit: mm, role: input }
+    tags: [齿轮, 受力分析]
+
+  - id: gear_radial_force
+    name: 齿轮径向力
+    category: gear
+    source: 机械设计（第十版）式 10-3
+    expression: "F_r = F_t * tan(alpha_rad)"
+    symbols:
+      F_r:       { desc: 径向力, unit: N, role: output }
+      F_t:       { desc: 圆周力, unit: N, role: input }
+      alpha_rad: { desc: 分度圆压力角（弧度）, role: input, default: 0.3490658504, note: "标准齿 20° = 0.34907 rad" }
+    notes: 直齿圆柱齿轮无轴向力；斜齿轮另需计算 F_a = F_t·tan(β)
+    tags: [齿轮, 受力分析]

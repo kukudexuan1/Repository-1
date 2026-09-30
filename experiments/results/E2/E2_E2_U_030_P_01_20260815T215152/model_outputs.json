@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_U_030",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "query_ledger",
+    "search_formula",
+    "run_calculation",
+    "run_calculation",
+    "commit_parameter"
+  ],
+  "tool_events": [
+    {
+      "name": "query_ledger",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "已落账。总结一下：\n\n| 项目 | 内容 |\n|------|------|\n| **参数** | `sigma_FP` — 许用齿根弯曲应力 [σF] |\n| **数值** | 608 MPa（即 608 N/mm²） |\n| **计算** | calc#1：380 × 2.0 / 1.25 = 608 |\n| **状态** | tentative，待后续回代校核后确认 |\n\n你指出的单位问题很关键：**N/mm 是线载荷量纲**（如齿轮单位齿宽载荷），而弯曲应力是 **N/mm²（即 MPa）**。台账中已正确记录为 `MPa`，后续引用该参数时不会出现量纲错误。"
+}

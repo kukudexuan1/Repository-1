@@ -1,0 +1,931 @@
+{
+  "entries": {
+    "P_in": {
+      "symbol": "P_in",
+      "name": "输入轴功率",
+      "value": {
+        "value": 4.0,
+        "unit": "kW"
+      },
+      "source": "user_given",
+      "basis": [
+        "设计任务书：输入功率 4 kW"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:50:46.337288Z"
+    },
+    "n_in": {
+      "symbol": "n_in",
+      "name": "输入轴转速",
+      "value": {
+        "value": 960.0,
+        "unit": "r/min"
+      },
+      "source": "user_given",
+      "basis": [
+        "设计任务书：输入转速 1440 r/min"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "总体",
+      "revision": 2,
+      "superseded_value": "1440 r/min",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "i": {
+      "symbol": "i",
+      "name": "总传动比",
+      "value": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "source": "user_given",
+      "basis": [
+        "设计任务书：传动比 4"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:50:46.338823Z"
+    },
+    "eta_total": {
+      "symbol": "eta_total",
+      "name": "减速器总效率",
+      "value": {
+        "value": 0.9603,
+        "unit": ""
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#3"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:50:46.338823Z"
+    },
+    "P_out": {
+      "symbol": "P_out",
+      "name": "输出轴功率",
+      "value": {
+        "value": 3.8412,
+        "unit": "kW"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#3"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:50:46.338823Z"
+    },
+    "n_out": {
+      "symbol": "n_out",
+      "name": "输出轴转速",
+      "value": {
+        "value": 360.0,
+        "unit": "r/min"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#1"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#1 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "T_in": {
+      "symbol": "T_in",
+      "name": "输入轴转矩",
+      "value": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#2"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#2 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "T_out": {
+      "symbol": "T_out",
+      "name": "输出轴转矩",
+      "value": {
+        "value": 101898.5,
+        "unit": "N*mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#4"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#4 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "m": {
+      "symbol": "m",
+      "name": "模数",
+      "value": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1357-2008",
+        "calc#7"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#7 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "z_1": {
+      "symbol": "z_1",
+      "name": "小齿轮齿数",
+      "value": {
+        "value": 24.0,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择"
+      ],
+      "rationale": "软齿面惯用齿数 24，避免根切且重合度≥1.7，兼顾齿轮径向尺寸",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:52:59.957551Z"
+    },
+    "z_2": {
+      "symbol": "z_2",
+      "name": "大齿轮齿数",
+      "value": {
+        "value": 96.0,
+        "unit": ""
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#17"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:52:59.958548Z"
+    },
+    "d_1": {
+      "symbol": "d_1",
+      "name": "小齿轮分度圆直径",
+      "value": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#8"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#8 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "d_2": {
+      "symbol": "d_2",
+      "name": "大齿轮分度圆直径",
+      "value": {
+        "value": 192.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#9"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#9 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "a": {
+      "symbol": "a",
+      "name": "标准中心距",
+      "value": {
+        "value": 120.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#10"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#10 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "b_2": {
+      "symbol": "b_2",
+      "name": "大齿轮齿宽",
+      "value": {
+        "value": 50.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "calc#6",
+        "齿宽圆整系列"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#6 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "b_1": {
+      "symbol": "b_1",
+      "name": "小齿轮齿宽",
+      "value": {
+        "value": 55.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：b1=b2+5mm 补偿轴向安装误差"
+      ],
+      "rationale": "小齿轮齿宽比大齿轮宽 5~10mm，补偿两齿轮轴向安装误差，保证全齿宽啮合",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:52:59.960543Z"
+    },
+    "i_actual": {
+      "symbol": "i_actual",
+      "name": "实际传动比",
+      "value": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#17"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:52:59.960543Z"
+    },
+    "sigma_HP": {
+      "symbol": "sigma_HP",
+      "name": "许用接触应力",
+      "value": {
+        "value": 550.0,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#5"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:52:59.961565Z"
+    },
+    "d_in_ext": {
+      "symbol": "d_in_ext",
+      "name": "输入轴轴伸直径",
+      "value": {
+        "value": 18.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "calc#18",
+        "calc#20",
+        "GB/T 2822-2005"
+      ],
+      "rationale": "扭转初估最小轴径17mm，轴伸取18mm便于标准联轴器孔径，且≥最小轴径",
+      "status": "stale",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#18 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "d_in_bearing": {
+      "symbol": "d_in_bearing",
+      "name": "输入轴轴承段直径",
+      "value": {
+        "value": 20.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013",
+        "calc#25"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#25 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "d_out_ext": {
+      "symbol": "d_out_ext",
+      "name": "输出轴轴伸直径",
+      "value": {
+        "value": 30.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "calc#19",
+        "calc#20",
+        "GB/T 2822-2005"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#19 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "d_out_bearing": {
+      "symbol": "d_out_bearing",
+      "name": "输出轴轴承段直径",
+      "value": {
+        "value": 35.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013",
+        "calc#26"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#26 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "d_out_gear_seat": {
+      "symbol": "d_out_gear_seat",
+      "name": "输出轴齿轮安装段直径",
+      "value": {
+        "value": 40.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "calc#27"
+      ],
+      "rationale": "比轴承段35mm大一个轴肩，兼作齿轮定位轴肩，取40mm并满足键槽挤压强度",
+      "status": "stale",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#27 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "bearing_in": {
+      "symbol": "bearing_in",
+      "name": "输入轴轴承",
+      "value": {
+        "value": 6204.0,
+        "unit": ""
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013",
+        "calc#25"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#25 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "bearing_out": {
+      "symbol": "bearing_out",
+      "name": "输出轴轴承",
+      "value": {
+        "value": 6207.0,
+        "unit": ""
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013",
+        "calc#26"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#26 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "delta_housing": {
+      "symbol": "delta_housing",
+      "name": "箱体壁厚",
+      "value": {
+        "value": 8.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#31"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "箱体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#31 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "d_f1": {
+      "symbol": "d_f1",
+      "name": "小齿轮齿根圆直径",
+      "value": {
+        "value": 43.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#32"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#32 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "key_gear": {
+      "symbol": "key_gear",
+      "name": "大齿轮键",
+      "value": {
+        "value": 12.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003",
+        "calc#27"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#27 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "key_coupling_out": {
+      "symbol": "key_coupling_out",
+      "name": "输出轴联轴器键宽",
+      "value": {
+        "value": 8.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003",
+        "calc#28"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#28 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "key_coupling_in": {
+      "symbol": "key_coupling_in",
+      "name": "输入轴联轴器键宽",
+      "value": {
+        "value": 6.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003",
+        "calc#29"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#29 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.307508Z"
+    },
+    "L_in_ext": {
+      "symbol": "L_in_ext",
+      "name": "输入轴轴伸长度",
+      "value": {
+        "value": 40.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：弹性柱销联轴器轮毂长度"
+      ],
+      "rationale": "按联轴器轮毂长度取40mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.342674Z"
+    },
+    "L_in_seal": {
+      "symbol": "L_in_seal",
+      "name": "输入轴密封段长度",
+      "value": {
+        "value": 30.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：轴承盖+密封"
+      ],
+      "rationale": "轴承盖与密封占位取30mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.342674Z"
+    },
+    "L_in_trans": {
+      "symbol": "L_in_trans",
+      "name": "输入轴过渡段长度",
+      "value": {
+        "value": 20.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：齿轮端面到箱壁间隙"
+      ],
+      "rationale": "齿轮端面到轴承的过渡，保证齿轮与箱壁间隙≥10mm，取20mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.343671Z"
+    },
+    "L_out_ext": {
+      "symbol": "L_out_ext",
+      "name": "输出轴轴伸长度",
+      "value": {
+        "value": 60.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：弹性柱销联轴器轮毂长度"
+      ],
+      "rationale": "按联轴器轮毂长度取60mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.343671Z"
+    },
+    "L_out_seal": {
+      "symbol": "L_out_seal",
+      "name": "输出轴密封段长度",
+      "value": {
+        "value": 30.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：轴承盖+密封"
+      ],
+      "rationale": "轴承盖与密封占位取30mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.344668Z"
+    },
+    "L_out_gear_seat": {
+      "symbol": "L_out_gear_seat",
+      "name": "输出轴齿轮安装段长度",
+      "value": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "b_2 齿宽"
+      ],
+      "rationale": "大齿轮轮毂宽度略短于齿宽50mm，取48mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.344668Z"
+    },
+    "L_out_trans": {
+      "symbol": "L_out_trans",
+      "name": "输出轴过渡段长度",
+      "value": {
+        "value": 20.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：齿轮端面到箱壁间隙"
+      ],
+      "rationale": "齿轮端面到轴承过渡取20mm",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.345666Z"
+    },
+    "B_bearing_in": {
+      "symbol": "B_bearing_in",
+      "name": "输入轴轴承宽度",
+      "value": {
+        "value": 14.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.345666Z"
+    },
+    "B_bearing_out": {
+      "symbol": "B_bearing_out",
+      "name": "输出轴轴承宽度",
+      "value": {
+        "value": 17.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.345666Z"
+    },
+    "h_key_gear": {
+      "symbol": "h_key_gear",
+      "name": "大齿轮键高",
+      "value": {
+        "value": 8.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.346663Z"
+    },
+    "L_key_gear": {
+      "symbol": "L_key_gear",
+      "name": "大齿轮键长",
+      "value": {
+        "value": 45.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "轮毂48mm略短5mm并圆整到标准长度系列，取45mm",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.346663Z"
+    },
+    "h_key_coupling_out": {
+      "symbol": "h_key_coupling_out",
+      "name": "输出轴联轴器键高",
+      "value": {
+        "value": 7.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.347660Z"
+    },
+    "L_key_coupling_out": {
+      "symbol": "L_key_coupling_out",
+      "name": "输出轴联轴器键长",
+      "value": {
+        "value": 45.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "联轴器轮毂约50mm略短并圆整，取45mm",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.347660Z"
+    },
+    "h_key_coupling_in": {
+      "symbol": "h_key_coupling_in",
+      "name": "输入轴联轴器键高",
+      "value": {
+        "value": 6.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.348658Z"
+    },
+    "L_key_coupling_in": {
+      "symbol": "L_key_coupling_in",
+      "name": "输入轴联轴器键长",
+      "value": {
+        "value": 32.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "联轴器轮毂约38mm略短并圆整到标准长度系列，取32mm",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T07:58:37.348658Z"
+    },
+    "d_in_shoulder": {
+      "symbol": "d_in_shoulder",
+      "name": "输入轴轴肩直径",
+      "value": {
+        "value": 24.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：轴承定位轴肩"
+      ],
+      "rationale": "轴承段 φ20 过渡到齿轮的定位轴肩，取 φ24（轴肩高度 2mm 满足轴承轴向定位）",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-17T08:06:12.645678Z"
+    },
+    "da_1": {
+      "symbol": "da_1",
+      "name": "小齿轮齿顶圆直径",
+      "value": {
+        "value": 52.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#35"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#35 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    },
+    "da_2": {
+      "symbol": "da_2",
+      "name": "大齿轮齿顶圆直径",
+      "value": {
+        "value": 196.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#35"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#35 已失效（n_in 由 1440 r/min 改为 960 r/min）",
+      "updated_at": "2026-08-17T13:25:08.308549Z"
+    }
+  },
+  "frozen_at": null,
+  "freeze_statement": "已解冻：E4 controlled change on cloned baseline"
+}

@@ -1,0 +1,13 @@
+stage=workflow: HTTPStatusError: Server error '500 Internal Server Error' for url 'http://localhost:8000/api/workflow/run'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+Traceback (most recent call last):
+  File "C:\Users\14170\Desktop\研究生课题\experiments\E5_gates\run_e5.py", line 148, in run_one
+    response = client.run(scenario["prompt"], capture_state=False)["response"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\14170\Desktop\研究生课题\experiments\framework\backend_client.py", line 102, in run
+    response.raise_for_status()
+  File "C:\Users\14170\.conda\envs\edp\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '500 Internal Server Error' for url 'http://localhost:8000/api/workflow/run'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500
+

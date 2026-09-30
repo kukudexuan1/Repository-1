@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_009",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "我们需要校核轴承寿命，但当前输入不完整：只给了额定动载荷 C=32000N 和当量动载荷 P=8500N，缺少两个关键信息——**轴承类型**（决定寿命指数 ε）和**转速 n**（若需校核小时寿命）。  \n\n我先按标准流程处理：  \n1. 查公式 → 2. 求解 → 3. 给出有据结果，并标出仍缺失的输入。  \n\n### 第一步：查轴承寿命公式\n调用 `search_formula` 获取滚动轴承基本额定寿命的表达式。  \n\n**调用前说明**：需要找到轴承寿命的标准公式，明确指数 ε 的定义和单位，以便后续代入计算。  \n\n```json\nsearch_formula(\"滚动轴承 基本额定寿命\")\n```"
+}

@@ -1,0 +1,43 @@
+{
+  "task_id": "B_005",
+  "family": "B",
+  "family_name": "轴承—键—轴组合",
+  "split": "test",
+  "description": "轴径80mm，双列圆锥滚子轴承，安装大齿轮（键传扭），径向载荷9000N，轴向载荷3000N，寿命30000h，中等冲击。",
+  "explicit_inputs": {
+    "shaft_diameter_mm": 80,
+    "bearing_type": "圆锥滚子轴承",
+    "radial_load_N": 9000,
+    "axial_load_N": 3000,
+    "speed_rpm": 150,
+    "design_life_h": 30000,
+    "load_type": "中等冲击",
+    "material_grade": "42CrMo调质",
+    "transmitted_torque_Nm": 3800
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["圆锥滚子轴承当量动载荷", "轴承寿命L10h（含冲击系数fd）", "键挤压强度"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["圆锥滚子轴承GB/T297", "平键GB/T1096"]
+  },
+  "decisions_required": ["轴承型号（重载需核算Cr）", "冲击载荷系数fd", "双键布置"],
+  "expert_reference": {
+    "reference_module": "B_005",
+    "key_param_ranges": {
+      "bearing_code": ["30216", "30316", "32216"],
+      "key_section_bh": "22x14",
+      "min_key_length_mm": [70, 130]
+    },
+    "must_pass_checks": [
+      "圆锥滚子轴承当量动载荷（含轴向力和e/Y值）",
+      "轴承寿命≥30000h（含fd）",
+      "键挤压强度（双键各承扭矩之半）"
+    ],
+    "forbidden_errors": [
+      "中等冲击未引入fd修正",
+      "双键挤压强度未按单键承担60%或50%扭矩计算",
+      "轴径未取标准值"
+    ]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

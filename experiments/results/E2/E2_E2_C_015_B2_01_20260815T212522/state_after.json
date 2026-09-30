@@ -1,0 +1,116 @@
+{
+  "session_id": "18a3488e-e8dc-4ced-bba4-efd85f682687",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "轴承寿命可靠性修正——L10h 到 L5h（95%可靠度）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "L10h": {
+          "value": 22000.0,
+          "unit": ""
+        },
+        "L5h": {
+          "value": 13640.0,
+          "unit": ""
+        },
+        "Lh_required": {
+          "value": 20000.0,
+          "unit": ""
+        },
+        "margin_95_percent": {
+          "value": -31.799999999999994,
+          "unit": ""
+        },
+        "L10h_required_for_95": {
+          "value": 32258.064516129034,
+          "unit": ""
+        }
+      },
+      "criterion": "修正后 L5h ≥ Lh'=20000h（95%可靠度）",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "ISO 281 / GB/T 6391-2010，表 13（可靠性寿命修正系数 a1）",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 轴承寿命可靠性修正系数 a1\n# 依据：ISO 281 / GB/T 6391-2010\n# 可靠度 90% → a1 = 1.00\n# 可靠度 95% → a1 = 0.62\n# 可靠度 99% → a1 = 0.21\n\nL10h = 22000.0   # 基本额定寿命（90%可靠度），hour\nLh_required = 20000.0  # 要求寿命，hour\n\n# 95%可靠度修正\na1_95 = 0.62\nL5h = a1_95 * L10h\n\n# 判据\npassed_90 = L10h >= Lh_required\npassed_95 = L5h >= Lh_required\nmargin_95 = (L5h / Lh_required - 1.0) * 100  # 百分比\n\n# 反推：要达到 Lh_required=20000h 在 95% 可靠度下，需要多少 L10h\nL10h_required_for_95 = Lh_required / a1_95\n\noutputs = {\n    'L10h': L10h,           # 基本额定寿命\n    'L5h': L5h,             # 95%可靠度修正寿命\n    'Lh_required': Lh_required,\n    'passed_90': passed_90,\n    'passed_95': passed_95,\n    'margin_95_percent': margin_95,\n    'L10h_required_for_95': L10h_required_for_95   # 所需的 L10h 门槛\n}",
+      "created_at": "2026-08-15T21:25:56.829559Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "5716d8de-6ad1-4f38-b6b1-85323014ecfe",
+      "role": "user",
+      "content": "轴承额定寿命L10h=22000h，计算寿命Lh'=20000h，L10h>Lh'合格，但同时指出额定寿命中包含10%失效概率，要求换用可靠性95%轴承——附加错误升级",
+      "timestamp": "2026-08-15T21:25:28.304752Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "4beec97e-54dc-41d7-a966-6c5dbaadc76f",
+      "role": "assistant",
+      "content": "您这个纠错非常到位，而且恰好触及了轴承寿命校核中最容易被忽略的一层。让我把计算摊开：\n\n---\n\n## 可靠性修正：L10h → L5h（calc#1）\n\n依据 ISO 281 / GB/T 6391-2010 的可靠性寿命修正系数 a₁：\n\n| 可靠度 | a₁ |\n|--------|----|\n| 90%（L10h） | 1.00 |\n| **95%（L5h）** | **0.62** |\n| 99%（L1h） | 0.21 |\n\n代入：\n\n```\nL5h = a₁ × L10h = 0.62 × 22000 = 13640 h\n```\n\n**判据：L5h > Lh' = 20000 h？**\n\n> **不通过。** 13640 < 20000，余量 **-31.8%**——严重不足。\n\n反推：要在 95% 可靠度下满足 20000 h，所需的 L10h 门槛是：\n\n```\nL10h,required = 20000 / 0.62 = 32258 h\n```\n\n也就是说，当前轴承的基本额定寿命只有要求值的 22000/32258 ≈ **68%**。\n\n---\n\n## 这意味着什么\n\n原来的 \"L10h=22000 > Lh'=20000，合格\" 这个结论，只在 **90% 可靠度**（即允许 10% 的轴承在达到计算寿命前失效）下成立。一旦要求 95% 可靠度，同一个轴承就差了近三分之一。\n\n这不是\"附加错误升级\"——这是**设计输入中「可靠度要求」这一项没有在轴承寿命校核中被正确传递**。责任不在轴承公式本身（bearing_life_check 校核的是 L10h），而在设计输入收敛阶段没有把可靠度要求显式化并贯穿到校核判据中。\n\n---\n\n## 后续路径\n\n如果这是正在进行中的设计，修正方向有三条：\n\n1. **换更大轴承**——加大尺寸系列或内径，使 L10h ≥ 32258 h，从而 L5h ≥ 20000 h\n2. **换轴承类型**——从深沟球换圆锥滚子或圆柱滚子，同等尺寸下 Cr 更高\n3. **确认可靠度要求**——如果 90% 可靠度可接受（非关键工况、维护方便），则原校核有效，但必须在设计说明书中明确标注\n\n您要我按哪条路径推进？或者这是在审查之前的设计，需要我更新系统设计流程，把可靠度作为轴承校核的必填输入项？",
+      "timestamp": "2026-08-15T21:26:15.035545Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:26:15.035545Z"
+}

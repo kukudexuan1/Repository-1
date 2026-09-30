@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_007",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您好。这是一个工程概念咨询，还不构成一个设计任务，所以我不启动设计流程。\n\n---\n\n## 斜齿轮轴向力计算\n\n**公式**（机械设计手册通用公式）：\n\n\\[\nF_a = F_t \\cdot \\tan\\beta\n\\]\n\n其中：\n- \\(F_a\\) — 轴向力，N\n- \\(F_t\\) — 圆周力（切向力），N\n- \\(\\beta\\) — 螺旋角（分度圆柱上），°\n\n**给定 β=12° 时**：\n\n\\[\nF_a = F_t \\cdot \\tan 12° \\approx F_t \\times 0.2126\n\\]\n\n即轴向力约为圆周力的 **21.3%**。\n\n---\n\n### 圆周力 \\(F_t\\) 怎么来\n\n圆周力不只是一个\"给没给\"的输入，它取决于齿轮传递的扭矩和分度圆直径：\n\n\\[\nF_t = \\frac{2T}{d}\n\\]\n\n其中 \\(T\\) 是小齿轮或大齿轮上的扭矩，\\(d\\) 是该齿轮的分度圆直径。\n\n所以，要算出轴向力，最终需要知道：**传递功率 \\(P\\)、转速 \\(n\\)、齿轮分度圆直径 \\(d\\)**（或模数 \\(m_n\\) 与齿数 \\(z\\)）。\n\n---\n\n### "
+}

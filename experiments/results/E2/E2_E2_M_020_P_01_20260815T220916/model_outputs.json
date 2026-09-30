@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_020",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您说得对。应力循环次数 \\( N \\) 的量纲推导：\n\n\\[\nN = n \\times 60 \\times L_h\n\\]\n\n- \\( n \\)：转速，单位 **r/min**（转/分）\n- \\( 60 \\)：**min/h**（分钟/小时），将转速换算为转/小时\n- \\( L_h \\)：寿命，单位 **h**（小时）\n\n三者相乘：\\(\\frac{\\text{转}}{\\text{min}} \\times \\frac{\\text{min}}{\\text{h}} \\times \\text{h} = \\text{转}\\)，即 **\"次\"（cycles）**——齿轮每转一圈，齿面受载一次。\n\n所以完整写法应为：\n\n\\[\nN = 960\\ \\text{r/min} \\times 60\\ \\text{min/h} \\times 16000\\ \\text{h} = 9.216 \\times 10^8\\ \\text{次}\n\\]\n\n这个 \\( 9.216 \\times 10^8 \\) 次落在 GB/T 3480 或 ISO 6336 的接触疲劳寿命系数 \\( Z_N \\) 曲线中，通常已进入无限寿命区（\\"
+}

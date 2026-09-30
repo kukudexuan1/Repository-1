@@ -1,0 +1,147 @@
+family: generic_part
+family_label: 通用单零件
+title: 单零件设计任务书
+description: |
+  适用于不属于既有零件族的单个零件正向设计（轴、板、支架、法兰、盘套、齿轮单件等）。
+  与零件族模板的区别只在于设计输入清单是通用的，流程要求完全相同：
+  同样要走设计计算、圆整回代、参数冻结、几何表达、校核验证，
+  同样交付建模契约、设计说明书与设计计算书。
+  条目按 needed_by_stage 决定何时必须问清。
+items:
+  # ---- 功能与用途 ----
+  - key: part_function
+    label: 零件功能与用途
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 这个零件在整机中做什么（传递扭矩/承受弯曲/支撑定位/密封/导向等），是判断校核项的依据
+
+  - key: part_category
+    label: 零件类型
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 轴类 / 盘套类 / 板类 / 支架类 / 箱体类 / 齿轮类 / 其他。决定结构设计思路与校核项
+
+  - key: load_type
+    label: 主要载荷类型
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 拉压 / 弯曲 / 扭转 / 弯扭组合 / 接触挤压 / 稳定性。可多项，决定用哪些强度公式
+
+  - key: load_magnitude
+    label: 载荷大小
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 力(N)、扭矩(N·m)、弯矩(N·m)或压强(MPa)，须带单位。不确定时给出估算依据
+
+  - key: load_character
+    label: 载荷性质
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 静载 / 平稳 / 轻微冲击 / 中等冲击 / 强烈冲击 / 交变。决定载荷系数与是否按疲劳校核
+
+  - key: motion_condition
+    label: 运动与转速
+    group: 功能与工况
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 静止 / 回转(给转速 r/min) / 往复。回转件需考虑疲劳与动平衡
+
+  # ---- 接口与约束 ----
+  - key: interface_condition
+    label: 与相邻零件的接口
+    group: 接口与约束
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 如何被支撑与固定、与哪些件配合、配合性质（过盈/间隙/过渡）。决定结构与公差
+
+  - key: envelope_limit
+    label: 外廓尺寸限制
+    group: 接口与约束
+    required: false
+    needed_by_stage: scheme_design
+    hint: 长度、直径、高度上限或安装空间限制。有限制时会约束截面尺寸的选择
+
+  - key: given_dimensions
+    label: 已确定的尺寸
+    group: 接口与约束
+    required: false
+    needed_by_stage: spec_gathering
+    hint: 由接口决定而不可自由设计的尺寸（如配合轴径、孔距、螺纹规格），须说明来源
+
+  - key: mounting_type
+    label: 安装与定位方式
+    group: 接口与约束
+    required: false
+    needed_by_stage: geometry
+    hint: 螺栓连接 / 键连接 / 焊接 / 过盈配合 / 销定位
+
+  # ---- 材料与工艺 ----
+  - key: material_scheme
+    label: 材料与热处理方案
+    group: 材料与工艺
+    required: true
+    needed_by_stage: scheme_design
+    hint: 属于方案决策，须用户确认。如 45钢调质 / 40Cr调质 / Q235 / HT200 / 铝合金
+
+  - key: manufacturing_process
+    label: 制造工艺
+    group: 材料与工艺
+    required: false
+    needed_by_stage: scheme_design
+    hint: 车削 / 铣削 / 铸造 / 锻造 / 焊接 / 钣金 / 3D打印。影响结构工艺性与圆角壁厚取值
+
+  - key: surface_requirement
+    label: 表面与精度要求
+    group: 材料与工艺
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 配合面粗糙度、关键尺寸公差等级、表面处理（发黑/镀锌/阳极氧化）
+
+  # ---- 环境与寿命 ----
+  - key: service_life
+    label: 使用寿命要求
+    group: 寿命与环境
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 工作小时数或循环次数。交变载荷下决定按无限寿命还是有限寿命疲劳校核
+
+  - key: ambient_condition
+    label: 工作环境
+    group: 寿命与环境
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 温度范围、湿度、粉尘、腐蚀介质。影响材料选择与表面防护
+
+  # ---- 验收判据 ----
+  - key: safety_factor
+    label: 许用安全系数
+    group: 验收判据
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 静强度一般取 1.5~2.5；疲劳取 1.4~2.0；失效后果严重时取更高。这是校核判据的直接来源
+
+  - key: stiffness_requirement
+    label: 刚度或变形限制
+    group: 验收判据
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 最大允许挠度或扭转角。精密定位件与细长件必须给出
+
+  - key: weight_constraint
+    label: 重量约束
+    group: 验收判据
+    required: false
+    needed_by_stage: scheme_design
+    hint: 有轻量化要求时填写，会影响截面形式与材料选择
+
+  - key: cost_constraint
+    label: 成本约束
+    group: 验收判据
+    required: false
+    needed_by_stage: scheme_design
+    hint: 影响材料、热处理与加工工艺的选择

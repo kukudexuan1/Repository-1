@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_M_016",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "list_design_families",
+    "start_design",
+    "update_design_spec"
+  ],
+  "tool_events": [
+    {
+      "name": "list_design_families",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "start_design",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "update_design_spec",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好的，已记录您给出的 **输入功率 7.5 kW**。当前设计输入收敛阶段还缺 **5 个必填项**，我先给出分析和推荐，请您一次性决策。\n\n---\n\n## 设计输入汇总 & 待确认项\n\n### ✅ 已明确\n\n| 条目 | 取值 | 来源 |\n|------|------|------|\n| 输入功率 P₁ | **7.5 kW** | 您给出 |\n| 传动效率 η | **0.97**（单级圆柱齿轮，含一对轴承） | 您给出 |\n| 输出功率 P₂ | **7.275 kW**（= 7.5 × 0.97） | 推算 |\n\n### ⏳ 待确认 — 工作机类型\n\n| 条目 | 当前取值 | 说明 |\n|------|----------|------|\n| 工作机类型 | **带式输送机**（待确认） | 此前对话中提及，暂按此假定。带式输送机属平稳载荷，影响载荷系数选择 |\n\n### ❓ 待您给出 — 5 个必填项\n\n以下 5 项必须由您给出，我无法替您推定：\n\n| 编号 | 条目 | 说明 | 参考范围 |\n|------|------|------|----------|\n| ① "
+}

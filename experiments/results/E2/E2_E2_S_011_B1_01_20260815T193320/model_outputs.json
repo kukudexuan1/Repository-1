@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_S_011",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "感谢您的指正，这个符号问题很重要。\n\n经核查，系统公式库中键连接挤压强度校核公式（`key_crushing_check`）定义的符号是：\n\n- **挤压应力**：`sigma_p`（即 σₚ）\n- **许用挤压应力**：`sigma_pP`（即 [σₚ]）\n\n这与您说的标准符号一致——**p 来自 pressure（挤压）**，也符合濮良贵《机械设计》（第十版）式 6-1 的符号体系。\n\n如果您在之前的对话中看到过 `σbs`（bearing stress）的写法，那确实是不规范的。在中文机械设计教材中，`σbs` 多见于支承面挤压计算（如铰制孔螺栓），而**普通平键的挤压应力应统一使用 σₚ / [σₚ]**。\n\n公式库目前的符号定义是正确的，后续涉及键连接校核时，我会严格使用 `σₚ` 和 `[σₚ]`，不再混用 `σbs`。感谢您把关。"
+}

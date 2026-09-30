@@ -1,0 +1,35 @@
+{
+  "task_id": "B_002",
+  "family": "B",
+  "family_name": "轴承—键—轴组合",
+  "split": "val",
+  "description": "轴径50mm，深沟球轴承支承，轴上安装直齿轮（键传扭），径向载荷2800N，设计寿命20000h，材料45钢调质。",
+  "explicit_inputs": {
+    "shaft_diameter_mm": 50,
+    "bearing_type": "深沟球轴承",
+    "radial_load_N": 2800,
+    "axial_load_N": 0,
+    "speed_rpm": 480,
+    "design_life_h": 20000,
+    "load_type": "均匀载荷",
+    "material_grade": "45钢调质",
+    "transmitted_torque_Nm": 420
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴承寿命L10h", "键挤压强度", "当量动载荷"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承GB/T276", "平键GB/T1096"]
+  },
+  "decisions_required": ["轴承型号选取（按轴径和寿命）", "键截面尺寸", "键长选取"],
+  "expert_reference": {
+    "reference_module": "B_002",
+    "key_param_ranges": {
+      "bearing_code": ["6210", "6310", "6211"],
+      "key_section_bh": "14x9",
+      "min_key_length_mm": [45, 80]
+    },
+    "must_pass_checks": ["轴承寿命L10h≥20000h", "键挤压强度σp≤[σp]"],
+    "forbidden_errors": ["轴承寿命不足", "键长超过轮毂长度", "键截面与轴径不匹配"]
+  },
+  "_note": "占位模板，参考答案由专家填写后方可用于正式评测"
+}

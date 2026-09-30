@@ -1,0 +1,35 @@
+{
+  "task_id": "G_011",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "test",
+  "description": "设计一台单级直齿圆柱齿轮减速器，用于农业收割机传动，轻微冲击，季节性工作1500h/年。",
+  "explicit_inputs": {
+    "input_power_kW": 11.0,
+    "input_speed_rpm": 1450,
+    "transmission_ratio": 2.5,
+    "design_life_h": 6000,
+    "load_type": "轻微冲击",
+    "working_hours_per_day": 10,
+    "ambient_temperature_C": 28
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "扭矩"],
+    "material_candidates": ["45钢调质", "40Cr调质"],
+    "standard_series": ["模数系列GB/T1357"],
+    "standard_parts": ["深沟球轴承", "平键"]
+  },
+  "decisions_required": ["材料（低寿命低成本）", "精度等级", "润滑方式"],
+  "expert_reference": {
+    "reference_module": "G_011",
+    "key_param_ranges": {
+      "module_mm": [3, 5],
+      "z1_teeth": [18, 32],
+      "face_width_mm": [70, 130],
+      "center_distance_mm": [100, 185]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴强度", "轴承寿命"],
+    "forbidden_errors": ["模数未取标准值", "轴承寿命未达到设计寿命"]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

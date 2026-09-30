@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_P_013",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "lookup_standard_part",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "这是一个典型的\"信息不全，无法选型\"的情况。让我把现状说清楚。\n\n---\n\n## 当前已知 vs 缺失\n\n| 信息 | 状态 | 说明 |\n|------|------|------|\n| 键槽长度 L ≥ 60mm | ✅ 已知 | 约束了键长可选范围 |\n| 轴径 d | ❌ 缺失 | **决定键截面 b×h 的唯一依据** |\n| 传递扭矩 T | ❌ 缺失 | 选型后校核挤压/剪切强度的必需条件 |\n\n---\n\n## 为什么轴径是关键\n\n普通平键按 **GB/T 1096-2003** 选型，截面尺寸 b×h 完全由轴径 d 决定：\n\n| 轴径 d (mm) | 键宽 b (mm) | 键高 h (mm) |\n|:-----------:|:-----------:|:-----------:|\n| 12~17 | 5 | 5 |\n| 17~22 | 6 | 6 |\n| 22~30 | 8 | 7 |\n| 30~38 | 10 | 8 |\n| 38~44 | 12 | 8 |\n| 44~50 | 14 | 9 |\n| 50~58 | 16 | 10 |\n| 58~65 | 18"
+}

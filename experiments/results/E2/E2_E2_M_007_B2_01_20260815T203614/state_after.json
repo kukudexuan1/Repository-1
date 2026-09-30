@@ -1,0 +1,137 @@
+{
+  "session_id": "aa557ced-4b1b-496d-9b90-458cfbe0deaa",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "弯矩图计算 — 外伸简支梁",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "FRA": {
+          "value": 3200.0,
+          "unit": "N"
+        },
+        "L": {
+          "value": 280.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 60.0,
+          "unit": "mm"
+        }
+      },
+      "substitution": "FRA=3200 N；L=280 mm；l=60 mm",
+      "result": {
+        "P": {
+          "value": 14933.333333333334,
+          "unit": "N"
+        },
+        "FRB": {
+          "value": 18133.333333333336,
+          "unit": "N"
+        },
+        "MA": {
+          "value": 0.0,
+          "unit": "N·mm"
+        },
+        "MB_left": {
+          "value": 896000.0,
+          "unit": "N·mm"
+        },
+        "MB_right": {
+          "value": -896000.0,
+          "unit": "N·mm"
+        },
+        "MC": {
+          "value": 0.0,
+          "unit": "N·mm"
+        },
+        "M_max_abs": {
+          "value": 896000.0,
+          "unit": "N·mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "静力平衡方程：ΣM_B=0, ΣM_A=0",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 已知参数\nFRA = 3200      # N，支座A反力（向上为正）\nL = 280         # mm，跨距AB\nl = 60          # mm，悬臂BC长度\n\n# 假设：悬臂端C受集中力P（向下），B为简支\n# 对B取矩：FRA * L - P * l = 0\nP = FRA * L / l\n\n# 对A取矩求FRB：-FRB * L + P * (L + l) = 0\nFRB = P * (L + l) / L\n\n# 弯矩关键点\nMA = 0.0                     # A支座简支\nMB_left = FRA * L            # B支座左侧（跨内）\nMB_right = -P * l            # B支座右侧（悬臂侧）\nMC = 0.0                     # 悬臂自由端\n\n# 跨内最大弯矩（无分布载荷时在B左达到最大）\nM_max_span = MB_left\n\n# 绝对值最大弯矩\nM_max_abs = max(abs(MA), abs(MB_left), abs(MB_right), abs(MC))\n\noutputs = {\n    'P': P,\n    'FRB': FRB,\n    'MA': MA,\n    'MB_left': MB_left,\n    'MB_right': MB_right,\n    'MC': MC,\n    'M_max_abs': M_max_abs,\n}",
+      "created_at": "2026-08-15T20:37:19.297547Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "395059f1-fa3f-4c02-8568-ca6b5e8f5e7b",
+      "role": "user",
+      "content": "弯矩图计算：支反力FRA=3200，支撑跨距L=280，悬臂长l=60",
+      "timestamp": "2026-08-15T20:36:21.043005Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "af6593b9-25c1-44dd-b0c6-8b3c3da5f2fc",
+      "role": "assistant",
+      "content": "计算完成。以下是弯矩图计算结果（calc#1）：\n\n---\n\n## 弯矩图计算结果\n\n### 结构模型\n\n```\n        A ─────────────── B ────── C\n        ├──── L=280 ────┤├── l=60 ──┤\n        Δ               Δ          ↓ P\n       FRA              FRB\n```\n\n### 由静力平衡反推\n\n| 量 | 符号 | 值 | 单位 |\n|---|---|---|---|\n| 悬臂端载荷 | **P** | **14 933** | N |\n| 支座 B 反力 | **FRB** | **18 133** | N |\n| 支座 A 反力 | **FRA** | 3 200 | N（已知） |\n\n### 弯矩关键点\n\n| 位置 | 弯矩 | 值 |\n|---|---|---|\n| A 支座 | **M_A** | **0** N·mm |\n| B 支座左侧（跨内） | **M_B左** | **+896 000** N·mm |\n| B 支座右侧（悬臂） | **M_B右** | **−896 000** N·mm |\n| 悬臂端 C | **M_C** | **0** N·mm |\n\n### 弯矩图示意\n\n```\nM [N·mm]\n 896k ┤        ╱\n      │      ╱\n      │    ╱   跨内线性增长\n      │  ╱\n    0 ┼●──────────────────●──────●─── x\n      │A                  B      C\n      │                    ╲\n      │                      ╲\n      │                        ╲\n-896k ┤                          ╲  悬臂线性下降\n```\n\n---\n\n### 关键结论\n\n- **最大弯矩**：**|M_max| = 896 000 N·mm = 896 N·m**，发生在 B 支座截面\n- 跨内 AB 段弯矩为正（下表面受拉），由 0 线性增至 +896 N·m\n- 悬臂 BC 段弯矩为负（上表面受拉），由 −896 N·m 线性回至 0\n- B 支座处弯矩发生**突变**（从 +896 跳到 −896），这是集中力偶效应——实际上 B 处弯矩连续，但悬臂载荷 P 产生的弯矩方向与跨内相反\n\n---\n\n⚠️ **重要说明**：以上计算基于一个关键工程假设——**悬臂端 C 受向下的集中力 P，且 AB 跨内无其他载荷**。如果您的实际结构与此不同（例如跨内有分布载荷、多个集中力、或悬臂端不是简支梁的延伸），请补充说明，我重新计算。",
+      "timestamp": "2026-08-15T20:38:37.219563Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T20:38:37.219563Z"
+}

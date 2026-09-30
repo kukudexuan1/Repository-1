@@ -1,0 +1,16 @@
+{
+  "case_id": "E2_M_001",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "公式库中找到了 `gear_bending_check`（齿根弯曲疲劳强度校核），但它需要更多参数（扭矩 T₁、分度圆直径 d₁、载荷系数 K_F、应力修正系数 Y_Sa、重合度系数 Y_eps 等），与你给出的参数不完全匹配。你给的参数（M、m、b、Y_F）看起来像是某种简化形式的齿根弯曲应力计算。\n\n在计算之前，需要先确认几个关键信息\n\n请确认以下信息，以便我正确计算齿根弯曲应力\n\n你给出了 M=180、m=3、b=80、Y_F=2.65 四个参数，但缺少单位说明和公式选择。这直接影响计算结果——单位不同可能差 1000 倍，公式不同结论也完全不同。\n\n1. M=180 N·m（牛·米），使用简化公式 σ_F = M × Y_F / (b × m²)，其中 M 为齿根弯矩 ← 推荐\n   优点：参数直接对应，计算简单\n   缺点：简化公式未考虑应力修正系数 Y_Sa 和重合度系数 Y_eps，结果偏保守\n2. M=180 N·mm（牛·毫米），同样使用简化公式 σ_F = M × Y_F / (b × m²)\n   优点：同上\n   缺点：若 M=180 N·mm 对齿轮而言偏小，"
+}

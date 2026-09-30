@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_U_005",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下（记录 **calc#1**）：\n\n---\n\n## 扭转切应力校核\n\n| 参数 | 数值 | 说明 |\n|------|------|------|\n| 扭矩 T | 320 N·m | 给定 |\n| 极惯性矩 Ip | 1.2×10⁻⁶ m⁴ | 给定 |\n| Ip（mm⁴单位） | **1.2×10⁶ mm⁴** | 1 m⁴ = 10¹² mm⁴，故 1.2×10⁻⁶ × 10¹² = 1.2×10⁶ |\n| 反推轴径 d（实心圆截面） | **≈ 59.1 mm** | 由 Ip = πd⁴/32 反算 |\n| 最大扭转切应力 τ_max | **≈ 7.88 MPa** | τ = T·r / Ip = 16T/(πd³) |\n\n---\n\n### 关于单位：你的 Ip 值没问题\n\n你说的「应为 mm⁴」——如果是指**工程习惯用 mm⁴ 表达**，那是对的。1.2×10⁻⁶ m⁴ 换算后就是 **1.2×10⁶ mm⁴**（一百二十万 mm⁴），数值上不是 1.2×10⁻⁶ mm⁴，而是 1.2×10⁶ mm⁴。这个数量级对应一根 ~60 mm 粗的轴，承载 32"
+}

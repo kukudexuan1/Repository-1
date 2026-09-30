@@ -1,0 +1,44 @@
+{
+  "task_id": "S_001",
+  "family": "S",
+  "family_name": "阶梯轴",
+  "split": "dev",
+  "description": "设计一根减速器输出轴，承受弯矩和扭矩，轴上安装齿轮、轴承和联轴器。",
+  "explicit_inputs": {
+    "design_torque_Nm": 320.0,
+    "bending_moment_Nm": 180.0,
+    "axial_force_N": 0,
+    "shaft_speed_rpm": 305,
+    "design_life_h": 16000,
+    "keyway_count": 2,
+    "shoulder_count": 3,
+    "material_requirement": "中等强度"
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["扭转强度初步估算", "弯扭合成当量弯矩", "轴疲劳安全系数"],
+    "material_candidates": ["45钢调质", "40Cr调质"],
+    "standard_series": ["键槽GB/T1095", "轴肩圆角半径"],
+    "standard_parts": ["平键", "深沟球轴承"]
+  },
+  "decisions_required": [
+    "轴材料与热处理",
+    "危险截面选取",
+    "轴肩过渡圆角半径",
+    "键型选择"
+  ],
+  "expert_reference": {
+    "reference_module": "S_001",
+    "key_param_ranges": {
+      "min_diameter_mm": [40, 60],
+      "max_diameter_mm": [65, 90],
+      "shaft_length_mm": [300, 500]
+    },
+    "must_pass_checks": ["扭转强度", "弯扭合成疲劳安全系数", "键连接挤压强度"],
+    "forbidden_errors": [
+      "直径未按标准系列圆整",
+      "未考虑键槽对截面的削弱",
+      "疲劳安全系数计算未考虑应力集中"
+    ]
+  },
+  "_note": "占位模板，关键参数区间和参考方案需机械工程专家填写后方可用于正式评测"
+}

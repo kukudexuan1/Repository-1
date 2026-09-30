@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_006",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果（calc#1）\n\n| 参数 | 符号 | 数值 |\n|------|------|------|\n| 接触疲劳极限 | σ_Hlim | 600 MPa |\n| 安全系数 | S_H | 1.1 |\n| **许用接触应力** | **[σ_H]** | **≈ 545.5 MPa** |\n\n---\n\n### ⚠️ 你的结果有一个单位错误\n\n你写的是 **545 GPa**，正确结果是 **545.5 MPa**，差了整整 **1000 倍**。\n\n- 545.5 MPa = 0.5455 GPa，不是 545 GPa\n- 545 GPa 是什么概念？金刚石的弹性模量才约 1000 GPa，工程钢材的强度极限最高不过 2 GPa 左右。这个数量级在工程上根本不可能\n\n---\n\n如果你正在推进一项齿轮设计，需要我启动正式设计流程吗？我们可以从设计输入收敛开始，按完整的「设计计算 → 圆整回代 → 参数冻结 → 建模 → 校核 → 交付」走。"
+}

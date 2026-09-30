@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_P_007",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "斜齿轮轴向力公式为：\n\n\\[\nF_a = F_t \\cdot \\tan\\beta\n\\]\n\n你只给了 β = 12°，没有给圆周力 \\(F_t\\)，**无法直接算出轴向力的数值**。问题出在缺了 \\(F_t\\)。\n\n---\n\n### \\(F_t\\) 从哪里来？\n\n圆周力取决于齿轮传递的转矩和分度圆直径：\n\n\\[\nF_t = \\frac{2T}{d}\n\\]\n\n其中 \\(T\\) 又来自功率和转速：\n\n\\[\nT = \\frac{9550 \\cdot P}{n} \\quad (\\text{单位：} P \\text{—kW, } n \\text{—r/min, } T \\text{—N·m})\n\\]\n\n所以，要算出轴向力，你还需要补上至少以下信息中的一组：\n\n| 序号 | 所需参数 | 用途 |\n|:--:|:--|:--|\n| 1 | **功率 \\(P\\) + 转速 \\(n\\) + 分度圆直径 \\(d\\)** | 算 \\(T\\) → 算 \\(F_t\\) → 算 \\(F_a\\) |\n| 2 | **转矩 \\(T\\) + 分度圆直径 \\(d\\)** | 直接算 \\(F_t\\) → 算 \\(F_a\\)"
+}

@@ -1,0 +1,74 @@
+{
+  "session_id": "ec98dbf8-1dee-47fb-a944-d89e1938c966",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "3c0f1f2f-3731-4b84-86b0-8c4bd10b3656",
+      "role": "user",
+      "content": "平键剪切强度校核，τk=2T/(d×b×l)，T=420，d=55，b=16，l=60",
+      "timestamp": "2026-08-15T19:22:24.152060Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "66eb88ca-c5a0-454a-91e0-1b43e2651531",
+      "role": "assistant",
+      "content": "计算结果如下。\n\n---\n\n## 平键剪切强度校核\n\n**公式**：τₖ = 2T / (d · b · l)（《机械设计手册》）\n\n**代入**（⚠️ 假设 T=420 N·m，若单位不同请纠正）：\n\n| 参数 | 数值 | 单位 |\n|------|------|------|\n| T | 420 → 420×10³ | N·mm |\n| d | 55 | mm |\n| b | 16 | mm |\n| l | 60 | mm |\n\n**计算**：\n\nτₖ = 2 × 420 000 / (55 × 16 × 60) = 840 000 / 52 800 ≈ **15.91 MPa**\n\n---\n\n### 判据参考\n\n平键常用材料及许用剪切应力 [τ]（静连接，轻微冲击）：\n\n| 键材料 | [τ] (MPa) |\n|--------|-----------|\n| 45 钢 | 120 |\n| Q235 | 80~100 |\n\nτₖ = 15.91 MPa，远低于常用许用值，**剪切强度满足要求**。\n\n---\n\n### ⚠️ 重要提醒\n\n1. **单位假设**：T=420 未注明单位，我按 N·m 处理。若实际为 kgf·m 或 lb·in，结果会显著不同，请确认。\n2. **工作长度 l**：你给的 l=60，若为 A 型（圆头）平键，实际工作长度应为 l = L − b，即总长 L = l + b = 76 mm。请确认 60 是总长还是工作长度——若 60 是总长，则工作长度只有 44 mm，τₖ 将升至 **21.7 MPa**，仍安全但需注意。\n3. 以上计算为手动粗估（当前工具链中 run_calculation 不可用），如需入正式台账，须在工具恢复后重新计算落账。",
+      "timestamp": "2026-08-15T19:23:03.833004Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T19:23:03.833004Z"
+}

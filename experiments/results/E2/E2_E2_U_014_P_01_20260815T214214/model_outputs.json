@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_014",
+  "error_type": "unit_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您说得完全正确，我来梳理一下这个单位等价性问题：\n\n**1 MPa = 1 N/mm² = 1 N·mm⁻²**\n\n这是基本单位换算：1 Pa = 1 N/m²，1 MPa = 10⁶ N/m² = 1 N/mm²。\n\n因此：\n- √MPa = √(N/mm²) \n- 189.8 √MPa ≡ 189.8 √N/mm² —— **数值完全相同，不是近似，是精确等价。**\n\n如果 `solve_formula` 因为单位字符串 \"√N/mm²\" 与公式卡片中定义的 \"√MPa\" 不匹配而拒绝代入，那是**字符串比对过于严格**的问题，而非真实的量纲不一致。两者在物理上完全等价，不存在任何换算因子。\n\n**在后续计算中我会注意**：向 `solve_formula` 传参时，严格按公式卡片中符号定义的单位字符串来标注，避免因标注不一致被误拒。如果公式卡片写的是 `√MPa`，我就传 `√MPa`，即便量纲上 `√N/mm²` 完全等价。\n\n感谢您的指正，这个细节很重要——它提醒我：在工具调用层面，单位标注必须与公式卡片的定义**字面一致**，否则系统可能误判为量纲不匹配。\n\n---\n\n回到"
+}

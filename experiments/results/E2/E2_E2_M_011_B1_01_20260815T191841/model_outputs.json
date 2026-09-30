@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_M_011",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "lookup_material",
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "## 结论\n\n你的计算在算术上是正确的：**255 / 1.5 = 170 MPa**。\n\n但需指出以下工程问题，这些差异会影响后续设计的可靠性：\n\n---\n\n### ⚠️ 与系统数据库的差异\n\n| 参数 | 你的取值 | 系统数据库（GB/T 699-2015） |\n|------|----------|---------------------------|\n| 抗拉强度 σb | 600 MPa | 640 MPa |\n| 弯曲疲劳极限 σ-1 | 255 MPa | 系统未直接给出；σ_Flim = 210 MPa |\n| 许用弯曲应力 [σ-1] | **170 MPa**（算得） | **60 MPa**（系统直接给出） |\n\n系统库中 45 钢调质的\"对称循环许用弯曲应力\"**直接标注为 60 MPa**，这已经考虑了应力集中、尺寸效应和表面质量等综合因素，远低于你按纯疲劳极限除以安全系数得到的 170 MPa。\n\n---\n\n### 🔍 差异来源分析\n\n`[σ-1] = σ-1 / S = 255 / 1.5 = 170` 这个公式假设**光滑小试样的疲劳极限**可以直接"
+}

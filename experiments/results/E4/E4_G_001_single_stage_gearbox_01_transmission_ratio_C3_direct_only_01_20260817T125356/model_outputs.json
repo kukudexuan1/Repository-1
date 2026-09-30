@@ -1,0 +1,566 @@
+{
+  "metrics": {
+    "IR": 0.0417,
+    "invalidation_precision": 1.0,
+    "ORR": 0.4167,
+    "BR": 0.5833,
+    "IRE": 0.9759,
+    "n_gold_stale": 48,
+    "n_predicted_stale": 2,
+    "stale_used_downstream": 20,
+    "recovery_time_s": 145.039,
+    "tool_calls_after_change": 16,
+    "human_interventions": 0,
+    "orr_violation": true
+  },
+  "run_data": {
+    "predicted_stale_params": [],
+    "predicted_stale_calcs": [
+      "calc#1",
+      "calc#17"
+    ],
+    "gold_stale_params": [
+      "T_out",
+      "a",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "i_actual",
+      "key_coupling_out",
+      "key_gear",
+      "m",
+      "n_out",
+      "z_2"
+    ],
+    "gold_stale_calcs": [
+      "calc#1",
+      "calc#10",
+      "calc#13",
+      "calc#14",
+      "calc#15",
+      "calc#16",
+      "calc#17",
+      "calc#19",
+      "calc#20",
+      "calc#21",
+      "calc#22",
+      "calc#23",
+      "calc#24",
+      "calc#25",
+      "calc#26",
+      "calc#27",
+      "calc#28",
+      "calc#30",
+      "calc#31",
+      "calc#32",
+      "calc#33",
+      "calc#34",
+      "calc#35",
+      "calc#4",
+      "calc#6",
+      "calc#7",
+      "calc#8",
+      "calc#9"
+    ],
+    "stale_params_used_downstream": 20,
+    "stale_calcs_used_downstream": 0,
+    "n_incremental_recalculations": 2,
+    "n_full_recalculations": 83,
+    "recovery_time_s": 145.039,
+    "tool_calls_after_change": 16,
+    "human_interventions": 0,
+    "change_time_s": 2.0707,
+    "probe_time_s": 2.052,
+    "leaked_nodes": [
+      "T_out",
+      "a",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "i_actual",
+      "key_coupling_out",
+      "key_gear",
+      "m",
+      "n_out",
+      "z_2"
+    ],
+    "condition_semantics": "C2 marks every existing node stale before bounded recovery",
+    "recovered_stale_params": [],
+    "recovered_stale_calcs": [
+      "calc#1",
+      "calc#17"
+    ],
+    "actual_recalculations": 2,
+    "new_calculation_records": 2,
+    "recovery_tool_calls": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "commit_parameter",
+      "search_formula",
+      "run_calculation",
+      "solve_formula",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "confirm_parameters",
+      "query_ledger",
+      "get_calculation_record"
+    ]
+  },
+  "probe": {
+    "status": "ok",
+    "session_id": "8113e4e3-370c-4a6e-94dd-16710d15e8f6",
+    "entries": [
+      {
+        "symbol": "T_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "a",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_f1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_gear_seat",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "delta_housing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "i_actual",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_gear",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "m",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "n_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "z_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      }
+    ],
+    "records": [
+      {
+        "record_id": "calc#1",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#10",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#13",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#14",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#15",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#16",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#17",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#19",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#20",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#21",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#22",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#23",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#24",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#25",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#26",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#27",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#28",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#30",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#31",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#32",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#33",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#34",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#35",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#4",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#6",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#7",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#8",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#9",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      }
+    ],
+    "report": {
+      "accepted": false,
+      "error": "报告输入包含失效项：parameters=[], calculations=['calc#1', 'calc#17']"
+    },
+    "stale": {
+      "stale_calculations": [
+        "calc#1",
+        "calc#17"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "change_response": {
+    "status": "ok",
+    "session_id": "8113e4e3-370c-4a6e-94dd-16710d15e8f6",
+    "symbol": "i",
+    "value": {
+      "value": 3.15,
+      "unit": ""
+    },
+    "revision": 2,
+    "baseline_was_frozen": true,
+    "propagation_mode": "direct",
+    "stale": {
+      "stale_calculations": [
+        "calc#1",
+        "calc#17"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "recovery_response": {
+    "session_id": "8113e4e3-370c-4a6e-94dd-16710d15e8f6",
+    "reply": "受控恢复完成，立即停止。结果如下：\n\n## 受控恢复报告\n\n**发现的不一致**\n- 参数 `i`（总传动比）被无依据地修订为 tentative 3.15，与其 basis\"设计任务书：传动比 4\"及用户选定方案 A 矛盾，且与已确认齿数 24/96 冲突。\n- 该修订使 calc#1（输出轴转速）、calc#17（大齿轮齿数与实际传动比）失效（stale）。\n\n**恢复动作**\n| 步骤 | 内容 |\n|------|------|\n| 恢复输入 | `i` 4 ← 3.15（user_given，revision 3） |\n| 重算失效项 1 | calc#36 输出轴转速 n_out = 1440/4 = **360 r/min** ✓（与原值一致） |\n| 重算失效项 2 | calc#37 z₂ = 4×24 = **96**，i_actual = **4**，误差 **0%** ✓（与原值一致） |\n| 更新依据 | n_out basis → calc#36；z_2、i_actual basis → calc#37 |\n\n**核验结论**\n- 台账 stale 参数 = **0**；calc#36、calc#37 均为有效（stale=false）。\n- 下游参数（T_out=101898.5 N·mm、齿轮几何、轴、轴承、键、箱体）全部未受影响，因 n_out、z₂、i_actual 数值与恢复前一致，无需重算。\n- 未使用任何 stale 数据，未建模、未仿真、未生成报告、未发起用户决策。\n\n**遗留说明（非工程错误）**\n- `confirm_parameters` 在当前实验条件下被封锁，`i / n_out / z_2 / i_actual` 四项停留在 **tentative** 状态，但其值均为正确恢复值、依据均指向有效计算记录。待确认工具恢复后即可 confirm，不影响当前设计结论的正确性。\n\n受控恢复至此结束。",
+    "design_stage": "geometry",
+    "tool_calls_made": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "commit_parameter",
+      "search_formula",
+      "run_calculation",
+      "solve_formula",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "confirm_parameters",
+      "query_ledger",
+      "get_calculation_record"
+    ],
+    "tool_events": [
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "error",
+        "error": "入参校验失败，请按 schema 修正后重试",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "confirm_parameters",
+        "status": "refused",
+        "error": "",
+        "reason": "工具 'confirm_parameters' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+      },
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "experiment_condition": "B3"
+  }
+}

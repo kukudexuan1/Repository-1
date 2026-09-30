@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_S_014",
+  "error_type": "symbol_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您的理解基本正确，但有一个小修正需要澄清：\n\n---\n\n## 实心圆轴的截面系数\n\n| 系数 | 符号 | 公式 | 用途 |\n|------|------|------|------|\n| **抗弯截面系数** | \\(W\\)（或 \\(W_z\\)） | \\(\\pi d^3 / 32\\) | 弯曲正应力 \\(\\sigma = M/W\\) |\n| **抗扭截面系数（极截面系数）** | \\(W_p\\)（或 \\(W_t\\)） | \\(\\pi d^3 / 16\\) | 扭转切应力 \\(\\tau = T/W_p\\) |\n\n---\n\n**所以您的结论是对的**：\\(W = \\pi d^3/32\\) 作为轴的抗弯截面系数完全合法。\n\n但您括号里的注释有个小笔误——**极截面系数 \\(W_p\\) 是 \\(\\pi d^3/16\\)，不是 \\(\\pi d^3/32\\)**。两者差了一倍，根源在于：\n\n- 抗弯：\\(W = \\frac{I_z}{y_{max}} = \\frac{\\pi d^4/64}{d/2} = \\frac{\\pi d^3}{32}\\)\n- 抗扭：\\(W_p = \\frac{I_p}{"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_014",
+  "error_type": "unit_missing",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个需要澄清输入不完整性的典型情况。\n\n**端面齿形系数 YFt（即 YFa）取决于当量齿数 zv，而非仅由螺旋角 β 决定。**\n\n你给出的 β=12° 是必要的，但尚不充分。要计算 YFt，还需要知道齿轮的实际齿数 z。关系如下：\n\n当量齿数  \n\\[ z_v = \\frac{z}{\\cos^3\\beta} \\]\n\n以 β=12° 为例，\\(\\cos 12° ≈ 0.9781\\)，\\(\\cos^3 12° ≈ 0.9359\\)。  \n若 z=20，则 zv≈21.4；若 z=100，则 zv≈106.9。  \n不同 zv 对应的 YFt 相差很大（例如 zv=20 时 YFa≈2.80，zv=100 时 YFa≈2.18），不可能仅凭 β 给出单一数值。\n\n**请补充齿数 z，我立即为你计算 zv 并查询标准齿形系数（依据 GB/T 3480 或 ISO 6336 的当量齿数-齿形系数表）。**  \n若你手头有齿轮图纸或设计任务，也可以直接告诉我 z 和法向模数 mn，我还可以一并校核弯曲强度。\n\n（注：若你是在测试本系统对于“带单位参数”的处理能力 —— 系统完全支持带单位的"
+}

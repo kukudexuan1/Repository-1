@@ -1,0 +1,147 @@
+{
+  "case_id": "E2_OK_003",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "set_design_scope",
+    "search_formula",
+    "lookup_material",
+    "lookup_standard_part",
+    "search_formula",
+    "solve_formula",
+    "solve_formula",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "commit_parameter",
+    "run_calculation",
+    "run_calculation",
+    "commit_parameter"
+  ],
+  "tool_events": [
+    {
+      "name": "set_design_scope",
+      "status": "ok",
+      "error": "",
+      "reason": "用户仅要求校核一个键（16×10×60）的挤压强度，不涉及多零件装配体设计"
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "refused",
+      "error": "",
+      "reason": "参数 l_key_work 声明为 calculated，basis 中必须至少有一条 'calc#N' 形式的计算记录引用。若这个数是你自己算的，请先用 solve_formula 或 run_calculation 留下记录"
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "commit_parameter",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "所有计算完成，台账已建立。下面是校核结果汇总。\n\n---\n\n## 键 16×10×60 挤压强度校核报告\n\n### 已知条件\n\n| 参数 | 数值 | 来源 |\n|------|------|------|\n| 键截面 b×h | 16×10 mm | GB/T 1096-2003，轴径 55mm 对应 ✓ |\n| 键公称长度 L | 60 mm | 用户给定 |\n| 键型 | A 型（两端圆头） | — |\n| 工作长度 l | L − b = **44 mm** | calc#3 |\n| 轴径 d | 55 mm | 用户给定 |\n| 传递转矩 T | 420 N·m | 用户给定 |\n| 键材料 | 45 钢 | 用户给定 |\n| 轮毂材料 | 45 钢调质 | 用户给定 |\n\n### 校核结果\n\n| 项目 | 计算值 | 许用值 | 余量 | 结论 |\n|------|--------|--------|------|------|\n| **挤压强度** | σ_p = **69.42 MPa** | [σ_p] = 120 MPa | **42.1%** | ✅ 通过 |\n|"
+}

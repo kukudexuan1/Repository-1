@@ -1,0 +1,178 @@
+# 标准件库：按轴径/载荷选型，返回规格与承载参数
+part_families:
+  - id: key
+    name: 普通平键（A 型）
+    standard: GB/T 1096-2003
+    select_by: shaft_diameter
+    columns: [d_min, d_max, b, h, t_shaft, t_hub, l_min, l_max]
+    units: { b: mm, h: mm, t_shaft: mm, t_hub: mm, l_min: mm, l_max: mm }
+    notes: 按轴径 d 选定键的截面 b×h，键长 L 由轮毂宽度决定（略短 5~10mm）并圆整到标准长度系列
+    length_series: [10, 12, 14, 16, 18, 20, 22, 25, 28, 32, 36, 40, 45, 50, 56,
+                    63, 70, 80, 90, 100, 110, 125, 140, 160, 180, 200]
+    items:
+      - { d_min: 12, d_max: 17, b: 5,  h: 5,  t_shaft: 3.0, t_hub: 2.3, l_min: 10, l_max: 56 }
+      - { d_min: 17, d_max: 22, b: 6,  h: 6,  t_shaft: 3.5, t_hub: 2.8, l_min: 14, l_max: 70 }
+      - { d_min: 22, d_max: 30, b: 8,  h: 7,  t_shaft: 4.0, t_hub: 3.3, l_min: 18, l_max: 90 }
+      - { d_min: 30, d_max: 38, b: 10, h: 8,  t_shaft: 5.0, t_hub: 3.3, l_min: 22, l_max: 110 }
+      - { d_min: 38, d_max: 44, b: 12, h: 8,  t_shaft: 5.0, t_hub: 3.3, l_min: 28, l_max: 140 }
+      - { d_min: 44, d_max: 50, b: 14, h: 9,  t_shaft: 5.5, t_hub: 3.8, l_min: 36, l_max: 160 }
+      - { d_min: 50, d_max: 58, b: 16, h: 10, t_shaft: 6.0, t_hub: 4.3, l_min: 45, l_max: 180 }
+      - { d_min: 58, d_max: 65, b: 18, h: 11, t_shaft: 7.0, t_hub: 4.4, l_min: 50, l_max: 200 }
+      - { d_min: 65, d_max: 75, b: 20, h: 12, t_shaft: 7.5, t_hub: 4.9, l_min: 56, l_max: 220 }
+      - { d_min: 75, d_max: 85, b: 22, h: 14, t_shaft: 9.0, t_hub: 5.4, l_min: 63, l_max: 250 }
+
+  - id: bearing_deep_groove
+    name: 深沟球轴承（6000 系列）
+    standard: GB/T 276-2013
+    select_by: bore_diameter
+    columns: [designation, d, D, B, C_r, C_0r, n_limit_grease]
+    units: { d: mm, D: mm, B: mm, C_r: N, C_0r: N, n_limit_grease: r/min }
+    life_exponent: 3.0
+    notes: 主要承受径向载荷，可承受少量双向轴向载荷；减速器最常用，价格低、极限转速高
+    items:
+      - { designation: "6203", d: 17, D: 40,  B: 12, C_r: 9580,  C_0r: 4780,  n_limit_grease: 16000 }
+      - { designation: "6204", d: 20, D: 47,  B: 14, C_r: 12800, C_0r: 6650,  n_limit_grease: 14000 }
+      - { designation: "6205", d: 25, D: 52,  B: 15, C_r: 14000, C_0r: 7880,  n_limit_grease: 12000 }
+      - { designation: "6206", d: 30, D: 62,  B: 16, C_r: 19500, C_0r: 11500, n_limit_grease: 9500 }
+      - { designation: "6207", d: 35, D: 72,  B: 17, C_r: 25500, C_0r: 15200, n_limit_grease: 8500 }
+      - { designation: "6208", d: 40, D: 80,  B: 18, C_r: 29500, C_0r: 18000, n_limit_grease: 8000 }
+      - { designation: "6209", d: 45, D: 85,  B: 19, C_r: 31500, C_0r: 20500, n_limit_grease: 7000 }
+      - { designation: "6210", d: 50, D: 90,  B: 20, C_r: 35000, C_0r: 23200, n_limit_grease: 6700 }
+      - { designation: "6211", d: 55, D: 100, B: 21, C_r: 43200, C_0r: 29200, n_limit_grease: 6000 }
+      - { designation: "6212", d: 60, D: 110, B: 22, C_r: 47800, C_0r: 32800, n_limit_grease: 5600 }
+      - { designation: "6305", d: 25, D: 62,  B: 17, C_r: 22200, C_0r: 11500, n_limit_grease: 11000 }
+      - { designation: "6306", d: 30, D: 72,  B: 19, C_r: 27000, C_0r: 15200, n_limit_grease: 9000 }
+      - { designation: "6307", d: 35, D: 80,  B: 21, C_r: 33200, C_0r: 19200, n_limit_grease: 8000 }
+      - { designation: "6308", d: 40, D: 90,  B: 23, C_r: 40800, C_0r: 24000, n_limit_grease: 7000 }
+      - { designation: "6309", d: 45, D: 100, B: 25, C_r: 52800, C_0r: 31800, n_limit_grease: 6300 }
+      - { designation: "6310", d: 50, D: 110, B: 27, C_r: 61800, C_0r: 38000, n_limit_grease: 6000 }
+
+  - id: bearing_tapered_roller
+    name: 圆锥滚子轴承（30000 系列）
+    standard: GB/T 297-2015
+    select_by: bore_diameter
+    columns: [designation, d, D, T, B, C_r, C_0r, e, Y]
+    units: { d: mm, D: mm, T: mm, B: mm, C_r: N, C_0r: N }
+    life_exponent: 3.3333
+    notes: 同时承受较大径向与单向轴向载荷，需成对使用；适用于斜齿轮/锥齿轮传动
+    items:
+      - { designation: "30205", d: 25, D: 52,  T: 16.25, B: 15, C_r: 32200, C_0r: 37000, e: 0.37, Y: 1.6 }
+      - { designation: "30206", d: 30, D: 62,  T: 17.25, B: 16, C_r: 43200, C_0r: 50500, e: 0.37, Y: 1.6 }
+      - { designation: "30207", d: 35, D: 72,  T: 18.25, B: 17, C_r: 54200, C_0r: 63500, e: 0.37, Y: 1.6 }
+      - { designation: "30208", d: 40, D: 80,  T: 19.75, B: 18, C_r: 63000, C_0r: 74000, e: 0.37, Y: 1.6 }
+      - { designation: "30209", d: 45, D: 85,  T: 20.75, B: 19, C_r: 67800, C_0r: 83500, e: 0.40, Y: 1.5 }
+      - { designation: "30210", d: 50, D: 90,  T: 21.75, B: 20, C_r: 73200, C_0r: 92000, e: 0.42, Y: 1.4 }
+      - { designation: "30211", d: 55, D: 100, T: 22.75, B: 21, C_r: 90800, C_0r: 115000, e: 0.40, Y: 1.5 }
+      - { designation: "30212", d: 60, D: 110, T: 23.75, B: 22, C_r: 102000, C_0r: 130000, e: 0.40, Y: 1.5 }
+      - { designation: "30213", d: 65, D: 120, T: 24.75, B: 23, C_r: 112000, C_0r: 155000, e: 0.40, Y: 1.5 }
+      - { designation: "30214", d: 70, D: 125, T: 26.25, B: 24, C_r: 125000, C_0r: 180000, e: 0.42, Y: 1.4 }
+      - { designation: "30215", d: 75, D: 130, T: 27.25, B: 25, C_r: 136000, C_0r: 205000, e: 0.42, Y: 1.4 }
+      - { designation: "30216", d: 80, D: 140, T: 28.25, B: 26, C_r: 152000, C_0r: 245000, e: 0.42, Y: 1.4 }
+      - { designation: "30217", d: 85, D: 150, T: 30.50, B: 28, C_r: 170000, C_0r: 280000, e: 0.42, Y: 1.4 }
+      - { designation: "30218", d: 90, D: 160, T: 30.50, B: 28, C_r: 185000, C_0r: 315000, e: 0.42, Y: 1.4 }
+      - { designation: "30219", d: 95, D: 170, T: 32.00, B: 30, C_r: 205000, C_0r: 355000, e: 0.42, Y: 1.4 }
+      - { designation: "30220", d: 100, D: 180, T: 34.00, B: 32, C_r: 228000, C_0r: 405000, e: 0.42, Y: 1.4 }
+      - { designation: "30222", d: 110, D: 200, T: 38.00, B: 36, C_r: 285000, C_0r: 535000, e: 0.42, Y: 1.4 }
+      - { designation: "30224", d: 120, D: 215, T: 40.00, B: 38, C_r: 330000, C_0r: 650000, e: 0.42, Y: 1.4 }
+      - { designation: "30226", d: 130, D: 230, T: 40.00, B: 40, C_r: 380000, C_0r: 790000, e: 0.42, Y: 1.4 }
+      - { designation: "30228", d: 140, D: 250, T: 42.00, B: 42, C_r: 445000, C_0r: 960000, e: 0.42, Y: 1.4 }
+      - { designation: "30230", d: 150, D: 270, T: 45.00, B: 45, C_r: 510000, C_0r: 1150000, e: 0.42, Y: 1.4 }
+
+  - id: hex_bolt
+    name: 六角头螺栓、螺母与垫圈
+    standard: GB/T 5782-2016 / GB/T 6170-2015 / GB/T 97.1-2002
+    select_by: nominal_diameter
+    columns: [designation, d, pitch, length, grade]
+    units: { d: mm, pitch: mm, length: mm }
+    notes: 用于箱盖连接、端盖连接及安装固定；具体长度按被连接件厚度和啮合长度确定
+    items:
+      - { designation: "M8", d: 8, pitch: 1.25, length: 30, grade: "8.8" }
+      - { designation: "M10", d: 10, pitch: 1.50, length: 35, grade: "8.8" }
+      - { designation: "M12", d: 12, pitch: 1.75, length: 40, grade: "8.8" }
+      - { designation: "M16", d: 16, pitch: 2.00, length: 50, grade: "8.8" }
+
+  - id: locating_dowel
+    name: 圆柱销定位件
+    standard: GB/T 119.1-2000
+    select_by: nominal_diameter
+    columns: [designation, d, length, material]
+    units: { d: mm, length: mm }
+    notes: 箱盖与箱座结合面采用两只定位销，销径按结合面尺寸和装配工艺确定
+    items:
+      - { designation: "8x40", d: 8, length: 40, material: "45钢" }
+      - { designation: "10x50", d: 10, length: 50, material: "45钢" }
+      - { designation: "12x60", d: 12, length: 60, material: "45钢" }
+
+  - id: shaft_retaining_nut
+    name: 轴端圆螺母与止动垫圈
+    standard: GB/T 812-1988 / GB/T 858-1988
+    select_by: nominal_thread
+    columns: [designation, thread, height]
+    units: { thread: mm, height: mm }
+    notes: 用于轴承或齿轮轴向锁紧；仅在轴端螺纹定位方案中使用
+    items:
+      - { designation: "KM12", thread: 12, height: 7 }
+      - { designation: "KM16", thread: 16, height: 8 }
+      - { designation: "KM20", thread: 20, height: 9 }
+      - { designation: "KM24", thread: 24, height: 10 }
+
+  - id: shaft_seal
+    name: 旋转轴唇形密封圈
+    standard: GB/T 13871.1-2007
+    select_by: shaft_diameter
+    columns: [designation, d, D, b, material]
+    units: { d: mm, D: mm, b: mm }
+    notes: 输入轴和输出轴外伸处优先采用骨架油封；轴径、座孔和宽度必须与端盖接口一致
+    items:
+      - { designation: "18x30x7", d: 18, D: 30, b: 7, material: "NBR" }
+      - { designation: "20x32x7", d: 20, D: 32, b: 7, material: "NBR" }
+      - { designation: "30x47x7", d: 30, D: 47, b: 7, material: "NBR" }
+      - { designation: "35x52x7", d: 35, D: 52, b: 7, material: "NBR" }
+      - { designation: "40x62x8", d: 40, D: 62, b: 8, material: "NBR" }
+
+  - id: oil_filler_breather
+    name: 加油孔与通气器
+    standard: JB/ZQ 4450-2006
+    select_by: nominal_thread
+    columns: [designation, thread, height]
+    units: { thread: mm, height: mm }
+    notes: 箱体最高处设置通气器或加油通气组合件，防止温升造成内压
+    items:
+      - { designation: "M16x1.5", thread: 16, height: 20 }
+      - { designation: "M20x1.5", thread: 20, height: 24 }
+      - { designation: "M24x1.5", thread: 24, height: 28 }
+
+  - id: oil_drain_plug
+    name: 放油螺塞与密封垫
+    standard: JB/ZQ 4450-2006
+    select_by: nominal_thread
+    columns: [designation, thread, head_diameter]
+    units: { thread: mm, head_diameter: mm }
+    notes: 箱体最低处设置放油孔，螺塞配密封垫并避开箱体加强筋
+    items:
+      - { designation: "M16x1.5", thread: 16, head_diameter: 24 }
+      - { designation: "M20x1.5", thread: 20, head_diameter: 30 }
+      - { designation: "M24x1.5", thread: 24, head_diameter: 36 }
+
+  - id: oil_level_indicator
+    name: 油标
+    standard: JB/ZQ 4451-2006
+    select_by: nominal_thread
+    columns: [designation, thread, visible_length]
+    units: { thread: mm, visible_length: mm }
+    notes: 油标中心高度对应设计油位，用于运行维护时检查油量
+    items:
+      - { designation: "M16x1.5", thread: 16, visible_length: 35 }
+      - { designation: "M20x1.5", thread: 20, visible_length: 40 }
+
+  - id: flexible_coupling
+    name: 弹性柱销联轴器
+    standard: GB/T 5014-2017
+    select_by: transmitted_torque
+    columns: [designation, rated_torque, bore_min, bore_max, hub_length]
+    units: { rated_torque: N*m, bore_min: mm, bore_max: mm, hub_length: mm }
+    notes: 输入输出端外部接口标准件；选型需同时满足额定转矩、轴径、转速和安装空间
+    items:
+      - { designation: "HL2", rated_torque: 160, bore_min: 12, bore_max: 28, hub_length: 42 }
+      - { designation: "HL3", rated_torque: 315, bore_min: 20, bore_max: 35, hub_length: 60 }
+      - { designation: "HL4", rated_torque: 630, bore_min: 25, bore_max: 45, hub_length: 84 }

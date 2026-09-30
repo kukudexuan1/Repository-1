@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_001",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "好的，我们先明确一下：你希望我“计算单级减速器输出轴扭矩”，但目前只给了传动比 i=3.15，缺少两个关键输入——**输入功率 P** 和**输入转速 n**（或者直接给出输入扭矩 T_in）。没有这两个数值，扭矩是算不出来的。\n\n为了把公式和依据说清楚，我先查一下传动扭矩的标准计算公式，然后告诉你缺什么。\n\n**调用工具：search_formula**  \n- 目的：查询减速器输出轴扭矩的标准计算公式，确认符号定义和单位，以便后续计算时引用。  \n- 输入：query=\"减速器输出轴扭矩计算公式\"  \n\n调用后我会根据返回的公式，解释需要补全哪些参数。"
+}

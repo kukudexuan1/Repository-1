@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_P_015",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "query_ledger",
+    "get_design_status"
+  ],
+  "tool_events": [
+    {
+      "name": "query_ledger",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "get_design_status",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "当前的情况是：**参数台账完全为空**——没有任何已录入的设计参数，设计任务书也尚未建立。这意味着我无从得知\"模数\"是多少、齿轮材料是什么、载荷条件如何，也就无法执行接触强度校核。\n\n**要做接触强度校核，至少需要以下信息：**\n\n| 类别 | 需要知道的 | 例如 |\n|------|-----------|------|\n| 齿轮几何 | 模数 \\(m_n\\)、小齿轮齿数 \\(z_1\\)、螺旋角 \\(\\beta\\)、齿宽 \\(b\\) | 模数 3mm，20 齿，直齿 |\n| 材料性能 | 小/大齿轮材料与热处理，以确定许用接触应力 \\(\\sigma_{Hlim}\\) | 45 钢调质 / 40Cr 渗碳淬火 |\n| 载荷条件 | 小齿轮传递转矩 \\(T_1\\) 或功率+转速 | 10kW @ 1440r/min |\n| 传动比 | 齿数比 \\(u = z_2/z_1\\) | 传动比 4 |\n| 工况 | 载荷系数 \\(K_H\\)、精度等级 | 带式输送机，轻微冲击 |\n\n---\n\n**请问你能否提供以下信息？** 我建议分两步走：\n\n- **(A)** 如果你手头有完整的设计参数（"
+}

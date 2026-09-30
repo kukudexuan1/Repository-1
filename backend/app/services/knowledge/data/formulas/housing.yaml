@@ -1,0 +1,67 @@
+# 铸铁减速器箱体结构尺寸经验公式
+# 出处：吴宗泽《机械设计课程设计手册》（第五版）表 11-2
+formulas:
+  - id: housing_base_wall_thickness
+    name: 箱座壁厚
+    category: housing
+    source: 机械设计课程设计手册（第五版）表 11-2
+    expression: "delta = 0.025 * a + 1"
+    symbols:
+      delta: { desc: 箱座壁厚, unit: mm, role: output }
+      a:     { desc: 中心距, unit: mm, role: input }
+    notes: 计算值小于 8mm 时取 8mm（铸铁最小壁厚限制）
+    tags: [箱体, 壁厚, 经验公式]
+
+  - id: housing_cover_wall_thickness
+    name: 箱盖壁厚
+    category: housing
+    source: 机械设计课程设计手册（第五版）表 11-2
+    expression: "delta_1 = 0.02 * a + 1"
+    symbols:
+      delta_1: { desc: 箱盖壁厚, unit: mm, role: output }
+      a:       { desc: 中心距, unit: mm, role: input }
+    notes: 计算值小于 8mm 时取 8mm
+    tags: [箱体, 壁厚, 经验公式]
+
+  - id: housing_flange_thickness
+    name: 箱座凸缘厚度
+    category: housing
+    source: 机械设计课程设计手册（第五版）表 11-2
+    expression: "b_flange = 1.5 * delta"
+    symbols:
+      b_flange: { desc: 箱座凸缘厚度, unit: mm, role: output }
+      delta:    { desc: 箱座壁厚, unit: mm, role: input }
+    tags: [箱体, 凸缘, 经验公式]
+
+  - id: housing_foundation_bolt_diameter
+    name: 地脚螺栓直径
+    category: housing
+    source: 机械设计课程设计手册（第五版）表 11-2
+    expression: "d_f = 0.036 * a + 12"
+    symbols:
+      d_f: { desc: 地脚螺栓直径, unit: mm, role: output }
+      a:   { desc: 中心距, unit: mm, role: input }
+    notes: 算得后应圆整到标准螺纹直径（M12/M16/M20…）
+    tags: [箱体, 螺栓, 经验公式]
+
+  - id: housing_bearing_bolt_diameter
+    name: 轴承旁连接螺栓直径
+    category: housing
+    source: 机械设计课程设计手册（第五版）表 11-2
+    expression: "d_1 = 0.75 * d_f"
+    symbols:
+      d_1: { desc: 轴承旁连接螺栓直径, unit: mm, role: output }
+      d_f: { desc: 地脚螺栓直径, unit: mm, role: input }
+    tags: [箱体, 螺栓, 经验公式]
+
+  - id: housing_bearing_seat_end_thickness
+    name: 轴承座端面凸缘厚度
+    category: housing
+    source: 机械设计课程设计手册（第五版）表 11-2
+    expression: "l_seat = c_1 + c_2 + 0.5 * delta"
+    symbols:
+      l_seat: { desc: 轴承座旁凸台高度参考尺寸, unit: mm, role: output }
+      c_1:    { desc: 螺栓扳手空间尺寸 C1, unit: mm, role: input }
+      c_2:    { desc: 螺栓扳手空间尺寸 C2, unit: mm, role: input }
+      delta:  { desc: 箱座壁厚, unit: mm, role: input }
+    tags: [箱体, 轴承座, 经验公式]

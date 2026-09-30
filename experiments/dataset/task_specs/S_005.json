@@ -1,0 +1,32 @@
+{
+  "task_id": "S_005",
+  "family": "S",
+  "family_name": "阶梯轴",
+  "split": "test",
+  "description": "设计一根带两个支承轴承和一个齿轮安装位的阶梯轴，传递功率15kW，材料40Cr调质，承受弯扭复合载荷。",
+  "explicit_inputs": {
+    "power_kW": 15.0,
+    "speed_rpm": 480,
+    "design_life_h": 20000,
+    "load_type": "轻微冲击",
+    "keyway_count": 1,
+    "material_grade": "40Cr调质"
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴最小直径A0法", "弯矩合成", "轴疲劳安全系数"],
+    "material_candidates": ["40Cr调质"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承", "平键"]
+  },
+  "decisions_required": ["轴径圆整", "危险截面判断", "轴承配合"],
+  "expert_reference": {
+    "reference_module": "S_005",
+    "key_param_ranges": {
+      "min_diameter_mm": [50, 75],
+      "critical_section_safety_factor": [1.3, 2.5]
+    },
+    "must_pass_checks": ["轴疲劳安全系数", "键挤压强度", "轴承寿命"],
+    "forbidden_errors": ["轴径未取标准值", "忽略应力集中系数", "未判断危险截面"]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

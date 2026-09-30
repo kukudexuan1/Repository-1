@@ -1,0 +1,70 @@
+{
+  "case_id": "E2_P_004",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "list_design_families",
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "start_design",
+    "set_design_scope",
+    "update_design_spec",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "list_design_families",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "start_design",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "set_design_scope",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'set_design_scope' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "update_design_spec",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "公式库中没有收录轴的疲劳安全系数专用公式，但这是机械设计教材 §15.3 的标准内容，可以通过 `run_calculation` 在沙箱中实现。\n\n---\n\n## 当前状态梳理\n\n**已具备的条件：**\n\n| 参数 | 值 | 来源 |\n|------|-----|------|\n| 材料 | 45 钢调质 | 用户明确给出 |\n| 抗拉强度 σ_b | 640 MPa | GB/T 699-2015 |\n| 屈服强度 σ_s | 355 MPa | GB/T 699-2015 |\n| 弯矩 M | 180 N·m | 用户明确给出 |\n| 载荷类型 | 弯扭组合 | 推断 |\n| 载荷性质 | 交变 | 推断（疲劳校核的前提） |\n\n**⛔ 缺失的关键参数（缺一不可做疲劳校核）：**\n\n轴的疲劳安全系数校核核心公式为（机械设计第十版 §15.3）：\n\n- **弯曲疲劳安全系数**：`S_σ = σ_{-1} / (K_σ·σ_a/(ε_σ·β) + ψ_σ·σ_m)`\n- **扭转疲劳安全系数**：`S_τ = τ_{-1} / (K_τ·τ_a/(ε_τ·β) + ψ_τ·τ_m"
+}

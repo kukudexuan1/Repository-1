@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_013",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n按你给的式子 `P = X·Fr + Y·Fa`：\n\n| 项 | 数值 | 单位 |\n|---|---|---|\n| X·Fr | 0.56 × 8500 | 4760 N |\n| Y·Fa | 1.45 × 1200 | 1740 N |\n| **P** | **4760 + 1740** | **6500 N** |\n\n---\n\n## ⚠️ 两个需要注意的问题\n\n### 1. 单位混用 —— 容易出大错\n你给的 Fr=8500 N，Fa=1.2 kN。1.2 kN = 1200 N，我这里已帮你统一。工程计算中 **kN 与 N 混用**是常见的低级错误源，Fa 若误当 1.2 N 代入，结果会差三个数量级。建议养成一律用 N 或一律用 kN 的习惯。\n\n### 2. 缺少载荷系数 `f_p`\n机械设计（第十版）式 13-8a 的完整形式是：\n\n> **P = f_p · (X·Fr + Y·Fa)**\n\n其中 `f_p` 为载荷系数，考虑实际工况中的冲击与振动，常用取值：\n\n| 工况 | f_p |\n|---|---|\n| 平稳运转，无冲击 | 1.0 ~ 1."
+}

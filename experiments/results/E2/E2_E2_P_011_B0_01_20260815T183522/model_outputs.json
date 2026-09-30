@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_011",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "散热计算本身是工程设计中的常规校核项，但当前信息不完整，我没法直接给出一个数值结果。下面把计算逻辑梳理清楚，同时把缺失的条件列出来，您看是针对一个已有减速器做校核，还是这是新设计任务的一部分。\n\n## 减速器散热计算 —— 需要什么、怎么算\n\n目标：判断自然散热条件下，箱体能否在许用油温以下把发热功率散掉。  \n判据：\n\\[\nP_{\\text{loss}} \\le P_{\\text{diss}} = K_t \\cdot A \\cdot (t_{\\text{oil}} - t_{\\text{amb}})\n\\]\n\n或者反过来算热平衡油温：\n\\[\nt_{\\text{oil}} = t_{\\text{amb}} + \\frac{P_{\\text{loss}}}{K_t \\cdot A}\n\\]\n\n其中：\n- \\(P_{\\text{loss}}\\) — 发热功率（您已给出 0.375 kW）\n- \\(A\\) — 箱体有效散热面积（单位 m²），指暴露在空气中、能参与对流换热的外表面积，通常按箱体轮廓估算（不计底面、内侧导油面积打折）\n- \\(K_t\\) — 综合散热系数，单位 kW/(m²·℃)，"
+}

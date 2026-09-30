@@ -1,0 +1,455 @@
+{
+  "metrics": {
+    "IR": 0.0455,
+    "invalidation_precision": 1.0,
+    "ORR": 0.3864,
+    "BR": 0.6136,
+    "IRE": 1.0,
+    "n_gold_stale": 44,
+    "n_predicted_stale": 2,
+    "stale_used_downstream": 17,
+    "recovery_time_s": 153.6826,
+    "tool_calls_after_change": 6,
+    "human_interventions": 0,
+    "orr_violation": true
+  },
+  "run_data": {
+    "predicted_stale_params": [],
+    "predicted_stale_calcs": [
+      "calc#10",
+      "calc#8"
+    ],
+    "gold_stale_params": [
+      "T_out",
+      "a",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "i_actual",
+      "key_coupling_out",
+      "key_gear",
+      "n_out",
+      "z_2"
+    ],
+    "gold_stale_calcs": [
+      "calc#1",
+      "calc#10",
+      "calc#13",
+      "calc#14",
+      "calc#15",
+      "calc#16",
+      "calc#17",
+      "calc#19",
+      "calc#20",
+      "calc#21",
+      "calc#22",
+      "calc#23",
+      "calc#24",
+      "calc#25",
+      "calc#26",
+      "calc#27",
+      "calc#28",
+      "calc#30",
+      "calc#31",
+      "calc#32",
+      "calc#33",
+      "calc#34",
+      "calc#35",
+      "calc#4",
+      "calc#7",
+      "calc#8",
+      "calc#9"
+    ],
+    "stale_params_used_downstream": 17,
+    "stale_calcs_used_downstream": 0,
+    "n_incremental_recalculations": 0,
+    "n_full_recalculations": 83,
+    "recovery_time_s": 153.6826,
+    "tool_calls_after_change": 6,
+    "human_interventions": 0,
+    "change_time_s": 2.0773,
+    "probe_time_s": 2.0421,
+    "leaked_nodes": [
+      "T_out",
+      "a",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "i_actual",
+      "key_coupling_out",
+      "key_gear",
+      "n_out",
+      "z_2"
+    ],
+    "condition_semantics": "C2 marks every existing node stale before bounded recovery",
+    "recovered_stale_params": [],
+    "recovered_stale_calcs": [
+      "calc#10",
+      "calc#8"
+    ],
+    "actual_recalculations": 0,
+    "new_calculation_records": 0,
+    "recovery_tool_calls": [
+      "query_ledger",
+      "get_calculation_record",
+      "lookup_material",
+      "lookup_material"
+    ]
+  },
+  "probe": {
+    "status": "ok",
+    "session_id": "6cc0d4bf-0fb0-4be1-ad56-853a54c1cf14",
+    "entries": [
+      {
+        "symbol": "T_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "a",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_f1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_gear_seat",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "delta_housing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "i_actual",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_gear",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "n_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "z_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      }
+    ],
+    "records": [
+      {
+        "record_id": "calc#1",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#10",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#13",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#14",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#15",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#16",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#17",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#19",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#20",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#21",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#22",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#23",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#24",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#25",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#26",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#27",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#28",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#30",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#31",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#32",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#33",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#34",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#35",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#4",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#7",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#8",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#9",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      }
+    ],
+    "report": {
+      "accepted": false,
+      "error": "报告输入包含失效项：parameters=[], calculations=['calc#8', 'calc#10']"
+    },
+    "stale": {
+      "stale_calculations": [
+        "calc#8",
+        "calc#10"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "change_response": {
+    "status": "ok",
+    "session_id": "6cc0d4bf-0fb0-4be1-ad56-853a54c1cf14",
+    "symbol": "z_1",
+    "value": {
+      "value": 25.0,
+      "unit": ""
+    },
+    "revision": 2,
+    "baseline_was_frozen": true,
+    "propagation_mode": "direct",
+    "stale": {
+      "stale_calculations": [
+        "calc#8",
+        "calc#10"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "recovery_response": {
+    "session_id": "6cc0d4bf-0fb0-4be1-ad56-853a54c1cf14",
+    "reply": "受控恢复执行完毕。查询与核对结果如下，按您的指令未做任何建模、仿真、报告或决策动作，现停止。\n\n## 一、轴材料确认的影响核对（本次输入变化的范围）\n\n您确认：输入轴 45 钢调质、输出轴 45 钢正火。该材料方案在计算中牵涉 4 条记录，我已逐条与材料库（GB/T 699-2015）核对：\n\n| 计算记录 | 依赖的材料参数 | 计算所用值 | 材料库标准值 | 一致性 |\n|----------|---------------|-----------|-------------|--------|\n| calc#18 输入轴轴径初估 | A₀（45 调质） | 112 | 112 | ✓ 一致 |\n| calc#19 输出轴轴径初估 | A₀（45 正火） | 118 | 118 | ✓ 一致 |\n| calc#33 输入轴弯扭合成 | σ₋₁（45 调质） | 60 MPa | 60 MPa | ✓ 一致 |\n| calc#34 输出轴弯扭合成 | σ₋₁（45 正火） | 55 MPa | 55 MPa | ✓ 一致 |\n\n**结论：轴材料由\"待确认假设\"转为\"已确认\"，不改变任何数值，无需重算。** 4 条依赖计算的材料输入全部正确，校核结论（calc#33 余量 92.4%、calc#34 余量 76.7%）继续有效。\n\n## 二、台账状态\n\n- confirmed 47 / **tentative 1** / frozen 0 / **stale 0**\n- 无失效（stale）数据，受控恢复无需触发任何重算链。\n\n## 三、需向您报告的一项异常（不属于本次输入变化，本轮未处理）\n\n台账中存在 **1 个悬空的 tentative 参数 `z_1`**，与已确认的下游齿轮几何不一致：\n\n| 项 | 当前值 | 状态 |\n|----|--------|------|\n| z_1（小齿轮齿数） | **25** | tentative，rev 2，被取代原值 24 |\n| d_1（小齿轮分度圆） | 48 mm | confirmed，基于 z₁=24（2×24=48） |\n| z_2（大齿轮齿数） | 96 | confirmed，基于 24×4=96 |\n| i_actual（实际传动比） | 4 | confirmed |\n| a（中心距） | 120 mm | confirmed |\n| da_1 / d_f1 | 52 / 43 mm | confirmed，基于 z₁=24 |\n\n**问题**：若 z₁=25 生效，则 d₁=50 mm、a=121 mm、i_actual=96/25=3.84，传动比将偏离设计值 4；要维持 i=4 需同步把 z₂ 改为 100。且该 tentative 项的 rationale 仍写着\"软齿面惯用齿数 24\"，与数值 25 自相矛盾。系统因该值为 tentative（未确认）未将其传播为 stale。\n\n按您\"只重算本次输入变化（轴材料）影响\"的指令，此项**未擅自重算、未擅自改值**。建议后续由您决策二选一：\n- **A. 回退 z₁=24**（与整套已确认齿轮几何一致，推荐，传动比精确为 4）；\n- **B. 确认 z₁=25**（需连锁重算 z₂=100 及 d₁、d₂、a、da₁、d_f1 全部齿轮参数并重新校核）。\n\n受控恢复到此结束，已停止，未推进冻结与建模。",
+    "design_stage": "geometry",
+    "tool_calls_made": [
+      "query_ledger",
+      "get_calculation_record",
+      "lookup_material",
+      "lookup_material"
+    ],
+    "tool_events": [
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_material",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_material",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "experiment_condition": "B3"
+  }
+}

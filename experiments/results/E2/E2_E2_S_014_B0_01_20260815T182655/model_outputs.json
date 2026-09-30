@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_S_014",
+  "error_type": "symbol_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您说得对，这里容易混淆，我来澄清一下：\n\n- 对于实心圆轴，**抗弯截面系数** \\( W = \\dfrac{\\pi d^3}{32} \\)  \n- **极截面系数**（抗扭截面系数） \\( W_p = \\dfrac{\\pi d^3}{16} \\)\n\n所以您括号里说的“这是极截面系数 \\( W_p \\)”其实有误——\\( \\pi d^3/32 \\) 是抗弯的，不是抗扭的。您后面那句“轴的抗弯截面系数 \\( W = \\pi d^3/32 \\) 也正确”才是对的。两者差一倍，别用混了。\n\n如果您是在准备某个轴的设计计算，需要我启动正式设计流程的话，随时告诉我设计需求（比如传递功率、转速、载荷类型等），我会按规范一步步来。"
+}

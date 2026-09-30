@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_S_016",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好的，确认了。系统公式库中 `bearing_life_check` 的符号定义是正确的——`f_t` 明确标注为温度系数，默认 1.0。\n\n不过这条公式里 **没有显式出现 `f_d`**。按照标准做法，`f_d`（载荷系数/冲击系数）应在计算当量动载荷 `P_eq` 时就已经乘进去了：\n\n\\[\nP_{eq} = f_d \\cdot (X \\cdot F_r + Y \\cdot F_a)\n\\]\n\n也就是说，`P_eq` 传给 `bearing_life_check` 时应该是**已经包含了冲击系数**的设计当量动载荷。这个设计惯例我在后续轴承选型和校核时会严格遵守——先算 `P_eq`（含 `f_d`），再代入寿命公式（含 `f_t`），两个系数各司其职、不混淆。\n\n感谢指正，这个区分在写计算书时尤其重要，否则审查时会被一眼看出符号混用。当前没有进行中的设计任务，需要开始设计时随时告诉我。"
+}

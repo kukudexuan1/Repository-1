@@ -1,0 +1,825 @@
+{
+  "metrics": {
+    "IR": 0.098,
+    "invalidation_precision": 1.0,
+    "ORR": 0.4314,
+    "BR": 0.5686,
+    "IRE": 0.7349,
+    "n_gold_stale": 51,
+    "n_predicted_stale": 5,
+    "stale_used_downstream": 22,
+    "recovery_time_s": 545.1638,
+    "tool_calls_after_change": 44,
+    "human_interventions": 0,
+    "orr_violation": true
+  },
+  "run_data": {
+    "predicted_stale_params": [],
+    "predicted_stale_calcs": [
+      "calc#1",
+      "calc#18",
+      "calc#2",
+      "calc#22",
+      "calc#25"
+    ],
+    "gold_stale_params": [
+      "T_in",
+      "T_out",
+      "a",
+      "b_2",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_in_ext",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "key_coupling_in",
+      "key_coupling_out",
+      "key_gear",
+      "m",
+      "n_out"
+    ],
+    "gold_stale_calcs": [
+      "calc#1",
+      "calc#10",
+      "calc#13",
+      "calc#15",
+      "calc#16",
+      "calc#18",
+      "calc#19",
+      "calc#2",
+      "calc#20",
+      "calc#21",
+      "calc#22",
+      "calc#23",
+      "calc#24",
+      "calc#25",
+      "calc#26",
+      "calc#27",
+      "calc#28",
+      "calc#29",
+      "calc#30",
+      "calc#31",
+      "calc#32",
+      "calc#33",
+      "calc#34",
+      "calc#35",
+      "calc#4",
+      "calc#6",
+      "calc#7",
+      "calc#8",
+      "calc#9"
+    ],
+    "stale_params_used_downstream": 22,
+    "stale_calcs_used_downstream": 0,
+    "n_incremental_recalculations": 22,
+    "n_full_recalculations": 83,
+    "recovery_time_s": 545.1638,
+    "tool_calls_after_change": 44,
+    "human_interventions": 0,
+    "change_time_s": 2.0622,
+    "probe_time_s": 2.0322,
+    "leaked_nodes": [
+      "T_in",
+      "T_out",
+      "a",
+      "b_2",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_in_ext",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "key_coupling_in",
+      "key_coupling_out",
+      "key_gear",
+      "m",
+      "n_out"
+    ],
+    "condition_semantics": "C2 marks every existing node stale before bounded recovery",
+    "recovered_stale_params": [],
+    "recovered_stale_calcs": [
+      "calc#1",
+      "calc#18",
+      "calc#2",
+      "calc#22",
+      "calc#25"
+    ],
+    "actual_recalculations": 22,
+    "new_calculation_records": 22,
+    "recovery_tool_calls": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "get_calculation_record",
+      "search_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "run_calculation",
+      "run_calculation",
+      "run_calculation",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "lookup_standard_series",
+      "lookup_standard_series",
+      "lookup_standard_part",
+      "lookup_standard_part",
+      "lookup_standard_part",
+      "run_calculation",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula"
+    ]
+  },
+  "probe": {
+    "status": "ok",
+    "session_id": "b06d3dad-2a22-40f0-82d4-847895adc7eb",
+    "entries": [
+      {
+        "symbol": "T_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "T_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "a",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "b_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_f1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_gear_seat",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "delta_housing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_gear",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "m",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "n_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      }
+    ],
+    "records": [
+      {
+        "record_id": "calc#1",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#10",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#13",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#15",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#16",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#18",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#19",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#2",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#20",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#21",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#22",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#23",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#24",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#25",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#26",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#27",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#28",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#29",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#30",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#31",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#32",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#33",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#34",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#35",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#4",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#6",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#7",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#8",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#9",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      }
+    ],
+    "report": {
+      "accepted": false,
+      "error": "报告输入包含失效项：parameters=[], calculations=['calc#1', 'calc#2', 'calc#18', 'calc#22', 'calc#25']"
+    },
+    "stale": {
+      "stale_calculations": [
+        "calc#1",
+        "calc#2",
+        "calc#18",
+        "calc#22",
+        "calc#25"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "change_response": {
+    "status": "ok",
+    "session_id": "b06d3dad-2a22-40f0-82d4-847895adc7eb",
+    "symbol": "n_in",
+    "value": {
+      "value": 960.0,
+      "unit": "r/min"
+    },
+    "revision": 2,
+    "baseline_was_frozen": true,
+    "propagation_mode": "direct",
+    "stale": {
+      "stale_calculations": [
+        "calc#1",
+        "calc#2",
+        "calc#18",
+        "calc#22",
+        "calc#25"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "recovery_response": {
+    "session_id": "b06d3dad-2a22-40f0-82d4-847895adc7eb",
+    "reply": "已达到最大工具调用轮次。当前设计进度已保存在会话状态中，请说明下一步希望我优先推进哪一项。",
+    "design_stage": "geometry",
+    "tool_calls_made": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "search_formula",
+      "get_calculation_record",
+      "search_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "run_calculation",
+      "run_calculation",
+      "run_calculation",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "lookup_standard_series",
+      "lookup_standard_series",
+      "lookup_standard_part",
+      "lookup_standard_part",
+      "lookup_standard_part",
+      "run_calculation",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula"
+    ],
+    "tool_events": [
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_standard_series",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_standard_series",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_standard_part",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_standard_part",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_standard_part",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "experiment_condition": "B3"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_S_011",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "您说得对，我来确认当前公式库中的实际情况。\n\n**当前 `key_crushing_check` 公式的符号已经是正确的：**\n\n| 符号 | 含义 | 规范 |\n|------|------|------|\n| `sigma_p` | 键连接工作面挤压应力 | σp（p = pressure）✅ |\n| `sigma_pP` | 许用挤压应力 | [σp] ✅ |\n\n公式库中并没有出现 `[σbs]` 这个符号。`σbs`（bs = bearing stress）常见于某些译本或老教材，但国内主流教材（如濮良贵《机械设计》第十版式 6-1）统一使用 σp，公式库遵循的就是这个规范。\n\n如果您是在之前的某次设计输出中看到了 `[σbs]`，那是该次输出的笔误，公式库本身没有问题。能否告诉我是哪个设计文档或哪次回复中出现了这个错误符号？我好定位并更正。"
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_OK_003",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "`solve_formula` 在当前环境下不可用，但校核计算本身是确定性公式，我可以按公式严格推算并给出过程。以下按机械设计（第十版）式 6-1 进行。\n\n---\n\n## 键 16×10×60 挤压强度校核\n\n### 已知条件\n\n| 参数 | 数值 | 来源 |\n|------|------|------|\n| 键截面 b×h | 16×10 mm | 用户给定，GB/T 1096 |\n| 键长 L | 60 mm | 用户给定 |\n| 轴径 d | 55 mm | 用户给定 |\n| 传递转矩 T | 420 N·m = 420×10³ N·mm | 用户给定 |\n| 键材料 | 45钢 | 用户给定 |\n| 轮毂材料 | 45钢调质 | 用户给定 |\n\n### 工作长度\n\n假定为 **A 型（圆头）普通平键**，工作长度：\n\n> l = L − b = 60 − 16 = **44 mm**\n\n---\n\n### 挤压应力计算\n\n公式（机械设计第十版 式 6-1）：\n\n$$\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l}$$\n\n代入：\n\n$$\\sigma"
+}

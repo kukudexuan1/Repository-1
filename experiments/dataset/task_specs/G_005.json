@@ -1,0 +1,36 @@
+{
+  "task_id": "G_005",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "val",
+  "description": "设计一台单级斜齿圆柱齿轮减速器，用于矿山提升机传动，重载冲击，工作16h/天。",
+  "explicit_inputs": {
+    "input_power_kW": 22.0,
+    "input_speed_rpm": 730,
+    "transmission_ratio": 4.5,
+    "design_life_h": 25000,
+    "load_type": "严重冲击",
+    "working_hours_per_day": 16,
+    "ambient_temperature_C": 30
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "轴功率", "扭矩", "轴弯扭合成"],
+    "material_candidates": ["40Cr调质", "42CrMo调质", "20CrMnTi渗碳淬火"],
+    "standard_series": ["模数系列GB/T1357", "标准公差IT", "键槽GB/T1095"],
+    "standard_parts": ["圆锥滚子轴承", "平键", "联轴器"]
+  },
+  "decisions_required": ["齿轮材料与热处理", "精度等级（严重冲击）", "轴承类型", "冷却方式"],
+  "expert_reference": {
+    "reference_module": "G_005",
+    "key_param_ranges": {
+      "module_mm": [4, 6],
+      "z1_teeth": [18, 28],
+      "helix_angle_deg": [10, 18],
+      "face_width_mm": [100, 200],
+      "center_distance_mm": [180, 320]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴疲劳安全系数", "轴承寿命", "键挤压强度"],
+    "forbidden_errors": ["冲击载荷未引入使用系数KA", "模数未取标准值", "轴未验算疲劳安全系数"]
+  },
+  "_note": "占位模板，参考答案由专家填写后方可用于正式评测"
+}

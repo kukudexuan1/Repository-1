@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_003",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下：\n\n| 参数 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 功率 | P | 7.5 | kW |\n| 转速 | n | 960 | r/min |\n| **扭矩** | **T** | **74,609** | **N·mm** |\n| | | ≈ **74.6** | **N·m** |\n\n> 计算公式：**T = 9,550,000 × P / n**（《机械设计》第十版 式 15-1），计算记录 **calc#1**。\n\n---\n\n⚠️ 在继续之前，请确认两点：\n\n1. **功率**：你说的\"7500 W（应为kW）\"——我理解为 **7.5 kW**。如果实际是 7500 kW（7.5 MW），那扭矩将是 74,609 N·m，差了 1000 倍，请务必纠正。\n\n2. **设计意图**：这个扭矩是用于什么？比如：\n   - 设计一根传动轴？\n   - 设计一个齿轮减速器？\n   - 选配联轴器/键？\n\n请告诉我你的完整设计需求，我好帮你启动正式设计流程。"
+}

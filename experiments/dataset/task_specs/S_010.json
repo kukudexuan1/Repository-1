@@ -1,0 +1,38 @@
+{
+  "task_id": "S_010",
+  "family": "S",
+  "family_name": "阶梯轴",
+  "split": "test",
+  "description": "设计一根船用减速器输出轴，承受螺旋桨推力（轴向力）和扭矩，材料34CrNi3Mo调质，双列圆锥滚子轴承。",
+  "explicit_inputs": {
+    "power_kW": 55.0,
+    "speed_rpm": 300,
+    "design_life_h": 60000,
+    "load_type": "均匀载荷",
+    "keyway_count": 1,
+    "material_grade": "34CrNi3Mo调质",
+    "axial_thrust_N": 45000
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴最小直径A0法", "弯矩合成", "轴疲劳安全系数", "推力轴承选型"],
+    "material_candidates": ["34CrNi3Mo调质", "42CrMo调质"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["双列圆锥滚子轴承", "平键", "推力轴承"]
+  },
+  "decisions_required": ["推力轴承与支承轴承组合方案", "轴封方式（海水防腐）", "轴颈表面处理"],
+  "expert_reference": {
+    "reference_module": "S_010",
+    "key_param_ranges": {
+      "min_diameter_mm": [90, 140],
+      "critical_section_safety_factor": [1.5, 3.0],
+      "key_section_bh": ["25x14", "28x16", "32x18"]
+    },
+    "must_pass_checks": ["轴疲劳安全系数", "推力轴承额定载荷", "键挤压强度", "轴承寿命"],
+    "forbidden_errors": [
+      "轴向推力未计入危险截面应力",
+      "轴径未取标准值",
+      "海洋环境未采用耐腐蚀密封"
+    ]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

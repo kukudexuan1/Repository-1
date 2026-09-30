@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_002",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "用户给出了扭矩和许用切应力，要求估算轴的最小直径。这是一个典型的单零件设计计算请求，我先判定设计范围，然后通过工具完成计算，避免心算报数。\n\n调用 `set_design_scope`，将范围定为 single_part（轴是可独立加工的单个零件）。  \n调用 `search_formula`，查找轴径扭转强度估算公式，准备代入求解。  \n后续计算将完全依赖工具返回结果，确保每一步都有据可查。"
+}

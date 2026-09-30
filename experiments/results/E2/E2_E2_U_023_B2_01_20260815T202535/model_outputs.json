@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_U_023",
+  "error_type": "unit_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "这是一个纯咨询/验证性质的问题，不需要走正式设计流程。直接分析：\n\n---\n\n**单位量纲验证：正确。**\n\n```\nσF = YFS × YE × YB × F / (b × mn)\n\n量纲分析：\n  YFS, YE, YB → 无量纲（纯系数）\n  F           → N\n  b × mn      → mm × mm = mm²\n  F/(b×mn)    → N/mm²\n\n∴ σF → N/mm²  ✓\n```\n\nN/mm² 等同于 MPa，这是齿根弯曲应力的标准单位。\n\n---\n\n**数值代入（前提是 YE 和 YB 已知）：**\n\n你给了 YFS=2.72，但 **YE（重合度系数）和 YB（螺旋角系数）的值缺失**。\n\n- 若为直齿轮：YB = 1.0\n- YE 通常在 0.65~0.85 之间，取决于端面重合度 εα\n\n如果你确认 YE 和 YB 的值，我可以帮你跑一遍完整计算。目前能确定的是：\n\n```\nσF = 2.72 × YE × YB × 2400 / (80 × 3)\n   = 2.72 × YE × YB × 10\n   = 27.2 × YE ×"
+}

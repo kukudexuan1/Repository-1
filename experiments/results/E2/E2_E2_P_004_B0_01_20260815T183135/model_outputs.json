@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_004",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "好的，我们先明确设计范围。你提到的是对一根已有的45钢调质轴做疲劳安全系数校核，这属于单一零件（single part）范畴。校核本身就隐含了“这根轴已经有几何尺寸和工况”的前提，只是现在你只给了弯矩，其他关键参数缺失。我们需要把这些缺失项收敛齐，才能走正式计算流程。\n\n在启动设计任务书之前，我先判定设计范围，然后查询零件族，为你建立一个以“校核”为目标的任务书。\n\n**调用工具**：`set_design_scope`  \n**调用理由**：设计对象是单根轴，独立加工，不涉及装配，应定为 single_part。  \n**参数**：`scope=single_part`\n**调用后预期**：系统确认设计范围，后续流程按单零件走。"
+}

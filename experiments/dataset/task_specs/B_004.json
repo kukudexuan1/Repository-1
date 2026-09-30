@@ -1,0 +1,35 @@
+{
+  "task_id": "B_004",
+  "family": "B",
+  "family_name": "轴承—键—轴组合",
+  "split": "test",
+  "description": "轴径40mm，深沟球轴承，安装蜗轮（键传扭），径向载荷3200N，轴向载荷600N，设计寿命15000h，轻微冲击。",
+  "explicit_inputs": {
+    "shaft_diameter_mm": 40,
+    "bearing_type": "深沟球轴承",
+    "radial_load_N": 3200,
+    "axial_load_N": 600,
+    "speed_rpm": 60,
+    "design_life_h": 15000,
+    "load_type": "轻微冲击",
+    "material_grade": "45钢调质",
+    "transmitted_torque_Nm": 680
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["深沟球轴承当量动载荷（含轴向力）", "轴承寿命L10h", "键挤压强度"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承GB/T276", "平键GB/T1096"]
+  },
+  "decisions_required": ["深沟球轴承型号", "e值判断（是否计轴向力）", "键截面和键长"],
+  "expert_reference": {
+    "reference_module": "B_004",
+    "key_param_ranges": {
+      "bearing_code": ["6208", "6308", "6209"],
+      "key_section_bh": "12x8",
+      "min_key_length_mm": [36, 70]
+    },
+    "must_pass_checks": ["深沟球轴承Fa/Fr>e时轴向力计入当量载荷", "轴承寿命≥15000h", "键挤压强度"],
+    "forbidden_errors": ["深沟球轴承忽略轴向力当量载荷修正（Fa/Fr>e时）", "键截面与轴径不匹配"]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

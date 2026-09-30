@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_OK_004",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "好的，公式和材料数据已齐备。注意到 `solve_formula` 在当前环境下不可用，我将基于已查到的公式和材料数据进行规范手算，步骤和出处均透明可追溯。\n\n---\n\n## 弯扭合成强度校核计算\n\n### 已知条件\n\n| 参数 | 符号 | 数值 | 来源 |\n|------|------|------|------|\n| 轴径 | d | 50 mm | 用户给定 |\n| 合成弯矩 | M | 185 N·m = 185 000 N·mm | 用户给定 |\n| 转矩 | T | 320 N·m = 320 000 N·mm | 用户给定 |\n| 材料 | 45 钢调质 | — | 用户给定 |\n| 对称循环许用弯曲应力 | σ₋₁ | 60 MPa | GB/T 699-2015，lookup_material |\n| 折合系数 | α | 0.6 | 机械设计（第十版）式 15-5 默认值（脉动循环） |\n\n---\n\n### 第一步：抗弯截面系数 W（实心圆轴）\n\n**公式**：`W = π × d³ / 32`（机械设计（第十版）表 15-4）\n\n```\nW = π × (50"
+}

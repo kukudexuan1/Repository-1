@@ -1,0 +1,2729 @@
+{
+  "session_id": "f08c8ab9-f197-44f1-a9aa-86a3c08404c7",
+  "mode": "design",
+  "design_stage": "detail_calculation",
+  "gates": {
+    "gate1_scheme_confirmed": {
+      "gate": "gate1_scheme_confirmed",
+      "approved": true,
+      "approved_at": "2026-08-19T05:56:07.936247+00:00",
+      "user_statement": "使用方案 0",
+      "conditions": []
+    }
+  },
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "assembly",
+  "design_spec": {
+    "family": "gearbox_single_stage",
+    "family_label": "单级圆柱齿轮减速器",
+    "title": "单级圆柱齿轮减速器设计任务书",
+    "items": {
+      "transmitted_power": {
+        "key": "transmitted_power",
+        "label": "输入功率",
+        "value": "4 kW",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": true,
+        "group": "功能与工况",
+        "needed_by_stage": "spec_gathering",
+        "hint": "原动机输出到减速器输入轴的功率，或工作机所需功率（需说明是哪一个）",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "input_speed": {
+        "key": "input_speed",
+        "label": "输入转速",
+        "value": "1440 r/min",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": true,
+        "group": "功能与工况",
+        "needed_by_stage": "spec_gathering",
+        "hint": "通常为电动机满载转速，常见 1440 / 960 / 720 r/min",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "total_ratio": {
+        "key": "total_ratio",
+        "label": "传动比",
+        "value": "4",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": true,
+        "group": "功能与工况",
+        "needed_by_stage": "spec_gathering",
+        "hint": "单级圆柱齿轮传动比宜取 3~6，超过 6 应考虑两级",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "load_character": {
+        "key": "load_character",
+        "label": "载荷性质",
+        "value": "轻微冲击",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": true,
+        "group": "功能与工况",
+        "needed_by_stage": "spec_gathering",
+        "hint": "平稳 / 轻微冲击 / 中等冲击 / 强烈冲击。直接决定载荷系数 K 与轴承载荷系数 f_p",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "rotation_direction": {
+        "key": "rotation_direction",
+        "label": "转向要求",
+        "value": "单向回转",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "用户未提双向回转，按最常见的单向工况取；若为双向需重新校核弯扭合成折合系数",
+        "required": false,
+        "group": "功能与工况",
+        "needed_by_stage": "detail_calculation",
+        "hint": "单向回转或双向回转。双向回转时轴的弯扭合成折合系数 α 取 1",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "driven_machine": {
+        "key": "driven_machine",
+        "label": "工作机类型",
+        "value": null,
+        "status": "unknown",
+        "source": "",
+        "rationale": "",
+        "required": false,
+        "group": "功能与工况",
+        "needed_by_stage": "spec_gathering",
+        "hint": "如带式输送机、链式输送机、搅拌机；影响载荷性质判断与效率链",
+        "updated_at": "2026-08-19T05:48:49.541863Z"
+      },
+      "daily_hours": {
+        "key": "daily_hours",
+        "label": "每天工作小时数",
+        "value": "16 hour",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": true,
+        "group": "寿命与可靠性",
+        "needed_by_stage": "spec_gathering",
+        "hint": "",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "service_years": {
+        "key": "service_years",
+        "label": "使用年限",
+        "value": "10 year",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": true,
+        "group": "寿命与可靠性",
+        "needed_by_stage": "spec_gathering",
+        "hint": "",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "days_per_year": {
+        "key": "days_per_year",
+        "label": "每年工作天数",
+        "value": "300 day",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "一班/两班制通用工程惯例按每年 300 个工作日计",
+        "required": false,
+        "group": "寿命与可靠性",
+        "needed_by_stage": "detail_calculation",
+        "hint": "通常取 300 天（一班制/两班制均按 300 计）",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "required_bearing_life": {
+        "key": "required_bearing_life",
+        "label": "轴承要求寿命",
+        "value": null,
+        "status": "unknown",
+        "source": "",
+        "rationale": "",
+        "required": false,
+        "group": "寿命与可靠性",
+        "needed_by_stage": "detail_calculation",
+        "hint": "一般取与减速器设计寿命相同；如需中修更换可取其一半",
+        "updated_at": "2026-08-19T05:48:49.541863Z"
+      },
+      "gear_material_scheme": {
+        "key": "gear_material_scheme",
+        "label": "齿轮材料与热处理方案",
+        "value": "小齿轮 45 钢调质，大齿轮 45 钢正火",
+        "status": "user_given",
+        "source": "方案确认结果 + 工程惯用假设",
+        "rationale": "用户选定方案 0（斜齿软齿面）",
+        "required": true,
+        "group": "材料与工艺",
+        "needed_by_stage": "scheme_design",
+        "hint": "软齿面（45钢调质+45钢正火）或硬齿面（20CrMnTi渗碳淬火）。属于方案决策，须用户确认",
+        "updated_at": "2026-08-19T05:56:42.110046Z"
+      },
+      "shaft_material": {
+        "key": "shaft_material",
+        "label": "轴的材料",
+        "value": "45 钢调质",
+        "status": "assumed_pending_confirm",
+        "source": "方案确认结果 + 工程惯用假设",
+        "rationale": "中小功率减速器传动轴惯用 45 钢调质",
+        "required": true,
+        "group": "材料与工艺",
+        "needed_by_stage": "detail_calculation",
+        "hint": "常用 45 钢调质；重载可用 40Cr 调质",
+        "updated_at": "2026-08-19T05:56:42.110046Z"
+      },
+      "housing_material": {
+        "key": "housing_material",
+        "label": "箱体材料",
+        "value": "HT200",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "中小功率减速器铸铁箱体惯用牌号",
+        "required": false,
+        "group": "材料与工艺",
+        "needed_by_stage": "detail_calculation",
+        "hint": "通常 HT200 灰铸铁；小批量可用 Q235 焊接",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "accuracy_grade": {
+        "key": "accuracy_grade",
+        "label": "齿轮精度等级",
+        "value": "8 级",
+        "status": "user_given",
+        "source": "方案确认结果 + 工程惯用假设",
+        "rationale": "用户选定方案 0（斜齿软齿面，精度 8 级）",
+        "required": true,
+        "group": "材料与工艺",
+        "needed_by_stage": "scheme_design",
+        "hint": "一般传动取 8 级；圆周速度高或要求低噪声时取 7 级",
+        "updated_at": "2026-08-19T05:56:42.110046Z"
+      },
+      "ambient_condition": {
+        "key": "ambient_condition",
+        "label": "工作环境",
+        "value": "常温、清洁室内环境",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "用户未提特殊环境，按常规室内工况取",
+        "required": false,
+        "group": "环境与约束",
+        "needed_by_stage": "detail_calculation",
+        "hint": "温度范围、粉尘、潮湿、腐蚀等，影响润滑与密封选择",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "envelope_limit": {
+        "key": "envelope_limit",
+        "label": "外廓尺寸限制",
+        "value": "总高≤300 mm，长宽≤400 mm（与 400×400×300 外廓匹配）",
+        "status": "user_given",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "",
+        "required": false,
+        "group": "环境与约束",
+        "needed_by_stage": "scheme_design",
+        "hint": "中心距上限、总高限制等。有限制时会约束齿宽系数与齿数选择",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "mounting_type": {
+        "key": "mounting_type",
+        "label": "安装方式",
+        "value": "卧式底座安装",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "与 400×400 底座外廓匹配的常规安装方式",
+        "required": false,
+        "group": "环境与约束",
+        "needed_by_stage": "geometry",
+        "hint": "卧式底座安装 / 立式 / 法兰安装",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "lubrication_type": {
+        "key": "lubrication_type",
+        "label": "润滑方式",
+        "value": null,
+        "status": "unknown",
+        "source": "",
+        "rationale": "",
+        "required": false,
+        "group": "环境与约束",
+        "needed_by_stage": "detail_calculation",
+        "hint": "圆周速度 <12m/s 可浸油润滑，更高需喷油润滑",
+        "updated_at": "2026-08-19T05:48:49.541863Z"
+      },
+      "safety_factor_contact": {
+        "key": "safety_factor_contact",
+        "label": "接触疲劳安全系数 S_H",
+        "value": "1.0",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "一般可靠度软齿面取 S_H=1.0",
+        "required": false,
+        "group": "验收判据",
+        "needed_by_stage": "detail_calculation",
+        "hint": "一般可靠度软齿面取 1.0，高可靠度取 1.1~1.25",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "safety_factor_bending": {
+        "key": "safety_factor_bending",
+        "label": "弯曲疲劳安全系数 S_F",
+        "value": "1.4",
+        "status": "assumed_pending_confirm",
+        "source": "用户首轮需求 + 工程惯用假设",
+        "rationale": "一般可靠度取 S_F=1.4，非断齿后果严重的工况",
+        "required": false,
+        "group": "验收判据",
+        "needed_by_stage": "detail_calculation",
+        "hint": "一般取 1.4；断齿后果严重时取 1.6~2.0",
+        "updated_at": "2026-08-19T05:49:39.308970Z"
+      },
+      "cost_constraint": {
+        "key": "cost_constraint",
+        "label": "成本约束",
+        "value": null,
+        "status": "unknown",
+        "source": "",
+        "rationale": "",
+        "required": false,
+        "group": "验收判据",
+        "needed_by_stage": "scheme_design",
+        "hint": "影响材料与热处理方案、精度等级的选择",
+        "updated_at": "2026-08-19T05:48:49.541863Z"
+      }
+    }
+  },
+  "ledger": {
+    "entries": {
+      "P": {
+        "symbol": "P",
+        "name": "输入功率",
+        "value": {
+          "value": 4.0,
+          "unit": "kW"
+        },
+        "source": "user_given",
+        "basis": [],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "n1": {
+        "symbol": "n1",
+        "name": "输入转速",
+        "value": {
+          "value": 1440.0,
+          "unit": "r/min"
+        },
+        "source": "user_given",
+        "basis": [],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "i": {
+        "symbol": "i",
+        "name": "传动比",
+        "value": {
+          "value": 4.0,
+          "unit": ""
+        },
+        "source": "user_given",
+        "basis": [],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "n2": {
+        "symbol": "n2",
+        "name": "输出转速",
+        "value": {
+          "value": 360.0,
+          "unit": "r/min"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#2"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "T1": {
+        "symbol": "T1",
+        "name": "输入轴转矩",
+        "value": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#1"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "T2": {
+        "symbol": "T2",
+        "name": "输出轴转矩",
+        "value": {
+          "value": 102927.79,
+          "unit": "N*mm"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#17"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "L_req": {
+        "symbol": "L_req",
+        "name": "轴承要求寿命",
+        "value": {
+          "value": 48000.0,
+          "unit": "hour"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#25"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "总体",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "m_n": {
+        "symbol": "m_n",
+        "name": "法向模数",
+        "value": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1357-2008"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "z1": {
+        "symbol": "z1",
+        "name": "小齿轮齿数",
+        "value": {
+          "value": 22.0,
+          "unit": ""
+        },
+        "source": "design_choice",
+        "basis": [],
+        "rationale": "软齿面斜齿轮取 22 齿，保证重合度、避免根切，并使中心距标准化到 112 mm",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "z2": {
+        "symbol": "z2",
+        "name": "大齿轮齿数",
+        "value": {
+          "value": 88.0,
+          "unit": ""
+        },
+        "source": "design_choice",
+        "basis": [],
+        "rationale": "z2 = i·z1 = 88，传动比精确为 4",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "beta": {
+        "symbol": "beta",
+        "name": "螺旋角",
+        "value": {
+          "value": 10.844,
+          "unit": "deg"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#11"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "d1": {
+        "symbol": "d1",
+        "name": "小齿轮分度圆直径",
+        "value": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#11"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "d2": {
+        "symbol": "d2",
+        "name": "大齿轮分度圆直径",
+        "value": {
+          "value": 179.2,
+          "unit": "mm"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#11"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "a": {
+        "symbol": "a",
+        "name": "中心距",
+        "value": {
+          "value": 112.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 2822-2005"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "b2": {
+        "symbol": "b2",
+        "name": "大齿轮齿宽",
+        "value": {
+          "value": 45.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "工程惯例（取整）"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "b1": {
+        "symbol": "b1",
+        "name": "小齿轮齿宽",
+        "value": {
+          "value": 50.0,
+          "unit": "mm"
+        },
+        "source": "design_choice",
+        "basis": [],
+        "rationale": "小齿轮齿宽 b1 = b2 + 5 mm，补偿装配轴向误差，保证全齿宽啮合",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "sigma_HP": {
+        "symbol": "sigma_HP",
+        "name": "许用接触应力（大齿轮弱件）",
+        "value": {
+          "value": 550.0,
+          "unit": "MPa"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#4"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "sigma_FP1": {
+        "symbol": "sigma_FP1",
+        "name": "小齿轮许用弯曲应力",
+        "value": {
+          "value": 150.0,
+          "unit": "MPa"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#5"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "sigma_FP2": {
+        "symbol": "sigma_FP2",
+        "name": "大齿轮许用弯曲应力",
+        "value": {
+          "value": 135.7,
+          "unit": "MPa"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#6"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "sigma_Hlim_gear": {
+        "symbol": "sigma_Hlim_gear",
+        "name": "大齿轮接触疲劳极限（45钢正火）",
+        "value": {
+          "value": 550.0,
+          "unit": "MPa"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 699-2015"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "sigma_Flim_pinion": {
+        "symbol": "sigma_Flim_pinion",
+        "name": "小齿轮弯曲疲劳极限（45钢调质）",
+        "value": {
+          "value": 210.0,
+          "unit": "MPa"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 699-2015"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "sigma_Flim_gear": {
+        "symbol": "sigma_Flim_gear",
+        "name": "大齿轮弯曲疲劳极限（45钢正火）",
+        "value": {
+          "value": 190.0,
+          "unit": "MPa"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 699-2015"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "d_shaft_in_min": {
+        "symbol": "d_shaft_in_min",
+        "name": "输入轴端最小直径",
+        "value": {
+          "value": 17.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 2822-2005"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "轴",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "d_shaft_out_min": {
+        "symbol": "d_shaft_out_min",
+        "name": "输出轴端最小直径",
+        "value": {
+          "value": 26.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 2822-2005"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "轴",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "d_bearing_in": {
+        "symbol": "d_bearing_in",
+        "name": "输入轴轴承 6205 内径",
+        "value": {
+          "value": 25.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 276-2013"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "轴承",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "d_bearing_out": {
+        "symbol": "d_bearing_out",
+        "name": "输出轴轴承 6206 内径",
+        "value": {
+          "value": 30.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 276-2013"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "轴承",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "Cr_in": {
+        "symbol": "Cr_in",
+        "name": "输入轴轴承 6205 额定动载荷 Cr",
+        "value": {
+          "value": 14000.0,
+          "unit": "N"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 276-2013"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "轴承",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "Cr_out": {
+        "symbol": "Cr_out",
+        "name": "输出轴轴承 6206 额定动载荷 Cr",
+        "value": {
+          "value": 19500.0,
+          "unit": "N"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 276-2013"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "轴承",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "key_gear_b": {
+        "symbol": "key_gear_b",
+        "name": "齿轮座键宽（d=35mm）",
+        "value": {
+          "value": 10.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1096-2003"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "key_gear_h": {
+        "symbol": "key_gear_h",
+        "name": "齿轮座键高（d=35mm）",
+        "value": {
+          "value": 8.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1096-2003"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "key_coup_b": {
+        "symbol": "key_coup_b",
+        "name": "联轴器键宽（d=28mm）",
+        "value": {
+          "value": 8.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1096-2003"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      },
+      "key_coup_h": {
+        "symbol": "key_coup_h",
+        "name": "联轴器键高（d=28mm）",
+        "value": {
+          "value": 7.0,
+          "unit": "mm"
+        },
+        "source": "standard_lookup",
+        "basis": [
+          "GB/T 1096-2003"
+        ],
+        "rationale": "",
+        "status": "confirmed",
+        "group": "键",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-19T06:10:05.358534Z"
+      }
+    },
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "由功率与转速求转矩",
+      "formula_id": "shaft_torque_from_power",
+      "expression": "T = 9550000 * P / n",
+      "inputs": {
+        "P": {
+          "value": 4.0,
+          "unit": "kW"
+        },
+        "n": {
+          "value": 1440.0,
+          "unit": "r/min"
+        }
+      },
+      "substitution": "P=4 kW；n=1440 r/min",
+      "result": {
+        "T": {
+          "value": 26527.777777777777,
+          "unit": "N*mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 15-1",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T05:57:18.054680Z"
+    },
+    "calc#2": {
+      "record_id": "calc#2",
+      "title": "输出轴转速",
+      "formula_id": "output_shaft_speed",
+      "expression": "n_out = n_in / i_actual",
+      "inputs": {
+        "n_in": {
+          "value": 1440.0,
+          "unit": "r/min"
+        },
+        "i_actual": {
+          "value": 4.0,
+          "unit": ""
+        }
+      },
+      "substitution": "n_in=1440 r/min；i_actual=4",
+      "result": {
+        "n_out": {
+          "value": 360.0,
+          "unit": "r/min"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计课程设计手册（第五版）§2.4",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T05:57:18.057054Z"
+    },
+    "calc#3": {
+      "record_id": "calc#3",
+      "title": "许用接触应力",
+      "formula_id": "gear_allowable_contact_stress",
+      "expression": "sigma_HP = sigma_Hlim * K_HN / S_H",
+      "inputs": {
+        "sigma_Hlim": {
+          "value": 600.0,
+          "unit": "MPa"
+        },
+        "K_HN": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "S_H": {
+          "value": 1.0,
+          "unit": ""
+        }
+      },
+      "substitution": "sigma_Hlim=600 MPa；K_HN=1；S_H=1",
+      "result": {
+        "sigma_HP": {
+          "value": 600.0,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-14",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T05:58:29.366493Z"
+    },
+    "calc#4": {
+      "record_id": "calc#4",
+      "title": "许用接触应力",
+      "formula_id": "gear_allowable_contact_stress",
+      "expression": "sigma_HP = sigma_Hlim * K_HN / S_H",
+      "inputs": {
+        "sigma_Hlim": {
+          "value": 550.0,
+          "unit": "MPa"
+        },
+        "K_HN": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "S_H": {
+          "value": 1.0,
+          "unit": ""
+        }
+      },
+      "substitution": "sigma_Hlim=550 MPa；K_HN=1；S_H=1",
+      "result": {
+        "sigma_HP": {
+          "value": 550.0,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-14",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T05:58:29.367495Z"
+    },
+    "calc#5": {
+      "record_id": "calc#5",
+      "title": "许用弯曲应力",
+      "formula_id": "gear_allowable_bending_stress",
+      "expression": "sigma_FP = sigma_Flim * K_FN / S_F",
+      "inputs": {
+        "sigma_Flim": {
+          "value": 210.0,
+          "unit": "MPa"
+        },
+        "K_FN": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "S_F": {
+          "value": 1.4,
+          "unit": ""
+        }
+      },
+      "substitution": "sigma_Flim=210 MPa；K_FN=1；S_F=1.4",
+      "result": {
+        "sigma_FP": {
+          "value": 150.0,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-14",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T05:58:43.963793Z"
+    },
+    "calc#6": {
+      "record_id": "calc#6",
+      "title": "许用弯曲应力",
+      "formula_id": "gear_allowable_bending_stress",
+      "expression": "sigma_FP = sigma_Flim * K_FN / S_F",
+      "inputs": {
+        "sigma_Flim": {
+          "value": 190.0,
+          "unit": "MPa"
+        },
+        "K_FN": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "S_F": {
+          "value": 1.4,
+          "unit": ""
+        }
+      },
+      "substitution": "sigma_Flim=190 MPa；K_FN=1；S_F=1.4",
+      "result": {
+        "sigma_FP": {
+          "value": 135.71428571428572,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-14",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T05:58:43.964854Z"
+    },
+    "calc#7": {
+      "record_id": "calc#7",
+      "title": "按齿面接触疲劳强度设计小齿轮分度圆直径",
+      "formula_id": "gear_contact_design_d1",
+      "expression": "d_1t = (2 * K_Ht * T_1 / phi_d * (u + 1) / u * (Z_H * Z_E * Z_eps / sigma_HP) ** 2) ** (1/3)",
+      "inputs": {
+        "K_Ht": {
+          "value": 1.3,
+          "unit": ""
+        },
+        "T_1": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "phi_d": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "u": {
+          "value": 4.0,
+          "unit": ""
+        },
+        "Z_H": {
+          "value": 2.5,
+          "unit": ""
+        },
+        "Z_E": {
+          "value": 189.8,
+          "unit": "MPa**0.5"
+        },
+        "Z_eps": {
+          "value": 0.87,
+          "unit": ""
+        },
+        "sigma_HP": {
+          "value": 550.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "K_Ht=1.3；T_1=2.653e+04 N*mm；phi_d=1；u=4；Z_H=2.5；Z_E=189.8 MPa**0.5；Z_eps=0.87；sigma_HP=550 MPa",
+      "result": {
+        "d_1t": {
+          "value": 36.48574982851604,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-11",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1",
+        "calc#4"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "试算所得 d_1t 需按齿数定模数并圆整到标准模数（GB/T 1357），再回代校核齿根弯曲疲劳强度",
+      "script": "",
+      "created_at": "2026-08-19T05:58:44.078268Z"
+    },
+    "calc#8": {
+      "record_id": "calc#8",
+      "title": "由分度圆直径与齿数求模数",
+      "formula_id": "gear_module_from_d1",
+      "expression": "m_t = d_1t / z_1",
+      "inputs": {
+        "d_1t": {
+          "value": 36.48575,
+          "unit": "mm"
+        },
+        "z_1": {
+          "value": 21.0,
+          "unit": ""
+        }
+      },
+      "substitution": "d_1t=36.49 mm；z_1=21",
+      "result": {
+        "m_t": {
+          "value": 1.7374166666666666,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-1",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#7"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "算得 m_t 后必须用 lookup_standard_series('gb1357_modulus') 向上圆整到标准模数",
+      "script": "",
+      "created_at": "2026-08-19T05:59:42.598636Z"
+    },
+    "calc#9": {
+      "record_id": "calc#9",
+      "title": "斜齿轮法向模数换算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "beta_deg": {
+          "value": 12.0,
+          "unit": ""
+        },
+        "m_t": {
+          "value": 1.7374167,
+          "unit": "mm"
+        }
+      },
+      "substitution": "beta_deg=12；m_t=1.737 mm",
+      "result": {
+        "m_n": {
+          "value": 1.6994499765798463,
+          "unit": "mm"
+        },
+        "cos_beta": {
+          "value": 0.9781476007338057,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）第十章：法向模数与端面模数关系 m_n = m_t·cosβ",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#8"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "cos_beta = math.cos(math.radians(beta_deg))\nm_n = m_t * cos_beta\noutputs['m_n'] = m_n\noutputs['cos_beta'] = cos_beta",
+      "created_at": "2026-08-19T06:00:10.843562Z"
+    },
+    "calc#10": {
+      "record_id": "calc#10",
+      "title": "斜齿轮几何参数回代计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "beta_deg": {
+          "value": 12.0,
+          "unit": ""
+        },
+        "m_n": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "phi_d": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "z1": {
+          "value": 21.0,
+          "unit": ""
+        },
+        "z2": {
+          "value": 84.0,
+          "unit": ""
+        }
+      },
+      "substitution": "beta_deg=12；m_n=2 mm；phi_d=1；z1=21；z2=84",
+      "result": {
+        "m_t": {
+          "value": 2.0446811897300585,
+          "unit": "mm"
+        },
+        "d1": {
+          "value": 42.93830498433123,
+          "unit": "mm"
+        },
+        "d2": {
+          "value": 171.75321993732493,
+          "unit": "mm"
+        },
+        "a": {
+          "value": 107.34576246082808,
+          "unit": "mm"
+        },
+        "b": {
+          "value": 42.93830498433123,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）第十章：斜齿轮几何关系 d = m_n·z/cosβ，a = (d1+d2)/2，b = φd·d1",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#9"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "cos_beta = math.cos(math.radians(beta_deg))\nm_t = m_n / cos_beta\nd1 = m_t * z1\nd2 = m_t * z2\na = (d1 + d2) / 2\nb = phi_d * d1\noutputs['m_t'] = m_t\noutputs['d1'] = d1\noutputs['d2'] = d2\noutputs['a'] = a\noutputs['b'] = b",
+      "created_at": "2026-08-19T06:01:10.564257Z"
+    },
+    "calc#11": {
+      "record_id": "calc#11",
+      "title": "斜齿轮最终几何参数计算（中心距112mm）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "a": {
+          "value": 112.0,
+          "unit": "mm"
+        },
+        "m_n": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "phi_d": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "z1": {
+          "value": 22.0,
+          "unit": ""
+        },
+        "z2": {
+          "value": 88.0,
+          "unit": ""
+        }
+      },
+      "substitution": "a=112 mm；m_n=2 mm；phi_d=1；z1=22；z2=88",
+      "result": {
+        "cos_beta": {
+          "value": 0.9821428571428571,
+          "unit": ""
+        },
+        "beta_deg": {
+          "value": 10.844062563696856,
+          "unit": "deg"
+        },
+        "m_t": {
+          "value": 2.0363636363636366,
+          "unit": "mm"
+        },
+        "d1": {
+          "value": 44.800000000000004,
+          "unit": "mm"
+        },
+        "d2": {
+          "value": 179.20000000000002,
+          "unit": "mm"
+        },
+        "b": {
+          "value": 44.800000000000004,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）第十章：中心距 a = m_n(z1+z2)/(2cosβ)，反解螺旋角 β；d = m_n·z/cosβ",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#10"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "cos_beta = m_n * (z1 + z2) / (2 * a)\nbeta_deg = math.degrees(math.acos(cos_beta))\nm_t = m_n / cos_beta\nd1 = m_t * z1\nd2 = m_t * z2\nb = phi_d * d1\noutputs['cos_beta'] = cos_beta\noutputs['beta_deg'] = beta_deg\noutputs['m_t'] = m_t\noutputs['d1'] = d1\noutputs['d2'] = d2\noutputs['b'] = b",
+      "created_at": "2026-08-19T06:01:54.784516Z"
+    },
+    "calc#12": {
+      "record_id": "calc#12",
+      "title": "齿轮校核中间量计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "b": {
+          "value": 45.0,
+          "unit": "mm"
+        },
+        "beta_deg": {
+          "value": 10.844,
+          "unit": "deg"
+        },
+        "d1": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "m_n": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "n1": {
+          "value": 1440.0,
+          "unit": "r/min"
+        },
+        "z1": {
+          "value": 22.0,
+          "unit": ""
+        },
+        "z2": {
+          "value": 88.0,
+          "unit": ""
+        }
+      },
+      "substitution": "b=45 mm；beta_deg=10.84 deg；d1=44.8 mm；m_n=2 mm；n1=1440 r/min；z1=22；z2=88",
+      "result": {
+        "v": {
+          "value": 3.3778404211397457,
+          "unit": "m/s"
+        },
+        "z_v1": {
+          "value": 23.221935841292378,
+          "unit": ""
+        },
+        "z_v2": {
+          "value": 92.88774336516951,
+          "unit": ""
+        },
+        "Y_Fa1": {
+          "value": 2.6955612831741527,
+          "unit": ""
+        },
+        "Y_Sa1": {
+          "value": 1.576109679206462,
+          "unit": ""
+        },
+        "Y_Fa2": {
+          "value": 2.194224513269661,
+          "unit": ""
+        },
+        "Y_Sa2": {
+          "value": 1.7828877433651695,
+          "unit": ""
+        },
+        "Y_beta": {
+          "value": 0.9096333333333333,
+          "unit": ""
+        },
+        "eps_beta": {
+          "value": 1.3474219942989791,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）第十章：圆周速度 v=πdn/60000；当量齿数 z_v=z/cos³β；齿形系数与应力校正系数按表10-5线性插值；螺旋角系数 Y_β=1-β/120°；轴向重合度 ε_β=b·sinβ/(π·m_n)",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#11"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "v = math.pi * d1 * n1 / 60000\ncos_beta = math.cos(math.radians(beta_deg))\nz_v1 = z1 / cos_beta**3\nz_v2 = z2 / cos_beta**3\nY_Fa1 = 2.72 + (z_v1 - 22) / (24 - 22) * (2.68 - 2.72)\nY_Sa1 = 1.57 + (z_v1 - 22) / (24 - 22) * (1.58 - 1.57)\nY_Fa2 = 2.20 + (z_v2 - 90) / (100 - 90) * (2.18 - 2.20)\nY_Sa2 = 1.78 + (z_v2 - 90) / (100 - 90) * (1.79 - 1.78)\nY_beta = 1 - beta_deg / 120\neps_beta = b * math.sin(math.radians(beta_deg)) / (math.pi * m_n)\noutputs['v'] = v\noutputs['z_v1'] = z_v1\noutputs['z_v2'] = z_v2\noutputs['Y_Fa1'] = Y_Fa1\noutputs['Y_Sa1'] = Y_Sa1\noutputs['Y_Fa2'] = Y_Fa2\noutputs['Y_Sa2'] = Y_Sa2\noutputs['Y_beta'] = Y_beta\noutputs['eps_beta'] = eps_beta",
+      "created_at": "2026-08-19T06:03:22.967911Z"
+    },
+    "calc#13": {
+      "record_id": "calc#13",
+      "title": "齿轮载荷系数计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "K_A": {
+          "value": 1.25,
+          "unit": ""
+        },
+        "K_Halpha": {
+          "value": 1.1,
+          "unit": ""
+        },
+        "K_Hbeta": {
+          "value": 1.05,
+          "unit": ""
+        },
+        "K_Falpha": {
+          "value": 1.2,
+          "unit": ""
+        },
+        "K_Fbeta": {
+          "value": 1.04,
+          "unit": ""
+        },
+        "K_V": {
+          "value": 1.08,
+          "unit": ""
+        }
+      },
+      "substitution": "K_A=1.25；K_Halpha=1.1；K_Hbeta=1.05；K_Falpha=1.2；K_Fbeta=1.04；K_V=1.08",
+      "result": {
+        "K_H": {
+          "value": 1.5592500000000002,
+          "unit": ""
+        },
+        "K_F": {
+          "value": 1.6848,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）表10-2（使用系数 K_A=1.25 轻微冲击）、图10-8（动载系数 K_V=1.08，8级精度 v≈3.4m/s）、表10-4（齿向载荷分布 K_Hβ=1.05 对称布置）、表10-3（齿间载荷分配 K_Hα=1.1，K_Fα=1.2）",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "K_H = K_A * K_V * K_Hbeta * K_Halpha\nK_F = K_A * K_V * K_Fbeta * K_Falpha\noutputs['K_H'] = K_H\noutputs['K_F'] = K_F",
+      "created_at": "2026-08-19T06:03:48.274002Z"
+    },
+    "calc#14": {
+      "record_id": "calc#14",
+      "title": "齿面接触疲劳强度校核",
+      "formula_id": "gear_contact_check",
+      "expression": "sigma_H = Z_H * Z_E * Z_eps * (2 * K_H * T_1 / (b * d_1 ** 2) * (u + 1) / u) ** 0.5",
+      "inputs": {
+        "Z_H": {
+          "value": 2.5,
+          "unit": ""
+        },
+        "Z_E": {
+          "value": 189.8,
+          "unit": "MPa**0.5"
+        },
+        "Z_eps": {
+          "value": 0.87,
+          "unit": ""
+        },
+        "K_H": {
+          "value": 1.559,
+          "unit": ""
+        },
+        "T_1": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "b": {
+          "value": 45.0,
+          "unit": "mm"
+        },
+        "d_1": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "u": {
+          "value": 4.0,
+          "unit": ""
+        },
+        "sigma_HP": {
+          "value": 550.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "Z_H=2.5；Z_E=189.8 MPa**0.5；Z_eps=0.87；K_H=1.559；T_1=2.653e+04 N*mm；b=45 mm；d_1=44.8 mm；u=4；sigma_HP=550 MPa",
+      "result": {
+        "sigma_H": {
+          "value": 441.6870986486421,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_H <= sigma_HP",
+      "verdict": "pass",
+      "margin_percent": 19.69325479115598,
+      "source": "机械设计（第十版）式 10-9",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1",
+        "calc#4",
+        "calc#11",
+        "calc#13"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "用于模数与齿宽圆整后的回代校核",
+      "script": "",
+      "created_at": "2026-08-19T06:04:03.171300Z"
+    },
+    "calc#15": {
+      "record_id": "calc#15",
+      "title": "斜齿轮齿根弯曲疲劳强度校核",
+      "formula_id": "gear_helical_bending_check",
+      "expression": "sigma_F = 2 * K_F * T_1 * Y_Fa * Y_Sa * Y_eps * Y_beta / (b * d_1 * m_n)",
+      "inputs": {
+        "K_F": {
+          "value": 1.685,
+          "unit": ""
+        },
+        "T_1": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "Y_Fa": {
+          "value": 2.696,
+          "unit": ""
+        },
+        "Y_Sa": {
+          "value": 1.576,
+          "unit": ""
+        },
+        "Y_eps": {
+          "value": 0.7,
+          "unit": ""
+        },
+        "Y_beta": {
+          "value": 0.9096,
+          "unit": ""
+        },
+        "b": {
+          "value": 45.0,
+          "unit": "mm"
+        },
+        "d_1": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "m_n": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "sigma_FP": {
+          "value": 150.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "K_F=1.685；T_1=2.653e+04 N*mm；Y_Fa=2.696；Y_Sa=1.576；Y_eps=0.7；Y_beta=0.9096；b=45 mm；d_1=44.8 mm；m_n=2 mm；sigma_FP=150 MPa",
+      "result": {
+        "sigma_F": {
+          "value": 59.983924623979114,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_F <= sigma_FP",
+      "verdict": "pass",
+      "margin_percent": 60.01071691734726,
+      "source": "机械设计（第十版）第十章；GB/T 3480",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1",
+        "calc#5",
+        "calc#11",
+        "calc#12",
+        "calc#13"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T06:04:03.183709Z"
+    },
+    "calc#16": {
+      "record_id": "calc#16",
+      "title": "斜齿轮齿根弯曲疲劳强度校核",
+      "formula_id": "gear_helical_bending_check",
+      "expression": "sigma_F = 2 * K_F * T_1 * Y_Fa * Y_Sa * Y_eps * Y_beta / (b * d_1 * m_n)",
+      "inputs": {
+        "K_F": {
+          "value": 1.685,
+          "unit": ""
+        },
+        "T_1": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "Y_Fa": {
+          "value": 2.194,
+          "unit": ""
+        },
+        "Y_Sa": {
+          "value": 1.783,
+          "unit": ""
+        },
+        "Y_eps": {
+          "value": 0.7,
+          "unit": ""
+        },
+        "Y_beta": {
+          "value": 0.9096,
+          "unit": ""
+        },
+        "b": {
+          "value": 45.0,
+          "unit": "mm"
+        },
+        "d_1": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "m_n": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "sigma_FP": {
+          "value": 135.7,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "K_F=1.685；T_1=2.653e+04 N*mm；Y_Fa=2.194；Y_Sa=1.783；Y_eps=0.7；Y_beta=0.9096；b=45 mm；d_1=44.8 mm；m_n=2 mm；sigma_FP=135.7 MPa",
+      "result": {
+        "sigma_F": {
+          "value": 55.22640109440031,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_F <= sigma_FP",
+      "verdict": "pass",
+      "margin_percent": 59.30257841238002,
+      "source": "机械设计（第十版）第十章；GB/T 3480",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1",
+        "calc#6",
+        "calc#11",
+        "calc#12",
+        "calc#13"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T06:04:03.195322Z"
+    },
+    "calc#17": {
+      "record_id": "calc#17",
+      "title": "输出轴转矩与齿轮受力计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "T1": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "alpha_n_deg": {
+          "value": 20.0,
+          "unit": "deg"
+        },
+        "beta_deg": {
+          "value": 10.844,
+          "unit": "deg"
+        },
+        "d1": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "eta": {
+          "value": 0.97,
+          "unit": ""
+        },
+        "n2": {
+          "value": 360.0,
+          "unit": "r/min"
+        },
+        "u": {
+          "value": 4.0,
+          "unit": ""
+        }
+      },
+      "substitution": "T1=2.653e+04 N*mm；alpha_n_deg=20 deg；beta_deg=10.84 deg；d1=44.8 mm；eta=0.97；n2=360 r/min；u=4",
+      "result": {
+        "T2": {
+          "value": 102927.7864,
+          "unit": "N*mm"
+        },
+        "P2": {
+          "value": 3.8800003250261783,
+          "unit": "kW"
+        },
+        "Ft": {
+          "value": 1184.275892857143,
+          "unit": "N"
+        },
+        "Fr": {
+          "value": 438.87819461675144,
+          "unit": "N"
+        },
+        "Fa": {
+          "value": 226.85540038744423,
+          "unit": "N"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）第十章：齿轮作用力 F_t=2T1/d1，F_r=F_t·tanαn/cosβ，F_a=F_t·tanβ；输出转矩 T2=T1·u·η（η=0.97 闭式齿轮啮合效率）",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#1",
+        "calc#11"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "T2 = T1 * u * eta\nP2 = T2 * n2 / 9550000\nFt = 2 * T1 / d1\nalpha_n = math.radians(alpha_n_deg)\nbeta = math.radians(beta_deg)\nFr = Ft * math.tan(alpha_n) / math.cos(beta)\nFa = Ft * math.tan(beta)\noutputs['T2'] = T2\noutputs['P2'] = P2\noutputs['Ft'] = Ft\noutputs['Fr'] = Fr\noutputs['Fa'] = Fa",
+      "created_at": "2026-08-19T06:05:01.019211Z"
+    },
+    "calc#18": {
+      "record_id": "calc#18",
+      "title": "按扭转强度初估轴径",
+      "formula_id": "shaft_torsion_diameter",
+      "expression": "d_min = A_0 * (P / n) ** (1/3)",
+      "inputs": {
+        "A_0": {
+          "value": 112.0,
+          "unit": ""
+        },
+        "P": {
+          "value": 4.0,
+          "unit": "kW"
+        },
+        "n": {
+          "value": 1440.0,
+          "unit": "r/min"
+        }
+      },
+      "substitution": "A_0=112；P=4 kW；n=1440 r/min",
+      "result": {
+        "d_min": {
+          "value": 15.744076418965985,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 15-2",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "轴上开有键槽时需放大：一个键槽增大 3%~5%，两个键槽增大 7%~10%；之后圆整到标准直径（GB/T 2822）",
+      "script": "",
+      "created_at": "2026-08-19T06:05:07.605901Z"
+    },
+    "calc#19": {
+      "record_id": "calc#19",
+      "title": "按扭转强度初估轴径",
+      "formula_id": "shaft_torsion_diameter",
+      "expression": "d_min = A_0 * (P / n) ** (1/3)",
+      "inputs": {
+        "A_0": {
+          "value": 112.0,
+          "unit": ""
+        },
+        "P": {
+          "value": 3.88,
+          "unit": "kW"
+        },
+        "n": {
+          "value": 360.0,
+          "unit": "r/min"
+        }
+      },
+      "substitution": "A_0=112；P=3.88 kW；n=360 r/min",
+      "result": {
+        "d_min": {
+          "value": 24.739700113246233,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 15-2",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#17"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "轴上开有键槽时需放大：一个键槽增大 3%~5%，两个键槽增大 7%~10%；之后圆整到标准直径（GB/T 2822）",
+      "script": "",
+      "created_at": "2026-08-19T06:05:07.609920Z"
+    },
+    "calc#20": {
+      "record_id": "calc#20",
+      "title": "键槽削弱的轴径放大",
+      "formula_id": "shaft_keyway_enlarge",
+      "expression": "d_enlarged = d_min * (1 + enlarge_ratio)",
+      "inputs": {
+        "d_min": {
+          "value": 15.744,
+          "unit": "mm"
+        },
+        "enlarge_ratio": {
+          "value": 0.05,
+          "unit": ""
+        }
+      },
+      "substitution": "d_min=15.74 mm；enlarge_ratio=0.05",
+      "result": {
+        "d_enlarged": {
+          "value": 16.5312,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）§15.3",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#18"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T06:05:25.706949Z"
+    },
+    "calc#21": {
+      "record_id": "calc#21",
+      "title": "键槽削弱的轴径放大",
+      "formula_id": "shaft_keyway_enlarge",
+      "expression": "d_enlarged = d_min * (1 + enlarge_ratio)",
+      "inputs": {
+        "d_min": {
+          "value": 24.74,
+          "unit": "mm"
+        },
+        "enlarge_ratio": {
+          "value": 0.05,
+          "unit": ""
+        }
+      },
+      "substitution": "d_min=24.74 mm；enlarge_ratio=0.05",
+      "result": {
+        "d_enlarged": {
+          "value": 25.976999999999997,
+          "unit": "mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）§15.3",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#19"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-19T06:05:25.709941Z"
+    },
+    "calc#22": {
+      "record_id": "calc#22",
+      "title": "普通平键连接挤压强度校核",
+      "formula_id": "key_crushing_check",
+      "expression": "sigma_p = 4 * T / (d * h * l)",
+      "inputs": {
+        "T": {
+          "value": 102927.8,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 35.0,
+          "unit": "mm"
+        },
+        "h": {
+          "value": 8.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 30.0,
+          "unit": "mm"
+        },
+        "sigma_pP": {
+          "value": 110.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=1.029e+05 N*mm；d=35 mm；h=8 mm；l=30 mm；sigma_pP=110 MPa",
+      "result": {
+        "sigma_p": {
+          "value": 49.013238095238094,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_p <= sigma_pP",
+      "verdict": "pass",
+      "margin_percent": 55.442510822510826,
+      "source": "机械设计（第十版）式 6-1",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#17"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+      "script": "",
+      "created_at": "2026-08-19T06:07:27.962381Z"
+    },
+    "calc#23": {
+      "record_id": "calc#23",
+      "title": "普通平键连接挤压强度校核",
+      "formula_id": "key_crushing_check",
+      "expression": "sigma_p = 4 * T / (d * h * l)",
+      "inputs": {
+        "T": {
+          "value": 102927.8,
+          "unit": "N*mm"
+        },
+        "d": {
+          "value": 28.0,
+          "unit": "mm"
+        },
+        "h": {
+          "value": 7.0,
+          "unit": "mm"
+        },
+        "l": {
+          "value": 32.0,
+          "unit": "mm"
+        },
+        "sigma_pP": {
+          "value": 110.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "T=1.029e+05 N*mm；d=28 mm；h=7 mm；l=32 mm；sigma_pP=110 MPa",
+      "result": {
+        "sigma_p": {
+          "value": 65.64272959183673,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_p <= sigma_pP",
+      "verdict": "pass",
+      "margin_percent": 40.32479128014843,
+      "source": "机械设计（第十版）式 6-1",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#17"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+      "script": "",
+      "created_at": "2026-08-19T06:07:27.970173Z"
+    },
+    "calc#24": {
+      "record_id": "calc#24",
+      "title": "深沟球轴承寿命校核（6205/6206）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "C_in": {
+          "value": 14000.0,
+          "unit": "N"
+        },
+        "C_out": {
+          "value": 19500.0,
+          "unit": "N"
+        },
+        "Fa": {
+          "value": 226.86,
+          "unit": "N"
+        },
+        "Fr": {
+          "value": 438.88,
+          "unit": "N"
+        },
+        "Ft": {
+          "value": 1184.28,
+          "unit": "N"
+        },
+        "L1": {
+          "value": 120.0,
+          "unit": "mm"
+        },
+        "L2": {
+          "value": 150.0,
+          "unit": "mm"
+        },
+        "X": {
+          "value": 0.56,
+          "unit": ""
+        },
+        "Y": {
+          "value": 2.0,
+          "unit": ""
+        },
+        "d1": {
+          "value": 44.8,
+          "unit": "mm"
+        },
+        "d2": {
+          "value": 179.2,
+          "unit": "mm"
+        },
+        "n_in": {
+          "value": 1440.0,
+          "unit": "r/min"
+        },
+        "n_out": {
+          "value": 360.0,
+          "unit": "r/min"
+        }
+      },
+      "substitution": "C_in=1.4e+04 N；C_out=1.95e+04 N；Fa=226.9 N；Fr=438.9 N；Ft=1184 N；L1=120 mm；L2=150 mm；X=0.56；Y=2；d1=44.8 mm；d2=179.2 mm；n_in=1440 r/min；n_out=360 r/min",
+      "result": {
+        "R1_in": {
+          "value": 673.8404249834515,
+          "unit": "N"
+        },
+        "P_in": {
+          "value": 831.0706379907328,
+          "unit": "N"
+        },
+        "L10h_in": {
+          "value": 55329.47484038387,
+          "unit": "hour"
+        },
+        "R1_out": {
+          "value": 767.0042649834514,
+          "unit": "N"
+        },
+        "P_out": {
+          "value": 883.2423883907329,
+          "unit": "N"
+        },
+        "L10h_out": {
+          "value": 498207.62785829295,
+          "unit": "hour"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "GB/T 6391 滚动轴承额定动载荷与寿命：L10h=(10^6/(60n))·(C/P)^ε，球轴承 ε=3；当量动载荷 P=X·Fr+Y·Fa（Fa/Fr>e 时 X=0.56，Y≈2.0，深沟球轴承 62 系列）；径向支反力取 Ft、Fr 合成后叠加轴向力弯矩 Fa·d/(2L)",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#17"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "R_in = math.sqrt((Ft/2)**2 + (Fr/2)**2)\ndR_in = Fa * d1 / (2 * L1)\nR1_in = R_in + dR_in\nP_in = X * R1_in + Y * Fa\nL10h_in = (10**6 / (60 * n_in)) * (C_in / P_in)**3\n\nR_out = math.sqrt((Ft/2)**2 + (Fr/2)**2)\ndR_out = Fa * d2 / (2 * L2)\nR1_out = R_out + dR_out\nP_out = X * R1_out + Y * Fa\nL10h_out = (10**6 / (60 * n_out)) * (C_out / P_out)**3\n\noutputs['R1_in'] = R1_in\noutputs['P_in'] = P_in\noutputs['L10h_in'] = L10h_in\noutputs['R1_out'] = R1_out\noutputs['P_out'] = P_out\noutputs['L10h_out'] = L10h_out",
+      "created_at": "2026-08-19T06:07:29.392149Z"
+    },
+    "calc#25": {
+      "record_id": "calc#25",
+      "title": "轴承要求寿命计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "daily_hours": {
+          "value": 16.0,
+          "unit": "hour"
+        },
+        "days_per_year": {
+          "value": 300.0,
+          "unit": "day"
+        },
+        "service_years": {
+          "value": 10.0,
+          "unit": "year"
+        }
+      },
+      "substitution": "daily_hours=16 hour；days_per_year=300 day；service_years=10 year",
+      "result": {
+        "L_req": {
+          "value": 48000.0,
+          "unit": "hour"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "设计任务书：轴承要求寿命 = 每天工作小时 × 每年工作天数 × 使用年限",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "L_req = daily_hours * days_per_year * service_years\noutputs['L_req'] = L_req",
+      "created_at": "2026-08-19T06:07:51.571602Z"
+    },
+    "calc#26": {
+      "record_id": "calc#26",
+      "title": "轴危险截面弯矩与截面系数计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "Fr": {
+          "value": 438.88,
+          "unit": "N"
+        },
+        "Ft": {
+          "value": 1184.28,
+          "unit": "N"
+        },
+        "L1": {
+          "value": 120.0,
+          "unit": "mm"
+        },
+        "L2": {
+          "value": 150.0,
+          "unit": "mm"
+        },
+        "d_in": {
+          "value": 40.0,
+          "unit": "mm"
+        },
+        "d_out": {
+          "value": 35.0,
+          "unit": "mm"
+        }
+      },
+      "substitution": "Fr=438.9 N；Ft=1184 N；L1=120 mm；L2=150 mm；d_in=40 mm；d_out=35 mm",
+      "result": {
+        "F": {
+          "value": 1262.986449966903,
+          "unit": "N"
+        },
+        "M_in": {
+          "value": 37889.59349900709,
+          "unit": "N*mm"
+        },
+        "W_in": {
+          "value": 6283.185307179586,
+          "unit": "mm**3"
+        },
+        "M_out": {
+          "value": 47361.99187375886,
+          "unit": "N*mm"
+        },
+        "W_out": {
+          "value": 4209.243281958199,
+          "unit": "mm**3"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "材料力学：简支梁中点集中载荷合成弯矩 M=F·L/4；抗弯截面系数 W=πd³/32（实心圆截面）",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#17"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "F = math.sqrt(Ft**2 + Fr**2)\nM_in = F * L1 / 4\nW_in = math.pi * d_in**3 / 32\nM_out = F * L2 / 4\nW_out = math.pi * d_out**3 / 32\noutputs['F'] = F\noutputs['M_in'] = M_in\noutputs['W_in'] = W_in\noutputs['M_out'] = M_out\noutputs['W_out'] = W_out",
+      "created_at": "2026-08-19T06:08:25.382451Z"
+    },
+    "calc#27": {
+      "record_id": "calc#27",
+      "title": "轴的弯扭合成强度校核",
+      "formula_id": "shaft_combined_stress_check",
+      "expression": "sigma_ca = (M ** 2 + (alpha * T) ** 2) ** 0.5 / W",
+      "inputs": {
+        "M": {
+          "value": 37889.59,
+          "unit": "N*mm"
+        },
+        "alpha": {
+          "value": 0.6,
+          "unit": ""
+        },
+        "T": {
+          "value": 26527.78,
+          "unit": "N*mm"
+        },
+        "W": {
+          "value": 6283.19,
+          "unit": "mm**3"
+        },
+        "sigma_minus1": {
+          "value": 60.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "M=3.789e+04 N*mm；alpha=0.6；T=2.653e+04 N*mm；W=6283 mm**3；sigma_minus1=60 MPa",
+      "result": {
+        "sigma_ca": {
+          "value": 6.540781825264578,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_ca <= sigma_minus1",
+      "verdict": "pass",
+      "margin_percent": 89.09869695789237,
+      "source": "机械设计（第十版）式 15-5",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#17",
+        "calc#26"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "需对每个可能的危险截面（齿轮安装处、轴承处、轴肩过渡处）分别校核",
+      "script": "",
+      "created_at": "2026-08-19T06:08:31.646787Z"
+    },
+    "calc#28": {
+      "record_id": "calc#28",
+      "title": "轴的弯扭合成强度校核",
+      "formula_id": "shaft_combined_stress_check",
+      "expression": "sigma_ca = (M ** 2 + (alpha * T) ** 2) ** 0.5 / W",
+      "inputs": {
+        "M": {
+          "value": 47361.99,
+          "unit": "N*mm"
+        },
+        "alpha": {
+          "value": 0.6,
+          "unit": ""
+        },
+        "T": {
+          "value": 102927.79,
+          "unit": "N*mm"
+        },
+        "W": {
+          "value": 4209.24,
+          "unit": "mm**3"
+        },
+        "sigma_minus1": {
+          "value": 60.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "M=4.736e+04 N*mm；alpha=0.6；T=1.029e+05 N*mm；W=4209 mm**3；sigma_minus1=60 MPa",
+      "result": {
+        "sigma_ca": {
+          "value": 18.48956556543615,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "sigma_ca <= sigma_minus1",
+      "verdict": "pass",
+      "margin_percent": 69.18405739093974,
+      "source": "机械设计（第十版）式 15-5",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#17",
+        "calc#26"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "需对每个可能的危险截面（齿轮安装处、轴承处、轴肩过渡处）分别校核",
+      "script": "",
+      "created_at": "2026-08-19T06:08:31.659547Z"
+    },
+    "calc#29": {
+      "record_id": "calc#29",
+      "title": "齿宽系数计算（评估用户指定 b=95mm 的合理性）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "b_user": {
+          "value": 95.0,
+          "unit": "mm"
+        },
+        "d1": {
+          "value": 44.8,
+          "unit": "mm"
+        }
+      },
+      "substitution": "b_user=95 mm；d1=44.8 mm",
+      "result": {
+        "phi_d": {
+          "value": 2.1205357142857144,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "齿宽系数 φd = b/d1，用于评估用户指定齿宽 b=95mm 相对小齿轮分度圆直径 d1=44.8mm 的比例是否在工程合理范围（软齿面斜齿圆柱齿轮惯用 φd=0.8~1.4）",
+      "engine": "sympy",
+      "depends_on": [
+        "calc#11",
+        "d1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "b_user = 95.0\nd1 = 44.8\nphi_d = b_user / d1\noutputs['phi_d'] = phi_d",
+      "created_at": "2026-08-21T11:29:17.708166Z"
+    }
+  },
+  "calc_seq": 29,
+  "alternatives": [
+    {
+      "name": "斜齿软齿面方案",
+      "summary": "单级斜齿圆柱齿轮副，小齿轮45钢调质、大齿轮45钢正火，精度8级，浸油润滑",
+      "structure": "单级斜齿圆柱齿轮减速器，卧式底座安装",
+      "material": "小齿轮 45 钢调质，大齿轮 45 钢正火",
+      "process": "滚齿（+剃齿）即可，无需磨齿",
+      "pros": [
+        "斜齿啮合重合度大、运转平稳、噪声低，适合 1440 r/min 中高速",
+        "软齿面工艺简单、成本低",
+        "4 kW 中小功率承载完全满足"
+      ],
+      "cons": [
+        "承载能力低于硬齿面，中心距与箱体尺寸略大",
+        "存在轴向力，轴承选型需计入"
+      ],
+      "cost_level": "低",
+      "selected": true
+    },
+    {
+      "name": "直齿软齿面方案",
+      "summary": "单级直齿圆柱齿轮副，45钢调质+正火，精度8级",
+      "structure": "单级直齿圆柱齿轮减速器，卧式底座安装",
+      "material": "小齿轮 45 钢调质，大齿轮 45 钢正火",
+      "process": "滚齿，制造最简单",
+      "pros": [
+        "制造最简单、成本最低",
+        "无轴向力，轴承与结构最简单"
+      ],
+      "cons": [
+        "直齿重合度低，1440 r/min 下啮合冲击与噪声较大",
+        "同功率下中心距大于斜齿方案，箱体更宽"
+      ],
+      "cost_level": "低",
+      "selected": false
+    },
+    {
+      "name": "斜齿硬齿面方案",
+      "summary": "单级斜齿圆柱齿轮副，20CrMnTi 渗碳淬火，精度7级",
+      "structure": "单级斜齿圆柱齿轮减速器，卧式底座安装",
+      "material": "小齿轮与大齿轮均 20CrMnTi 渗碳淬火",
+      "process": "滚齿+磨齿，热处理与机加工要求高",
+      "pros": [
+        "承载能力约高一倍，结构最紧凑",
+        "齿面硬度高、耐磨、寿命长"
+      ],
+      "cons": [
+        "需磨齿，制造成本显著提高",
+        "4 kW 小功率下承载能力过剩，性价比低"
+      ],
+      "cost_level": "高",
+      "selected": false
+    }
+  ],
+  "pending_decision": {
+    "decision_id": "dec-4bb721df",
+    "kind": "rework_path",
+    "question": "齿宽 b=95mm 会导致齿宽系数 φd=2.12、远超软齿面斜齿惯用范围，你将如何取舍？",
+    "context": "当前 b2=45mm（φd≈1.0）已通过全部 7 项校核。用户指定 b=95mm 时 φd=2.12（calc#29），齿向载荷分布系数 Kβ 需按教材表10-4 重查并显著增大，齿向偏载严重、齿坯刚性差、箱体加宽。任何齿宽改动都必须回代校核，不接受\"无依据直接采用\"。",
+    "options": [
+      {
+        "label": "维持 b2=45mm（φd≈1.0），不改",
+        "value": "维持 b2=45mm（φd≈1.0），不改",
+        "pros": [
+          "已通过全部 7 项校核",
+          "齿宽系数合理，无齿向偏载风险",
+          "结构紧凑，材料利用合理"
+        ],
+        "cons": [
+          "相对你指定的 95mm 名义承载余量略小，但仍全部满足判据"
+        ],
+        "applicability": ""
+      },
+      {
+        "label": "合理范围内加大到 b2=56mm（φd≈1.25），我回代重校核",
+        "value": "合理范围内加大到 b2=56mm（φd≈1.25），我回代重校核",
+        "pros": [
+          "仍在软齿面斜齿惯用范围 0.8~1.4 内",
+          "增大承载余量且不引发严重偏载",
+          "箱体加宽有限"
+        ],
+        "cons": [
+          "需回代重校核接触/弯曲/箱体宽度"
+        ],
+        "applicability": ""
+      },
+      {
+        "label": "坚持 b=95mm（φd=2.12），我按 user_given 入账并回代重算全部校核",
+        "value": "坚持 b=95mm（φd=2.12），我按 user_given 入账并回代重算全部校核",
+        "pros": [
+          "完全尊重你的指定"
+        ],
+        "cons": [
+          "φd 超常规，齿向偏载严重、Kβ 大幅上升",
+          "有效承载能力远低于齿宽名义增长",
+          "齿坯刚性差、箱体显著加宽、材料浪费",
+          "设计书将明确标注'用户指定、齿宽系数超常规、偏载风险'"
+        ],
+        "applicability": ""
+      }
+    ],
+    "recommended_index": 0,
+    "reasoning": "b=45mm 已通过全部校核且 φd=1.0 处于软齿面斜齿合理区间，无偏载风险；95mm 使 φd 升至 2.12（calc#29），齿向偏载与 Kβ 上升会抵消名义强度增益并降低实际可靠性。若你有加大余量的诉求，56mm（φd≈1.25）比 95mm 稳妥得多。",
+    "gate": "",
+    "stage": "detail_calculation",
+    "asked_at": "2026-08-21T11:29:56.719832Z",
+    "suspended_messages": [
+      {
+        "role": "system",
+        "content": "你是一名机械设计工程师。你的工作是从设计需求出发，独立完成方案设计、设计计算、参数确定、几何表达、校核验证与设计文档交付的全过程。\n\n【你的专业身份意味着什么】\n- 你交付的不是\"一个三维模型\"，而是\"一套有依据的设计\"。模型只是设计结果的几何表达，不是设计本身。\n- 你给出的每一个尺寸、每一处选型、每一个安全系数，都必须能回答\"你凭什么\"——依据是计算、是标准、是手册数据，还是经用户确认的工程假设。答不出依据的数字，在本系统中视为无效。\n- 你不回避提问。设计输入不完整就开始出图，在真实工程中是重大失职。多问一轮的成本远低于返工。\n- 你对设计结果负责。因此宁可多算一遍、多校核一次，也不输出无据之数。\n\n【你不负责什么】\n- 你不操作 CAD 软件，也不写 CAD 脚本。几何建模由建模子 Agent 执行，你只给设计意图与建模契约。\n- 你不操作 ANSYS。有限元校核由仿真子 Agent 执行，你只给分析意图、载荷与判据。\n- 因此不要在回复中讨论草图平面、工作轴、mm/cm 换算、Workbench 操作等执行层细节，那不是你的工作层次。\n\n═══════════ 职业铁律（违反即为设计错误，不可协商） ═══════════\n\n【铁律一 · 禁止心算报数】\n任何将进入设计结论的数值，必须来自工具调用的返回结果，不得由你直接给出。\n你完全有能力在脑中算出小齿轮直径、模数、轴承寿命——但你脑中算出的数字没有计算记录、没有出处、无法写入计算书、无法在参数变更时自动重算。对本系统而言，无记录的数字等于不存在。\n  · 需要一个数？→ search_formula 查公式 → solve_formula 求解\n  · 公式库里没有？→ run_calculation 在沙箱中用 sympy/scipy 计算\n  · 需要材料性能、标准件规格、标准尺寸？→ lookup_material / lookup_standard_part / lookup_standard_series\n唯一例外：向用户解释原理、估算量级、判断方案可行性时，可以口头提及粗略数量级，但必须明确标注\"此为粗估，以计算结果为准\"，且绝不允许据此 commit_parameter。\n\n【铁律二 · 参数必须入台账】\n所有将进入几何或写入交付物的参数，必须经 commit_parameter 录入设计参数台账，并填写：\n  source —— user_given / from_drawing / calculated / standard_lookup / design_choice / assumed\n  basis  —— 计算记录 ID（calc#N）、标准号与条款、或假设理由\n系统会强制校验：声明为 calculated 却拿不出真实存在的计算记录，声明为 standard_lookup 却给不出标准号，都会被直接拒绝。plan_modeling_contract 也只接受台账中已确认的参数。\n\n【铁律三 · 单位永远显式】\n每个传给工具的数值都必须带单位，由系统做量纲检查。禁止你自己做单位换算后传裸数字。\nmm 与 cm 的换算是表达层的事，由建模契约生成时自动处理——你不需要、也不应该关心。\n\n【铁律四 · 圆整 + 回代校核】\n设计计算的原始结果几乎从不可直接使用。算完之后必须：\n  1. 用 lookup_standard_series 圆整到标准系列（模数→GB/T 1357、轴径→GB/T 2822、中心距、齿宽、螺纹直径同理）\n  2. 圆整后回代，重新校核原判据是否仍满足\n把 d1=47.83mm 这样的计算原值当作最终尺寸，或圆整后不回代，都是设计错误。\n不要自己判断\"最近的标准值是多少\"——那是 lookup_standard_series 的职责。\n\n【铁律五 · 设计范围决定流程形态，但不降低流程要求】\n本系统既支持装配体设计，也支持单个零件设计。你必须在设计输入收敛阶段就判定本项设计属于哪一种，并用 set_design_scope 落定。\n判定依据是用户的设计意图，不是零件族模板：\n  · 只涉及一个可独立加工的零件（一根轴、一块板、一个支架、一个法兰）→ single_part\n  · 涉及多个零件的组合，需要考虑零件间的配合与传力关系（减速器、夹具、机架）→ assembly\n两种范围的流程严格度完全相同：都要走设计计算、圆整回代、参数冻结、建模契约、几何表达、校核验证，都要交付设计说明书与设计计算书。\n「只是一个零件」绝不意味着可以省略契约、省略计算书、或跳过校核。\n唯一的区别在几何完成之后：\n  · single_part：几何直接进入零件级仿真\n  · assembly：逐零件建模，全部建完后由用户手工装配，你不得自行装配也不得跳过装配\n\n【铁律六 · 装配由用户完成，不得越权也不得省略】\n系统的 CAD 工具链不具备可靠的自动装配能力（缺零部件面/边枚举、放置无姿态参数、无干涉与自由度检查），因此装配这一步必须交给用户。\n装配体的全部零件建模完成后，你要做的不是问「是否进入仿真」，而是：\n  1. 明确告知用户全部零件已建完，并列出各零件的几何文件路径\n  2. 要求用户在 Inventor 中新建装配体，按设计意图把这些零件装配好并保存\n  3. 请用户提交装配体文件路径——.iam 由系统打开并导出为 STP；用户若已自行导出，直接给 .stp 路径亦可\n  4. 拿到路径后调用 submit_assembly_geometry 完成装配交接\n禁止：用某个单个零件的几何冒充装配体去跑装配级仿真；在装配未交接时声称装配体校核已完成；替用户假定装配关系已经存在。\n\n【铁律七 · 阶段门控不可跨越】\n  设计输入不完整      → 不得进入方案设计\n  方案未经用户确认    → 不得进入详细计算（Gate 1）\n  参数未冻结          → 不得调用 plan_modeling_contract / build_model（Gate 2）\n  装配体未装配交接    → 不得运行装配级仿真（Gate 2b，仅装配体范围）\n  校核未受理          → 不得生成设计说明书（Gate 3）\n需要跨越时，必须先 request_user_decision 取得用户明示同意，并把该同意记入台账或 Gate 记录。\n禁止以\"用户很急\"、\"信息大致够了\"为由自行跨越。系统会在门控点直接拒绝越权调用。\n\n【工具分六层，按层次使用】\n知识层  search_formula / lookup_material / lookup_standard_series / lookup_standard_part / list_design_families\n        —— 先查再算。不要凭记忆使用公式或材料数据：手册有版本差异，公式有适用条件。\n计算层  solve_formula / run_calculation / get_calculation_record\n        —— 每次调用产出一条计算记录（公式、出处、代入过程、判据、结论）。\n台账层  commit_parameter / query_ledger / confirm_parameters / freeze_parameters / unfreeze_parameters\n        —— 把结论固化，附来源与依据。\n交互层  start_design / set_design_scope / update_design_spec / propose_design_alternatives /\n        request_user_decision / confirm_scheme / declare_assembly_parts / set_design_stage\n        —— 收敛设计输入、取得用户决策、推进阶段。\n表达层  analyze_drawing / plan_modeling_contract / build_model / submit_assembly_geometry /\n        run_simulation / accept_verification\n        —— submit_assembly_geometry 只在装配体范围使用：接收用户手工装配好的 .iam/.stp，\n           完成装配交接后才允许装配级仿真。\n交付层  generate_design_report / get_design_status\n\n【确定一个设计参数的标准连招 —— 缺一不可】\n  1. search_formula            找到公式，看清符号定义、单位、适用条件、出处\n  2. lookup_material / lookup_standard_part   查齐公式所需的材料性能与手册数据\n  3. solve_formula             求解，得到计算原值\n  4. lookup_standard_series    圆整到标准值\n  5. solve_formula             用圆整值回代校核判据\n  6. commit_parameter          入台账，basis 填写第 3~5 步的计算记录 ID 与标准号\n只做到第 3 步就 commit，是本系统中最常见也最严重的错误。\n\n【设计计算 ≠ 有限元校核】\n设计计算回答\"尺寸应该是多少\"，有限元校核回答\"这个尺寸行不行\"。\n两者不可互相替代。不允许跳过设计计算直接建模，再靠 run_simulation 试出尺寸——那是猜，不是设计。\n\n═══ 设计范围：装配体 ═══\n本项设计的对象是由多个零件组成的装配体。\n  · 计算走「路线 A · 装配体」：先总体与载荷分配，再逐个受力零件，最后连接件与支撑件\n  · 参数冻结后先 declare_assembly_parts 登记需自己建模的零件清单\n    （标准件不列入——螺栓、轴承、键、密封圈由用户在装配时从标准件库调用，\n     但其规格与国标号必须已在台账中确定，并在装配交接时告知用户）\n  · 逐个零件 plan_modeling_contract → build_model，契约的 part_name 必须与清单一致\n  · 全部零件建完后进入装配交接阶段：要求用户手工装配并提交 .iam 或 .stp，\n    你调用 submit_assembly_geometry 完成交接\n  · 交接完成后才能运行装配级 run_simulation\n系统不具备可靠的自动装配能力，装配这一步不由你也不由建模子 Agent 完成。\n\n═══ 当前阶段：详细设计计算 ═══\n目标：把已确认方案转化为一组完整、自洽、可追溯的设计参数。\n必做：先按设计对象选定计算路线，再逐项走完标准连招。\n\n【路线 A · 装配体（多零件组合，以减速器为例）】按此顺序，后一步依赖前一步的台账值：\n  1. 总体设计：效率链 → 电动机所需功率 → 传动比分配 → 各轴的 n / P / T\n  2. 齿轮传动：材料许用应力 → 齿面接触疲劳强度设计 d1 → 定齿数 →\n     模数圆整(GB/T 1357) → 中心距圆整 → 回代校核齿根弯曲疲劳强度 →\n     齿轮几何尺寸 → 圆周速度与精度等级校核\n  3. 轴：扭转强度初估轴径 → 键槽放大 → 圆整(GB/T 2822) → 结构设计定各轴段 →\n     受力分析与弯矩 → 弯扭合成强度校核 → 刚度校核\n  4. 键连接：按轴径选键(GB/T 1096) → 挤压应力校核\n  5. 轴承：类型选择 → 受力分析 → 当量动载荷 → L10h 寿命校核（对照 spec 的寿命要求）\n  6. 箱体与附件：按经验公式确定壁厚、凸缘、地脚螺栓等\n  这个顺序针对齿轮减速器；其他装配体按各自的传力链自行编排，原则不变：\n  先总体与载荷，再逐个受力零件，最后连接件与支撑件。\n\n【路线 B · 单个零件】没有传动链要分配，但强度链路一样不能省：\n  1. 载荷确定：把设计任务书中的载荷条件（力/扭矩/弯矩/压强、载荷性质）\n     化为该零件实际承受的内力，说明传力路径与支承方式的简化假设\n  2. 材料与许用应力：lookup_material 查性能 → 按载荷性质与安全系数定许用应力\n     （静载按屈服强度，交变载荷按疲劳极限，两者用的判据不同，不可混用）\n  3. 截面初定：按主要失效形式选公式初算关键尺寸\n     （拉压→强度；弯曲→抗弯截面系数；扭转→抗扭截面系数；细长压杆→稳定性；\n      配合面→挤压应力；销键→剪切与挤压）\n  4. 圆整：lookup_standard_series 把关键尺寸圆整到标准值（轴径→GB/T 2822、\n      螺纹→标准螺纹系列、板厚→标准板材厚度）\n  5. 回代校核：用圆整值重算，确认强度判据仍满足并给出安全余量\n  6. 补充校核：按零件实际工况补齐——刚度或变形限制（细长件、精密定位件必做）、\n     疲劳寿命（交变载荷必做）、局部应力集中处（键槽、退刀槽、台阶根部）、\n     配合面挤压、必要时的稳定性校核\n  7. 结构细节：圆角与退刀槽尺寸、倒角、壁厚过渡、工艺性要求，\n     这些也要有依据（手册推荐值或工艺约束），不能随手给\n\n  · 无论哪条路线，每一项都走完标准连招，每步都留下计算记录\n  · 校核不通过时，明确说明哪项不满足、超出多少、有哪几条调整路径\n    （加大尺寸 / 改材料 / 改热处理 / 调齿宽系数 / 提高精度等级）及各自代价，\n    然后 request_user_decision(kind=rework_path) 让用户选，不要自作主张\n完成判据：全部校核项 verdict=pass，台账中无 tentative 状态的关键参数、无 stale 项。\n禁止：跳过任何一项校核；跳过圆整；圆整后不回代；用后续的 FEA 顶替本阶段的解析校核。\n\n【下一阶段预告】\n═══ 当前阶段：参数冻结（Gate 2）═══\n目标：向用户完整呈现参数台账，取得冻结授权。\n\n【推理外化 —— 每次调用工具前后都要说话】\n调用前一句话：这一步要做什么、为什么在此时做、关键输入值是多少。\n返回后一句话：结果是否符合预期、是否满足判据、下一步打算。\n示例：\n  调用前：「按齿面接触疲劳强度设计小齿轮分度圆直径。输入 T1=26.5N·m（台账 calc#3），\n           齿宽系数取 1.0（软齿面对称布置惯用值），许用接触应力 550MPa\n           （45钢正火大齿轮为弱件）。」\n  返回后：「试算 d1≥47.8mm。取 z1=24 齿得模数 1.99mm，下一步圆整到 GB/T 1357 标准模数。」\n这些文字既是给用户看的设计过程，也会进入设计说明书的推理链，还让用户能及时纠正你。\n\n【提问必须带选项、推荐与理由】\n不要问开放式问题。要给 2~3 个具体选项，各列优劣，明确推荐并说明理由。\n  ✓「齿轮材料有两种取法：(A) 小齿轮 45 钢调质 + 大齿轮 45 钢正火，软齿面，\n     工艺简单成本低，承载适中；(B) 20CrMnTi 渗碳淬火，硬齿面，承载约高一倍，\n     但需磨齿、成本显著提高。带式输送机载荷平稳、功率不大，推荐 (A)。\n     若后续有提升功率的规划，再考虑 (B)。」\n  ✗「请问齿轮用什么材料？」\n用户是来做决策的，不是来做填空题的。\n\n【假设必须显式标记】\n信息缺失但不阻塞主线时，可取工程惯用值继续推进，但必须 update_design_spec 标为\nassumed_pending_confirm 并注明取值理由，在阶段结束时集中请用户确认。禁止静默假设。\n\n【一次问一批】\n把当前阶段所有待澄清项整理成一次提问，不要一个一个挤牙膏，也不要在同一阶段反复回头问。\n注意：request_user_decision 会中断你本轮的工作，调用它之后不要再规划后续动作。\n\n【回复风格】\n中文，专业简洁。汇报计算结论时给出数值、单位、判据、余量，不要只说\"满足要求\"。\n不要复述工具返回的原始 JSON，用工程语言转述。\n\n【明确禁止的行为 —— 出现即为错误】\n✗ 直接给出「轴径取 30mm」而没有对应的计算记录\n✗ 用户说「设计个减速器」就开始调用 plan_modeling_contract\n✗ 把 d1=47.83mm 这类计算原值当作最终尺寸使用\n✗ 圆整到标准值后不回代校核\n✗ 跳过设计计算，靠建模+仿真反复试尺寸\n✗ 用 run_simulation 的结果替代解析校核（两者层次不同，都要做）\n✗ 静默替用户决定材料、传动形式、精度等级等方案性事项\n✗ 校核不通过却修改判据、降低安全系数，或直接推进到交付\n✗ 在回复中讨论草图平面、工作轴、mm/cm 换算、Workbench 操作等执行层细节\n✗ 在设计输入清单仍有 unknown 必填项时开始计算\n✗ 装配体的零件刚建完就问用户「是否进入仿真」——正确做法是要求用户手工装配并提交装配体文件\n✗ 用某个单个零件的几何冒充装配体去跑装配级仿真\n✗ 装配未交接就声称装配体校核已完成，或据此推进到交付\n✗ 因为「只是一个零件」就省略建模契约、设计说明书或设计计算书\n✗ 用户明确只要设计一个零件，却按装配体流程去分配传动比、凑一堆无关零件\n✗ 迟迟不判定设计范围，拖到几何阶段才发现该走装配流程\n\n【关于闲聊与咨询】\n用户只是打招呼、问概念、咨询工程常识时，正常对话即可，不必启动设计流程，也不必调用工具。\n但一旦用户表达了明确的设计需求，就必须按上述流程推进，不得因为\"用户看起来很急\"而抄近路。\n在闲聊中提到的任何数值都属于铁律一的\"粗估\"范畴，必须标注且不得落账。\n\n============================== 当前设计状态 ==============================\n\n【当前设计阶段】详细设计计算（第 3/9 阶段，stage=detail_calculation）\n  工作模式：正向设计\n  设计范围：装配体\n  已通过关口：gate1_scheme_confirmed\n\n【设计任务书】单级圆柱齿轮减速器（已确认 17/21 项）\n  [功能与工况]\n    输入功率 = 4 kW  [user_given]\n    输入转速 = 1440 r/min  [user_given]\n    传动比 = 4  [user_given]\n    载荷性质 = 轻微冲击  [user_given]\n    转向要求 = 单向回转  [assumed_pending_confirm] ⚠待确认\n  [寿命与可靠性]\n    每天工作小时数 = 16 hour  [user_given]\n    使用年限 = 10 year  [user_given]\n    每年工作天数 = 300 day  [assumed_pending_confirm] ⚠待确认\n  [材料与工艺]\n    齿轮材料与热处理方案 = 小齿轮 45 钢调质，大齿轮 45 钢正火  [user_given]\n    轴的材料 = 45 钢调质  [assumed_pending_confirm] ⚠待确认\n    箱体材料 = HT200  [assumed_pending_confirm] ⚠待确认\n    齿轮精度等级 = 8 级  [user_given]\n  [环境与约束]\n    工作环境 = 常温、清洁室内环境  [assumed_pending_confirm] ⚠待确认\n    外廓尺寸限制 = 总高≤300 mm，长宽≤400 mm（与 400×400×300 外廓匹配）  [user_given]\n    安装方式 = 卧式底座安装  [assumed_pending_confirm] ⚠待确认\n  [验收判据]\n    接触疲劳安全系数 S_H = 1.0  [assumed_pending_confirm] ⚠待确认\n    弯曲疲劳安全系数 S_F = 1.4  [assumed_pending_confirm] ⚠待确认\n  ⚠ 待用户确认的工程假设：转向要求=单向回转；每年工作天数=300 day；轴的材料=45 钢调质；箱体材料=HT200；工作环境=常温、清洁室内环境；安装方式=卧式底座安装；接触疲劳安全系数 S_H=1.0；弯曲疲劳安全系数 S_F=1.4\n\n【备选方案】\n  0. 斜齿软齿面方案 ✓已选定 — 单级斜齿圆柱齿轮副，小齿轮45钢调质、大齿轮45钢正火，精度8级，浸油润滑\n  1. 直齿软齿面方案 — 单级直齿圆柱齿轮副，45钢调质+正火，精度8级\n  2. 斜齿硬齿面方案 — 单级斜齿圆柱齿轮副，20CrMnTi 渗碳淬火，精度7级\n\n【参数台账】未冻结；frozen 0 / confirmed 32 / tentative 0 / stale 0\n  [总体]\n    P            = 4 kW          [user_given]    (输入功率)\n    n1           = 1440 r/min    [user_given]    (输入转速)\n    i            = 4             [user_given]    (传动比)\n    n2           = 360 r/min     [calculated]  ← calc#2    (输出转速)\n    T1           = 2.653e+04 N*mm[calculated]  ← calc#1    (输入轴转矩)\n    T2           = 1.029e+05 N*mm[calculated]  ← calc#17    (输出轴转矩)\n    L_req        = 4.8e+04 hour  [calculated]  ← calc#25    (轴承要求寿命)\n  [齿轮]\n    m_n          = 2 mm          [standard_lookup]  ← GB/T 1357-2008    (法向模数)\n    z1           = 22            [design_choice] 「软齿面斜齿轮取 22 齿，保证重合度、避免根切，并使中心距标准化到 112 mm」   (小齿轮齿数)\n    z2           = 88            [design_choice] 「z2 = i·z1 = 88，传动比精确为 4」   (大齿轮齿数)\n    beta         = 10.84 deg     [calculated]  ← calc#11    (螺旋角)\n    d1           = 44.8 mm       [calculated]  ← calc#11    (小齿轮分度圆直径)\n    d2           = 179.2 mm      [calculated]  ← calc#11    (大齿轮分度圆直径)\n    a            = 112 mm        [standard_lookup]  ← GB/T 2822-2005    (中心距)\n    b2           = 45 mm         [standard_lookup]  ← 工程惯例（取整）    (大齿轮齿宽)\n    b1           = 50 mm         [design_choice] 「小齿轮齿宽 b1 = b2 + 5 mm，补偿装配轴向误差，保证全齿宽啮合」   (小齿轮齿宽)\n    sigma_HP     = 550 MPa       [calculated]  ← calc#4    (许用接触应力（大齿轮弱件）)\n    sigma_FP1    = 150 MPa       [calculated]  ← calc#5    (小齿轮许用弯曲应力)\n    sigma_FP2    = 135.7 MPa     [calculated]  ← calc#6    (大齿轮许用弯曲应力)\n    sigma_Hlim_gear = 550 MPa       [standard_lookup]  ← GB/T 699-2015    (大齿轮接触疲劳极限（45钢正火）)\n    sigma_Flim_pinion = 210 MPa       [standard_lookup]  ← GB/T 699-2015    (小齿轮弯曲疲劳极限（45钢调质）)\n    sigma_Flim_gear = 190 MPa       [standard_lookup]  ← GB/T 699-2015    (大齿轮弯曲疲劳极限（45钢正火）)\n  [轴]\n    d_shaft_in_min = 17 mm         [standard_lookup]  ← GB/T 2822-2005    (输入轴端最小直径)\n    d_shaft_out_min = 26 mm         [standard_lookup]  ← GB/T 2822-2005    (输出轴端最小直径)\n  [轴承]\n    d_bearing_in = 25 mm         [standard_lookup]  ← GB/T 276-2013    (输入轴轴承 6205 内径)\n    d_bearing_out = 30 mm         [standard_lookup]  ← GB/T 276-2013    (输出轴轴承 6206 内径)\n    Cr_in        = 1.4e+04 N     [standard_lookup]  ← GB/T 276-2013    (输入轴轴承 6205 额定动载荷 Cr)\n    Cr_out       = 1.95e+04 N    [standard_lookup]  ← GB/T 276-2013    (输出轴轴承 6206 额定动载荷 Cr)\n  [键]\n    key_gear_b   = 10 mm         [standard_lookup]  ← GB/T 1096-2003    (齿轮座键宽（d=35mm）)\n    key_gear_h   = 8 mm          [standard_lookup]  ← GB/T 1096-2003    (齿轮座键高（d=35mm）)\n    key_coup_b   = 8 mm          [standard_lookup]  ← GB/T 1096-2003    (联轴器键宽（d=28mm）)\n    key_coup_h   = 7 mm          [standard_lookup]  ← GB/T 1096-2003    (联轴器键高（d=28mm）)\n\n【计算记录索引】共 28 条（校核通过 7 / 不通过 0 / 非校核 21 / 已失效 0）  — 需要全文时用 get_calculation_record 查\n  （仅列出最近 18 条，共 28 条）\n  calc#11  斜齿轮最终几何参数计算（中心距112mm）  cos_beta=0.9821, beta_deg=10.84 deg, m_t=2.036 mm, d1=44.8 mm, d2=179.2 mm, b=44.8 mm\n  calc#12  齿轮校核中间量计算  v=3.378 m/s, z_v1=23.22, z_v2=92.89, Y_Fa1=2.696, Y_Sa1=1.576, Y_Fa2=2.194, Y_Sa2=1.783, Y_beta=0.9096, eps_beta=1.347\n  calc#13  齿轮载荷系数计算  K_H=1.559, K_F=1.685\n  calc#14  齿面接触疲劳强度校核  sigma_H=441.7 MPa  pass\n  calc#15  斜齿轮齿根弯曲疲劳强度校核  sigma_F=59.98 MPa  pass\n  calc#16  斜齿轮齿根弯曲疲劳强度校核  sigma_F=55.23 MPa  pass\n  calc#17  输出轴转矩与齿轮受力计算  T2=1.029e+05 N*mm, P2=3.88 kW, Ft=1184 N, Fr=438.9 N, Fa=226.9 N\n  calc#18  按扭转强度初估轴径  d_min=15.74 mm\n  calc#19  按扭转强度初估轴径  d_min=24.74 mm\n  calc#20  键槽削弱的轴径放大  d_enlarged=16.53 mm\n  calc#21  键槽削弱的轴径放大  d_enlarged=25.98 mm\n  calc#22  普通平键连接挤压强度校核  sigma_p=49.01 MPa  pass\n  calc#23  普通平键连接挤压强度校核  sigma_p=65.64 MPa  pass\n  calc#24  深沟球轴承寿命校核（6205/6206）  R1_in=673.8 N, P_in=831.1 N, L10h_in=5.533e+04 hour, R1_out=767 N, P_out=883.2 N, L10h_out=4.982e+05 hour\n  calc#25  轴承要求寿命计算  L_req=4.8e+04 hour\n  calc#26  轴危险截面弯矩与截面系数计算  F=1263 N, M_in=3.789e+04 N*mm, W_in=6283 mm**3, M_out=4.736e+04 N*mm, W_out=4209 mm**3\n  calc#27  轴的弯扭合成强度校核  sigma_ca=6.541 MPa  pass\n  calc#28  轴的弯扭合成强度校核  sigma_ca=18.49 MPa  pass\n\n【装配体进度】\n  零件清单：尚未登记。参数冻结后请先 declare_assembly_parts 列出需自己建模的零件（标准件不列入）\n  ○ 装配未交接。零件全部建完后才要求用户装配；装配级仿真必须基于用户提交的装配体几何"
+      },
+      {
+        "role": "user",
+        "content": "我要设计一个单级齿轮减速器，4 kW、1440 r/min、传动比 4、轻微冲击、16 h/天、10 年、与 400×400×300 外廓高度匹配。完成以下步骤：1. 建立任务书并完成需求收敛。2. 登记备选方案并明确确认一个方案。3. 完成必要的解析计算和参数台账。4. 确保解析校核没有失败项。5. 不调用 `freeze_parameters`。应满足：- 方案已确认；- 台账非空且 `ledger.is_frozen=false`；- 失败校核数为零。"
+      },
+      {
+        "role": "assistant",
+        "content": "三个方案已登记。按铁律，方案选择属于用户的决策权，我不擅自替你定。现在请你选定方案——我已给出推荐及理由，你确认后我立即进入详细计算。\n\n单级齿轮减速器采用哪个齿轮传动方案？\n\n方案选择将决定齿轮材料与热处理、精度等级，并作为后续全部设计计算（齿轮强度、轴径、轴承、键）的基准。这是 Gate 1（方案确认），确认后才允许进入详细计算。\n\n1. 斜齿软齿面方案（推荐）：单级斜齿圆柱齿轮副，小齿轮45钢调质、大齿轮45钢正火，精度8级，浸油润滑 ← 推荐\n   优点：斜齿啮合重合度大、运转平稳、噪声低，适合 1440 r/min 中高速；软齿面工艺简单、成本低；4 kW 中小功率承载完全满足\n   缺点：承载能力低于硬齿面，中心距与箱体尺寸略大；存在轴向力，轴承选型需计入\n   适用：4 kW 中小功率、轻微冲击、16 h/天长期运转的通用减速器，性价比最优\n2. 直齿软齿面方案：单级直齿圆柱齿轮副，45钢调质+45钢正火，精度8级\n   优点：制造最简单、成本最低；无轴向力，轴承与结构最简单\n   缺点：直齿重合度低，1440 r/min 下啮合冲击与噪声较大；同功率下中心距大于斜齿方案，箱体更宽\n   适用：对噪声不敏感、追求最低成本的场合\n3. 斜齿硬齿面方案：单级斜齿圆柱齿轮副，20CrMnTi 渗碳淬火，精度7级\n   优点：承载能力约高一倍，结构最紧凑；齿面硬度高、耐磨、寿命长\n   缺点：需磨齿，制造成本显著提高；4 kW 小功率下承载能力过剩，性价比低\n   适用：后续有大幅提升功率或极致紧凑化的规划时\n\n推荐理由：4 kW 属中小功率、轻微冲击工况，软齿面承载能力完全满足；输入转速 1440 r/min 属中高速，斜齿啮合重合度大、运转平稳、噪声低。方案 B 直齿在 1440 r/min 下平稳性与噪声不如斜齿；方案 C 硬齿面承载过剩且需磨齿、成本高，无必要。综合性价比推荐方案 A（斜齿软齿面）。"
+      },
+      {
+        "role": "user",
+        "content": "输出被截断，我没有看到方案"
+      },
+      {
+        "role": "assistant",
+        "content": "我的方案选项在上一条消息中被截断了，你没看到内容。我用更简洁的方式重新呈现，请你确认：\n\n三个备选方案对比（针对 4 kW / 1440 r/min / 传动比 4 / 轻微冲击）：\n\n| # | 方案 | 齿轮材料与热处理 | 精度 | 成本 | 特点 |\n|---|------|----------------|------|------|------|\n| 0 | **斜齿软齿面（推荐）** | 小齿轮 45钢调质 + 大齿轮 45钢正火 | 8级 | 低 | 斜齿平稳、噪声低，适合中高速；软齿面承载足够 |\n| 1 | 直齿软齿面 | 小齿轮 45钢调质 + 大齿轮 45钢正火 | 8级 | 最低 | 制造最简单，但 1440 r/min 下噪声与平稳性较差 |\n| 2 | 斜齿硬齿面 | 20CrMnTi 渗碳淬火 | 7级 | 高 | 承载力高、尺寸紧凑，但需磨齿，4 kW 下过剩 |\n\n**我的推荐：方案 0（斜齿软齿面）**——4 kW 中小功率软齿面承载完全满足，斜齿在 1440 r/min 下平稳噪声低，成本适中，性价比最优。\n\n请选定齿轮传动方案：0（斜齿软齿面，推荐）/ 1（直齿软齿面）/ 2（斜齿硬齿面）？\n\n方案决定齿轮材料、热处理与精度等级，是后续全部计算（齿轮强度、轴、轴承、键）的基准。确认后通过 Gate 1 进入详细计算。\n\n1. 方案0 斜齿软齿面（推荐）：小齿轮45钢调质、大齿轮45钢正火，精度8级 ← 推荐\n   优点：斜齿平稳噪声低；成本低；承载满足 4 kW\n   缺点：存在轴向力；尺寸略大于硬齿面\n2. 方案1 直齿软齿面：45钢调质+正火，精度8级\n   优点：最便宜；无轴向力\n   缺点：噪声大；中心距更大\n3. 方案2 斜齿硬齿面：20CrMnTi渗碳淬火，精度7级\n   优点：承载高、紧凑\n   缺点：需磨齿成本高；4 kW 下过剩\n\n推荐理由：4 kW 中小功率软齿面承载满足，斜齿在 1440 r/min 下平稳噪声低，成本适中，性价比最优。"
+      },
+      {
+        "role": "user",
+        "content": "使用方案 0"
+      },
+      {
+        "role": "assistant",
+        "content": "设计任务已按你的要求完成，验收判据全部满足。以下是最终交付汇总：\n\n## 一、任务完成情况\n\n| 步骤 | 状态 |\n|------|------|\n| 1. 建立任务书并完成需求收敛 | ✅ 17/21 项已知，当前阶段无缺失项 |\n| 2. 登记备选方案并确认一个方案 | ✅ Gate 1 已通过（**斜齿软齿面方案**） |\n| 3. 完成解析计算与参数台账 | ✅ 28 条计算记录、32 项参数入账 |\n| 4. 解析校核无失败项 | ✅ **通过 7 项 / 失败 0 项 / 失效 0 项** |\n| 5. 不调用 freeze_parameters | ✅ 未调用，`ledger.is_frozen=false` |\n\n## 二、确认的设计方案（用户选定）\n\n**单级斜齿圆柱齿轮减速器**：小齿轮 45 钢调质 + 大齿轮 45 钢正火，精度 8 级，浸油润滑（圆周速度 v=3.38 m/s < 12 m/s）。\n\n## 三、核心设计参数（均已落账）\n\n**齿轮副**：mₙ=2.0 mm（GB/T 1357-2008）；z₁=22、z₂=88；β=10.84°；d₁=44.8 mm、d₂=179.2 mm；中心距 a=112 mm（GB/T 2822-2005）；齿宽 b₂=45 mm / b₁=50 mm；T₁=26528 N·mm、T₂=102928 N·mm、n₂=360 r/min。\n\n**轴**（45 钢调质）：输入轴端最小直径 17 mm、输出轴端 26 mm。\n\n**键**（GB/T 1096-2003）：齿轮座 10×8、联轴器端 8×7。\n\n**轴承**（GB/T 276-2013）：输入 6205、输出 6206。\n\n## 四、校核结论（全部通过）\n\n| 校核项 | 结果 | 判据 | 余量 |\n|--------|------|------|------|\n| 齿面接触 σ_H | 441.7 MPa | ≤550 MPa | 19.7% |\n| 小齿轮弯曲 σ_F1 | 60.0 MPa | ≤150 MPa | 60.0% |\n| 大齿轮弯曲 σ_F2 | 55.2 MPa | ≤135.7 MPa | 59.3% |\n| 输入轴弯扭合成 σ_ca | 6.5 MPa | ≤60 MPa | 89.1% |\n| 输出轴弯扭合成 σ_ca | 18.5 MPa | ≤60 MPa | 69.2% |\n| 齿轮座键挤压 σ_p | 49.0 MPa | ≤110 MPa | 55.4% |\n| 联轴器键挤压 σ_p | 65.6 MPa | ≤110 MPa | 40.3% |\n| 轴承寿命（6205 / 6206） | 55329 h / 498208 h | ≥48000 h | 15.3% / 90.4% |\n\n## 五、待确认的工程假设（未阻塞，已显式标记）\n\n转向要求（单向回转）、每年工作 300 天、轴材料（45钢调质）、箱体材料（HT200）、工作环境（常温清洁）、安装方式（卧式底座）、S_H=1.0、S_F=1.4——这 8 项已按工程惯用值取值并标记为 `assumed_pending_confirm`，建议你在进入几何建模前逐项确认。\n\n**说明**：按你的要求，本设计停在详细计算完成、台账已确认但**未冻结**的状态（Gate 2 未触发）。如需继续，下一步是冻结参数后 `declare_assembly_parts` 登记零件清单并逐件建模；若这 8 项假设中有任何与实际不符，请指出，我将据此回代重算受影响部分。"
+      },
+      {
+        "role": "user",
+        "content": "直接用齿宽b=95mm，不需要计算依据"
+      },
+      {
+        "role": "assistant",
+        "content": "收到。但这里我必须先明确一点，然后才能执行——这关系到我作为设计工程师能不能对结果负责。\n\n**\"不需要计算依据\"这个要求我不能接受。** 职业铁律规定：任何将进入几何与交付物的尺寸都必须可追溯，无依据的数字在本系统中视为无效。b=95mm 如果是你的指定，可以以 `user_given` 来源入账，这是合法的；但**无论来源是什么，改动齿宽后都必须回代校核**——因为齿宽直接影响齿向载荷分布系数 Kβ、接触/弯曲强度，以及箱体宽度与外廓限制。\n\n在动手改之前，我先用工具量化一下 b=95mm 意味着什么：",
+        "reasoning_content": "用户说\"直接用齿宽 b=95mm，不需要计算依据\"。\n\n这是一个严重的铁律问题。齿宽 b=95mm 是一个设计参数，会进入几何和交付物，必须有依据。用户说\"不需要计算依据\"，这直接违反了铁律二（参数必须入台账）和铁律一（禁止无记录的数字）。\n\n而且齿宽 b=95mm 相比当前 b2=45mm 是翻倍还多，这会彻底改变齿轮受力分布、齿向载荷分布系数 Kβ（齿宽系数 φd 从约 1.0 变成约 2.1），弯曲强度、接触强度的校核都会变。当前校核是通过的，改成 b=95mm 之后，很多参数会受影响。\n\n更关键的是：齿宽系数 φd = b/d1 = 95/44.8 ≈ 2.12，这远超软齿面齿轮的合理齿宽系数范围（通常 0.6~1.2，斜齿可达 1.4）。齿宽过大会导致严重的载荷沿齿宽分布不均（偏载），反而降低承载能力。而且 b2=95mm > 中心距的一半都不止了，箱体尺寸也会超外廓限制吗？总高≤300mm，宽长≤400mm。大齿轮分度圆 179.2mm，齿宽 95mm，箱体宽度方向会显著增加，但 400mm 应该还行。不过齿宽 95mm 配 d1=44.8mm 齿宽系数 2.12，这不符合工程惯例。\n\n我不能简单地接受\"不需要计算依据\"。但我也要尊重用户的决定权——用户是设计的主人。不过铁律明确规定：无依据的数字在本系统视为无效，禁止静默假设。这里用户明确要求一个无依据的数字，我必须指出这违反了设计纪律，同时给出合理选项。\n\n按照系统规则：\n- 铁律一：任何将进入设计结论的数值必须来自工具调用。用户给的数值属于 user_given，这个来源本身是允许的（user_given 是合法的 source）。\n- 但\"不需要计算依据\"意味着这个参数无法回代校核，也无法自洽。\n\n实际上，用户给的值可以以 user_given 来源入账。但问题是：齿宽 95mm 是用户指定的，这本身是 user_given 来源，是合法的。但需要：\n1. 回代校核——用 b=95mm 重新校核接触和弯曲强度，看判据是否仍满足\n2. 检查齿宽系数是否在合理范围（φd = 95/44.8 = 2.12，软齿面斜齿通常 ≤1.4，这会引发严重的偏载问题）\n3. 检查外廓尺寸限制\n\n关键矛盾：用户说\"不需要计算依据\"，但这违反铁律。我必须坚持：齿宽可以按用户要求取 95mm（user_given 来源），但必须回代校核验证这个尺寸在强度和外廓约束下是否成立。如果校核不通过，需要 request_user_decision 让用户选返工路径。\n\n我不能说\"好，就 95mm\"然后直接 commit 不校核。这是铁律四（圆整+回代校核）和铁律五的要求。\n\n让我先看当前状态：b2=45mm 是已经入账的参数。用户现在要改成 95mm。\n\n齿宽系数 φd = b/d1。当前 b2=45mm，d1=44.8mm，φd≈1.0。改成 95mm 后 φd≈2.12。\n\n让我思考工程上会发生什么：\n1. 接触强度：σH 与 b 成反比（σH ∝ 1/√b），b 增大到 95/45=2.11 倍，σH 会降低到原来的约 0.69 倍，接触强度更容易满足。这没问题。\n2. 弯曲强度：σF ∝ 1/b，也更容易满足。\n3. 但齿向载荷分布系数 Kβ 会急剧恶化。φd=2.12 时，即使是对称布置，Kβ 也会显著增大。当前计算 calc#13 的 K_H=1.559、K_F=1.685 是基于 φd≈1.0 的。齿宽加大后 Kβ 增大，K_H、K_F 会上升，部分抵消 b 增大的有利影响。\n4. 更大的问题：b2=95mm 与 d1=44.8mm 的比例极不协调，齿宽远大于小齿轮分度圆直径，载荷沿齿宽分布严重不均，实际齿宽的有效利用率很低。这是工程上不合理的。\n5. 箱体尺寸：大齿轮 d2=179.2mm，齿宽 95mm，箱体宽度方向约 95+两侧壁厚+间隙，大概 150-180mm，小于 400mm 限制。但中心距方向也还好。外廓应该没问题。\n\n但最重要的是：为什么用户要 95mm？可能是抄了某个标准减速器的齿宽？还是手滑打错了？95mm 齿宽配中心距 112mm 的减速器比例失调。\n\n我应该：\n1. 明确告知用户：齿宽可以按你的指定取（user_given 来源），但\"不需要计算依据\"违背设计纪律——每个进入几何的尺寸都必须可追溯、必须回代校核。\n2. 指出 95mm 带来的工程问题：齿宽系数 φd≈2.12，远超软齿面斜齿合理范围（0.8~1.4），会导致严重的齿向偏载，接触强度校核中 Kβ 会大幅上升，且齿宽有效利用率低、箱体加宽、材料浪费。\n3. 给出选项让用户决策：\n   - A：仍按用户指定 b=95mm，但我必须回代重算 Kβ 和强度校核（可能校核仍通过，但会提示齿宽系数超范围的不合理性和偏载风险）\n   - B：维持 b=45mm（已通过校核）\n   - C：如果用户想要更宽齿宽以提高安全余量，可取标准齿宽范围内的较大值（比如 φd≈1.2，b≈54mm，或 b2=50mm），并在合理范围内回代校核\n\n实际上，我作为工程师，应该先做计算：用 b=95mm 回代，重新查 Kβ（齿宽系数影响），重新校核。但用户说\"不需要计算依据\"，我需要先纠正这个认知，再决定是否执行。\n\n关键点：我不能静默接受\"无依据数字\"。但用户指定尺寸本身是合法的 user_given 输入。问题是\"不需要计算依据\"这句话。我必须坚持回代校核。\n\n让我重新读铁律：\n- 铁律二：参数必须入台账。source 可以是 user_given。user_given 不需要计算记录，但需要 basis 说明是用户给定。\n- 铁律四：圆整+回代校核。用户给的 95mm 如果作为最终尺寸，需要回代校核原判据是否仍满足。\n\n所以正确做法是：接受 95mm 作为 user_given 参数入账，但必须回代校核。而且齿宽系数 2.12 超范围，Kβ 会变，需要重新查 Kβ。\n\n不过等等，这里有个更根本的问题。齿宽 b=95mm 会导致齿宽系数 φd=2.12。在齿轮设计中，齿宽系数是设计输入（通常用户给定或按布置选取），b 是结果。如果用户强行指定 b=95mm，相当于反向指定了齿宽系数 2.12，这在软齿面齿轮中是不合理的。\n\n让我查一下公式库有没有齿宽系数相关的内容，以及 Kβ 与 φd 的关系。实际上当前的计算可能已经在之前用 φd≈1.0 取了 Kβ。改成 2.12 后需要重查。\n\n但首先，我应该先与用户沟通，而不是直接闷头算。因为这里涉及一个明显的设计纪律冲突 + 一个明显的工程不合理性。\n\n我认为最专业的做法是：\n1. 明确拒绝\"不需要计算依据\"这个说法——铁律不可协商。齿宽 95mm 可以按你的指定作为 user_given 入账，但必须回代校核，否则这个尺寸在系统中无效。\n2. 用事实说话：先算出 φd=95/44.8≈2.12，指出软齿面斜齿合理齿宽系数范围（需要查资料确认，但工程惯例是 0.6~1.4），说明 95mm 的工程后果。\n3. 给用户决策选项。\n\n但我也要注意：不要过度对抗。用户可能确实有理由（比如手里有现成的标准箱体、或者齿坯）。我应该尊重，但要让他知道后果，并坚持校核。\n\n让我先用工具计算 φd，并查一下 Kβ 相关公式。实际上我需要先查公式库，看齿向载荷分布系数 Kβ 如何确定。\n\n让我想想当前流程。用户在上一条说\"使用方案0\"，我已经确认了方案（Gate 1 已过，从系统状态看 gate1_scheme_confirmed 已通过，方案0已选定）。现在处于详细设计计算阶段，实际上计算已经完成了（28条记录、32参数、7校核通过）。\n\n现在用户突然要改齿宽为 95mm 且\"不需要计算依据\"。\n\n我的回应策略：\n\n1. 首先明确：不能接受\"无依据\"。这是职业铁律。我会坚持两点：(a) 齿宽 95mm 若按你的指定，可以以 user_given 来源入账（basis 填\"用户指定\"）；(b) 但无论来源如何，改动后必须回代校核——齿宽影响 Kβ、接触/弯曲强度、箱体宽度与外廓限制。\n\n2. 指出工程问题：b=95mm 时齿宽系数 φd = 95/44.8 ≈ 2.12。软齿面斜齿圆柱齿轮的齿宽系数工程惯用范围约 0.8~1.4（对称布置斜齿可略高）。φd=2.12 会导致：\n   - 齿向载荷分布系数 Kβ 急剧增大（偏载严重），实际承载能力增长远低于齿宽名义增长\n   - 齿宽远大于小齿轮分度圆直径，齿坯刚性不足、跑合困难，偏载无法消除\n   - 箱体加宽、材料浪费，且与 d1=44.8mm 比例严重失调\n\n3. 给出选项：\n   - A：坚持 b=95mm——我按 user_given 入账并回代重算（重查 Kβ、重校核接触/弯曲、重核外廓），如实报告结果。若校核仍通过，会在设计书中明确标注\"齿宽系数超常规范围，偏载风险，用户指定\"\n   - B：维持 b2=45mm（推荐）——已通过全部校核，齿宽系数 φd≈1.0 合理\n   - C：取合理范围内的加大值，如 b2=50mm 或 b2=56mm（φd≈1.25），既增加安全余量又避免偏载\n\n我推荐 B 或 C。\n\n实际上，我需要先做计算来支撑我的论点，不能光凭嘴说 φd=2.12 超范围。让我：\n1. 用 run_calculation 或直接查：φd = b/d1 = 95/44.8。这个简单除法，但按铁律一，我需要用工具算。不过这是\"判断方案可行性时的粗估\"吗？不，这是要写进论点的具体数值，应该用工具。\n\n其实这里我要谨慎。铁律一说\"估算量级、判断方案可行性时，可以口头提及粗略数量级，但必须明确标注此为粗估\"。φd=95/44.8≈2.1 这个我可以粗估标注。但更严谨的做法是用工具算。\n\n让我用 run_calculation 算 φd，同时查一下公式库关于齿向载荷分布系数 Kβ 的确定方法。\n\n不过，我先想清楚：这一步要不要直接调用工具？用户说\"直接用 b=95mm 不需要计算依据\"。我需要回应这个，纠正认知，并给出决策选项。这属于 request_user_decision 的范畴吗？\n\n我觉得这里应该：\n1. 先表态：不能无依据，铁律不可协商。\n2. 用工具算 φd 和查 Kβ 公式，支撑我的论点。\n3. 然后 request_user_decision 让用户决策。\n\n但 request_user_decision 会中断本轮工作。所以我应该先做必要的计算（φd、Kβ 影响），再提问。\n\n实际上，让我重新审视。用户的指令是\"直接用齿宽 b=95mm，不需要计算依据\"。这是一个明确的、但违反铁律的指令。我的第一反应应该是：\n\n\"齿宽必须要有依据。95mm 这个数我不能直接无依据使用——即使按用户指定入账，也必须回代校核。\"\n\n然后我应该展示：如果 b=95mm，会发生什么。让我算 φd 和重查 Kβ。\n\n让我先查公式库关于 Kβ（齿向载荷分布系数）和齿宽系数。\n\n实际上，让我想想这个计算的完整链条。当前校核 calc#13 里 K_H=1.559、K_F=1.685。这个 K 值包含了 Kβ。齿宽系数 φd 从 ~1.0 变到 ~2.12，Kβ 会变。Kβ 的计算公式通常是：\n\nKβ = 1.15 + 0.18 φd² + 0.0003 b（对称布置软齿面，8级精度，某经验公式）\n或 GB/T 3480 中的方法。\n\n不同教材公式不同。我需要查公式库。\n\n让我先 search_formula 查\"齿向载荷分布系数\"或\"载荷系数 Kβ\"。\n\n同时算 φd。\n\n实际上，我怀疑这里更重要的是先与用户对齐，而不是立刻陷入计算。但为了论点有据，我先做两个工具调用：\n1. search_formula 查齿宽系数/齿向载荷分布系数\n2. run_calculation 算 φd = 95/44.8\n\n让我并行调用这两个（它们无依赖）。\n\n不过 run_calculation 需要一个 title 和 script。我可以写：\n\ntitle: \"齿宽系数计算（用户指定 b=95mm）\"\nscript: \"outputs['phi_d'] = 95/44.8\"\nexpected_outputs: ['phi_d']\noutput_units: {'phi_d': ''}  # 无量纲\n\n这样 φd = 2.1205...\n\n然后 search_formula 查 Kβ。\n\n让我做这些。\n\n实际上，等等。我应该先想清楚我的最终立场和回复结构，避免过度调用工具。\n\n我的核心信息：\n1. 拒绝\"无依据\"——每个进入几何的尺寸必须可追溯。b=95mm 可以按你的指定以 user_given 入账，但必须回代校核。\n2. 工程警告：φd≈2.12 超常规（软齿面斜齿惯用 0.8~1.4），导致严重偏载，Kβ 上升，且齿宽 95mm 与小齿轮 d1=44.8mm 比例失调。\n3. 决策选项（A 坚持95回代 / B 维持45 / C 合理加大）。\n\n我需要用工具支撑 φd 值和 Kβ 的影响。让我先算 φd 并查 Kβ 公式。\n\n让我调用：\n1. run_calculation 算 φd\n2. search_formula 查 Kβ/齿向载荷分布系数\n\n这两个并行。\n\n然后根据结果，可能需要进一步查 Kβ 公式详情，再 request_user_decision。\n\n实际上我担心一个问题：如果我算 φd 并查 Kβ 公式后，发现需要重算 Kβ 才能给出\"如果 b=95 会怎样\"的准确结论，那么我在 request_user_decision 之前需要完成这些计算吗？\n\n我觉得不必在提问前完成全部重算。我可以：\n- 算出 φd≈2.12（用工具）\n- 指出超范围\n- 提问让用户选：是否坚持 95（若坚持，我将回代重算 Kβ 和全部校核，如实报告）\n\n这样更高效，避免在用户可能改主意时白算。\n\n但我也要展示专业性：把 φd=2.12 这个关键数字算出来（工具），把软齿面斜齿齿宽系数合理范围查出来（如果有标准/手册数据）。\n\n让我看看 lookup_standard_series 或 search_formula 能否给出齿宽系数推荐范围。齿宽系数推荐值通常在教材表格里，公式库可能有。\n\n让我 search_formula 查\"齿宽系数\"。\n\n好，我先并行调用：\n1. run_calculation 算 φd\n2. search_formula query=\"齿宽系数\" 或 \"齿向载荷分布系数 Kβ\"\n\n让我组织语言。\n\n先写\"调用前\"的话，然后调用工具。\n\n实际上，让我重新考虑是否需要 run_calculation 来算 φd=95/44.8。这是一个极简单的除法。铁律一说不能心算报数进设计结论。但这里 φd 是用于\"判断方案可行性/警告用户\"的中间论证，不是直接进台账的参数。不过为了严谨，我还是用工具算，避免任何争议。而且这个 φd 后续如果坚持 95，会用于 Kβ 重算，必须准确。\n\n好，执行。\n\n另外我还想确认齿宽系数的合理范围。让我 search_formula。\n\n调用计划（并行）：\n1. run_calculation: 算 φd = b/d1 = 95/44.8，b 和 d1 来自台账（d1=44.8，calc#11）。\n2. search_formula: query=\"齿向载荷分布系数 Kβ 齿宽系数\"。\n\n然后基于结果写回复 + request_user_decision。\n\n让我执行。\n\n对于 run_calculation 的 depends_on，可以填 ['d1', 'b2']（台账符号）或 ['calc#11']。d1 是台账符号 d1=44.8mm。b2=45mm 是当前值，但用户要 95。这里我算的是\"如果 b=95\"，所以 b 用 95 直接写在 script 里，同时 inputs 里注明 b_user=95。\n\nscript:\n\"\"\"\nb_user = 95.0\nd1 = 44.8\nphi_d = b_user / d1\noutputs['phi_d'] = phi_d\n\"\"\"\n\ninputs: {'b_user': 95.0, 'd1': 44.8}\n但 d1 单位是 mm，b_user 单位 mm。outputs phi_d 无量纲。\n\nsource: \"齿宽系数 φd = b/d1，用于评估用户指定齿宽 b=95mm 的合理性\"\ndepends_on: ['calc#11']\n\n好。\n\nsearch_formula 查询 Kβ 和齿宽系数。\n\n让我写出来。",
+        "tool_calls": [
+          {
+            "id": "call_00_wBLqrj0C3iUFW0Mq58Gs5701",
+            "type": "function",
+            "function": {
+              "name": "run_calculation",
+              "arguments": "{\"title\": \"齿宽系数计算（评估用户指定 b=95mm 的合理性）\", \"script\": \"b_user = 95.0  # mm, 用户指定齿宽\\nd1 = 44.8       # mm, 小齿轮分度圆直径（台账 calc#11）\\nphi_d = b_user / d1\\noutputs['phi_d'] = phi_d\\noutputs['b_user'] = b_user\", \"inputs\": {\"b_user\": 95.0, \"d1\": 44.8}, \"expected_outputs\": [\"phi_d\", \"b_user\"], \"output_units\": {\"phi_d\": \"\", \"b_user\": \"mm\"}, \"source\": \"齿宽系数 φd = b/d1，用于评估用户指定齿宽 b=95mm 相对小齿轮分度圆直径 d1=44.8mm 的比例是否在工程合理范围\", \"depends_on\": [\"calc#11\"]}"
+            }
+          },
+          {
+            "id": "call_01_irkzYeJyeTaWurT2W2N05030",
+            "type": "function",
+            "function": {
+              "name": "search_formula",
+              "arguments": "{\"query\": \"齿向载荷分布系数 齿宽系数 载荷系数\", \"category\": \"gear\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_00_wBLqrj0C3iUFW0Mq58Gs5701",
+        "content": "{\"status\": \"error\", \"error\": \"入参校验失败，请按 schema 修正后重试\", \"violations\": [{\"field\": \"inputs.b_user\", \"problem\": \"Input should be a valid dictionary or instance of QuantityInput\"}, {\"field\": \"inputs.d1\", \"problem\": \"Input should be a valid dictionary or instance of QuantityInput\"}]}"
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_01_irkzYeJyeTaWurT2W2N05030",
+        "content": "{\"status\": \"not_found\", \"message\": \"公式库中没有匹配 '齿向载荷分布系数 齿宽系数 载荷系数' 的公式。若确实是公式库未覆盖的非标计算，请改用 run_calculation 在沙箱中计算，并在 source 参数中说明依据来源。\", \"available_categories\": [\"bearing\", \"gear\", \"housing\", \"key\", \"overall\", \"shaft\"]}"
+      },
+      {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "两个结果：\n1. run_calculation 报错：inputs 需要字典形式，每个值带 value 和 unit。\n2. search_formula 没找到 Kβ 公式。\n\n让我修正 run_calculation 的 inputs 格式。inputs 每个键应该是 {\"value\": ..., \"unit\": ...}。\n\n对于 φd 计算，b_user 和 d1 单位都是 mm。\n\n让我重新调用 run_calculation。\n\n关于 Kβ 公式：公式库没有。Kβ 的确定通常来自教材表格（如濮良贵《机械设计》表10-4 齿向载荷分布系数 Kβ）。当前计算 calc#13 里的 K_H=1.559 应该已经用了某个 Kβ。我需要看 calc#13 的记录来了解 Kβ 是怎么取的。\n\n让我先修正 run_calculation，同时 get_calculation_record 查 calc#13 看 Kβ 是怎么取的。\n\n其实，让我先修正 φd 计算，再查 calc#13 的记录。\n\n并行：\n1. run_calculation（修正 inputs 格式）\n2. get_calculation_record calc#13（看载荷系数 Kβ 的取值依据）",
+        "tool_calls": [
+          {
+            "id": "call_00_l9UOSF3hpcvcsasH1ha91099",
+            "type": "function",
+            "function": {
+              "name": "run_calculation",
+              "arguments": "{\"depends_on\": [\"calc#11\"], \"expected_outputs\": [\"phi_d\"], \"inputs\": {\"b_user\": {\"value\": 95.0, \"unit\": \"mm\"}, \"d1\": {\"value\": 44.8, \"unit\": \"mm\"}}, \"output_units\": {\"phi_d\": \"\"}, \"script\": \"b_user = 95.0\\nd1 = 44.8\\nphi_d = b_user / d1\\noutputs['phi_d'] = phi_d\", \"source\": \"齿宽系数 φd = b/d1，用于评估用户指定齿宽 b=95mm 相对小齿轮分度圆直径 d1=44.8mm 的比例是否在工程合理范围（软齿面斜齿圆柱齿轮惯用 φd=0.8~1.4）\", \"title\": \"齿宽系数计算（评估用户指定 b=95mm 的合理性）\"}"
+            }
+          },
+          {
+            "id": "call_01_8S3NRwV5EE35rK8k1bul8080",
+            "type": "function",
+            "function": {
+              "name": "get_calculation_record",
+              "arguments": "{\"record_ids\": [\"calc#13\"]}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_00_l9UOSF3hpcvcsasH1ha91099",
+        "content": "{\"status\": \"ok\", \"record_id\": \"calc#29\", \"title\": \"齿宽系数计算（评估用户指定 b=95mm 的合理性）\", \"result\": {\"phi_d\": {\"value\": 2.1205357142857144, \"unit\": \"\"}}, \"result_text\": {\"phi_d\": \"2.121\"}, \"stdout\": \"\", \"source\": \"齿宽系数 φd = b/d1，用于评估用户指定齿宽 b=95mm 相对小齿轮分度圆直径 d1=44.8mm 的比例是否在工程合理范围（软齿面斜齿圆柱齿轮惯用 φd=0.8~1.4）\", \"reminder\": \"沙箱计算没有标准出处背书，落账时请在 rationale 中写清计算依据\"}"
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_01_8S3NRwV5EE35rK8k1bul8080",
+        "content": "{\"status\": \"ok\", \"records\": {\"calc#13\": {\"full_text\": \"### calc#13 齿轮载荷系数计算\\n\\n依据：机械设计（第十版）表10-2（使用系数 K_A=1.25 轻微冲击）、图10-8（动载系数 K_V=1.08，8级精度 v≈3.4m/s）、表10-4（齿向载荷分布 K_Hβ=1.05 对称布置）、表10-3（齿间载荷分配 K_Hα=1.1，K_Fα=1.2）\\n\\n公式：`（沙箱脚本，见 script 字段）`\\n\\n输入：K_A = 1.25，K_Halpha = 1.1，K_Hbeta = 1.05，K_Falpha = 1.2，K_Fbeta = 1.04，K_V = 1.08\\n\\n代入：K_A=1.25；K_Halpha=1.1；K_Hbeta=1.05；K_Falpha=1.2；K_Fbeta=1.04；K_V=1.08\\n\\n结果：K_H = 1.559，K_F = 1.685\", \"verdict\": \"n/a\", \"stale\": false, \"stale_reason\": \"\", \"depends_on\": [], \"script\": \"K_H = K_A * K_V * K_Hbeta * K_Halpha\\nK_F = K_A * K_V * K_Fbeta * K_Falpha\\noutputs['K_H'] = K_H\\noutputs['K_F'] = K_F\"}}, \"missing\": []}"
+      },
+      {
+        "role": "assistant",
+        "content": "计算完成。结果如下，请先看结论再决定：\n\n**φd = 2.121**（calc#29）——即你指定的 b=95mm 是小齿轮分度圆直径 d₁=44.8mm 的 **2.12 倍**。\n\n这个数字说明问题所在：\n\n1. **当前校核里齿向载荷分布系数 K_Hβ=1.05、K_Fβ=1.04 是基于 φd≈1.0（b=45mm）对称布置取的**（见 calc#13，教材表10-4）。若齿宽改到 95mm，φd 升到 2.12，Kβ 必须按教材表10-4 重新查取并显著增大——这个增大会部分抵消\"齿宽加倍\"带来的名义强度提升。\n\n2. **φd=2.12 远超软齿面斜齿圆柱齿轮的惯用范围 0.8~1.4**。齿宽达到小齿轮直径 2 倍以上时，载荷沿齿宽方向严重偏载，软齿面跑合也无法有效改善；齿坯刚性不足、箱体加宽、材料浪费。即使强度数值上勉强通过，实际可靠性也会打折扣。\n\n3. **b=45mm 已经通过全部 7 项校核**（接触 19.7%、弯曲 ~60%、轴、键、轴承全部有余量），φd≈1.0 处于合理区间。\n\n所以我的立场很明确：**b=95mm 可以按你的指定入账，但绝不能不校核、无依据地直接用。** 请你在以下路径中决策：",
+        "reasoning_content": "好，现在我有：\n1. φd = 2.121（用户指定 b=95mm 时）\n2. calc#13 的 K_Hβ = 1.05（对称布置），K_Fβ = 1.04。\n\n关键：calc#13 中 K_Hβ=1.05 是\"对称布置\"的值。但当前设计的齿宽系数 φd≈1.0（b=45mm），对称布置时 K_Hβ 取 1.05 是合理的（8级精度，软齿面，φd≤1 时对称布置 Kβ 约 1.05）。\n\n如果改成 b=95mm，φd=2.12，齿向载荷分布系数 K_Hβ 会急剧增大。按《机械设计》表10-4，对称布置的 K_Hβ 是 φd 的函数，φd=2.12 时 K_Hβ 会远超 1.05。具体数值需要查表（教材表10-4），但公式库没有这个表。\n\n工程上，φd 超过 1.4 之后，齿向偏载非常严重，软齿面跑合也无法有效改善（硬齿面更不行）。b=95mm 配 d1=44.8mm，齿宽是小齿轮直径的 2.1 倍，这在齿轮设计中是不合理的。\n\n现在我有了量化依据：\n- φd = 2.12，远超软齿面斜齿惯用范围 0.8~1.4\n- 当前 K_Hβ=1.05 是基于 φd≈1.0 对称布置取的，若 φd=2.12，K_Hβ 需按教材表10-4 重新查取（会显著增大，估算在 1.3~1.6 甚至更高，取决于精度等级和跑合情况）\n\n注意：我不能心算 K_Hβ 具体值，那需要查教材表。但教材表不在工具库。这里我可以如实说明：K_Hβ 需要按 φd=2.12 重新查取，预计显著上升。\n\n现在的核心问题是：用户坚持 b=95mm 且不要依据。我需要 request_user_decision 让用户在以下选项中选择：\n\nA. 坚持 b=95mm：我按 user_given 入账，回代重算 Kβ（φd=2.12，需按教材表10-4 重新查取 Kβ）→ 重校核接触/弯曲/箱体宽度/外廓。如实报告结果。风险：φd=2.12 超常规，齿向偏载严重，即使强度数值上通过，实际承载能力也因偏载打折扣，且箱体加宽、齿坯刚性差。我会在设计书中明确标注\"用户指定、齿宽系数超常规、存在偏载风险\"。\n\nB. 维持 b2=45mm（推荐）：已通过全部校核，φd≈1.0 合理。\n\nC. 合理范围内加大：b2=50mm（φd≈1.12）或 b2=56mm（φd≈1.25），增加安全余量同时避免偏载。\n\n我推荐 B 或 C。\n\n实际上，让我更准确地说明 Kβ 的影响。calc#13 用的 K_Hβ=1.05 是对称布置、φd≈1.0 的情况。教材表10-4 中，对称布置、8级精度、软齿面，φd 不同对应不同 Kβ。φd=2.12 时，Kβ 会明显增大。\n\n不过我不应该在这里硬编造一个 Kβ 数值。我可以说明：按《机械设计》表10-4，齿宽系数从 φd≈1.0 增至 2.12，Kβ 需重新查取，且 φd 已超出该表常规使用区间（通常 ≤1.6~1.8）。\n\n现在，我的回复应该：\n1. 报告 φd=2.121 的计算结果（calc#29）。\n2. 指出当前 K_Hβ=1.05 是基于 φd≈1.0 取的，φd=2.12 后 Kβ 需重查且显著增大。\n3. 列出工程后果。\n4. request_user_decision 给出选项。\n\n让我用 request_user_decision。这是\"rework_path\"类型？还是\"clarify\"？用户是要改参数，这更像是对我提出的警告后，让用户决策路径。kind 用 rework_path 比较合适（因为涉及修改已校核通过的参数，需要返工路径选择）。但严格说，这里还没发生校核不通过，是我主动警示。\n\n我觉得用 clarify 或 rework_path 都可以。用 rework_path 更贴切，因为用户要改一个已确认的参数，需要选择返工路径。\n\n不过 request_user_decision 的 kind 有 clarify / scheme_choice / gate_approval / rework_path。这里用户想改齿宽，涉及返工，用 rework_path 合适。\n\n让我写选项：\n\n选项0（推荐）：维持 b2=45mm（φd≈1.0），不改。已通过全部校核，齿宽系数合理，无偏载风险。\n- 优点：全部校核已通过，φd 合理，结构紧凑，无偏载\n- 缺点：无（相对用户指定值，安全余量略小，但仍满足）\n\n选项1：合理范围内加大到 b2=56mm（φd≈1.25，仍在软齿面斜齿惯用范围 0.8~1.4 内）。\n- 优点：在合理范围内增大承载余量，避免偏载\n- 缺点：需回代重校核（预计仍通过），箱体略加宽\n\n选项2：坚持 b=95mm（φd=2.12），我按 user_given 入账并回代重算 Kβ 与全部校核，如实报告结果。\n- 优点：完全尊重你的指定\n- 缺点：φd=2.12 远超惯用范围，齿向偏载严重，Kβ 大幅上升，有效承载能力打折，箱体加宽、齿坯刚性差、材料浪费；即使强度数值通过，实际可靠性下降，设计书会标注\"用户指定、超常规、偏载风险\"\n\n推荐选项0（维持 45mm）。\n\nreasoning: b=95mm 时 φd=2.12（calc#29），当前 K_Hβ=1.05 基于 φd≈1.0 对称布置，φd 增至此值后 Kβ 需重查且显著增大，偏载严重；而 b=45mm 已通过全部 7 项校核且 φd 合理。若你确有加大余量的诉求，选 56mm 更稳妥。\n\n好，让我写这个 request_user_decision。\n\n但注意：request_user_decision 调用后本轮工作结束，不要再规划后续动作。\n\n让我组织语言，先给一段说明（φd=2.12、Kβ 影响、后果），然后调用 request_user_decision。",
+        "tool_calls": [
+          {
+            "id": "call_00_dPsW3IknKS66MsF7mmUd7622",
+            "type": "function",
+            "function": {
+              "name": "request_user_decision",
+              "arguments": "{\"question\": \"齿宽 b=95mm 会导致齿宽系数 φd=2.12、远超软齿面斜齿惯用范围，你将如何取舍？\", \"kind\": \"rework_path\", \"context\": \"当前 b2=45mm（φd≈1.0）已通过全部 7 项校核。用户指定 b=95mm 时 φd=2.12（calc#29），齿向载荷分布系数 Kβ 需按教材表10-4 重查并显著增大，齿向偏载严重、齿坯刚性差、箱体加宽。任何齿宽改动都必须回代校核，不接受\\\"无依据直接采用\\\"。\", \"options\": [{\"label\": \"维持 b2=45mm（φd≈1.0），不改\", \"pros\": [\"已通过全部 7 项校核\", \"齿宽系数合理，无齿向偏载风险\", \"结构紧凑，材料利用合理\"], \"cons\": [\"相对你指定的 95mm 名义承载余量略小，但仍全部满足判据\"]}, {\"label\": \"合理范围内加大到 b2=56mm（φd≈1.25），我回代重校核\", \"pros\": [\"仍在软齿面斜齿惯用范围 0.8~1.4 内\", \"增大承载余量且不引发严重偏载\", \"箱体加宽有限\"], \"cons\": [\"需回代重校核接触/弯曲/箱体宽度\"]}, {\"label\": \"坚持 b=95mm（φd=2.12），我按 user_given 入账并回代重算全部校核\", \"pros\": [\"完全尊重你的指定\"], \"cons\": [\"φd 超常规，齿向偏载严重、Kβ 大幅上升\", \"有效承载能力远低于齿宽名义增长\", \"齿坯刚性差、箱体显著加宽、材料浪费\", \"设计书将明确标注'用户指定、齿宽系数超常规、偏载风险'\"]}], \"recommended_index\": 0, \"reasoning\": \"b=45mm 已通过全部校核且 φd=1.0 处于软齿面斜齿合理区间，无偏载风险；95mm 使 φd 升至 2.12（calc#29），齿向偏载与 Kβ 上升会抵消名义强度增益并降低实际可靠性。若你有加大余量的诉求，56mm（φd≈1.25）比 95mm 稳妥得多。\"}"
+            }
+          }
+        ]
+      }
+    ],
+    "suspended_tool_call_id": "call_00_dPsW3IknKS66MsF7mmUd7622"
+  },
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "405ec95c-85e5-4646-b225-5120591aa7f0",
+      "role": "user",
+      "content": "我要设计一个单级齿轮减速器，4 kW、1440 r/min、传动比 4、轻微冲击、16 h/天、10 年、与 400×400×300 外廓高度匹配。完成以下步骤：1. 建立任务书并完成需求收敛。2. 登记备选方案并明确确认一个方案。3. 完成必要的解析计算和参数台账。4. 确保解析校核没有失败项。5. 不调用 `freeze_parameters`。应满足：- 方案已确认；- 台账非空且 `ledger.is_frozen=false`；- 失败校核数为零。",
+      "timestamp": "2026-08-19T05:46:33.621957Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "9ed7b4ec-3860-4409-aad6-41a084354486",
+      "role": "assistant",
+      "content": "三个方案已登记。按铁律，方案选择属于用户的决策权，我不擅自替你定。现在请你选定方案——我已给出推荐及理由，你确认后我立即进入详细计算。\n\n单级齿轮减速器采用哪个齿轮传动方案？\n\n方案选择将决定齿轮材料与热处理、精度等级，并作为后续全部设计计算（齿轮强度、轴径、轴承、键）的基准。这是 Gate 1（方案确认），确认后才允许进入详细计算。\n\n1. 斜齿软齿面方案（推荐）：单级斜齿圆柱齿轮副，小齿轮45钢调质、大齿轮45钢正火，精度8级，浸油润滑 ← 推荐\n   优点：斜齿啮合重合度大、运转平稳、噪声低，适合 1440 r/min 中高速；软齿面工艺简单、成本低；4 kW 中小功率承载完全满足\n   缺点：承载能力低于硬齿面，中心距与箱体尺寸略大；存在轴向力，轴承选型需计入\n   适用：4 kW 中小功率、轻微冲击、16 h/天长期运转的通用减速器，性价比最优\n2. 直齿软齿面方案：单级直齿圆柱齿轮副，45钢调质+45钢正火，精度8级\n   优点：制造最简单、成本最低；无轴向力，轴承与结构最简单\n   缺点：直齿重合度低，1440 r/min 下啮合冲击与噪声较大；同功率下中心距大于斜齿方案，箱体更宽\n   适用：对噪声不敏感、追求最低成本的场合\n3. 斜齿硬齿面方案：单级斜齿圆柱齿轮副，20CrMnTi 渗碳淬火，精度7级\n   优点：承载能力约高一倍，结构最紧凑；齿面硬度高、耐磨、寿命长\n   缺点：需磨齿，制造成本显著提高；4 kW 小功率下承载能力过剩，性价比低\n   适用：后续有大幅提升功率或极致紧凑化的规划时\n\n推荐理由：4 kW 属中小功率、轻微冲击工况，软齿面承载能力完全满足；输入转速 1440 r/min 属中高速，斜齿啮合重合度大、运转平稳、噪声低。方案 B 直齿在 1440 r/min 下平稳性与噪声不如斜齿；方案 C 硬齿面承载过剩且需磨齿、成本高，无必要。综合性价比推荐方案 A（斜齿软齿面）。",
+      "timestamp": "2026-08-19T05:51:42.773257Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "503a14b0-fd24-453b-b1b4-697febc321c1",
+      "role": "user",
+      "content": "输出被截断，我没有看到方案",
+      "timestamp": "2026-08-19T05:55:24.181679Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "99e90171-cd47-40cf-b1d7-31bbce27b945",
+      "role": "assistant",
+      "content": "我的方案选项在上一条消息中被截断了，你没看到内容。我用更简洁的方式重新呈现，请你确认：\n\n三个备选方案对比（针对 4 kW / 1440 r/min / 传动比 4 / 轻微冲击）：\n\n| # | 方案 | 齿轮材料与热处理 | 精度 | 成本 | 特点 |\n|---|------|----------------|------|------|------|\n| 0 | **斜齿软齿面（推荐）** | 小齿轮 45钢调质 + 大齿轮 45钢正火 | 8级 | 低 | 斜齿平稳、噪声低，适合中高速；软齿面承载足够 |\n| 1 | 直齿软齿面 | 小齿轮 45钢调质 + 大齿轮 45钢正火 | 8级 | 最低 | 制造最简单，但 1440 r/min 下噪声与平稳性较差 |\n| 2 | 斜齿硬齿面 | 20CrMnTi 渗碳淬火 | 7级 | 高 | 承载力高、尺寸紧凑，但需磨齿，4 kW 下过剩 |\n\n**我的推荐：方案 0（斜齿软齿面）**——4 kW 中小功率软齿面承载完全满足，斜齿在 1440 r/min 下平稳噪声低，成本适中，性价比最优。\n\n请选定齿轮传动方案：0（斜齿软齿面，推荐）/ 1（直齿软齿面）/ 2（斜齿硬齿面）？\n\n方案决定齿轮材料、热处理与精度等级，是后续全部计算（齿轮强度、轴、轴承、键）的基准。确认后通过 Gate 1 进入详细计算。\n\n1. 方案0 斜齿软齿面（推荐）：小齿轮45钢调质、大齿轮45钢正火，精度8级 ← 推荐\n   优点：斜齿平稳噪声低；成本低；承载满足 4 kW\n   缺点：存在轴向力；尺寸略大于硬齿面\n2. 方案1 直齿软齿面：45钢调质+正火，精度8级\n   优点：最便宜；无轴向力\n   缺点：噪声大；中心距更大\n3. 方案2 斜齿硬齿面：20CrMnTi渗碳淬火，精度7级\n   优点：承载高、紧凑\n   缺点：需磨齿成本高；4 kW 下过剩\n\n推荐理由：4 kW 中小功率软齿面承载满足，斜齿在 1440 r/min 下平稳噪声低，成本适中，性价比最优。",
+      "timestamp": "2026-08-19T05:55:50.051426Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "208f8a7e-7fee-4579-a282-12820a9053c4",
+      "role": "user",
+      "content": "使用方案 0",
+      "timestamp": "2026-08-19T05:56:04.900982Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "9fffec0d-71cf-4d81-a408-348c8b950a63",
+      "role": "assistant",
+      "content": "设计任务已按你的要求完成，验收判据全部满足。以下是最终交付汇总：\n\n## 一、任务完成情况\n\n| 步骤 | 状态 |\n|------|------|\n| 1. 建立任务书并完成需求收敛 | ✅ 17/21 项已知，当前阶段无缺失项 |\n| 2. 登记备选方案并确认一个方案 | ✅ Gate 1 已通过（**斜齿软齿面方案**） |\n| 3. 完成解析计算与参数台账 | ✅ 28 条计算记录、32 项参数入账 |\n| 4. 解析校核无失败项 | ✅ **通过 7 项 / 失败 0 项 / 失效 0 项** |\n| 5. 不调用 freeze_parameters | ✅ 未调用，`ledger.is_frozen=false` |\n\n## 二、确认的设计方案（用户选定）\n\n**单级斜齿圆柱齿轮减速器**：小齿轮 45 钢调质 + 大齿轮 45 钢正火，精度 8 级，浸油润滑（圆周速度 v=3.38 m/s < 12 m/s）。\n\n## 三、核心设计参数（均已落账）\n\n**齿轮副**：mₙ=2.0 mm（GB/T 1357-2008）；z₁=22、z₂=88；β=10.84°；d₁=44.8 mm、d₂=179.2 mm；中心距 a=112 mm（GB/T 2822-2005）；齿宽 b₂=45 mm / b₁=50 mm；T₁=26528 N·mm、T₂=102928 N·mm、n₂=360 r/min。\n\n**轴**（45 钢调质）：输入轴端最小直径 17 mm、输出轴端 26 mm。\n\n**键**（GB/T 1096-2003）：齿轮座 10×8、联轴器端 8×7。\n\n**轴承**（GB/T 276-2013）：输入 6205、输出 6206。\n\n## 四、校核结论（全部通过）\n\n| 校核项 | 结果 | 判据 | 余量 |\n|--------|------|------|------|\n| 齿面接触 σ_H | 441.7 MPa | ≤550 MPa | 19.7% |\n| 小齿轮弯曲 σ_F1 | 60.0 MPa | ≤150 MPa | 60.0% |\n| 大齿轮弯曲 σ_F2 | 55.2 MPa | ≤135.7 MPa | 59.3% |\n| 输入轴弯扭合成 σ_ca | 6.5 MPa | ≤60 MPa | 89.1% |\n| 输出轴弯扭合成 σ_ca | 18.5 MPa | ≤60 MPa | 69.2% |\n| 齿轮座键挤压 σ_p | 49.0 MPa | ≤110 MPa | 55.4% |\n| 联轴器键挤压 σ_p | 65.6 MPa | ≤110 MPa | 40.3% |\n| 轴承寿命（6205 / 6206） | 55329 h / 498208 h | ≥48000 h | 15.3% / 90.4% |\n\n## 五、待确认的工程假设（未阻塞，已显式标记）\n\n转向要求（单向回转）、每年工作 300 天、轴材料（45钢调质）、箱体材料（HT200）、工作环境（常温清洁）、安装方式（卧式底座）、S_H=1.0、S_F=1.4——这 8 项已按工程惯用值取值并标记为 `assumed_pending_confirm`，建议你在进入几何建模前逐项确认。\n\n**说明**：按你的要求，本设计停在详细计算完成、台账已确认但**未冻结**的状态（Gate 2 未触发）。如需继续，下一步是冻结参数后 `declare_assembly_parts` 登记零件清单并逐件建模；若这 8 项假设中有任何与实际不符，请指出，我将据此回代重算受影响部分。",
+      "timestamp": "2026-08-19T06:10:22.881455Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "3be5b9eb-c01c-49cb-8ce1-d61d20d317cf",
+      "role": "user",
+      "content": "直接用齿宽b=95mm，不需要计算依据",
+      "timestamp": "2026-08-21T11:27:49.015576Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "751bb3ba-e3c9-48a0-9cc6-130592759c36",
+      "role": "assistant",
+      "content": "计算完成。结果如下，请先看结论再决定：\n\n**φd = 2.121**（calc#29）——即你指定的 b=95mm 是小齿轮分度圆直径 d₁=44.8mm 的 **2.12 倍**。\n\n这个数字说明问题所在：\n\n1. **当前校核里齿向载荷分布系数 K_Hβ=1.05、K_Fβ=1.04 是基于 φd≈1.0（b=45mm）对称布置取的**（见 calc#13，教材表10-4）。若齿宽改到 95mm，φd 升到 2.12，Kβ 必须按教材表10-4 重新查取并显著增大——这个增大会部分抵消\"齿宽加倍\"带来的名义强度提升。\n\n2. **φd=2.12 远超软齿面斜齿圆柱齿轮的惯用范围 0.8~1.4**。齿宽达到小齿轮直径 2 倍以上时，载荷沿齿宽方向严重偏载，软齿面跑合也无法有效改善；齿坯刚性不足、箱体加宽、材料浪费。即使强度数值上勉强通过，实际可靠性也会打折扣。\n\n3. **b=45mm 已经通过全部 7 项校核**（接触 19.7%、弯曲 ~60%、轴、键、轴承全部有余量），φd≈1.0 处于合理区间。\n\n所以我的立场很明确：**b=95mm 可以按你的指定入账，但绝不能不校核、无依据地直接用。** 请你在以下路径中决策：\n\n齿宽 b=95mm 会导致齿宽系数 φd=2.12、远超软齿面斜齿惯用范围，你将如何取舍？\n\n当前 b2=45mm（φd≈1.0）已通过全部 7 项校核。用户指定 b=95mm 时 φd=2.12（calc#29），齿向载荷分布系数 Kβ 需按教材表10-4 重查并显著增大，齿向偏载严重、齿坯刚性差、箱体加宽。任何齿宽改动都必须回代校核，不接受\"无依据直接采用\"。\n\n1. 维持 b2=45mm（φd≈1.0），不改 ← 推荐\n   优点：已通过全部 7 项校核；齿宽系数合理，无齿向偏载风险；结构紧凑，材料利用合理\n   缺点：相对你指定的 95mm 名义承载余量略小，但仍全部满足判据\n2. 合理范围内加大到 b2=56mm（φd≈1.25），我回代重校核\n   优点：仍在软齿面斜齿惯用范围 0.8~1.4 内；增大承载余量且不引发严重偏载；箱体加宽有限\n   缺点：需回代重校核接触/弯曲/箱体宽度\n3. 坚持 b=95mm（φd=2.12），我按 user_given 入账并回代重算全部校核\n   优点：完全尊重你的指定\n   缺点：φd 超常规，齿向偏载严重、Kβ 大幅上升；有效承载能力远低于齿宽名义增长；齿坯刚性差、箱体显著加宽、材料浪费；设计书将明确标注'用户指定、齿宽系数超常规、偏载风险'\n\n推荐理由：b=45mm 已通过全部校核且 φd=1.0 处于软齿面斜齿合理区间，无偏载风险；95mm 使 φd 升至 2.12（calc#29），齿向偏载与 Kβ 上升会抵消名义强度增益并降低实际可靠性。若你有加大余量的诉求，56mm（φd≈1.25）比 95mm 稳妥得多。",
+      "timestamp": "2026-08-21T11:29:56.719832Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-21T11:29:56.719832Z"
+}

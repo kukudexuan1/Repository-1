@@ -1,0 +1,39 @@
+{
+  "task_id": "B_003",
+  "family": "B",
+  "family_name": "轴承—键—轴组合",
+  "split": "val",
+  "description": "轴径65mm，圆锥滚子轴承支承，轴上安装斜齿轮（键传扭），径向载荷5500N，轴向载荷1800N，设计寿命25000h。",
+  "explicit_inputs": {
+    "shaft_diameter_mm": 65,
+    "bearing_type": "圆锥滚子轴承",
+    "radial_load_N": 5500,
+    "axial_load_N": 1800,
+    "speed_rpm": 320,
+    "design_life_h": 25000,
+    "load_type": "轻微冲击",
+    "material_grade": "40Cr调质",
+    "transmitted_torque_Nm": 1100
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴承寿命L10h", "圆锥滚子轴承当量动载荷（含轴向力）", "键挤压强度"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["圆锥滚子轴承GB/T297", "平键GB/T1096"]
+  },
+  "decisions_required": ["圆锥滚子轴承型号（按Cr和轴向力）", "e值和Y值查表", "键截面和键长"],
+  "expert_reference": {
+    "reference_module": "B_003",
+    "key_param_ranges": {
+      "bearing_code": ["30213", "30313", "32213"],
+      "key_section_bh": "18x11",
+      "min_key_length_mm": [56, 100]
+    },
+    "must_pass_checks": ["轴承当量动载荷计算（含轴向力）", "轴承寿命L10h≥25000h", "键挤压强度"],
+    "forbidden_errors": [
+      "圆锥滚子轴承忽略轴向力对当量动载荷的影响",
+      "e值Y值未从轴承样本查取",
+      "键截面与轴径不匹配"
+    ]
+  },
+  "_note": "占位模板，参考答案由专家填写后方可用于正式评测"
+}

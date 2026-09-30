@@ -1,0 +1,108 @@
+{
+  "session_id": "a6e856b8-6264-46dc-926c-ce2d8bcecc50",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "减速器热平衡——参数化温升分析",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "P_loss_W": {
+          "value": 375.0,
+          "unit": "W"
+        },
+        "delta_t_max_C": {
+          "value": 50.0,
+          "unit": "°C"
+        },
+        "KA_min_required": {
+          "value": 7.5,
+          "unit": "W/°C"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "《机械设计手册》第5版 第3卷 第16篇 减速器热平衡计算",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 减速器热平衡计算\n# 原理：P_loss = K * A * (t_oil - t_ambient) = K * A * delta_t\n# K: 散热系数 W/(m²·°C)，A: 有效散热面积 m²，delta_t: 温升 °C\n# 来源：《机械设计手册》第5版 第3卷 第16篇\n\nP_loss = 375.0  # W\n\n# 散热系数 K 的典型取值范围（自然通风，无风扇）\n# 8~12 W/(m²·°C) —— 通风不良\n# 12~17 W/(m²·°C) —— 通风良好\nK_values = [8, 10, 12, 14, 17]  # W/(m²·°C)\n\n# 典型箱体散热面积估算（按中心距 a 估算，参考《机械设计课程设计手册》）\n# 小型减速器 a≈100mm → A≈0.3~0.5 m²\n# 中型减速器 a≈200mm → A≈0.8~1.2 m²\n# 大型减速器 a≈300mm → A≈1.5~2.5 m²\nA_values = [0.3, 0.5, 0.8, 1.0, 1.5, 2.0, 2.5]  # m²\n\n# 许用温升（油池温度上限）\n# 矿物油润滑：通常建议油温 ≤ 80~90°C\n# 环境温度按典型夏季 35°C 计 → 许用温升约 45~55°C\ndelta_t_max = 50.0  # °C 典型许用温升\n\nresults = []\nfor A in A_values:\n    for K in K_values:\n        delta_t = P_loss / (K * A)\n        feasible = delta_t <= delta_t_max\n        results.append({\n            'A': A,\n            'K': K,\n            'delta_t': round(delta_t, 1),\n            'feasible': feasible\n        })\n\n# 输出表格\noutputs['results'] = results\noutputs['P_loss_W'] = P_loss\noutputs['delta_t_max_C'] = delta_t_max\n\n# 找个临界点：温升恰好 50°C 时需要的 K*A\nKA_min = P_loss / delta_t_max\noutputs['KA_min_required'] = round(KA_min, 2)",
+      "created_at": "2026-08-15T22:31:37.889536Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "a7eab96d-61e9-4374-8944-9d3318cc703e",
+      "role": "user",
+      "content": "帮我计算减速器散热，只给了发热功率P_loss=0.375kW，未给箱体外表面积和环境温度",
+      "timestamp": "2026-08-15T22:31:03.675323Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "7ec187b3-ed84-4b4a-828d-4eb0007b754e",
+      "role": "assistant",
+      "content": "## 减速器热平衡分析\n\n**输入：** P_loss = 0.375 kW = 375 W\n\n**核心公式：** \n\n> Δt = P_loss / (K × A)\n\n其中：\n- K — 散热系数，W/(m²·°C)，自然通风条件下取 8~17\n- A — 箱体有效散热面积，m²\n- Δt — 油池温升（油温 - 环境温度），°C\n\n---\n\n### 不同条件下的温升 Δt (°C)\n\n| A ↓ \\ K→ | 8 (通风差) | 10 | 12 | 14 | 17 (通风好) |\n|:---------:|:----------:|:---:|:---:|:---:|:-----------:|\n| **0.3 m²** (小型) | **156.3** ❌ | 125.0 ❌ | 104.2 ❌ | 89.3 ❌ | 73.5 ❌ |\n| **0.5 m²** | 93.8 ❌ | 75.0 ❌ | 62.5 ❌ | 53.6 ❌ | 44.1 ✅ |\n| **0.8 m²** | 58.6 ❌ | 46.9 ✅ | 39.1 ✅ | 33.5 ✅ | 27.6 ✅ |\n| **1.0 m²** | 46.9 ✅ | 37.5 ✅ | 31.3 ✅ | 26.8 ✅ | 22.1 ✅ |\n| **1.5 m²** (中型) | 31.3 ✅ | 25.0 ✅ | 20.8 ✅ | 17.9 ✅ | 14.7 ✅ |\n| **2.0 m²** | 23.4 ✅ | 18.8 ✅ | 15.6 ✅ | 13.4 ✅ | 11.0 ✅ |\n| **2.5 m²** (大型) | 18.8 ✅ | 15.0 ✅ | 12.5 ✅ | 10.7 ✅ | 8.8 ✅ |\n\n> 判据：Δt ≤ 50°C（假设夏季环境温度 35°C，油池上限 85°C）\n\n---\n\n### 关键结论\n\n1. **临界 K×A = 7.5 W/°C**——低于此值则温升必然超标。\n\n2. **你的情况取决于箱体大小：**\n   - 小型箱体（A < 0.5 m²）：**大概率超温**，需要加散热筋或风扇\n   - 中型箱体（A ≈ 0.8~1.0 m²）：通风良好即可，通风差仍可能超温\n   - 大型箱体（A ≥ 1.5 m²）：**自然散热足够**，无需额外措施\n\n---\n\n### 要给出确切结论，还缺两个数据：\n\n| 缺失项 | 影响 | 如何获取 |\n|--------|------|----------|\n| **箱体有效散热面积 A** | 直接决定温升 | 从箱体三维模型提取，或按中心距 a 估算 |\n| **环境温度 / 许用油温** | 决定 Δt 判据上限 | 使用工况（厂房？户外？）/ 润滑油类型 |\n\n你能提供这个减速器的中心距、或箱体大致尺寸吗？如果还没有箱体模型，我可以按中心距估算散热面积，再给出确切的温升判断。",
+      "timestamp": "2026-08-15T22:31:53.524635Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T22:31:53.524635Z"
+}

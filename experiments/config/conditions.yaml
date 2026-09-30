@@ -1,0 +1,130 @@
+# 六种实验条件定义
+# 每种条件对应 backend 的功能开关组合
+# backend 通过请求头 X-Experiment-Condition 接收条件标识（待实现）
+
+conditions:
+
+  B_EXT:
+    label: "外部LLM直接对话"
+    description: >
+      完全独立于 backend，通过 BEXT 配置的公开 API 调用同底座模型。
+      不接入任何工程工具、知识检索、台账或 Gate。
+      代表「不使用本文框架时可获得的最佳通用 LLM 辅助结果」。
+    backend_bypass: true   # 不调用 backend，直接走 framework/backend_client 的 bext 路径
+    tools_enabled: []
+    evidence_required: false
+    gate_enabled: false
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  B0:
+    label: "纯LLM"
+    description: >
+      仅输入任务描述，禁用所有工程工具、知识检索、台账和 Gate。
+      backend 内部消融基线，保留 session 管理和日志。
+    backend_bypass: false
+    tools_enabled: []
+    evidence_required: false
+    gate_enabled: false
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  B1:
+    label: "LLM + 普通RAG"
+    description: >
+      允许知识检索，结果只作为文本上下文，不强制调用公式工具，不建立参数台账。
+    backend_bypass: false
+    tools_enabled:
+      - lookup_material
+      - lookup_standard_series
+      - lookup_standard_part
+    evidence_required: false
+    gate_enabled: false
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  B2:
+    label: "LLM + 计算工具"
+    description: >
+      提供 search_formula / solve_formula / run_calculation，
+      关闭参数证据强制、失效传播和 Gate。
+    backend_bypass: false
+    tools_enabled:
+      - lookup_material
+      - lookup_standard_series
+      - lookup_standard_part
+      - solve_formula
+      - run_calculation
+    evidence_required: false
+    gate_enabled: false
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  B3:
+    label: "LLM + 证据台账"
+    description: >
+      开启参数来源、计算记录和标准依据，关闭依赖失效传播及硬 Gate。
+    backend_bypass: false
+    tools_enabled:
+      - lookup_material
+      - lookup_standard_series
+      - lookup_standard_part
+      - solve_formula
+      - run_calculation
+      - record_parameter
+      - record_calculation
+    evidence_required: true
+    gate_enabled: false
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  B4:
+    label: "LLM + 台账 + Gate"
+    description: >
+      开启证据台账和代码级 Gate，关闭增量失效传播；参数变化后由 Agent 自行决定是否重算。
+    backend_bypass: false
+    tools_enabled:
+      - lookup_material
+      - lookup_standard_series
+      - lookup_standard_part
+      - solve_formula
+      - run_calculation
+      - record_parameter
+      - record_calculation
+      - advance_stage
+    evidence_required: true
+    gate_enabled: true
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  E5_C1:
+    label: "E5 Prompt-only"
+    description: "E5 C1：仅保留无工具的 Prompt-only 基线。"
+    backend_bypass: false
+    tools_enabled: []
+    evidence_required: false
+    gate_enabled: false
+    propagation_enabled: false
+    interrupt_recovery: false
+
+  E5_C2:
+    label: "E5 Prompt + Agent 自检"
+    description: "E5 C2：提供完整工具但关闭代码级 Gate 和证据强制。"
+    backend_bypass: false
+    tools_enabled: "__all__"
+    evidence_required: true
+    gate_enabled: false
+    propagation_enabled: true
+    interrupt_recovery: true
+
+  P:
+    label: "完整框架"
+    description: >
+      开启结构化状态、知识约束、单位检查、计算记录、参数台账、
+      依赖失效传播、硬 Gate、中断恢复、建模契约和报告自检。
+    backend_bypass: false
+    tools_enabled: "__all__"   # 所有注册工具
+    evidence_required: true
+    gate_enabled: true
+    propagation_enabled: true
+    interrupt_recovery: true

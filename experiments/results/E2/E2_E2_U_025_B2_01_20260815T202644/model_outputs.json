@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_025",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个经典的单位误用问题，我来帮你理清。\n\n## 动载系数 KV 查图的正确单位\n\n在齿轮设计（GB/T 3480 / ISO 6336 及国内教材如濮良贵《机械设计》）中，动载系数 KV 的查图横坐标是**圆周速度 v，单位 m/s**。\n\n你的线速度 v = 3.6 m/s，横坐标就应该取 **3.6**，而不是 3600。\n\n## 你犯的错误\n\n把 3.6 m/s × 1000 → 3600 mm/s，然后按 mm/s 去查图。这在工程上属于**单位混淆**——齿轮 KV 曲线从来不用 mm/s 做横坐标。\n\n## 后果有多严重\n\n以《机械设计》教材中常见的 KV 曲线（齿轮精度 8 级、直齿圆柱齿轮）为例：\n\n| 横坐标 v (m/s) | KV 大致范围 |\n|:--|:--|\n| 3.6 | ≈ 1.15 ~ 1.25 |\n| 3600 | 曲线早已出界，根本不存在这个速度域 |\n\n3600 m/s 是 12,960 km/h，远超任何工业齿轮箱的线速度——齿轮的节圆线速度通常在几 m/s 到几十 m/s 量级，最高也就 100~150 m/s（高速齿轮）。3600 m/"
+}

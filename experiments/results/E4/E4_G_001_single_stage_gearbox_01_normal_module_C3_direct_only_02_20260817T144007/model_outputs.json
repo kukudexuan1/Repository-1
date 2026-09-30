@@ -1,0 +1,500 @@
+{
+  "metrics": {
+    "IR": 0.1724,
+    "invalidation_precision": 1.0,
+    "ORR": 0.3793,
+    "BR": 0.6207,
+    "IRE": 0.9398,
+    "n_gold_stale": 29,
+    "n_predicted_stale": 5,
+    "stale_used_downstream": 11,
+    "recovery_time_s": 349.8369,
+    "tool_calls_after_change": 24,
+    "human_interventions": 0,
+    "orr_violation": true
+  },
+  "run_data": {
+    "predicted_stale_params": [],
+    "predicted_stale_calcs": [
+      "calc#10",
+      "calc#32",
+      "calc#35",
+      "calc#8",
+      "calc#9"
+    ],
+    "gold_stale_params": [
+      "a",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_out_bearing",
+      "da_1",
+      "da_2",
+      "delta_housing"
+    ],
+    "gold_stale_calcs": [
+      "calc#10",
+      "calc#13",
+      "calc#15",
+      "calc#16",
+      "calc#21",
+      "calc#22",
+      "calc#23",
+      "calc#24",
+      "calc#25",
+      "calc#26",
+      "calc#30",
+      "calc#31",
+      "calc#32",
+      "calc#33",
+      "calc#34",
+      "calc#35",
+      "calc#8",
+      "calc#9"
+    ],
+    "stale_params_used_downstream": 11,
+    "stale_calcs_used_downstream": 0,
+    "n_incremental_recalculations": 5,
+    "n_full_recalculations": 83,
+    "recovery_time_s": 349.8369,
+    "tool_calls_after_change": 24,
+    "human_interventions": 0,
+    "change_time_s": 2.0904,
+    "probe_time_s": 2.046,
+    "leaked_nodes": [
+      "a",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_out_bearing",
+      "da_1",
+      "da_2",
+      "delta_housing"
+    ],
+    "condition_semantics": "C2 marks every existing node stale before bounded recovery",
+    "recovered_stale_params": [],
+    "recovered_stale_calcs": [
+      "calc#10",
+      "calc#32",
+      "calc#35",
+      "calc#8",
+      "calc#9"
+    ],
+    "actual_recalculations": 5,
+    "new_calculation_records": 5,
+    "recovery_tool_calls": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "get_calculation_record",
+      "lookup_standard_series",
+      "commit_parameter",
+      "search_formula",
+      "search_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "run_calculation",
+      "run_calculation",
+      "run_calculation",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "query_ledger"
+    ]
+  },
+  "probe": {
+    "status": "ok",
+    "session_id": "741d71e7-56f2-4d04-ae72-19a69768267f",
+    "entries": [
+      {
+        "symbol": "a",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_f1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "delta_housing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      }
+    ],
+    "records": [
+      {
+        "record_id": "calc#10",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#13",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#15",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#16",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#21",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#22",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#23",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#24",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#25",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#26",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#30",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#31",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#32",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#33",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#34",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#35",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#8",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#9",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      }
+    ],
+    "report": {
+      "accepted": false,
+      "error": "报告输入包含失效项：parameters=[], calculations=['calc#8', 'calc#9', 'calc#10', 'calc#32', 'calc#35']"
+    },
+    "stale": {
+      "stale_calculations": [
+        "calc#8",
+        "calc#9",
+        "calc#10",
+        "calc#32",
+        "calc#35"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "change_response": {
+    "status": "ok",
+    "session_id": "741d71e7-56f2-4d04-ae72-19a69768267f",
+    "symbol": "m",
+    "value": {
+      "value": 2.5,
+      "unit": "mm"
+    },
+    "revision": 2,
+    "baseline_was_frozen": true,
+    "propagation_mode": "direct",
+    "stale": {
+      "stale_calculations": [
+        "calc#8",
+        "calc#9",
+        "calc#10",
+        "calc#32",
+        "calc#35"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "recovery_response": {
+    "session_id": "741d71e7-56f2-4d04-ae72-19a69768267f",
+    "reply": "受控恢复已完成并核验通过。按您的指令，不建模、不仿真、不生成报告、不发起决策，现报告恢复结果并停止。\n\n## 受控恢复完成报告\n\n### 一、恢复动作（仅涉及受影响的齿轮几何链）\n\n| 步骤 | 动作 | 结果 |\n|------|------|------|\n| 1 | 定位无依据变更：`m=2.5 mm`（tentative，rationale 空，basis 仍指向支持 2 的 calc#7） | 判定为无效变更 |\n| 2 | 经 `lookup_standard_series` 复核 calc#7 圆整值 | 1.52 mm → **2.0 mm**（GB/T 1357-2008 第一系列） |\n| 3 | 回退 `m = 2 mm` | revision 3，依据 GB/T 1357-2008 + calc#7 |\n| 4 | 重算 5 条受影响记录 | calc#36~40 全部生成有效记录 |\n| 5 | 更新 6 个下游参数依据 | d₁/d₂/a/d_f1/da₁/da₂ 指向新记录 |\n\n### 二、重算结果与台账一致性核验\n\n| 参数 | 恢复值 | 重算记录 | 与原值一致 |\n|------|--------|---------|-----------|\n| m | 2 mm | calc#7 + GB/T 1357 | ✓ |\n| d₁ | 48 mm | calc#36 | ✓ |\n| d₂ | 192 mm | calc#37 | ✓ |\n| a | 120 mm | calc#38 | ✓ |\n| d_f1 | 43 mm | calc#39 | ✓ |\n| da₁ / da₂ | 52 / 196 mm | calc#40 | ✓ |\n\n**台账状态：stale = 0，无失效参数。** 旧记录 calc#8/9/10/32/35 已无任何参数引用，被 calc#36~40 取代；下游校核（齿轮接触/弯曲、轴、轴承、键）因 m 恢复 2 后输入值未变，结论保持有效，无需重算。\n\n### 三、轴材料确认的核查结论（无影响）\n\n- `calc#33`（输入轴校核）判据 σ₋₁=**60 MPa** = 45 钢调质许用弯曲应力，pass；\n- `calc#34`（输出轴校核）判据 σ₋₁=**55 MPa** = 45 钢正火许用弯曲应力，pass。\n\n轴材料确认与既有校核判据完全一致，**不产生任何重算**。\n\n### 四、遗留状态说明（不属本次恢复范围）\n\n7 个齿轮几何参数现为 `tentative`（m、d₁、d₂、a、d_f1、da₁、da₂）——这是重算 commit 后的待确认标记，值均已自洽且有有效依据。冻结前需经确认，但按您的指令我不发起决策，此状态留待后续处理。\n\n---\n\n受控恢复结束，已停止。",
+    "design_stage": "geometry",
+    "tool_calls_made": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "get_calculation_record",
+      "lookup_standard_series",
+      "commit_parameter",
+      "search_formula",
+      "search_formula",
+      "solve_formula",
+      "solve_formula",
+      "solve_formula",
+      "run_calculation",
+      "run_calculation",
+      "run_calculation",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "query_ledger"
+    ],
+    "tool_events": [
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_standard_series",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "error",
+        "error": "入参校验失败，请按 schema 修正后重试",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "error",
+        "error": "入参校验失败，请按 schema 修正后重试",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "experiment_condition": "B3"
+  }
+}

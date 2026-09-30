@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_009",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "run_calculation",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n由中心距公式反推小齿轮分度圆直径：\n\n\\[\nd_1 = \\frac{2a}{i+1} = \\frac{2 \\times 150}{3.15 + 1} = 72.29\\ \\text{mm} \\quad (\\text{计算记录 calc#1})\n\\]\n\n进而大齿轮分度圆直径 \\(d_2 = i \\cdot d_1 = 227.71\\ \\text{mm}\\)。\n\n验证：中心距 \\(a = (d_1+d_2)/2 = (72.29+227.71)/2 = 150\\ \\text{mm}\\) ✓，自洽。\n\n---\n\n## 接下来需要什么？\n\n你给出的中心距 \\(a=150\\) 和传动比 \\(i=3.15\\) 决定了齿轮的宏观几何尺寸。但从**齿面接触疲劳强度**的角度，要进一步评判\"这个尺寸够不够\"，公式库里还需要以下关键输入（见 `gear_contact_design_d1`，出处：机械设计第十版式 10-11）：\n\n| 参数 | 含义 | 当前状态 |\n|------|------|----------|\n| \\(T_1\\) | 小齿轮传递扭矩 | ❓ 未知 |\n| \\(\\"
+}

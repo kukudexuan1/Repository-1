@@ -1,0 +1,16 @@
+{
+  "case_id": "E2_P_009",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "---\n\n## 轴承寿命校核 — 设计输入不完整\n\n已查到公式：**滚动轴承基本额定寿命校核**（GB/T 6391-2010，机械设计第十版式 13-5）：\n\n\\[\nL_{10h} = \\frac{10^6}{60 \\cdot n} \\left( \\frac{f_t \\cdot C_r}{P_{eq}} \\right)^{\\varepsilon}\n\\]\n\n你已给出的参数：\n\n| 符号 | 含义 | 数值 | 状态 |\n|------|------|------|------|\n| \\(C_r\\) | 基本额定动载荷 | 32,000 N | ✅ 已给 |\n| \\(P_{eq}\\) | 当量动载荷 | 8,500 N | ✅ 已给 |\n| \\(f_t\\) | 温度系数 | 可取 1.0（常温） | 可用默认值 |\n| \\(\\varepsilon\\) | 寿命指数 | 球轴承=3.0，滚子轴承=10/3 | 待定 |\n\n**缺失两个关键参数，无法直接求解：**\n\n1. **转速 \\(n\\)** — 轴承每分钟转多少转？\n2. **要求的工作寿命 \\(L_{h\\_required}\\)**"
+}

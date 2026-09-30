@@ -1,0 +1,56 @@
+{
+  "case_id": "E2_M_002",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation",
+    "run_calculation",
+    "lookup_standard_series",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_standard_series",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 轴最小直径估算结果\n\n| 步骤 | 内容 | 数值 |\n|:---|:---|:---|\n| 计算依据 | 实心圆轴扭转强度条件：τ_max = T/W_t ≤ [τ] | 机械设计 §15-2 |\n| 计算原始值 | d_min = ³√(16T/(π[τ])) | **35.98 mm**（calc#1） |\n| 圆整（GB/T 2822） | R40 系列，向上取标准直径 | **36.0 mm** |\n| 回代校核 | τ_actual = 16T/(πd³) | **34.93 MPa** ≤ 35 MPa ✅ |\n| 安全余量 | (35 − 34.93)/35 | **0.2%** |\n\n---\n\n### 结论\n\n**轴最小直径取 d = 36 mm**，实际切应力 34.93 MPa，刚好满足许用切应力 35 MPa。\n\n### 注意事项\n\n- 余量仅 0.2%，偏紧。若轴上开有**键槽**，需按规范放大 3%~5%（一个键槽）或 7%~10%（两个键槽），届时最小直径会增大到约 **37~38 mm** 或 **38~40 mm**。\n- 安装滚动轴承的轴颈还需"
+}

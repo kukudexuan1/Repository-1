@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_009",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果出来了。你的计算有两处错误，逐一说明：\n\n---\n\n## 错误分析\n\n### 错误一：公式用错了\n\n斜齿轮轴向力的正确公式是：\n\n> **F_a = F_t · tan(β)**\n\n不是 F_a = F_t · β。你把 **tan(β)** 当成了 **β 本身**。\n\n### 错误二：即使用 F_t · β，β 也必须是弧度\n\n即使公式是 F_t · β（比如某些小角度近似），也必须用弧度。12° = 0.2094 rad，2400 × 0.2094 = 502.6 N，也远不是 28800 N。你直接拿度数 12 去乘，结果差了 50 多倍。\n\n---\n\n## 正确计算\n\n| 参数 | 值 |\n|------|-----|\n| 圆周力 F_t | 2400 N |\n| 螺旋角 β | 12° = 0.2094 rad |\n| tan(β) | tan(12°) ≈ 0.2126 |\n| **轴向力 F_a** | **2400 × 0.2126 ≈ 510.1 N** |\n\n> 计算记录：**calc#1**，出处：机械设计（第十版）式 10-3。\n\n---\n\n## 小结"
+}

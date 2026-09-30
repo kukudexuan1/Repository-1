@@ -1,0 +1,1967 @@
+{
+  "calc#1": {
+    "record_id": "calc#1",
+    "title": "输出轴转速",
+    "formula_id": "output_shaft_speed",
+    "expression": "n_out = n_in / i_actual",
+    "inputs": {
+      "n_in": {
+        "value": 1440.0,
+        "unit": "r/min"
+      },
+      "i_actual": {
+        "value": 4.0,
+        "unit": ""
+      }
+    },
+    "substitution": "n_in=1440 r/min；i_actual=4",
+    "result": {
+      "n_out": {
+        "value": 360.0,
+        "unit": "r/min"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计课程设计手册（第五版）§2.4",
+    "engine": "formula_lib",
+    "depends_on": [
+      "n_in",
+      "i"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:50:14.327352Z"
+  },
+  "calc#2": {
+    "record_id": "calc#2",
+    "title": "由功率与转速求转矩",
+    "formula_id": "shaft_torque_from_power",
+    "expression": "T = 9550000 * P / n",
+    "inputs": {
+      "P": {
+        "value": 4.0,
+        "unit": "kW"
+      },
+      "n": {
+        "value": 1440.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "P=4 kW；n=1440 r/min",
+    "result": {
+      "T": {
+        "value": 26527.777777777777,
+        "unit": "N*mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "P_in",
+      "n_in"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:50:14.329575Z"
+  },
+  "calc#3": {
+    "record_id": "calc#3",
+    "title": "减速器传动效率与输出轴功率",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "P1": {
+        "value": 4.0,
+        "unit": "kW"
+      }
+    },
+    "substitution": "P1=4 kW",
+    "result": {
+      "eta_total": {
+        "value": 0.9602999999999999,
+        "unit": ""
+      },
+      "P2": {
+        "value": 3.8411999999999997,
+        "unit": "kW"
+      },
+      "eta_gear": {
+        "value": 0.97,
+        "unit": ""
+      },
+      "eta_bearing": {
+        "value": 0.99,
+        "unit": ""
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计课程设计手册（第五版）表2-1 机械传动效率概略值：8级精度齿轮啮合效率0.97、滚动轴承每对0.99",
+    "engine": "sympy",
+    "depends_on": [],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "eta_gear = 0.97      # 8级精度齿轮啮合效率（滚齿）\neta_bearing = 0.99    # 滚动轴承每对效率（深沟球轴承）\neta_total = eta_gear * eta_bearing\nP2 = P1 * eta_total   # P1 由 inputs 注入（输入轴功率 kW）\noutputs['eta_total'] = eta_total\noutputs['P2'] = P2\noutputs['eta_gear'] = eta_gear\noutputs['eta_bearing'] = eta_bearing",
+    "created_at": "2026-08-17T07:50:22.993559Z"
+  },
+  "calc#4": {
+    "record_id": "calc#4",
+    "title": "由功率与转速求转矩",
+    "formula_id": "shaft_torque_from_power",
+    "expression": "T = 9550000 * P / n",
+    "inputs": {
+      "P": {
+        "value": 3.8412,
+        "unit": "kW"
+      },
+      "n": {
+        "value": 360.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "P=3.841 kW；n=360 r/min",
+    "result": {
+      "T": {
+        "value": 101898.5,
+        "unit": "N*mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#3",
+      "calc#1"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:50:25.628050Z"
+  },
+  "calc#5": {
+    "record_id": "calc#5",
+    "title": "许用接触应力",
+    "formula_id": "gear_allowable_contact_stress",
+    "expression": "sigma_HP = sigma_Hlim * K_HN / S_H",
+    "inputs": {
+      "sigma_Hlim": {
+        "value": 550.0,
+        "unit": "MPa"
+      },
+      "K_HN": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "S_H": {
+        "value": 1.0,
+        "unit": ""
+      }
+    },
+    "substitution": "sigma_Hlim=550 MPa；K_HN=1；S_H=1",
+    "result": {
+      "sigma_HP": {
+        "value": 550.0,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-14",
+    "engine": "formula_lib",
+    "depends_on": [
+      "sigma_Hlim_big"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:51:12.556196Z"
+  },
+  "calc#6": {
+    "record_id": "calc#6",
+    "title": "按齿面接触疲劳强度设计小齿轮分度圆直径",
+    "formula_id": "gear_contact_design_d1",
+    "expression": "d_1t = (2 * K_Ht * T_1 / phi_d * (u + 1) / u * (Z_H * Z_E * Z_eps / sigma_HP) ** 2) ** (1/3)",
+    "inputs": {
+      "K_Ht": {
+        "value": 1.3,
+        "unit": ""
+      },
+      "T_1": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "phi_d": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "u": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "Z_H": {
+        "value": 2.5,
+        "unit": ""
+      },
+      "Z_E": {
+        "value": 189.8,
+        "unit": "MPa**0.5"
+      },
+      "Z_eps": {
+        "value": 0.87,
+        "unit": ""
+      },
+      "sigma_HP": {
+        "value": 550.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "K_Ht=1.3；T_1=2.653e+04 N*mm；phi_d=1；u=4；Z_H=2.5；Z_E=189.8 MPa**0.5；Z_eps=0.87；sigma_HP=550 MPa",
+    "result": {
+      "d_1t": {
+        "value": 36.48574982851604,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-11",
+    "engine": "formula_lib",
+    "depends_on": [
+      "T_in",
+      "calc#5"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "试算所得 d_1t 需按齿数定模数并圆整到标准模数（GB/T 1357），再回代校核齿根弯曲疲劳强度",
+    "script": "",
+    "created_at": "2026-08-17T07:51:17.025546Z"
+  },
+  "calc#7": {
+    "record_id": "calc#7",
+    "title": "由分度圆直径与齿数求模数",
+    "formula_id": "gear_module_from_d1",
+    "expression": "m_t = d_1t / z_1",
+    "inputs": {
+      "d_1t": {
+        "value": 36.49,
+        "unit": "mm"
+      },
+      "z_1": {
+        "value": 24.0,
+        "unit": ""
+      }
+    },
+    "substitution": "d_1t=36.49 mm；z_1=24",
+    "result": {
+      "m_t": {
+        "value": 1.5204166666666667,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#6"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "算得 m_t 后必须用 lookup_standard_series('gb1357_modulus') 向上圆整到标准模数",
+    "script": "",
+    "created_at": "2026-08-17T07:51:21.786344Z"
+  },
+  "calc#8": {
+    "record_id": "calc#8",
+    "title": "齿轮分度圆直径",
+    "formula_id": "gear_pitch_diameter",
+    "expression": "d = m * z",
+    "inputs": {
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "z": {
+        "value": 24.0,
+        "unit": ""
+      }
+    },
+    "substitution": "m=2 mm；z=24",
+    "result": {
+      "d": {
+        "value": 48.0,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）表 10-2",
+    "engine": "formula_lib",
+    "depends_on": [
+      "z_1",
+      "m"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:51:34.321937Z"
+  },
+  "calc#9": {
+    "record_id": "calc#9",
+    "title": "齿轮分度圆直径",
+    "formula_id": "gear_pitch_diameter",
+    "expression": "d = m * z",
+    "inputs": {
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "z": {
+        "value": 96.0,
+        "unit": ""
+      }
+    },
+    "substitution": "m=2 mm；z=96",
+    "result": {
+      "d": {
+        "value": 192.0,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）表 10-2",
+    "engine": "formula_lib",
+    "depends_on": [
+      "z_2",
+      "m"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:51:34.322935Z"
+  },
+  "calc#10": {
+    "record_id": "calc#10",
+    "title": "标准中心距",
+    "formula_id": "gear_center_distance",
+    "expression": "a = m * (z_1 + z_2) / 2",
+    "inputs": {
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "z_1": {
+        "value": 24.0,
+        "unit": ""
+      },
+      "z_2": {
+        "value": 96.0,
+        "unit": ""
+      }
+    },
+    "substitution": "m=2 mm；z_1=24；z_2=96",
+    "result": {
+      "a": {
+        "value": 120.0,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-2",
+    "engine": "formula_lib",
+    "depends_on": [
+      "m",
+      "z_1",
+      "z_2"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "中心距宜圆整为尾数 0 或 5 的整数；圆整后需变位或微调齿数，并重新校核",
+    "script": "",
+    "created_at": "2026-08-17T07:51:39.447328Z"
+  },
+  "calc#11": {
+    "record_id": "calc#11",
+    "title": "许用弯曲应力",
+    "formula_id": "gear_allowable_bending_stress",
+    "expression": "sigma_FP = sigma_Flim * K_FN / S_F",
+    "inputs": {
+      "sigma_Flim": {
+        "value": 210.0,
+        "unit": "MPa"
+      },
+      "K_FN": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "S_F": {
+        "value": 1.4,
+        "unit": ""
+      }
+    },
+    "substitution": "sigma_Flim=210 MPa；K_FN=1；S_F=1.4",
+    "result": {
+      "sigma_FP": {
+        "value": 150.0,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-14",
+    "engine": "formula_lib",
+    "depends_on": [
+      "sigma_Flim_pinion"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:52:22.055536Z"
+  },
+  "calc#12": {
+    "record_id": "calc#12",
+    "title": "许用弯曲应力",
+    "formula_id": "gear_allowable_bending_stress",
+    "expression": "sigma_FP = sigma_Flim * K_FN / S_F",
+    "inputs": {
+      "sigma_Flim": {
+        "value": 190.0,
+        "unit": "MPa"
+      },
+      "K_FN": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "S_F": {
+        "value": 1.4,
+        "unit": ""
+      }
+    },
+    "substitution": "sigma_Flim=190 MPa；K_FN=1；S_F=1.4",
+    "result": {
+      "sigma_FP": {
+        "value": 135.71428571428572,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-14",
+    "engine": "formula_lib",
+    "depends_on": [
+      "sigma_Flim_gear"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:52:22.057705Z"
+  },
+  "calc#13": {
+    "record_id": "calc#13",
+    "title": "齿面接触疲劳强度校核",
+    "formula_id": "gear_contact_check",
+    "expression": "sigma_H = Z_H * Z_E * Z_eps * (2 * K_H * T_1 / (b * d_1 ** 2) * (u + 1) / u) ** 0.5",
+    "inputs": {
+      "Z_H": {
+        "value": 2.5,
+        "unit": ""
+      },
+      "Z_E": {
+        "value": 189.8,
+        "unit": "MPa**0.5"
+      },
+      "Z_eps": {
+        "value": 0.87,
+        "unit": ""
+      },
+      "K_H": {
+        "value": 1.3,
+        "unit": ""
+      },
+      "T_1": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "b": {
+        "value": 50.0,
+        "unit": "mm"
+      },
+      "d_1": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "u": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "sigma_HP": {
+        "value": 550.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "Z_H=2.5；Z_E=189.8 MPa**0.5；Z_eps=0.87；K_H=1.3；T_1=2.653e+04 N*mm；b=50 mm；d_1=48 mm；u=4；sigma_HP=550 MPa",
+    "result": {
+      "sigma_H": {
+        "value": 357.1259132064302,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_H <= sigma_HP",
+    "verdict": "pass",
+    "margin_percent": 35.068015780649056,
+    "source": "机械设计（第十版）式 10-9",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#2",
+      "calc#5",
+      "calc#8",
+      "b_gear"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "用于模数与齿宽圆整后的回代校核",
+    "script": "",
+    "created_at": "2026-08-17T07:52:22.069869Z"
+  },
+  "calc#14": {
+    "record_id": "calc#14",
+    "title": "齿形系数与应力校正系数查表",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "z1": {
+        "value": 24.0,
+        "unit": ""
+      },
+      "z2": {
+        "value": 96.0,
+        "unit": ""
+      }
+    },
+    "substitution": "z1=24；z2=96",
+    "result": {
+      "Y_Fa1": {
+        "value": 2.65,
+        "unit": ""
+      },
+      "Y_Sa1": {
+        "value": 1.58,
+        "unit": ""
+      },
+      "Y_Fa2": {
+        "value": 2.188,
+        "unit": ""
+      },
+      "Y_Sa2": {
+        "value": 1.786,
+        "unit": ""
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）表 10-5 齿形系数 Y_Fa 及应力校正系数 Y_Sa（标准直齿外齿轮）",
+    "engine": "sympy",
+    "depends_on": [],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "# 齿形系数 Y_Fa 与应力校正系数 Y_Sa 查表（标准直齿外齿轮 alpha=20°，ha*=1，c*=0.25）\n# 来源：机械设计（第十版）表 10-5，线性插值\nz_table = [17,18,19,20,21,22,23,24,25,26,27,28,29,30,35,40,45,50,60,70,80,90,100,150,200,400]\nYFa_table = [2.97,2.91,2.85,2.80,2.76,2.72,2.69,2.65,2.62,2.60,2.57,2.55,2.53,2.52,2.45,2.40,2.35,2.32,2.28,2.24,2.22,2.20,2.18,2.14,2.12,2.06]\nYSa_table = [1.52,1.53,1.54,1.55,1.56,1.57,1.575,1.58,1.59,1.595,1.60,1.61,1.62,1.625,1.65,1.67,1.68,1.70,1.73,1.75,1.77,1.78,1.79,1.83,1.865,1.97]\n\ndef interp(z, zt, yt):\n    if z <= zt[0]:\n        return yt[0]\n    if z >= zt[-1]:\n        return yt[-1]\n    for i in range(len(zt)-1):\n        if zt[i] <= z <= zt[i+1]:\n            f = (z - zt[i]) / (zt[i+1] - zt[i])\n            return yt[i] + f * (yt[i+1] - yt[i])\n    return yt[-1]\n\nY_Fa1 = interp(z1, z_table, YFa_table)\nY_Sa1 = interp(z1, z_table, YSa_table)\nY_Fa2 = interp(z2, z_table, YFa_table)\nY_Sa2 = interp(z2, z_table, YSa_table)\noutputs['Y_Fa1'] = Y_Fa1\noutputs['Y_Sa1'] = Y_Sa1\noutputs['Y_Fa2'] = Y_Fa2\noutputs['Y_Sa2'] = Y_Sa2",
+    "created_at": "2026-08-17T07:52:23.253978Z"
+  },
+  "calc#15": {
+    "record_id": "calc#15",
+    "title": "齿根弯曲疲劳强度校核",
+    "formula_id": "gear_bending_check",
+    "expression": "sigma_F = 2 * K_F * T_1 * Y_Fa * Y_Sa * Y_eps / (b * d_1 * m)",
+    "inputs": {
+      "K_F": {
+        "value": 1.3,
+        "unit": ""
+      },
+      "T_1": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "Y_Fa": {
+        "value": 2.65,
+        "unit": ""
+      },
+      "Y_Sa": {
+        "value": 1.58,
+        "unit": ""
+      },
+      "Y_eps": {
+        "value": 0.7,
+        "unit": ""
+      },
+      "b": {
+        "value": 50.0,
+        "unit": "mm"
+      },
+      "d_1": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "sigma_FP": {
+        "value": 150.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "K_F=1.3；T_1=2.653e+04 N*mm；Y_Fa=2.65；Y_Sa=1.58；Y_eps=0.7；b=50 mm；d_1=48 mm；m=2 mm；sigma_FP=150 MPa",
+    "result": {
+      "sigma_F": {
+        "value": 42.11472980108333,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_F <= sigma_FP",
+    "verdict": "pass",
+    "margin_percent": 71.92351346594444,
+    "source": "机械设计（第十版）式 10-17",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#2",
+      "calc#11",
+      "calc#14"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:52:32.280424Z"
+  },
+  "calc#16": {
+    "record_id": "calc#16",
+    "title": "齿根弯曲疲劳强度校核",
+    "formula_id": "gear_bending_check",
+    "expression": "sigma_F = 2 * K_F * T_1 * Y_Fa * Y_Sa * Y_eps / (b * d_1 * m)",
+    "inputs": {
+      "K_F": {
+        "value": 1.3,
+        "unit": ""
+      },
+      "T_1": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "Y_Fa": {
+        "value": 2.188,
+        "unit": ""
+      },
+      "Y_Sa": {
+        "value": 1.786,
+        "unit": ""
+      },
+      "Y_eps": {
+        "value": 0.7,
+        "unit": ""
+      },
+      "b": {
+        "value": 50.0,
+        "unit": "mm"
+      },
+      "d_1": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "sigma_FP": {
+        "value": 135.7,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "K_F=1.3；T_1=2.653e+04 N*mm；Y_Fa=2.188；Y_Sa=1.786；Y_eps=0.7；b=50 mm；d_1=48 mm；m=2 mm；sigma_FP=135.7 MPa",
+    "result": {
+      "sigma_F": {
+        "value": 39.306088713952676,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_F <= sigma_FP",
+    "verdict": "pass",
+    "margin_percent": 71.03456984970326,
+    "source": "机械设计（第十版）式 10-17",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#2",
+      "calc#12",
+      "calc#14"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:52:32.288376Z"
+  },
+  "calc#17": {
+    "record_id": "calc#17",
+    "title": "大齿轮齿数与实际传动比",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "i": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "z1": {
+        "value": 24.0,
+        "unit": ""
+      }
+    },
+    "substitution": "i=4；z1=24",
+    "result": {
+      "z2": {
+        "value": 96.0,
+        "unit": ""
+      },
+      "i_actual": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "i_error_percent": {
+        "value": 0.0,
+        "unit": "%"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）第十章：齿数比 u = z2/z1，单级减速器 i = z2/z1",
+    "engine": "sympy",
+    "depends_on": [
+      "i"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "z2 = i * z1\ni_actual = z2 / z1\ni_error_percent = (i_actual - i) / i * 100\noutputs['z2'] = z2\noutputs['i_actual'] = i_actual\noutputs['i_error_percent'] = i_error_percent",
+    "created_at": "2026-08-17T07:52:47.034920Z"
+  },
+  "calc#18": {
+    "record_id": "calc#18",
+    "title": "按扭转强度初估轴径",
+    "formula_id": "shaft_torsion_diameter",
+    "expression": "d_min = A_0 * (P / n) ** (1/3)",
+    "inputs": {
+      "A_0": {
+        "value": 112.0,
+        "unit": ""
+      },
+      "P": {
+        "value": 4.0,
+        "unit": "kW"
+      },
+      "n": {
+        "value": 1440.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "A_0=112；P=4 kW；n=1440 r/min",
+    "result": {
+      "d_min": {
+        "value": 15.744076418965985,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-2",
+    "engine": "formula_lib",
+    "depends_on": [
+      "P_in",
+      "n_in",
+      "A0_pinion"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "轴上开有键槽时需放大：一个键槽增大 3%~5%，两个键槽增大 7%~10%；之后圆整到标准直径（GB/T 2822）",
+    "script": "",
+    "created_at": "2026-08-17T07:53:29.927415Z"
+  },
+  "calc#19": {
+    "record_id": "calc#19",
+    "title": "按扭转强度初估轴径",
+    "formula_id": "shaft_torsion_diameter",
+    "expression": "d_min = A_0 * (P / n) ** (1/3)",
+    "inputs": {
+      "A_0": {
+        "value": 118.0,
+        "unit": ""
+      },
+      "P": {
+        "value": 3.8412,
+        "unit": "kW"
+      },
+      "n": {
+        "value": 360.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "A_0=118；P=3.841 kW；n=360 r/min",
+    "result": {
+      "d_min": {
+        "value": 25.977866488778183,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-2",
+    "engine": "formula_lib",
+    "depends_on": [
+      "P_out",
+      "n_out",
+      "A0_gear"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "轴上开有键槽时需放大：一个键槽增大 3%~5%，两个键槽增大 7%~10%；之后圆整到标准直径（GB/T 2822）",
+    "script": "",
+    "created_at": "2026-08-17T07:53:29.930005Z"
+  },
+  "calc#20": {
+    "record_id": "calc#20",
+    "title": "键槽放大后的最小轴径",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "d_min_in": {
+        "value": 15.74,
+        "unit": "mm"
+      },
+      "d_min_out": {
+        "value": 25.98,
+        "unit": "mm"
+      }
+    },
+    "substitution": "d_min_in=15.74 mm；d_min_out=25.98 mm",
+    "result": {
+      "d_min_in_key": {
+        "value": 16.527,
+        "unit": "mm"
+      },
+      "d_min_out_key": {
+        "value": 28.058400000000002,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-2 附注：一个键槽增大 3%~5%，两个键槽增大 7%~10%",
+    "engine": "sympy",
+    "depends_on": [],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "d_min_in_key = d_min_in * 1.05    # 输入轴一个键槽（联轴器处）增大 5%\nd_min_out_key = d_min_out * 1.08   # 输出轴两个键槽（齿轮+联轴器）增大 8%\noutputs['d_min_in_key'] = d_min_in_key\noutputs['d_min_out_key'] = d_min_out_key",
+    "created_at": "2026-08-17T07:53:43.677887Z"
+  },
+  "calc#21": {
+    "record_id": "calc#21",
+    "title": "齿轮圆周力",
+    "formula_id": "gear_tangential_force",
+    "expression": "F_t = 2 * T_1 / d_1",
+    "inputs": {
+      "T_1": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "d_1": {
+        "value": 48.0,
+        "unit": "mm"
+      }
+    },
+    "substitution": "T_1=2.653e+04 N*mm；d_1=48 mm",
+    "result": {
+      "F_t": {
+        "value": 1105.3241666666665,
+        "unit": "N"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-3",
+    "engine": "formula_lib",
+    "depends_on": [
+      "T_in",
+      "d_1"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T07:54:28.865349Z"
+  },
+  "calc#22": {
+    "record_id": "calc#22",
+    "title": "齿轮圆周速度",
+    "formula_id": "gear_pitch_line_velocity",
+    "expression": "v = pi * d_1 * n_1 / 60000",
+    "inputs": {
+      "d_1": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "n_1": {
+        "value": 1440.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "d_1=48 mm；n_1=1440 r/min",
+    "result": {
+      "v": {
+        "value": 3.619114736935442,
+        "unit": "m/s"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）§10.2",
+    "engine": "formula_lib",
+    "depends_on": [
+      "d_1",
+      "n_in"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "用于确定齿轮精度等级与润滑方式；v<12m/s 可用浸油润滑，v>2m/s 时精度不宜低于 8 级",
+    "script": "",
+    "created_at": "2026-08-17T07:54:28.867431Z"
+  },
+  "calc#23": {
+    "record_id": "calc#23",
+    "title": "齿轮径向力",
+    "formula_id": "gear_radial_force",
+    "expression": "F_r = F_t * tan(alpha_rad)",
+    "inputs": {
+      "F_t": {
+        "value": 1105.32,
+        "unit": "N"
+      },
+      "alpha_rad": {
+        "value": 0.349066,
+        "unit": "rad"
+      }
+    },
+    "substitution": "F_t=1105 N；alpha_rad=0.3491",
+    "result": {
+      "F_r": {
+        "value": 402.3037666018291,
+        "unit": "N"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-3",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#21"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "直齿圆柱齿轮无轴向力；斜齿轮另需计算 F_a = F_t·tan(β)",
+    "script": "",
+    "created_at": "2026-08-17T07:54:32.114197Z"
+  },
+  "calc#24": {
+    "record_id": "calc#24",
+    "title": "轴承径向支反力与当量动载荷",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "F_r": {
+        "value": 402.3,
+        "unit": "N"
+      },
+      "F_t": {
+        "value": 1105.32,
+        "unit": "N"
+      }
+    },
+    "substitution": "F_r=402.3 N；F_t=1105 N",
+    "result": {
+      "R_A": {
+        "value": 588.1278756359028,
+        "unit": "N"
+      },
+      "R_B": {
+        "value": 588.1278756359028,
+        "unit": "N"
+      },
+      "P_eq": {
+        "value": 588.1278756359028,
+        "unit": "N"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）第十三章：轴承支反力按简支梁对称布置计算；直齿轮轴向力为0，深沟球轴承 P=X·Fr+Y·Fa=Fr",
+    "engine": "sympy",
+    "depends_on": [],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "Ft_half = F_t / 2\nFr_half = F_r / 2\nR_A = (Ft_half**2 + Fr_half**2) ** 0.5\nR_B = R_A\nP_eq = R_A\noutputs['R_A'] = R_A\noutputs['R_B'] = R_B\noutputs['P_eq'] = P_eq",
+    "created_at": "2026-08-17T07:55:34.040374Z"
+  },
+  "calc#25": {
+    "record_id": "calc#25",
+    "title": "滚动轴承基本额定寿命校核",
+    "formula_id": "bearing_life_check",
+    "expression": "L_10h = 1000000 / (60 * n) * (f_t * C_r / P_eq) ** epsilon",
+    "inputs": {
+      "n": {
+        "value": 1440.0,
+        "unit": "r/min"
+      },
+      "f_t": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "C_r": {
+        "value": 12800.0,
+        "unit": "N"
+      },
+      "P_eq": {
+        "value": 588.13,
+        "unit": "N"
+      },
+      "epsilon": {
+        "value": 3.0,
+        "unit": ""
+      },
+      "L_h_required": {
+        "value": 48000.0,
+        "unit": "hour"
+      }
+    },
+    "substitution": "n=1440 r/min；f_t=1；C_r=1.28e+04 N；P_eq=588.1 N；epsilon=3；L_h_required=4.8e+04 hour",
+    "result": {
+      "L_10h": {
+        "value": 119315.30825968183,
+        "unit": "hour"
+      }
+    },
+    "criterion": "L_10h >= L_h_required",
+    "verdict": "pass",
+    "margin_percent": 59.77045971709581,
+    "source": "机械设计（第十版）式 13-5；GB/T 6391-2010",
+    "engine": "formula_lib",
+    "depends_on": [
+      "n_in",
+      "calc#24"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "不满足时按顺序考虑：加大轴承尺寸系列、改用滚子轴承、降低载荷系数假设、缩短维护周期",
+    "script": "",
+    "created_at": "2026-08-17T07:55:40.946191Z"
+  },
+  "calc#26": {
+    "record_id": "calc#26",
+    "title": "滚动轴承基本额定寿命校核",
+    "formula_id": "bearing_life_check",
+    "expression": "L_10h = 1000000 / (60 * n) * (f_t * C_r / P_eq) ** epsilon",
+    "inputs": {
+      "n": {
+        "value": 360.0,
+        "unit": "r/min"
+      },
+      "f_t": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "C_r": {
+        "value": 25500.0,
+        "unit": "N"
+      },
+      "P_eq": {
+        "value": 588.13,
+        "unit": "N"
+      },
+      "epsilon": {
+        "value": 3.0,
+        "unit": ""
+      },
+      "L_h_required": {
+        "value": 48000.0,
+        "unit": "hour"
+      }
+    },
+    "substitution": "n=360 r/min；f_t=1；C_r=2.55e+04 N；P_eq=588.1 N；epsilon=3；L_h_required=4.8e+04 hour",
+    "result": {
+      "L_10h": {
+        "value": 3773521.1744201304,
+        "unit": "hour"
+      }
+    },
+    "criterion": "L_10h >= L_h_required",
+    "verdict": "pass",
+    "margin_percent": 98.72797851711071,
+    "source": "机械设计（第十版）式 13-5；GB/T 6391-2010",
+    "engine": "formula_lib",
+    "depends_on": [
+      "n_out",
+      "calc#24"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "不满足时按顺序考虑：加大轴承尺寸系列、改用滚子轴承、降低载荷系数假设、缩短维护周期",
+    "script": "",
+    "created_at": "2026-08-17T07:55:40.952698Z"
+  },
+  "calc#27": {
+    "record_id": "calc#27",
+    "title": "普通平键连接挤压强度校核",
+    "formula_id": "key_crushing_check",
+    "expression": "sigma_p = 4 * T / (d * h * l)",
+    "inputs": {
+      "T": {
+        "value": 101898.5,
+        "unit": "N*mm"
+      },
+      "d": {
+        "value": 40.0,
+        "unit": "mm"
+      },
+      "h": {
+        "value": 8.0,
+        "unit": "mm"
+      },
+      "l": {
+        "value": 33.0,
+        "unit": "mm"
+      },
+      "sigma_pP": {
+        "value": 100.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "T=1.019e+05 N*mm；d=40 mm；h=8 mm；l=33 mm；sigma_pP=100 MPa",
+    "result": {
+      "sigma_p": {
+        "value": 38.59791666666667,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_p <= sigma_pP",
+    "verdict": "pass",
+    "margin_percent": 61.40208333333334,
+    "source": "机械设计（第十版）式 6-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "T_out",
+      "key_gear"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+    "script": "",
+    "created_at": "2026-08-17T07:56:10.533566Z"
+  },
+  "calc#28": {
+    "record_id": "calc#28",
+    "title": "普通平键连接挤压强度校核",
+    "formula_id": "key_crushing_check",
+    "expression": "sigma_p = 4 * T / (d * h * l)",
+    "inputs": {
+      "T": {
+        "value": 101898.5,
+        "unit": "N*mm"
+      },
+      "d": {
+        "value": 30.0,
+        "unit": "mm"
+      },
+      "h": {
+        "value": 7.0,
+        "unit": "mm"
+      },
+      "l": {
+        "value": 37.0,
+        "unit": "mm"
+      },
+      "sigma_pP": {
+        "value": 100.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "T=1.019e+05 N*mm；d=30 mm；h=7 mm；l=37 mm；sigma_pP=100 MPa",
+    "result": {
+      "sigma_p": {
+        "value": 52.45740025740026,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_p <= sigma_pP",
+    "verdict": "pass",
+    "margin_percent": 47.54259974259974,
+    "source": "机械设计（第十版）式 6-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "T_out",
+      "key_coupling_out"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+    "script": "",
+    "created_at": "2026-08-17T07:56:10.545534Z"
+  },
+  "calc#29": {
+    "record_id": "calc#29",
+    "title": "普通平键连接挤压强度校核",
+    "formula_id": "key_crushing_check",
+    "expression": "sigma_p = 4 * T / (d * h * l)",
+    "inputs": {
+      "T": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "d": {
+        "value": 18.0,
+        "unit": "mm"
+      },
+      "h": {
+        "value": 6.0,
+        "unit": "mm"
+      },
+      "l": {
+        "value": 26.0,
+        "unit": "mm"
+      },
+      "sigma_pP": {
+        "value": 100.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "T=2.653e+04 N*mm；d=18 mm；h=6 mm；l=26 mm；sigma_pP=100 MPa",
+    "result": {
+      "sigma_p": {
+        "value": 37.7888603988604,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_p <= sigma_pP",
+    "verdict": "pass",
+    "margin_percent": 62.2111396011396,
+    "source": "机械设计（第十版）式 6-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "T_in",
+      "key_coupling_in"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "若不满足，可加长键长、改用双键（按 1.5 倍承载计算）或改花键",
+    "script": "",
+    "created_at": "2026-08-17T07:56:10.555988Z"
+  },
+  "calc#30": {
+    "record_id": "calc#30",
+    "title": "齿轮法向合成力",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "F_r": {
+        "value": 402.3,
+        "unit": "N"
+      },
+      "F_t": {
+        "value": 1105.32,
+        "unit": "N"
+      }
+    },
+    "substitution": "F_r=402.3 N；F_t=1105 N",
+    "result": {
+      "F_sum": {
+        "value": 1176.2557512718056,
+        "unit": "N"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）第十章：齿轮法向力合成 F = sqrt(Ft²+Fr²)（直齿轮无轴向力）",
+    "engine": "sympy",
+    "depends_on": [],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "F_sum = (F_t**2 + F_r**2) ** 0.5\noutputs['F_sum'] = F_sum",
+    "created_at": "2026-08-17T07:56:40.533044Z"
+  },
+  "calc#31": {
+    "record_id": "calc#31",
+    "title": "铸铁箱体壁厚",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "a": {
+        "value": 120.0,
+        "unit": "mm"
+      }
+    },
+    "substitution": "a=120 mm",
+    "result": {
+      "delta": {
+        "value": 7.8,
+        "unit": "mm"
+      },
+      "delta_round": {
+        "value": 8.0,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计课程设计手册（第五版）：铸铁箱体壁厚 δ = 0.04a + 3 ≥ 8 mm",
+    "engine": "sympy",
+    "depends_on": [
+      "a"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "delta = 0.04 * a + 3          # 铸铁箱体壁厚经验公式（a 为中心距 mm）\ndelta_round = max(delta, 8)    # 最小壁厚 8mm\noutputs['delta'] = delta\noutputs['delta_round'] = delta_round",
+    "created_at": "2026-08-17T07:56:55.816769Z"
+  },
+  "calc#32": {
+    "record_id": "calc#32",
+    "title": "轴危险截面弯矩与抗弯截面系数",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "F_sum": {
+        "value": 1176.26,
+        "unit": "N"
+      },
+      "L_in": {
+        "value": 109.0,
+        "unit": "mm"
+      },
+      "L_out": {
+        "value": 107.0,
+        "unit": "mm"
+      },
+      "d1": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "d_gear_out": {
+        "value": 40.0,
+        "unit": "mm"
+      },
+      "b_key": {
+        "value": 12.0,
+        "unit": "mm"
+      },
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "t_key": {
+        "value": 5.0,
+        "unit": "mm"
+      }
+    },
+    "substitution": "F_sum=1176 N；L_in=109 mm；L_out=107 mm；d1=48 mm；d_gear_out=40 mm；b_key=12 mm；m=2 mm；t_key=5 mm",
+    "result": {
+      "df1": {
+        "value": 43.0,
+        "unit": "mm"
+      },
+      "M_in": {
+        "value": 32053.085,
+        "unit": "N*mm"
+      },
+      "W_in": {
+        "value": 7805.581472155115,
+        "unit": "mm**3"
+      },
+      "M_out": {
+        "value": 31464.954999999998,
+        "unit": "N*mm"
+      },
+      "W_out": {
+        "value": 5364.435307179586,
+        "unit": "mm**3"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）第十五章：轴弯矩按简支梁计算；抗弯截面系数 W=πd³/32，键槽按近似公式扣除",
+    "engine": "sympy",
+    "depends_on": [
+      "m"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "pi = 3.141592653589793\ndf1 = d1 - 2.5 * m\nM_in = F_sum * L_in / 4\nW_in = pi * df1**3 / 32\n\nM_out = F_sum * L_out / 4\nW_solid = pi * d_gear_out**3 / 32\nW_key = b_key * t_key * (d_gear_out - t_key)**2 / (2 * d_gear_out)\nW_out = W_solid - W_key\n\noutputs['df1'] = df1\noutputs['M_in'] = M_in\noutputs['W_in'] = W_in\noutputs['M_out'] = M_out\noutputs['W_out'] = W_out",
+    "created_at": "2026-08-17T07:57:33.118855Z"
+  },
+  "calc#33": {
+    "record_id": "calc#33",
+    "title": "轴的弯扭合成强度校核",
+    "formula_id": "shaft_combined_stress_check",
+    "expression": "sigma_ca = (M ** 2 + (alpha * T) ** 2) ** 0.5 / W",
+    "inputs": {
+      "M": {
+        "value": 32053.09,
+        "unit": "N*mm"
+      },
+      "alpha": {
+        "value": 0.6,
+        "unit": ""
+      },
+      "T": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "W": {
+        "value": 7805.58,
+        "unit": "mm**3"
+      },
+      "sigma_minus1": {
+        "value": 60.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "M=3.205e+04 N*mm；alpha=0.6；T=2.653e+04 N*mm；W=7806 mm**3；sigma_minus1=60 MPa",
+    "result": {
+      "sigma_ca": {
+        "value": 4.584853466004422,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_ca <= sigma_minus1",
+    "verdict": "pass",
+    "margin_percent": 92.3585775566593,
+    "source": "机械设计（第十版）式 15-5",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#32",
+      "T_in"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "需对每个可能的危险截面（齿轮安装处、轴承处、轴肩过渡处）分别校核",
+    "script": "",
+    "created_at": "2026-08-17T07:57:38.975846Z"
+  },
+  "calc#34": {
+    "record_id": "calc#34",
+    "title": "轴的弯扭合成强度校核",
+    "formula_id": "shaft_combined_stress_check",
+    "expression": "sigma_ca = (M ** 2 + (alpha * T) ** 2) ** 0.5 / W",
+    "inputs": {
+      "M": {
+        "value": 31464.95,
+        "unit": "N*mm"
+      },
+      "alpha": {
+        "value": 0.6,
+        "unit": ""
+      },
+      "T": {
+        "value": 101898.5,
+        "unit": "N*mm"
+      },
+      "W": {
+        "value": 5364.44,
+        "unit": "mm**3"
+      },
+      "sigma_minus1": {
+        "value": 55.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "M=3.146e+04 N*mm；alpha=0.6；T=1.019e+05 N*mm；W=5364 mm**3；sigma_minus1=55 MPa",
+    "result": {
+      "sigma_ca": {
+        "value": 12.817869340275037,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "sigma_ca <= sigma_minus1",
+    "verdict": "pass",
+    "margin_percent": 76.69478301768174,
+    "source": "机械设计（第十版）式 15-5",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#32",
+      "T_out"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "需对每个可能的危险截面（齿轮安装处、轴承处、轴肩过渡处）分别校核",
+    "script": "",
+    "created_at": "2026-08-17T07:57:38.986085Z"
+  },
+  "calc#35": {
+    "record_id": "calc#35",
+    "title": "齿轮齿顶圆直径",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "d_1": {
+        "value": 48.0,
+        "unit": "mm"
+      },
+      "d_2": {
+        "value": 192.0,
+        "unit": "mm"
+      },
+      "m": {
+        "value": 2.0,
+        "unit": "mm"
+      }
+    },
+    "substitution": "d_1=48 mm；d_2=192 mm；m=2 mm",
+    "result": {
+      "da_1": {
+        "value": 52.0,
+        "unit": "mm"
+      },
+      "da_2": {
+        "value": 196.0,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）表 10-2：标准直齿圆柱齿轮齿顶圆 da = d + 2ha*·m，ha*=1",
+    "engine": "sympy",
+    "depends_on": [
+      "d_1",
+      "d_2",
+      "m"
+    ],
+    "stale": true,
+    "stale_reason": "输入 n_in 已变更，执行全量失效（n_in 由 1440 r/min 改为 960 r/min）",
+    "notes": "",
+    "script": "da_1 = d_1 + 2 * m     # 标准齿顶高系数 ha*=1\nda_2 = d_2 + 2 * m\noutputs['da_1'] = da_1\noutputs['da_2'] = da_2",
+    "created_at": "2026-08-17T08:05:58.471623Z"
+  },
+  "calc#36": {
+    "record_id": "calc#36",
+    "title": "输出轴转速",
+    "formula_id": "output_shaft_speed",
+    "expression": "n_out = n_in / i_actual",
+    "inputs": {
+      "n_in": {
+        "value": 960.0,
+        "unit": "r/min"
+      },
+      "i_actual": {
+        "value": 4.0,
+        "unit": ""
+      }
+    },
+    "substitution": "n_in=960 r/min；i_actual=4",
+    "result": {
+      "n_out": {
+        "value": 240.0,
+        "unit": "r/min"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计课程设计手册（第五版）§2.4",
+    "engine": "formula_lib",
+    "depends_on": [
+      "n_in",
+      "i",
+      "i_actual"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T17:14:42.902982Z"
+  },
+  "calc#37": {
+    "record_id": "calc#37",
+    "title": "由功率与转速求转矩",
+    "formula_id": "shaft_torque_from_power",
+    "expression": "T = 9550000 * P / n",
+    "inputs": {
+      "P": {
+        "value": 4.0,
+        "unit": "kW"
+      },
+      "n": {
+        "value": 960.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "P=4 kW；n=960 r/min",
+    "result": {
+      "T": {
+        "value": 39791.666666666664,
+        "unit": "N*mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "P_in",
+      "n_in"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T17:14:42.904014Z"
+  },
+  "calc#38": {
+    "record_id": "calc#38",
+    "title": "减速器传动效率与输出轴功率（受控恢复重算）",
+    "formula_id": "",
+    "expression": "（沙箱脚本，见 script 字段）",
+    "inputs": {
+      "P1": {
+        "value": 4.0,
+        "unit": "kW"
+      }
+    },
+    "substitution": "P1=4 kW",
+    "result": {
+      "eta_total": {
+        "value": 0.9602999999999999,
+        "unit": ""
+      },
+      "P2": {
+        "value": 3.8411999999999997,
+        "unit": "kW"
+      },
+      "eta_gear": {
+        "value": 0.97,
+        "unit": ""
+      },
+      "eta_bearing": {
+        "value": 0.99,
+        "unit": ""
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计课程设计手册（第五版）表2-1",
+    "engine": "sympy",
+    "depends_on": [],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "eta_gear = 0.97\neta_bearing = 0.99\neta_total = eta_gear * eta_bearing\nP2 = P1 * eta_total\noutputs['eta_total'] = eta_total\noutputs['P2'] = P2\noutputs['eta_gear'] = eta_gear\noutputs['eta_bearing'] = eta_bearing",
+    "created_at": "2026-08-17T17:14:44.085359Z"
+  },
+  "calc#39": {
+    "record_id": "calc#39",
+    "title": "由功率与转速求转矩",
+    "formula_id": "shaft_torque_from_power",
+    "expression": "T = 9550000 * P / n",
+    "inputs": {
+      "P": {
+        "value": 3.8412,
+        "unit": "kW"
+      },
+      "n": {
+        "value": 240.0,
+        "unit": "r/min"
+      }
+    },
+    "substitution": "P=3.841 kW；n=240 r/min",
+    "result": {
+      "T": {
+        "value": 152847.75,
+        "unit": "N*mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 15-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#38",
+      "calc#36"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T17:14:48.144542Z"
+  },
+  "calc#40": {
+    "record_id": "calc#40",
+    "title": "许用接触应力",
+    "formula_id": "gear_allowable_contact_stress",
+    "expression": "sigma_HP = sigma_Hlim * K_HN / S_H",
+    "inputs": {
+      "sigma_Hlim": {
+        "value": 550.0,
+        "unit": "MPa"
+      },
+      "K_HN": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "S_H": {
+        "value": 1.0,
+        "unit": ""
+      }
+    },
+    "substitution": "sigma_Hlim=550 MPa；K_HN=1；S_H=1",
+    "result": {
+      "sigma_HP": {
+        "value": 550.0,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-14",
+    "engine": "formula_lib",
+    "depends_on": [
+      "sigma_Hlim_big"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T17:15:27.859816Z"
+  },
+  "calc#41": {
+    "record_id": "calc#41",
+    "title": "许用弯曲应力",
+    "formula_id": "gear_allowable_bending_stress",
+    "expression": "sigma_FP = sigma_Flim * K_FN / S_F",
+    "inputs": {
+      "sigma_Flim": {
+        "value": 210.0,
+        "unit": "MPa"
+      },
+      "K_FN": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "S_F": {
+        "value": 1.4,
+        "unit": ""
+      }
+    },
+    "substitution": "sigma_Flim=210 MPa；K_FN=1；S_F=1.4",
+    "result": {
+      "sigma_FP": {
+        "value": 150.0,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-14",
+    "engine": "formula_lib",
+    "depends_on": [
+      "sigma_Flim_pinion"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T17:15:27.860828Z"
+  },
+  "calc#42": {
+    "record_id": "calc#42",
+    "title": "许用弯曲应力",
+    "formula_id": "gear_allowable_bending_stress",
+    "expression": "sigma_FP = sigma_Flim * K_FN / S_F",
+    "inputs": {
+      "sigma_Flim": {
+        "value": 190.0,
+        "unit": "MPa"
+      },
+      "K_FN": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "S_F": {
+        "value": 1.4,
+        "unit": ""
+      }
+    },
+    "substitution": "sigma_Flim=190 MPa；K_FN=1；S_F=1.4",
+    "result": {
+      "sigma_FP": {
+        "value": 135.71428571428572,
+        "unit": "MPa"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-14",
+    "engine": "formula_lib",
+    "depends_on": [
+      "sigma_Flim_gear"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "",
+    "script": "",
+    "created_at": "2026-08-17T17:15:27.861831Z"
+  },
+  "calc#43": {
+    "record_id": "calc#43",
+    "title": "按齿面接触疲劳强度设计小齿轮分度圆直径",
+    "formula_id": "gear_contact_design_d1",
+    "expression": "d_1t = (2 * K_Ht * T_1 / phi_d * (u + 1) / u * (Z_H * Z_E * Z_eps / sigma_HP) ** 2) ** (1/3)",
+    "inputs": {
+      "K_Ht": {
+        "value": 1.3,
+        "unit": ""
+      },
+      "T_1": {
+        "value": 39791.67,
+        "unit": "N*mm"
+      },
+      "phi_d": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "u": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "Z_H": {
+        "value": 2.5,
+        "unit": ""
+      },
+      "Z_E": {
+        "value": 189.8,
+        "unit": "MPa**0.5"
+      },
+      "Z_eps": {
+        "value": 0.87,
+        "unit": ""
+      },
+      "sigma_HP": {
+        "value": 550.0,
+        "unit": "MPa"
+      }
+    },
+    "substitution": "K_Ht=1.3；T_1=3.979e+04 N*mm；phi_d=1；u=4；Z_H=2.5；Z_E=189.8 MPa**0.5；Z_eps=0.87；sigma_HP=550 MPa",
+    "result": {
+      "d_1t": {
+        "value": 41.76575747894011,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-11",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#37",
+      "calc#40",
+      "sigma_HP"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "试算所得 d_1t 需按齿数定模数并圆整到标准模数（GB/T 1357），再回代校核齿根弯曲疲劳强度",
+    "script": "",
+    "created_at": "2026-08-17T17:15:34.130293Z"
+  },
+  "calc#44": {
+    "record_id": "calc#44",
+    "title": "由分度圆直径与齿数求模数",
+    "formula_id": "gear_module_from_d1",
+    "expression": "m_t = d_1t / z_1",
+    "inputs": {
+      "d_1t": {
+        "value": 41.77,
+        "unit": "mm"
+      },
+      "z_1": {
+        "value": 24.0,
+        "unit": ""
+      }
+    },
+    "substitution": "d_1t=41.77 mm；z_1=24",
+    "result": {
+      "m_t": {
+        "value": 1.7404166666666667,
+        "unit": "mm"
+      }
+    },
+    "criterion": "",
+    "verdict": "n/a",
+    "margin_percent": null,
+    "source": "机械设计（第十版）式 10-1",
+    "engine": "formula_lib",
+    "depends_on": [
+      "calc#43",
+      "z_1"
+    ],
+    "stale": false,
+    "stale_reason": "",
+    "notes": "算得 m_t 后必须用 lookup_standard_series('gb1357_modulus') 向上圆整到标准模数",
+    "script": "",
+    "created_at": "2026-08-17T17:15:37.534160Z"
+  }
+}

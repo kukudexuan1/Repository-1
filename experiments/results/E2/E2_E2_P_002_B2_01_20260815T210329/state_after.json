@@ -1,0 +1,214 @@
+{
+  "session_id": "6c3d4647-2e91-4ba3-b65b-bde8e6b7211f",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "滚动轴承当量动载荷",
+      "formula_id": "bearing_equivalent_load",
+      "expression": "P_eq = f_p * (X * F_r + Y * F_a)",
+      "inputs": {
+        "f_p": {
+          "value": 1.2,
+          "unit": ""
+        },
+        "X": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "F_r": {
+          "value": 8500.0,
+          "unit": "N"
+        },
+        "Y": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "F_a": {
+          "value": 0.0,
+          "unit": "N"
+        }
+      },
+      "substitution": "f_p=1.2；X=1；F_r=8500 N；Y=0；F_a=0 N",
+      "result": {
+        "P_eq": {
+          "value": 10200.0,
+          "unit": "N"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 13-8a",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-15T21:04:09.123954Z"
+    },
+    "calc#2": {
+      "record_id": "calc#2",
+      "title": "深沟球轴承 6210 vs 6310 寿命参数化分析",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "load_ratio_6210": {
+          "value": 3.4313725490196076,
+          "unit": ""
+        },
+        "load_ratio_6310": {
+          "value": 6.0588235294117645,
+          "unit": ""
+        },
+        "n=100_6210": {
+          "value": 6733.678348950753,
+          "unit": "hour"
+        },
+        "n=100_6310": {
+          "value": 37069.23807585317,
+          "unit": "hour"
+        },
+        "n=200_6210": {
+          "value": 3366.8391744753767,
+          "unit": ""
+        },
+        "n=200_6310": {
+          "value": 18534.619037926586,
+          "unit": ""
+        },
+        "n=500_6210": {
+          "value": 1346.735669790151,
+          "unit": "hour"
+        },
+        "n=500_6310": {
+          "value": 7413.847615170635,
+          "unit": "hour"
+        },
+        "n=750_6210": {
+          "value": 897.8237798601004,
+          "unit": ""
+        },
+        "n=750_6310": {
+          "value": 4942.565076780423,
+          "unit": ""
+        },
+        "n=1000_6210": {
+          "value": 673.3678348950755,
+          "unit": "hour"
+        },
+        "n=1000_6310": {
+          "value": 3706.9238075853177,
+          "unit": "hour"
+        },
+        "n=1500_6210": {
+          "value": 448.9118899300502,
+          "unit": "hour"
+        },
+        "n=1500_6310": {
+          "value": 2471.2825383902114,
+          "unit": "hour"
+        },
+        "n=2000_6210": {
+          "value": 336.68391744753774,
+          "unit": ""
+        },
+        "n=2000_6310": {
+          "value": 1853.4619037926589,
+          "unit": ""
+        },
+        "n=3000_6210": {
+          "value": 224.4559449650251,
+          "unit": "hour"
+        },
+        "n=3000_6310": {
+          "value": 1235.6412691951057,
+          "unit": "hour"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 13-5；GB/T 6391-2010",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 已知参数\nP_eq = 10200.0  # N\nC_r_6210 = 35000.0  # N\nC_r_6310 = 61800.0  # N\nepsilon = 3.0  # 球轴承\n\n# 典型转速 (r/min)\nspeeds = [100, 200, 500, 750, 1000, 1500, 2000, 3000]\n\nresults = {}\nfor n in speeds:\n    L10h_6210 = 1e6 / (60 * n) * (C_r_6210 / P_eq) ** epsilon\n    L10h_6310 = 1e6 / (60 * n) * (C_r_6310 / P_eq) ** epsilon\n    ratio = L10h_6310 / L10h_6210\n    results[f\"n={n}_6210\"] = L10h_6210\n    results[f\"n={n}_6310\"] = L10h_6310\n\n# 也计算一下 Cr/P_eq 比值\nload_ratio_6210 = C_r_6210 / P_eq\nload_ratio_6310 = C_r_6310 / P_eq\n\noutputs = {\n    \"load_ratio_6210\": load_ratio_6210,\n    \"load_ratio_6310\": load_ratio_6310,\n    **results\n}",
+      "created_at": "2026-08-15T21:04:30.176297Z"
+    }
+  },
+  "calc_seq": 2,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "38c6f988-f2bd-4317-b4c0-9764aedb6289",
+      "role": "user",
+      "content": "请帮我选取轴承型号，轴径50mm，只告知了径向载荷Fr=8500N，未给出转速和设计寿命",
+      "timestamp": "2026-08-15T21:03:35.315911Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "90f72ba7-5429-4d93-b2ed-dd2b0e91b1b9",
+      "role": "assistant",
+      "content": "---\n\n## 轴承选型分析：轴径 50mm，Fr = 8500N\n\n### 已知条件\n\n| 参数 | 数值 | 状态 |\n|------|------|------|\n| 轴径 d | 50 mm | 已给定 |\n| 径向载荷 Fr | 8500 N | 已给定 |\n| 轴向载荷 Fa | 0（未提及，按纯径向处理） | 假定 |\n| 转速 n | **未给出** | ⚠️ 缺失 |\n| 设计寿命 L_h | **未给出** | ⚠️ 缺失 |\n\n---\n\n### 候选轴承（GB/T 276-2013 深沟球轴承）\n\n从标准库中，50mm 轴径匹配两个候选：\n\n| 型号 | 内径 d | 外径 D | 宽度 B | Cr (N) | C0r (N) | 脂润滑极限转速 |\n|------|--------|--------|--------|--------|---------|----------------|\n| **6210** | 50 | 90 | 20 | 35,000 | 23,200 | 6,700 r/min |\n| **6310** | 50 | 110 | 27 | 61,800 | 38,000 | 6,000 r/min |\n\n---\n\n### 当量动载荷\n\nP_eq = f_p · (X·Fr + Y·Fa) = 1.2 × (1.0 × 8500 + 0) = **10,200 N**（calc#1）\n\n（载荷系数 f_p=1.2，按一般中等冲击工况取惯用值）\n\n---\n\n### 寿命参数化分析（calc#2）\n\n由于转速 n 和设计寿命 L_h 未知，下面给出不同转速下两个轴承的寿命对比，供你参照实际工况对号入座：\n\n| 转速 n (r/min) | 6210 寿命 (h) | 6310 寿命 (h) | 6310/6210 |\n|:---:|:---:|:---:|:---:|\n| 100 | 6,734 | 37,069 | 5.5× |\n| 500 | 1,347 | 7,414 | 5.5× |\n| 1,000 | 673 | 3,707 | 5.5× |\n| 1,500 | 449 | 2,471 | 5.5× |\n| 3,000 | 225 | 1,236 | 5.5× |\n\n> 寿命公式：L₁₀h = 10⁶/(60n) × (Cr/P_eq)³，球轴承 ε=3.0\n\n---\n\n### 关键判断：Cr/P_eq 比值\n\n- **6210**：Cr/P_eq = 3.43 —— 对于球轴承，这个比值偏低。工程上通常希望 ≥ 4~5，否则寿命对载荷波动极其敏感，微小的过载就会导致寿命急剧下降。\n- **6310**：Cr/P_eq = 6.06 —— 余量充足，寿命裕度约为 6210 的 **5.5 倍**。\n\n---\n\n### 推荐与建议\n\n**推荐 6310**，理由如下：\n\n1. **6210 的承载能力偏紧**。以一般工业设备常见设计寿命 8,000~20,000 小时为参照，6210 只有在转速 ≤ 100 r/min 的极低速工况下才勉强够用；一旦转速超过 500 r/min，寿命仅 ~1,300 小时，远不满足常规要求。\n2. **6310 覆盖范围宽**。在 500 r/min 下仍有 7,414 小时寿命，1500 r/min 下也有 2,471 小时。即使转速较高，仍有合理的使用周期。\n3. 6310 的代价是 **外径大 20mm、宽度多 7mm**，安装空间需求更大，但承载安全余量显著提升。\n\n**但在最终确定之前，我需要你补充两个关键参数：**\n\n| 缺失参数 | 为什么需要 |\n|----------|-----------|\n| **转速 n (r/min)** | 寿命与转速成反比，直接影响选型结论 |\n| **设计寿命 L_h (h)** | 不同设备要求差异巨大：家用风扇 ~3,000h，通用减速器 ~8,000~20,000h，连续运行设备 ~40,000h+ |\n\n请提供这两个参数，我可以立即给出确定性的选型结论并校核。",
+      "timestamp": "2026-08-15T21:04:55.928250Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:04:55.928250Z"
+}

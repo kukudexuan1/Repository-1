@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_012",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation",
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下：\n\n| 项目 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 合成弯矩 | M | 240 | N·m |\n| 扭矩 | T | 320 | N·m |\n| 转矩折算系数 | α | 0.6 | — |\n| **当量弯矩** | **Me** | **307.35** | **N·m** |\n\n**计算过程**（计算记录 `calc#1`）：\n\n\\[\nMe = \\sqrt{M^{2} + (\\alpha T)^{2}} = \\sqrt{240^{2} + (0.6 \\times 320)^{2}} = \\sqrt{57600 + 36864} = \\sqrt{94464} \\approx 307.35\\ \\text{N·m}\n\\]\n\n---\n\n> ⚠️ **提示**：这是一个独立计算，未纳入当前设计任务书。如果你正在进行一项轴的正式设计，需要我按设计流程走——先判定设计范围（单根轴还是装配体）、建立任务书、收敛设计输入、再系统性地完成设计计算与校核——请告诉我，我可以接着推进。"
+}

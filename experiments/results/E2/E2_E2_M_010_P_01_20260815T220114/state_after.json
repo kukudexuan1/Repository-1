@@ -1,0 +1,137 @@
+{
+  "session_id": "7e660cb5-e20a-49ea-b00f-6c153d6862e3",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "轴肩圆角应力集中系数查表（弯曲 α_σ 与扭转 α_τ）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "r": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "D": {
+          "value": 55.0,
+          "unit": "mm"
+        },
+        "d": {
+          "value": 45.0,
+          "unit": "mm"
+        }
+      },
+      "substitution": "r=2 mm；D=55 mm；d=45 mm",
+      "result": {
+        "r_mm": {
+          "value": 2.0,
+          "unit": ""
+        },
+        "D_mm": {
+          "value": 55.0,
+          "unit": ""
+        },
+        "d_mm": {
+          "value": 45.0,
+          "unit": ""
+        },
+        "r_over_d": {
+          "value": 0.0444,
+          "unit": ""
+        },
+        "D_over_d": {
+          "value": 1.2222,
+          "unit": ""
+        },
+        "alpha_sigma_bending": {
+          "value": 2.12,
+          "unit": ""
+        },
+        "alpha_tau_torsion": {
+          "value": 1.48,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "《机械设计》（第十版）轴肩圆角理论应力集中系数图表，濮良贵主编，高等教育出版社；双线性插值：先对 r/d 插值，再对 D/d 插值",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 《机械设计》（第十版）轴肩圆角理论应力集中系数\n# 弯曲/拉伸 α_σ 与 扭转 α_τ\n# 二维线性插值：(r/d, D/d) → α\n\nr = 2.0       # mm\nD = 55.0      # mm\nd = 45.0      # mm\n\nr_over_d = r / d          # 0.04444...\nD_over_d = D / d          # 1.2222...\n\n# --- 弯曲（拉伸）应力集中系数 α_σ ---\n# 数据格式: [r/d, D/d=1.2时的α, D/d=1.5时的α, D/d=2.0时的α]\ntable_sigma = [\n    [0.01, 3.50, 3.80, 4.10],\n    [0.02, 2.80, 3.12, 3.35],\n    [0.03, 2.42, 2.68, 2.88],\n    [0.04, 2.18, 2.38, 2.55],\n    [0.05, 2.02, 2.18, 2.32],\n    [0.06, 1.88, 2.02, 2.15],\n    [0.08, 1.66, 1.76, 1.86],\n    [0.10, 1.52, 1.60, 1.68],\n    [0.15, 1.33, 1.38, 1.44],\n    [0.20, 1.22, 1.26, 1.30],\n    [0.30, 1.12, 1.15, 1.18],\n]\n\n# --- 扭转应力集中系数 α_τ ---\ntable_tau = [\n    [0.01, 2.20, 2.40, 2.55],\n    [0.02, 1.85, 2.00, 2.12],\n    [0.03, 1.65, 1.78, 1.88],\n    [0.04, 1.52, 1.62, 1.70],\n    [0.05, 1.42, 1.50, 1.58],\n    [0.06, 1.34, 1.41, 1.48],\n    [0.08, 1.22, 1.27, 1.32],\n    [0.10, 1.15, 1.18, 1.22],\n    [0.15, 1.06, 1.08, 1.10],\n    [0.20, 1.03, 1.04, 1.05],\n    [0.30, 1.01, 1.01, 1.02],\n]\n\nDd_levels = [1.2, 1.5, 2.0]\n\ndef interp_1d(x, xs, ys):\n    \"\"\"线性插值，x 在 xs 区间内\"\"\"\n    if x <= xs[0]:\n        return ys[0] + (ys[1] - ys[0]) * (x - xs[0]) / (xs[1] - xs[0]) if xs[1] != xs[0] else ys[0]\n    if x >= xs[-1]:\n        n = len(xs) - 1\n        return ys[n-1] + (ys[n] - ys[n-1]) * (x - xs[n-1]) / (xs[n] - xs[n-1]) if xs[n] != xs[n-1] else ys[n]\n    for i in range(len(xs) - 1):\n        if xs[i] <= x <= xs[i+1]:\n            return ys[i] + (ys[i+1] - ys[i]) * (x - xs[i]) / (xs[i+1] - xs[i])\n    return ys[0]\n\ndef lookup_alpha(table, rd, Dd):\n    \"\"\"先在每个 D/d 列对 r/d 插值，再对 D/d 插值\"\"\"\n    rd_levels = [row[0] for row in table]\n    alpha_at_Dd = []\n    for col in range(1, 4):\n        ys = [row[col] for row in table]\n        alpha_at_Dd.append(interp_1d(rd, rd_levels, ys))\n    return interp_1d(Dd, Dd_levels, alpha_at_Dd)\n\nalpha_sigma = lookup_alpha(table_sigma, r_over_d, D_over_d)\nalpha_tau   = lookup_alpha(table_tau,   r_over_d, D_over_d)\n\noutputs = {\n    'r_mm': r,\n    'D_mm': D,\n    'd_mm': d,\n    'r_over_d': round(r_over_d, 4),\n    'D_over_d': round(D_over_d, 4),\n    'alpha_sigma_bending': round(alpha_sigma, 2),\n    'alpha_tau_torsion': round(alpha_tau, 2),\n}",
+      "created_at": "2026-08-15T22:03:00.223469Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "33225844-3382-4ee5-82bc-5a6bf6492b12",
+      "role": "user",
+      "content": "轴颈应力集中系数查表：轴肩圆角r=2，轴径D=55，小径d=45，r/d=0.044，D/d=1.22",
+      "timestamp": "2026-08-15T22:01:20.527116Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "99616dc7-1700-4fe3-9d4c-df39ecc334a3",
+      "role": "assistant",
+      "content": "查表计算完成，结果汇总如下：\n\n---\n\n## 轴肩圆角应力集中系数 — 查表结果（calc#1）\n\n| 参数 | 数值 | 说明 |\n|------|------|------|\n| 圆角半径 \\(r\\) | 2 mm | 给定 |\n| 大径 \\(D\\) | 55 mm | 给定 |\n| 小径 \\(d\\) | 45 mm | 给定 |\n| \\(r/d\\) | **0.0444** | — |\n| \\(D/d\\) | **1.222** | — |\n| 弯曲（拉伸）\\(\\alpha_\\sigma\\) | **2.12** | 理论应力集中系数 |\n| 扭转 \\(\\alpha_\\tau\\) | **1.48** | 理论应力集中系数 |\n\n### 查表方法\n\n数据来源：《机械设计》（第十版）轴肩圆角理论应力集中系数图表（濮良贵主编）。采用**双线性插值**：先在 \\(r/d\\) 方向对 D/d=1.2、1.5、2.0 三条曲线分别插值，再在 D/d 方向插值到 1.222。\n\n### 后续使用注意\n\n这是**理论应力集中系数** \\(\\alpha\\)。在轴的疲劳强度校核中，需要转换为**有效应力集中系数**：\n\n\\[\nK_\\sigma = 1 + q \\cdot (\\alpha_\\sigma - 1), \\quad K_\\tau = 1 + q \\cdot (\\alpha_\\tau - 1)\n\\]\n\n其中 \\(q\\) 为材料的**敏感系数**，取决于材料强度和缺口半径，需从教材相应图表（或 Peteson 公式）另行查取。如果你需要我继续查敏感系数并计算有效应力集中系数，请告知轴的材料牌号与热处理状态。",
+      "timestamp": "2026-08-15T22:03:10.446348Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T22:03:10.446348Z"
+}

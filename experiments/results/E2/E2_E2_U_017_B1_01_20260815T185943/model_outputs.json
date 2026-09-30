@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_017",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "你指出的问题非常关键。让我把单位统一过程一步步拆开：\n\n---\n\n## 扭转切应力 τ = T / Wp —— 单位陷阱分析\n\n### 原始数据\n\n| 量 | 原始值 | 单位 |\n|----|--------|------|\n| 扭矩 T | 320 | **N·m** |\n| 抗扭截面系数 Wp | 24,543 | **mm³** |\n\n### 为什么直接除是错的\n\n```\n320 / 24543 ≈ 0.013  单位：N·m / mm³  ← 这不是 MPa！\n```\n\n**MPa = N/mm²**，而 N·m/mm³ = N·m/mm³，两者相差 10³ 倍。\n\n### 正确的单位统一\n\n把扭矩从 N·m 转为 N·mm：\n\n```\nT = 320 N·m = 320 × 10³ N·mm = 320,000 N·mm\n```\n\n然后：\n\n```\nτ = T / Wp = 320,000 N·mm / 24,543 mm³ = 13.04 N/mm² = 13.04 MPa\n```\n\n### 对比\n\n| 做法 | 结果 | 对错 |\n|------|------|----"
+}

@@ -1,0 +1,74 @@
+{
+  "session_id": "78399617-aa46-497f-8d0c-a929a18be312",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "518a2106-f040-4bda-bb75-be3d2af92b9b",
+      "role": "user",
+      "content": "斜齿轮法向齿形系数YFn查表时用端面压力角αt而非法向压力角αn",
+      "timestamp": "2026-08-15T19:36:13.373078Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "efda1aac-ec1a-4cdd-b050-214581459eef",
+      "role": "assistant",
+      "content": "你提的这个辨析非常关键，值得认真讲清楚。这正好是很多工程师容易混淆的地方。\n\n---\n\n## 结论：YFn（法向齿形系数）查表时用 **法向压力角 αn**，不是端面压力角 αt\n\n你提的\"用 αt 查\"是错的。下面说清楚**为什么**。\n\n---\n\n### 1. 根本原因：弯曲分析在法向平面进行\n\n斜齿轮齿根弯曲强度计算的力学模型，是把轮齿看作一悬臂梁，载荷作用在**法向平面**内——因为啮合力是沿法向作用于齿面的。因此整个齿形系数的几何定义，天然建立在法向平面上。\n\n法向平面里看到的齿廓是什么？就是把斜齿轮**按当量直齿轮（virtual spur gear）**等效之后看到的那条近似的渐开线。这条渐开线的压力角，就是法向压力角 αn。\n\n---\n\n### 2. 当量齿轮的三个参数\n\n| 当量直齿轮参数 | 值 | 来源 |\n|---|---|---|\n| 模数 | mn | 法向模数 |\n| 压力角 | **αn** | 法向压力角 |\n| 齿数 | Zv = Z / cos³β | 当量齿数 |\n\n齿形系数 YFa（或 YFn）的查表，本质上就是查这个当量直齿轮的齿形系数。标准齿形系数表（濮良贵《机械设计》表 10-5、GB/T 3480、ISO 6336）都是按标准压力角 20° 编制的——而标准斜齿轮的法向压力角 αn 恰好也是 20°，所以**直接用 Zv 查表即可，无需额外换算压力角**。\n\n---\n\n### 3. 为什么不能用 αt？\n\nαt 是**端面**压力角，定义在端面渐开线上。两者关系为：\n\n$$\\tan\\alpha_t = \\frac{\\tan\\alpha_n}{\\cos\\beta}$$\n\n以 β = 15°、αn = 20° 为例：αt ≈ 20.65°，比 αn 大了约 0.65°。如果用 αt 去查一个 20° 基准的表，会得到偏小的齿形系数（压力角越大，齿廓越\"瘦\"，齿根应力集中越小，YFa 越小），导致弯曲强度校核偏于不安全。\n\n更根本的是，**端面齿廓不是弯曲载荷作用的那条齿廓**——齿根弯曲断裂的截面是在法向平面内展开的，用端面压力角在物理上就不对。\n\n---\n\n### 4. 一个容易混淆的来源\n\n有些资料在讲斜齿轮几何时，会强调\"端面参数决定啮合——分度圆 d = mt·Z，中心距 a = (d1+d2)/2 都用端面参数\"。这没错，但那是在**运动学与几何尺寸**层面。到了**强度校核**层面，齿根弯曲和齿面接触的分析路径不同：\n\n- **弯曲强度** → 法向平面 → αn, mn, Zv\n- **接触强度** → 端面（啮合线在端面内）→ 涉及 αt, mt\n\n你可能是在某处看到了\"接触强度用端面参数\"的表述，误推到了弯曲强度上。\n\n---\n\n### 5. 一句话总结\n\n> **YFn 是法向齿形系数，在法向平面定义，用当量齿数 Zv 和法向压力角 αn 查表。αt 是端面参数，用于几何计算和接触强度，不用于弯曲强度。**\n\n---\n\n如果你手头有具体的斜齿轮参数（Z、β、αn），我可以帮你跑一遍 Zv 计算和 YFa 查表，落成计算记录。要不要试一个？",
+      "timestamp": "2026-08-15T19:37:24.616618Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T19:37:24.616618Z"
+}

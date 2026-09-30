@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_OK_005",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "solve_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果汇总\n\n| 参数 | 符号 | 计算公式 | 结果 | 计算记录 |\n|------|------|----------|------|----------|\n| 端面模数 | m_t | m_t = m_n / cos β = 3 / cos12° | **3.067 mm** | calc#1 |\n| 分度圆直径 | d₁ | d₁ = m_t · z₁ = 3.067 × 24 | **73.61 mm** | calc#2 |\n| 轴向力 | F_a | F_a = F_t · tan β = 2400 × tan12° | **510.1 N** | calc#3 |\n\n---\n\n**简要说明：**\n\n- **端面模数**大于法向模数（3.067 > 3），这是斜齿轮的固有关系——螺旋角使端面齿距变大。\n- **分度圆直径**是按端面模数计算的，所以比直齿轮（m=3, z=24 → d=72mm）略大 1.6mm，这个小差异在做中心距和壳体设计时不能忽略。\n- **轴向力**约 510 N，是圆周力的 ~21%（tan12° ≈ 0.213）。这个力需"
+}

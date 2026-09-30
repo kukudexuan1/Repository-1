@@ -1,0 +1,118 @@
+# 轴的设计与校核公式
+# 出处：濮良贵《机械设计》第十版 第十五章
+formulas:
+  - id: shaft_torsion_diameter
+    name: 按扭转强度初估轴径
+    category: shaft
+    source: 机械设计（第十版）式 15-2
+    expression: "d_min = A_0 * (P / n) ** (1/3)"
+    symbols:
+      d_min: { desc: 轴的最小直径估算值, unit: mm, role: output }
+      A_0:   { desc: 与材料许用扭剪应力有关的系数, role: input, typical: [106, 126], note: "45钢取 106~118，Q235取 135~160；取小值对应较大许用应力" }
+      P:     { desc: 轴传递的功率, unit: kW, role: input }
+      n:     { desc: 轴的转速, unit: r/min, role: input }
+    applicability: 仅承受转矩或转矩为主的传动轴初估，不能作为最终强度依据
+    notes: 轴上开有键槽时需放大：一个键槽增大 3%~5%，两个键槽增大 7%~10%；之后圆整到标准直径（GB/T 2822）
+    tags: [轴, 初估直径, 扭转强度]
+
+  - id: shaft_keyway_enlarge
+    name: 键槽削弱的轴径放大
+    category: shaft
+    source: 机械设计（第十版）§15.3
+    expression: "d_enlarged = d_min * (1 + enlarge_ratio)"
+    symbols:
+      d_enlarged:    { desc: 考虑键槽后的轴径, unit: mm, role: output }
+      d_min:         { desc: 初估轴径, unit: mm, role: input }
+      enlarge_ratio: { desc: 放大比例, role: input, default: 0.05, typical: [0.03, 0.10] }
+    tags: [轴, 键槽, 初估直径]
+
+  - id: shaft_section_modulus
+    name: 实心圆轴抗弯截面系数
+    category: shaft
+    source: 机械设计（第十版）表 15-4
+    expression: "W = pi * d ** 3 / 32"
+    symbols:
+      W: { desc: 抗弯截面系数, unit: mm**3, role: output }
+      d: { desc: 轴的直径, unit: mm, role: input }
+    tags: [轴, 截面特性]
+
+  - id: shaft_combined_stress_check
+    name: 轴的弯扭合成强度校核
+    category: shaft
+    source: 机械设计（第十版）式 15-5
+    expression: "sigma_ca = (M ** 2 + (alpha * T) ** 2) ** 0.5 / W"
+    symbols:
+      sigma_ca:     { desc: 危险截面当量应力, unit: MPa, role: output }
+      M:            { desc: 危险截面合成弯矩, unit: N*mm, role: input }
+      alpha:        { desc: 折合系数, role: input, default: 0.6, note: "转矩不变 α=0.3；脉动循环 α=0.6；对称循环 α=1" }
+      T:            { desc: 危险截面转矩, unit: N*mm, role: input }
+      W:            { desc: 抗弯截面系数, unit: mm**3, role: input }
+      sigma_minus1: { desc: 材料对称循环许用弯曲应力, unit: MPa, role: input }
+    criterion: "sigma_ca <= sigma_minus1"
+    criterion_expr: "sigma_ca <= sigma_minus1"
+    is_check: true
+    applicability: 用于已完成结构设计、可确定危险截面弯矩的轴
+    notes: 需对每个可能的危险截面（齿轮安装处、轴承处、轴肩过渡处）分别校核
+    tags: [轴, 弯扭合成, 校核, 强度]
+
+  - id: shaft_bending_moment_simply_supported
+    name: 简支梁中间集中载荷的最大弯矩
+    category: shaft
+    source: 材料力学常用公式
+    expression: "M_max = F * L_a * L_b / (L_a + L_b)"
+    symbols:
+      M_max: { desc: 最大弯矩, unit: N*mm, role: output }
+      F:     { desc: 集中载荷, unit: N, role: input }
+      L_a:   { desc: 载荷到左支点距离, unit: mm, role: input }
+      L_b:   { desc: 载荷到右支点距离, unit: mm, role: input }
+    tags: [轴, 弯矩, 受力分析]
+
+  - id: shaft_resultant_moment
+    name: 两向弯矩合成
+    category: shaft
+    source: 机械设计（第十版）§15.3
+    expression: "M = (M_H ** 2 + M_V ** 2) ** 0.5"
+    symbols:
+      M:   { desc: 合成弯矩, unit: N*mm, role: output }
+      M_H: { desc: 水平面弯矩, unit: N*mm, role: input }
+      M_V: { desc: 垂直面弯矩, unit: N*mm, role: input }
+    tags: [轴, 弯矩]
+
+  - id: shaft_moment_of_inertia
+    name: 实心圆轴惯性矩
+    category: shaft
+    source: 材料力学常用公式
+    expression: "I = pi * d ** 4 / 64"
+    symbols:
+      I: { desc: 截面惯性矩, unit: mm**4, role: output }
+      d: { desc: 轴的直径, unit: mm, role: input }
+    tags: [轴, 截面特性, 刚度]
+
+  - id: shaft_deflection_check
+    name: 轴的弯曲刚度校核（简支梁中点集中载荷）
+    category: shaft
+    source: 机械设计（第十版）式 15-8；材料力学
+    expression: "y_max = F * L ** 3 / (48 * E * I)"
+    symbols:
+      y_max:     { desc: 最大挠度, unit: mm, role: output }
+      F:         { desc: 集中载荷, unit: N, role: input }
+      L:         { desc: 支承跨距, unit: mm, role: input }
+      E:         { desc: 材料弹性模量, unit: MPa, role: input, default: 206000.0, note: "钢取 2.06e5 MPa" }
+      I:         { desc: 截面惯性矩, unit: mm**4, role: input }
+      y_allowed: { desc: 允许挠度, unit: mm, role: input }
+    criterion: "y_max <= y_allowed"
+    criterion_expr: "y_max <= y_allowed"
+    is_check: true
+    notes: 一般传动轴 [y] = (0.0003~0.0005)L；安装齿轮处 [y] ≤ 0.01m（m 为模数）
+    tags: [轴, 刚度, 挠度, 校核]
+
+  - id: shaft_allowable_deflection
+    name: 允许挠度
+    category: shaft
+    source: 机械设计（第十版）表 15-3
+    expression: "y_allowed = ratio * L"
+    symbols:
+      y_allowed: { desc: 允许挠度, unit: mm, role: output }
+      ratio:     { desc: 允许挠度系数, role: input, default: 0.0003, typical: [0.0002, 0.0005] }
+      L:         { desc: 支承跨距, unit: mm, role: input }
+    tags: [轴, 刚度]

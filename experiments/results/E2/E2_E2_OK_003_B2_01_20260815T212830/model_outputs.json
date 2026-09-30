@@ -1,0 +1,63 @@
+{
+  "case_id": "E2_OK_003",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "lookup_material",
+    "search_formula",
+    "solve_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 键 16×10×60 挤压强度校核结果\n\n### 已知条件\n\n| 参数 | 数值 |\n|------|------|\n| 键规格 (b×h×L) | 16×10×60 mm |\n| 轴径 d | 55 mm |\n| 传递扭矩 T | 420 N·m |\n| 键材料 | 45 钢 |\n| 轮毂材料 | 45 钢调质 |\n\n### 计算假定\n\n- **键型**：A 型（圆头）普通平键 —— 工作长度 `l = L - b = 60 - 16 = 44 mm`\n- **载荷性质**：轻微冲击，许用挤压应力取 `[σ_p] = 110 MPa`（键为较弱件，45 钢静连接，100~120 MPa 取中值）⚠️ *待确认*\n- **许用剪切应力**：取 `[τ] = 90 MPa`\n\n---\n\n### 挤压强度校核（calc#1）\n\n$$\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} = \\frac{4 \\times 420\\,000}{55 \\times 10 \\times 44} = \\mathbf{69.42\\ MPa}$$\n\n| 判据 | "
+}

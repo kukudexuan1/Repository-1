@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_001",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "model_judgment",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "收到，我们一起来计算齿根弯曲应力。\n\n不过，在开始计算之前，我必须指出一个关键问题：**输入参数缺少单位**。在工程计算中，无单位的数值是无效的。我将基于工程惯用单位做出以下假设来推进，但请务必确认：\n- **弯矩 M = 180 N·m**（若是 N·mm 则量级完全不同，请立刻纠正）\n- **齿宽 b = 80 mm**\n- **模数 m = 3 mm**\n- **齿形系数 YF = 2.65**（无量纲）\n\n我现在的工作流程是：\n1. 先查找齿根弯曲应力的标准计算公式，确认公式形式、符号定义与适用条件。\n2. 用查到的公式代入你给的数值进行求解。\n3. 产出一条有据可查的计算记录。\n\n---\n\n**第一步：查找公式**\n\n调用 `search_formula`，关键词为\"齿根弯曲应力\"，看看标准手册中这个公式的经典形式是什么。你给出的表达式 σF = M·YF / (b·m²) 看起来像是一个特定推导结果，我需要确认它是否与标准公式等价。\n（这一步确保我们用的公式有出处，不是凭记忆写的。）\n\n调用工具：`search_formula`"
+}

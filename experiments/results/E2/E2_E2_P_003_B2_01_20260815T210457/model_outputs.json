@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_P_003",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_standard_part"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好的，查到了。先汇总一下当前情况：\n\n---\n\n## 已知条件确认\n\n| 项目 | 数值 | 来源 |\n|------|------|------|\n| 轴径 d | 55 mm | 用户给定 |\n| 键截面 b×h | 16×10 mm | 用户给定 |\n| 截面选型 | ✅ 正确 —— 轴径 50~58mm 区间对应 16×10，符合 GB/T 1096-2003 | `lookup_standard_part` |\n\n---\n\n## 校核公式\n\n**挤压强度校核**（`key_crushing_check`，出处：机械设计（第十版）式 6-1）：\n\n$$\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} \\leq [\\sigma_p]$$\n\n其中 $l$ 为键的**工作长度**（A 型平键 $l = L - b$，L 为键全长）。\n\n---\n\n## ⚠️ 缺失的关键信息 —— 缺了这两项，校核无法进行\n\n校核公式里目前已知的只有 d=55mm、h=10mm，还差两个决定性参数：\n\n### ① 传递扭矩 T（必须）\n\n这是计算挤压应力的分子。你没有给，我"
+}

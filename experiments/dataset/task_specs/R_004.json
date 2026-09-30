@@ -1,0 +1,45 @@
+{
+  "task_id": "R_004",
+  "family": "R",
+  "family_name": "逆向建模/图纸理解",
+  "split": "test",
+  "description": "从提供的阶梯轴装配图中提取各轴段直径、长度、键槽尺寸和轴承位公差，并验证轴向定位尺寸链。",
+  "explicit_inputs": {
+    "drawing_type": "阶梯轴装配关系图（含配合件轮廓）",
+    "dimension_count_approx": 28,
+    "dimension_chain_levels": 3,
+    "tolerances_provided": true,
+    "surface_roughness_provided": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["尺寸链封闭环计算", "轴向定位公差累积", "配合公差计算"],
+    "standard_series": ["线性尺寸公差GB/T1800", "形位公差GB/T1182", "键槽GB/T1095"],
+    "standard_parts": []
+  },
+  "decisions_required": ["轴向定位封闭环识别", "键槽尺寸与轴径对应标准值核验"],
+  "image_input": {
+    "required": true,
+    "format": "jpg/png",
+    "path_placeholder": "dataset/task_specs/images/R_004_drawing.png",
+    "_note": "图纸文件需单独准备"
+  },
+  "expert_reference": {
+    "reference_module": "R_004",
+    "expected_dimensions": {
+      "shaft_segment_diameters_mm": [],
+      "shaft_segment_lengths_mm": [],
+      "key_slots": []
+    },
+    "must_pass_checks": [
+      "轴向定位链封闭环误差≤标注公差",
+      "键槽截面与对应轴径匹配GB/T1095",
+      "所有轴段尺寸已提取"
+    ],
+    "forbidden_errors": [
+      "轴向定位封闭环方向识别错误",
+      "键槽尺寸与轴径不对应",
+      "遗漏轴承位公差标注"
+    ]
+  },
+  "_note": "测试集，需配套工程图纸文件，锁定后不得修改系统配置"
+}

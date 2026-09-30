@@ -1,0 +1,232 @@
+family: gearbox_single_stage
+family_label: 单级圆柱齿轮减速器
+title: 单级圆柱齿轮减速器设计任务书
+description: |
+  适用于单级圆柱齿轮减速器（含齿轮传动、两根轴、四个轴承、铸铁箱体）的正向设计。
+  条目按 needed_by_stage 决定何时必须问清：spec_gathering 阶段只追问该阶段之前需要的项。
+items:
+  # ---- 功能与工况 ----
+  - key: transmitted_power
+    label: 输入功率
+    unit: kW
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 原动机输出到减速器输入轴的功率，或工作机所需功率（需说明是哪一个）
+
+  - key: input_speed
+    label: 输入转速
+    unit: r/min
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 通常为电动机满载转速，常见 1440 / 960 / 720 r/min
+
+  - key: total_ratio
+    label: 传动比
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 单级圆柱齿轮传动比宜取 3~6，超过 6 应考虑两级
+
+  - key: load_character
+    label: 载荷性质
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 平稳 / 轻微冲击 / 中等冲击 / 强烈冲击。直接决定载荷系数 K 与轴承载荷系数 f_p
+
+  - key: rotation_direction
+    label: 转向要求
+    group: 功能与工况
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 单向回转或双向回转。双向回转时轴的弯扭合成折合系数 α 取 1
+
+  - key: driven_machine
+    label: 工作机类型
+    group: 功能与工况
+    required: false
+    needed_by_stage: spec_gathering
+    hint: 如带式输送机、链式输送机、搅拌机；影响载荷性质判断与效率链
+
+  # ---- 寿命与可靠性 ----
+  - key: daily_hours
+    label: 每天工作小时数
+    unit: hour
+    group: 寿命与可靠性
+    required: true
+    needed_by_stage: spec_gathering
+
+  - key: service_years
+    label: 使用年限
+    group: 寿命与可靠性
+    required: true
+    needed_by_stage: spec_gathering
+
+  - key: days_per_year
+    label: 每年工作天数
+    group: 寿命与可靠性
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 通常取 300 天（一班制/两班制均按 300 计）
+
+  - key: required_bearing_life
+    label: 轴承要求寿命
+    unit: hour
+    group: 寿命与可靠性
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 一般取与减速器设计寿命相同；如需中修更换可取其一半
+
+  # ---- 材料与工艺 ----
+  - key: gear_material_scheme
+    label: 齿轮材料与热处理方案
+    group: 材料与工艺
+    required: true
+    needed_by_stage: scheme_design
+    hint: 软齿面（45钢调质+45钢正火）或硬齿面（20CrMnTi渗碳淬火）。属于方案决策，须用户确认
+
+  - key: shaft_material
+    label: 轴的材料
+    group: 材料与工艺
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 常用 45 钢调质；重载可用 40Cr 调质
+
+  - key: housing_material
+    label: 箱体材料
+    group: 材料与工艺
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 通常 HT200 灰铸铁；小批量可用 Q235 焊接
+
+  - key: accuracy_grade
+    label: 齿轮精度等级
+    group: 材料与工艺
+    required: true
+    needed_by_stage: scheme_design
+    hint: 一般传动取 8 级；圆周速度高或要求低噪声时取 7 级
+
+  # ---- 环境与安装约束 ----
+  - key: ambient_condition
+    label: 工作环境
+    group: 环境与约束
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 温度范围、粉尘、潮湿、腐蚀等，影响润滑与密封选择
+
+  - key: envelope_limit
+    label: 外廓尺寸限制
+    group: 环境与约束
+    required: false
+    needed_by_stage: scheme_design
+    hint: 中心距上限、总高限制等。有限制时会约束齿宽系数与齿数选择
+
+  - key: mounting_type
+    label: 安装方式
+    group: 环境与约束
+    required: false
+    needed_by_stage: geometry
+    hint: 卧式底座安装 / 立式 / 法兰安装
+
+  - key: lubrication_type
+    label: 润滑方式
+    group: 环境与约束
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 圆周速度 <12m/s 可浸油润滑，更高需喷油润滑
+
+  # ---- 轴系结构与连接 ----
+  - key: shaft_layout
+    label: 轴系结构方案
+    group: 轴系结构与连接
+    required: true
+    needed_by_stage: scheme_design
+    hint: 输入轴与小齿轮一体或分体；输出轴与大齿轮分体或一体。必须明确传力与定位路径
+
+  - key: axial_positioning
+    label: 轴向定位方案
+    group: 轴系结构与连接
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 固定端/游动端轴承布置、轴肩、隔套、端盖或圆螺母的组合
+
+  - key: shaft_seal_scheme
+    label: 轴伸密封方案
+    group: 轴系结构与连接
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 输入轴和输出轴采用骨架油封、非接触密封或其他结构，并明确规格接口
+
+  - key: input_interface
+    label: 输入端接口
+    group: 轴系结构与连接
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 联轴器类型、轴伸直径、轴伸长度、键连接和允许外部载荷
+
+  - key: output_interface
+    label: 输出端接口
+    group: 轴系结构与连接
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 联轴器或其他输出连接形式、轴伸尺寸、键连接和允许外部载荷
+
+  # ---- 箱体、润滑与热 ----
+  - key: housing_structure
+    label: 箱体结构方案
+    group: 箱体、润滑与热
+    required: true
+    needed_by_stage: scheme_design
+    hint: 剖分面、轴承座、端盖、地脚、定位销、加强筋和结合面密封结构
+
+  - key: fastener_positioning_scheme
+    label: 紧固与定位方案
+    group: 箱体、润滑与热
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 箱盖螺栓、地脚螺栓、定位销、端盖螺栓及轴系轴向锁紧件
+
+  - key: lubrication_scheme
+    label: 润滑方案
+    group: 箱体、润滑与热
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 齿轮润滑、轴承润滑、油品、油位、加油、通气和放油结构
+
+  - key: sealing_scheme
+    label: 箱体结合面密封方案
+    group: 箱体、润滑与热
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 箱盖结合面、轴承端盖和轴伸处的防漏油结构
+
+  - key: thermal_check_requirement
+    label: 热平衡校核要求
+    group: 箱体、润滑与热
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 允许温升、散热条件、效率损失和必要的散热结构
+
+  # ---- 验收判据 ----
+  - key: safety_factor_contact
+    label: 接触疲劳安全系数 S_H
+    group: 验收判据
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 一般可靠度软齿面取 1.0，高可靠度取 1.1~1.25
+
+  - key: safety_factor_bending
+    label: 弯曲疲劳安全系数 S_F
+    group: 验收判据
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 一般取 1.4；断齿后果严重时取 1.6~2.0
+
+  - key: cost_constraint
+    label: 成本约束
+    group: 验收判据
+    required: false
+    needed_by_stage: scheme_design
+    hint: 影响材料与热处理方案、精度等级的选择

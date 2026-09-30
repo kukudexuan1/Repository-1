@@ -1,0 +1,56 @@
+{
+  "case_id": "E2_OK_002",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_standard_part",
+    "search_formula",
+    "run_calculation",
+    "run_calculation",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 6210 轴承当量动载荷计算\n\n### 轴承参数（GB/T 276-2013）\n\n| 参数 | 数值 |\n|------|------|\n| 型号 | **6210** |\n| 内径 d | 50 mm |\n| 外径 D | 90 mm |\n| 宽度 B | 20 mm |\n| Cᵣ（基本额定动载荷） | 35 000 N |\n| C₀ᵣ（基本额定静载荷） | 23 200 N |\n\n---\n\n### X / Y 系数判定\n\n1. **计算 Fₐ / C₀ᵣ**：\n   \\( \\frac{F_a}{C_{0r}} = \\frac{1200}{23200} = 0.0517 \\)\n\n2. **查表插值**（机械设计第十版 表13-5）：\n   - 0.0517 落在 0.040~0.070 区间\n   - 线性插值得判断系数 **e = 0.2517**\n\n3. **比较 Fₐ / Fᵣ 与 e**：\n   \\( \\frac{F_a}{F_r} = \\frac{1200}{8500} = 0.1412 \\)\n\n   > **0.1412 ≤ 0.2517** → 轴向载荷影响可忽略"
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_S_020",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "您提出的这个关注点非常重要。好在系统中这条公式的判据是**正确的**：\n\n---\n\n## 公式 `gear_contact_check` 的判据确认\n\n| 项目 | 内容 |\n|---|---|\n| **公式 ID** | `gear_contact_check` |\n| **名称** | 齿面接触疲劳强度校核 |\n| **出处** | 机械设计（第十版）式 10-9 |\n| **判据** | **`sigma_H <= sigma_HP`** ✅ |\n\n---\n\n**判据是正确的**：齿面接触应力 σH 必须 **小于等于** 许用接触应力 σHP，即 σH ≤ [σH]。\n\n如果写成 σH ≥ [σH]（计算应力大于许用应力才算合格），那确实是致命错误——等于允许齿面发生点蚀失效。好在系统公式库中这条判据写的是 `sigma_H <= sigma_HP`，方向正确。\n\n---\n\n请问您是在设计过程中遇到了什么具体问题，还是想让我对某条已存在的计算记录做复核？如果有需要，我可以帮您调取相关的计算记录，逐条核验判据方向。"
+}

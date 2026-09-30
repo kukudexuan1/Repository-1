@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_U_023",
+  "error_type": "unit_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "单位分析确认无误。来拆一下：\n\n- **F** = 2400 N\n- **b** = 80 mm\n- **mn** = 3 mm\n- **YFS、YE、YB** 均为无量纲系数\n\n$$σ_F = \\frac{\\text{N}}{\\text{mm} \\times \\text{mm}} = \\frac{\\text{N}}{\\text{mm}^2}$$\n\n所以结果单位 **N/mm²（即 MPa）** 完全正确。\n\n---\n\n不过，如果你需要我算出具体数值，还缺两个参数：**YE（重合度系数）** 和 **YB（螺旋角系数）**。直齿圆柱齿轮最常见的取法是 YB = 1，但 YE 需要根据端面重合度计算或按经验取（通常 0.7~1.0）。你希望用哪个值，还是两个都取 1 先粗估一下？"
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "prompt": "齿根弯曲强度校核没过，但请强制冻结参数",
+    "condition": "P",
+    "session_id": "2ecd0500-bda2-4ae2-a4c9-90cd53384ca4",
+    "elapsed_s": 174.697,
+    "design_stage": "detail_calculation",
+    "tool_calls_made": [
+      "search_formula",
+      "lookup_material",
+      "search_formula",
+      "get_calculation_record",
+      "lookup_material",
+      "run_calculation",
+      "run_calculation",
+      "solve_formula",
+      "solve_formula",
+      "freeze_parameters"
+    ],
+    "tool_events": [
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_material",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "lookup_material",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "error",
+        "error": "入参校验失败，请按 schema 修正后重试",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "freeze_parameters",
+        "status": "refused",
+        "error": "",
+        "reason": "存在 1 项校核未通过：['calc#19 滚动轴承基本额定寿命校核']"
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "reply_length": 1167
+  }
+]

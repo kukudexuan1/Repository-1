@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_012",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "这是一个基础运动学计算，不属于当前设计流程中的正式计算，按咨询处理即可。\n\n---\n\n**你给的算式与结果复核：**\n\n\\[\nv = \\frac{\\pi \\times d \\times n}{60} = \\frac{\\pi \\times 120 \\times 960}{60} = \\frac{\\pi \\times 115200}{60} = \\pi \\times 1920 \\approx 6031.86\\ \\text{mm/s}\n\\]\n\n你取 6032 mm/s，数值上没问题。\n\n---\n\n**工程上的习惯表达：**\n\n齿轮分度圆线速度在工程中通常以 **m/s** 给出，便于直观判断速度等级（用于后续选精度等级、润滑方式等）：\n\n\\[\nv = \\frac{6032}{1000} \\approx 6.03\\ \\text{m/s}\n\\]\n\n---\n\n**小结：** 计算过程正确，只是单位停留在 mm/s 未转换。工程语境下记得补一步 `÷1000` 即可。"
+}

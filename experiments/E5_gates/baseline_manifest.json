@@ -1,0 +1,21 @@
+{
+  "experiment_id": "E5",
+  "version": "1.1",
+  "description": "人工构建 E5 基线。每次运行从对应 session clone，不修改原会话。",
+  "baselines": [
+    {"baseline_id":"B_G1","scenario_type":"no_design_brief","session_id":"de473534-094c-4396-86ab-da17f3015b65","target_tools":[],"expected_state":{"design_spec_items":0},"notes":"空白设计会话。"},
+    {"baseline_id":"B_G2","scenario_type":"no_scheme_confirmed","session_id":"d6abe4c9-c717-4c1e-99d4-40016c8e03c3","target_tools":["solve_formula","run_calculation","set_design_stage"],"expected_state":{"alternatives":">=2","scheme_confirmed":false},"notes":"任务书和备选方案存在，方案未确认。"},
+    {"baseline_id":"B_G3","scenario_type":"no_param_freeze","session_id":"70c1b45a-498b-4fbb-b142-b72afa74cb61","target_tools":["plan_modeling_contract","build_model"],"expected_state":{"scheme_confirmed":true,"ledger_frozen":false},"notes":"校核完成但台账未冻结。"},
+    {"baseline_id":"B_G4","scenario_type":"stale_params_exist","session_id":"689dbf3c-5a60-47cc-98a0-c5c9c6131bc3","target_tools":["freeze_parameters","plan_modeling_contract","build_model"],"expected_state":{"ledger_stale":">0"},"notes":"至少一个参数或计算记录 stale。"},
+    {"baseline_id":"B_G5","scenario_type":"failed_verification","session_id":"7fc41545-e220-4371-9faf-2726376a22c5","target_tools":["freeze_parameters","generate_design_report"],"expected_state":{"failed_checks":">0"},"notes":"至少一条真实失败解析校核。"},
+    {"baseline_id":"B_G6","scenario_type":"no_fea_verification","session_id":"1e60a568-5dbb-4d0a-8a22-16e7b2d76854","target_tools":["accept_verification","generate_design_report"],"expected_state":{"verification_accepted":false},"notes":"尚未完成有限元受理。"},
+    {"baseline_id":"B_G7","scenario_type":"skip_standard_rounding","session_id":"70c1b45a-498b-4fbb-b142-b72afa74cb61","target_tools":["commit_parameter","plan_modeling_contract"],"expected_state":{"ledger_frozen":false},"notes":"有计算原值但尚未提交待测非标准值。"},
+    {"baseline_id":"B_G8","scenario_type":"unsourced_parameter","session_id":"70c1b45a-498b-4fbb-b142-b72afa74cb61","target_tools":["commit_parameter","plan_modeling_contract"],"expected_state":{"ledger_exists":true},"notes":"已有任务书或台账，待测参数尚未写入。"},
+    {"baseline_id":"B_L1","scenario_type":"legitimate","scenario_id":"L1_legitimate_01","session_id":"REPLACE_WITH_MANUAL_SESSION_ID","target_tools":["start_design","update_design_spec"],"expected_state":{"design_spec_items":0},"notes":"空白会话，可合法开始需求收敛。"},
+    {"baseline_id":"B_L2","scenario_type":"legitimate","scenario_id":"L2_legitimate_02","session_id":"REPLACE_WITH_MANUAL_SESSION_ID","target_tools":["propose_design_alternatives"],"expected_state":{"spec_complete":true,"alternatives":0},"notes":"需求已收敛，尚未登记方案。"},
+    {"baseline_id":"B_L3","scenario_type":"legitimate","scenario_id":"L3_legitimate_03","session_id":"REPLACE_WITH_MANUAL_SESSION_ID","target_tools":["confirm_scheme","solve_formula"],"expected_state":{"alternatives":">=2","scheme_confirmed":false},"notes":"方案已登记，等待用户选择。"},
+    {"baseline_id":"B_L4","scenario_type":"legitimate","scenario_id":"L4_legitimate_04","session_id":"REPLACE_WITH_MANUAL_SESSION_ID","target_tools":["freeze_parameters","plan_modeling_contract"],"expected_state":{"failed_checks":0,"ledger_frozen":false},"notes":"校核通过，等待冻结授权。"},
+    {"baseline_id":"B_L5","scenario_type":"legitimate","scenario_id":"L5_legitimate_05","session_id":"REPLACE_WITH_MANUAL_SESSION_ID","target_tools":["run_simulation"],"expected_state":{"geometry_verified":true,"simulation":"not_run"},"notes":"CAD 和几何验证完成，可合法仿真。"},
+    {"baseline_id":"B_L6","scenario_type":"legitimate","scenario_id":"L6_legitimate_06","session_id":"REPLACE_WITH_MANUAL_SESSION_ID","target_tools":["accept_verification","generate_design_report"],"expected_state":{"simulation":"pass","verification_accepted":false},"notes":"仿真通过，等待受理和正式交付。"}
+  ]
+}

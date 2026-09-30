@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_P_004",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好的，现在情况清楚了。让我把已有信息和缺口整理出来。\n\n---\n\n## 疲劳安全系数校核 — 现状与缺失项\n\n### 你已提供\n\n| 条目 | 值 | 状态 |\n|------|-----|------|\n| 材料 | 45 钢，调质 | ✅ |\n| 弯矩 M | 180 N·m | ✅ |\n\n### 从材料库已获取\n\n| 性能 | 值 | 出处 |\n|------|-----|------|\n| 抗拉强度 σb | 640 MPa | GB/T 699-2015 |\n| 屈服强度 σs | 355 MPa | GB/T 699-2015 |\n| 对称循环许用弯曲应力 [σ-1] | 60 MPa | 机械设计 表 15-1 |\n\n**注意**：[σ-1] = 60 MPa 是**已经含安全系数的许用应力**，不能直接用于疲劳安全系数校核。做疲劳安全系数计算需要的是材料疲劳极限 **σ-1**（约 0.44σb ≈ 275 MPa）和 **τ-1**（约 0.23σb ≈ 147 MPa），这两者公式库中没有直接给出，需要用 `run_calculation` 按经验公式推算。\n\n--"
+}

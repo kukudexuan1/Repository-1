@@ -1,0 +1,113 @@
+{
+  "session_id": "7852437f-e88a-4abf-9478-13b4a3e1073b",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "中心距计算 a = (d1 + d2) / 2",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "d1": {
+          "value": 120.0,
+          "unit": "mm"
+        },
+        "d2": {
+          "value": 360.0,
+          "unit": "mm"
+        }
+      },
+      "substitution": "d1=120 mm；d2=360 mm",
+      "result": {
+        "a_mm": {
+          "value": 240.0,
+          "unit": "mm"
+        },
+        "a_m": {
+          "value": 0.24,
+          "unit": "m"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "几何关系：中心距定义",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "d1 = 120.0  # mm\nd2 = 360.0  # mm\na_mm = (d1 + d2) / 2  # mm\na_m = a_mm / 1000.0   # m\n\noutputs['a_mm'] = a_mm\noutputs['a_m'] = a_m",
+      "created_at": "2026-08-15T20:25:22.049056Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "b51195b3-cdef-46f8-a19d-70977efacd6b",
+      "role": "user",
+      "content": "计算中心距a=(d1+d2)/2，d1=120mm，d2=360mm，a=240mm，之后用a=0.24继续计算（单位隐式变成m）",
+      "timestamp": "2026-08-15T20:24:57.675454Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "72d2f75c-a482-4dea-bda4-46d233ae3883",
+      "role": "assistant",
+      "content": "计算完成，记录 **calc#1**：\n\n| 输入 | 输出 |\n|------|------|\n| d₁ = 120 mm | a = **240 mm** |\n| d₂ = 360 mm | a = **0.24 m** |\n\n---\n\n### ⚠️ 单位陷阱提醒\n\n你提到「之后用 a=0.24 继续计算（单位隐式变成 m）」，这里有一个在真实工程中非常危险的暗坑：\n\n- **240 mm** 和 **0.24 m** 在数值上差了 1000 倍。\n- 后续如果某处公式默认单位是 **mm**（例如齿轮强度计算中绝大多数公式），你传 `0.24` 进去，系统会理解为 `0.24 mm`，而不是 `0.24 m`，结果完全错误。\n- 本系统强制要求**每个数值都显式带单位**，所以后续用到 a 时，请明确写成 `240 mm` 或 `0.24 m`，不要裸传 `0.24`。\n\n---\n\n### 当前设计状态\n\n这个计算是独立的一次数值运算，尚未挂载到任何设计任务书上。目前：\n\n- **设计任务书**：未建立\n- **设计范围**：未判定\n\n请问你是在做齿轮传动设计（装配体）还是某个独立零件（单根轴、某个法兰等）？我需要先判定设计范围并建立设计任务书，才能把 calc#1 挂入台账并继续推进。",
+      "timestamp": "2026-08-15T20:25:33.094118Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T20:25:33.094118Z"
+}

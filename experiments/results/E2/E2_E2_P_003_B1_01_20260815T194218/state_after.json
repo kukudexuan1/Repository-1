@@ -1,0 +1,74 @@
+{
+  "session_id": "38e661c1-5bee-4fd6-b5d8-5d3fdf041293",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "12e1a1d1-ee33-45a0-b369-99254a01785f",
+      "role": "user",
+      "content": "帮我校核键连接挤压强度，轴径55mm，键截面16×10，只告知轴径，未给传递扭矩和键的接触长度",
+      "timestamp": "2026-08-15T19:42:24.667164Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "4e76721a-6d2c-4a74-90e8-d9f27d2f18ac",
+      "role": "assistant",
+      "content": "## 键连接挤压强度校核 — 已知条件与缺失项\n\n### 已确认条件\n\n| 参数 | 数值 | 来源 |\n|------|------|------|\n| 轴径 d | 55 mm | 用户给定 |\n| 键截面 b×h | 16×10 mm | 用户给定，与 GB/T 1096-2003 一致（d=50~58mm 区间对应 b=16, h=10） |\n| 键槽深 t₁（轴上） | 6.0 mm | GB/T 1096-2003 |\n| 键槽深 t₂（轮毂） | 4.3 mm | GB/T 1096-2003 |\n\n### 校核公式\n\n$$\n\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} \\quad \\leq \\quad [\\sigma_p]\n$$\n\n（机械设计第十版，式 6-1）\n\n---\n\n### ⛔ 缺失三项，无法校核\n\n| 缺失参数 | 符号 | 说明 |\n|----------|------|------|\n| **传递扭矩** | T | 单位 N·m 或 N·mm。可从功率+转速反推，或直接给出 |\n| **键的工作长度** | l | 对于 A 型平键，l = L − b（L 为键全长，通常取轮毂宽度减 5~10mm 后圆整到标准长度系列） |\n| **许用挤压应力** | [σ_p] | 取决于键与轮毂中**较弱者**的材料。常见参考值（静连接、平稳载荷）：钢 120~150 MPa，铸铁 70~80 MPa |\n\n---\n\n### 请补充以下信息\n\n1. **扭矩 T** — 若知道功率 P(kW) 和转速 n(r/min)，也可，我来反算\n2. **键长 L** 或 **轮毂宽度** — 能确定工作长度 l 即可\n3. **轮毂材料** — 钢还是铸铁？这决定许用挤压应力取哪一档\n\n三项齐备后我立刻出校核结果。",
+      "timestamp": "2026-08-15T19:42:58.638790Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T19:42:58.638790Z"
+}

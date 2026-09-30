@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_016",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "list_design_families",
+    "set_design_scope",
+    "start_design",
+    "update_design_spec"
+  ],
+  "tool_events": [
+    {
+      "name": "list_design_families",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "set_design_scope",
+      "status": "ok",
+      "error": "",
+      "reason": "减速器包含齿轮副、输入轴、输出轴、轴承、键、箱体等多个需配合的零件，属于装配体设计。"
+    },
+    {
+      "name": "start_design",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "update_design_spec",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好的，已录入 **输入功率 P1 = 7.5 kW**。\n\n当前阶段还有 **5 个必填项缺失**，我必须一次性问清才能继续推进。以下是我整理的问题：\n\n---\n\n## 🔍 设计输入澄清（5 项必填）\n\n**① 输入转速（电动机满载转速）**  \n常见值：4 极电机约 **1440 r/min**，6 极电机约 **960 r/min**，8 极电机约 **720 r/min**。  \n→ 你的电动机是几极？输入转速是多少？\n\n**② 传动比**  \n单级圆柱齿轮推荐范围 **3~6**（超过 6 应改用两级，否则大齿轮过大、结构不紧凑）。  \n→ 你需要的传动比是多少？或输出转速是多少（我可以反推）？\n\n**③ 载荷性质**  \n直接影响齿轮载荷系数 K 和轴承寿命计算。  \n→ 工作机类型是什么？载荷属于以下哪种？  \n\n| 选项 | 载荷性质 | 典型工况 |\n|------|---------|---------|\n| A | 平稳 | 带式输送机（均匀给料）、发电机、离心泵 |\n| B | 轻微冲击 | 带式输送机（不均匀给料）、搅拌机、一般机床 |\n| C | 中等冲击 |"
+}

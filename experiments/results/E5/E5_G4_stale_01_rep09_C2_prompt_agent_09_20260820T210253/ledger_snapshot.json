@@ -1,0 +1,634 @@
+{
+  "entries": {
+    "P_in": {
+      "symbol": "P_in",
+      "name": "输入功率",
+      "value": {
+        "value": 4.5,
+        "unit": "kW"
+      },
+      "source": "user_given",
+      "basis": [
+        "设计任务书 transmitted_power（任务步骤6：演示依赖失效传播，临时修改输入值）"
+      ],
+      "rationale": "按任务要求步骤6修改输入参数，验证 P_in 的修改使依赖该输入的计算记录与参数被标记为 stale；不进行恢复重算",
+      "status": "tentative",
+      "group": "总体",
+      "revision": 2,
+      "superseded_value": "4 kW",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:33:59.098442Z"
+    },
+    "n_in": {
+      "symbol": "n_in",
+      "name": "输入转速",
+      "value": {
+        "value": 1440.0,
+        "unit": "r/min"
+      },
+      "source": "user_given",
+      "basis": [
+        "设计任务书 input_speed"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:26:26.591756Z"
+    },
+    "i_total": {
+      "symbol": "i_total",
+      "name": "传动比",
+      "value": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "source": "user_given",
+      "basis": [
+        "设计任务书 total_ratio"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:26:26.591756Z"
+    },
+    "L_h": {
+      "symbol": "L_h",
+      "name": "设计寿命",
+      "value": {
+        "value": 48000.0,
+        "unit": "hour"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#1"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:26:26.591756Z"
+    },
+    "T_1": {
+      "symbol": "T_1",
+      "name": "输入轴转矩",
+      "value": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#2"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#2 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098442Z"
+    },
+    "sigma_HP": {
+      "symbol": "sigma_HP",
+      "name": "许用接触应力（取小值）",
+      "value": {
+        "value": 550.0,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#3"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:06.928504Z"
+    },
+    "sigma_FP_pinion": {
+      "symbol": "sigma_FP_pinion",
+      "name": "小齿轮许用弯曲应力",
+      "value": {
+        "value": 150.0,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#3"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:06.928504Z"
+    },
+    "sigma_FP_gear": {
+      "symbol": "sigma_FP_gear",
+      "name": "大齿轮许用弯曲应力",
+      "value": {
+        "value": 135.71,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#3"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:06.929582Z"
+    },
+    "phi_d": {
+      "symbol": "phi_d",
+      "name": "齿宽系数",
+      "value": {
+        "value": 1.0,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "机械设计（第十版）表10-7：对称布置 φd=0.9~1.4，取 1.0"
+      ],
+      "rationale": "单级减速器齿轮对称布置于两轴承之间，软齿面取 φd=1.0，兼顾承载与齿宽",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:06.929582Z"
+    },
+    "eta": {
+      "symbol": "eta",
+      "name": "传动效率",
+      "value": {
+        "value": 0.97,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "单级圆柱齿轮+滚动轴承效率惯用值"
+      ],
+      "rationale": "单级直齿圆柱齿轮啮合效率约0.97~0.98、两对滚动轴承约0.98、油封约0.99，综合取 η=0.97",
+      "status": "tentative",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:06.929582Z"
+    },
+    "T_2": {
+      "symbol": "T_2",
+      "name": "输出轴转矩",
+      "value": {
+        "value": 102927.79,
+        "unit": "N*mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#4"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#4 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098442Z"
+    },
+    "z_1": {
+      "symbol": "z_1",
+      "name": "小齿轮齿数",
+      "value": {
+        "value": 20.0,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：20≥17 避免根切，兼顾重合度与齿轮轴结构"
+      ],
+      "rationale": "标准渐开线直齿轮最小齿数 17，取 z1=20 可避免根切，且与 m=2 组合得标准中心距 100 mm",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:33.956766Z"
+    },
+    "z_2": {
+      "symbol": "z_2",
+      "name": "大齿轮齿数",
+      "value": {
+        "value": 80.0,
+        "unit": ""
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#6"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#6 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098442Z"
+    },
+    "m": {
+      "symbol": "m",
+      "name": "齿轮模数",
+      "value": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1357-2008"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:27:50.658235Z"
+    },
+    "d_1": {
+      "symbol": "d_1",
+      "name": "小齿轮分度圆直径",
+      "value": {
+        "value": 40.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#7"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#7 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098948Z"
+    },
+    "d_2": {
+      "symbol": "d_2",
+      "name": "大齿轮分度圆直径",
+      "value": {
+        "value": 160.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#7"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#7 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098948Z"
+    },
+    "a": {
+      "symbol": "a",
+      "name": "标准中心距",
+      "value": {
+        "value": 100.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#7"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#7 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098948Z"
+    },
+    "b_2": {
+      "symbol": "b_2",
+      "name": "大齿轮齿宽",
+      "value": {
+        "value": 40.0,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#7",
+        "工程惯例齿宽取整"
+      ],
+      "rationale": "",
+      "status": "stale",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "依据 calc#7 已失效（P_in 由 4 kW 改为 4.5 kW）",
+      "updated_at": "2026-08-19T07:33:59.098948Z"
+    },
+    "b_1": {
+      "symbol": "b_1",
+      "name": "小齿轮齿宽",
+      "value": {
+        "value": 45.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：小齿轮齿宽比大齿轮宽 5~10mm，补偿轴向装配误差"
+      ],
+      "rationale": "小齿轮齿宽 b1=b2+5=45 mm，保证啮合宽度沿轴向可靠覆盖",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:28:32.157184Z"
+    },
+    "K_H": {
+      "symbol": "K_H",
+      "name": "接触强度载荷系数",
+      "value": {
+        "value": 1.3,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "机械设计（第十版）表10-2：轻微冲击 K_A≈1.1，试算载荷系数 K_Ht 取 1.3"
+      ],
+      "rationale": "轻微冲击工况，接触计算载荷系数取 K_H=1.3（公式默认试算值）",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:28:53.810419Z"
+    },
+    "K_F": {
+      "symbol": "K_F",
+      "name": "弯曲强度载荷系数",
+      "value": {
+        "value": 1.5,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "机械设计（第十版）§10.5：弯曲载荷系数 K_F 常用 1.3~2.0，取 1.5"
+      ],
+      "rationale": "软齿面直齿、轻微冲击，弯曲计算载荷系数取 K_F=1.5",
+      "status": "tentative",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:28:53.810419Z"
+    },
+    "A_0": {
+      "symbol": "A_0",
+      "name": "轴径初估系数",
+      "value": {
+        "value": 112.0,
+        "unit": ""
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 699-2015（45 钢调质）"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:29:23.207402Z"
+    },
+    "d_shaft1_min": {
+      "symbol": "d_shaft1_min",
+      "name": "输入轴最小轴径",
+      "value": {
+        "value": 17.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 2822-2005"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:30:43.033633Z"
+    },
+    "d_shaft2_min": {
+      "symbol": "d_shaft2_min",
+      "name": "输出轴最小轴径",
+      "value": {
+        "value": 26.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 2822-2005"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:30:52.907984Z"
+    },
+    "f_p": {
+      "symbol": "f_p",
+      "name": "轴承载荷系数",
+      "value": {
+        "value": 1.2,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [
+        "机械设计（第十版）表13-6：轻微冲击 f_p=1.0~1.2，取 1.2"
+      ],
+      "rationale": "轻微冲击工况轴承载荷系数取 f_p=1.2",
+      "status": "tentative",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:31:07.168563Z"
+    },
+    "bearing_input": {
+      "symbol": "bearing_input",
+      "name": "输入轴轴承",
+      "value": {
+        "value": 6205.0,
+        "unit": ""
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "轴颈 25 mm，深沟球轴承 6205，轻系列，径向承载满足要求",
+      "status": "tentative",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:31:27.449859Z"
+    },
+    "bearing_output": {
+      "symbol": "bearing_output",
+      "name": "输出轴轴承",
+      "value": {
+        "value": 6206.0,
+        "unit": ""
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "轴颈 30 mm，深沟球轴承 6206，轻系列，径向承载满足要求",
+      "status": "tentative",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:31:27.451035Z"
+    },
+    "d_gear_seat": {
+      "symbol": "d_gear_seat",
+      "name": "输出轴齿轮安装处直径",
+      "value": {
+        "value": 35.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：齿轮毂孔直径，配合 6206 轴承肩与 10×8 键"
+      ],
+      "rationale": "输出轴齿轮段取 35 mm，形成轴承座（30）→齿轮段（35）的轴肩定位",
+      "status": "tentative",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:31:47.048527Z"
+    },
+    "key_gear": {
+      "symbol": "key_gear",
+      "name": "输出轴齿轮键",
+      "value": {
+        "value": 10.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "齿轮段 d=35mm，选 A 型平键 10×8，键长 L=32mm（小于齿轮毂宽 40mm，圆整到标准系列）",
+      "status": "tentative",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:32:13.671182Z"
+    },
+    "key_coupling": {
+      "symbol": "key_coupling",
+      "name": "输入轴联轴器键",
+      "value": {
+        "value": 5.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "联轴器端 d=17mm，选 A 型平键 5×5，键长 L=20mm",
+      "status": "tentative",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:32:13.671182Z"
+    },
+    "sigma_pP": {
+      "symbol": "sigma_pP",
+      "name": "键许用挤压应力",
+      "value": {
+        "value": 100.0,
+        "unit": "MPa"
+      },
+      "source": "design_choice",
+      "basis": [
+        "机械设计（第十版）表6-2：钢键连接、轻微冲击 [σ_p]=100~120 MPa，取 100"
+      ],
+      "rationale": "钢轴+钢齿轮毂、轻微冲击，取许用挤压应力 [σ_p]=100 MPa（偏安全）",
+      "status": "tentative",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:32:13.672242Z"
+    },
+    "L_span": {
+      "symbol": "L_span",
+      "name": "输出轴轴承跨距",
+      "value": {
+        "value": 120.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "设计选择：输出轴两轴承间跨距，按齿轮宽+两侧间隙+轴承宽估计"
+      ],
+      "rationale": "齿轮居中布置，跨距取 L=120 mm，用于弯扭合成弯矩估算",
+      "status": "tentative",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:33:00.047409Z"
+    },
+    "sigma_minus1_shaft": {
+      "symbol": "sigma_minus1_shaft",
+      "name": "轴材料对称循环许用弯曲应力",
+      "value": {
+        "value": 60.0,
+        "unit": "MPa"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 699-2015（45 钢调质）"
+      ],
+      "rationale": "",
+      "status": "tentative",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T07:33:00.048484Z"
+    }
+  },
+  "frozen_at": null,
+  "freeze_statement": ""
+}

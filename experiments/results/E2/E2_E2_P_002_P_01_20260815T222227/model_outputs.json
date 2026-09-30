@@ -1,0 +1,18 @@
+{
+  "case_id": "E2_P_002",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "model_judgment",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_standard_part",
+    "search_formula",
+    "solve_formula",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "好的，现在情况已经清楚了。先汇报已做的工作，然后说明缺什么。\n\n---\n\n## 当前进度\n\n**已知条件：**\n- 轴径：50 mm\n- 径向载荷：Fr = 8500 N\n- 轴向载荷：未提及（暂按纯径向 Fa=0 处理）\n\n**已算出的量：**\n\n| 量 | 值 | 说明 |\n|---|---|---|\n| 当量动载荷 P_eq | **10,200 N** | 取载荷系数 f_p=1.2（中等冲击惯用值），纯径向 (X=1, Y=0) |\n\n**轴径 50mm 深沟球轴承候选（GB/T 276-2013）：**\n\n| 代号 | 内径 | 外径 | 宽度 | 基本额定动载荷 C_r | 基本额定静载荷 C_0r |\n|---|---|---|---|---|---|\n| **6210** | 50 | 90 | 20 | 35,000 N | 23,200 N |\n| **6310** | 50 | 110 | 27 | 61,800 N | 38,000 N |\n\n---\n\n## ⚠️ 阻塞项：缺两个关键参数，无法完成选型\n\n轴承寿命公式是：\n\n> L₁₀h = (10⁶ / 60"
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_011",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果确认：\n\n---\n\n**45 钢调质轴许用弯曲疲劳应力**\n\n| 参数 | 符号 | 数值 | 来源 |\n|------|------|------|------|\n| 抗拉强度 | σb | 600 MPa | 用户给定 |\n| 对称循环弯曲疲劳极限 | σ-1 | 255 MPa | 用户给定 |\n| 安全系数 | S | 1.5 | 用户给定 |\n| **许用弯曲疲劳应力** | **[σ-1]** | **170 MPa** | calc#1 |\n\n计算依据：《机械设计》（第十版）§15.3，轴的许用弯曲应力取对称循环弯曲疲劳极限除以安全系数。\n\n> calc#1：`[σ-1] = σ-1 / S = 255 / 1.5 = 170 MPa`\n\n---\n\n你的计算正确。这个 170 MPa 将用于后续轴的弯扭合成强度校核（`shaft_combined_stress_check`，公式 ID `shaft_combined_stress_check`）中作为许用应力判据。\n\n如果你现在是要开始一项正式的轴设计任务，我可以帮你建立设计任务书、走完整的设计计算流程。需要吗？"
+}

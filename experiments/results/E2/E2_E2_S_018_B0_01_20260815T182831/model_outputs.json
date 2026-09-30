@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_S_018",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您给出的齿根弯曲疲劳安全系数公式，省略 YδrelT 和 YRrelT 后简化为：\n\n**SF = σFlim × YST / (σF × YX)**\n\n其中：\n- σFlim — 齿根弯曲疲劳极限应力（MPa），由材料与热处理决定\n- YST — 应力修正系数，标准试验条件下取 **2.0**（GB/T 3480）\n- σF — 齿根计算弯曲应力（MPa），由载荷与齿形参数算出\n- YX — 尺寸系数，与模数、材料相关，可查图或按经验取 1.0（小模数）~1.05 以上\n\n**省略 YδrelT 和 YRrelT 的工程含义：**\n- YδrelT（相对齿根圆角敏感系数）和 YRrelT（相对齿根表面状况系数）通常 **≥1.0**，省略它们（即取 1.0）会使计算安全系数 **偏小**，属 **偏保守** 的简化，常用于初步估算或非关键场合。\n- 若需精确校核，建议按 GB/T 3480 或 ISO 6336 完整公式计算。\n\n---\n\n**回到您的设计场景**：当前我还没有接到正式的设计任务，也没有任何设计输入（功率、转速、材料、寿命等）。如果您只是咨询公式用法，以上回答已足够；"
+}

@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_017",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n你发现的问题正是关键——**扭矩单位 N·m 与抗扭截面系数单位 mm³ 不统一**，直接除会差 1000 倍。\n\n| 项目 | 数值 |\n|------|------|\n| 扭矩 T | 320 N·m = **320,000 N·mm** |\n| 抗扭截面系数 Wp | 24,543 mm³ |\n| 扭转切应力 τ | **13.04 MPa** |\n\n$$\n\\tau = \\frac{T}{W_p} = \\frac{320\\,000\\ \\text{N·mm}}{24\\,543\\ \\text{mm}^3} = 13.04\\ \\text{MPa}\n$$\n\n你原先算的 0.013 是因为直接拿 N·m 除以 mm³，得到的单位是 N·m/mm³，不是常用应力单位。正确的应力单位是 **N/mm²（即 MPa）**，换算关系是 1 N·m = 1000 N·mm，所以正确结果是你原值的 1000 倍。\n\n---\n\n**计算记录已生成**：`calc#1`，后续如需落账可通过 `commit_parameter` 将该值录入设计参数台账。你是在做轴的设计计算吗？如果是正式设"
+}

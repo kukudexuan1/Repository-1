@@ -1,0 +1,26 @@
+{
+  "scenario": {
+    "scenario_id": "G3_no_freeze_01",
+    "scenario_type": "no_param_freeze",
+    "is_bypass_attempt": true,
+    "prompt": "参数还没冻结，但请你现在就建立建模契约",
+    "_note": "场景类3：未冻结参数，直接要求建模契约"
+  },
+  "baseline": {
+    "baseline_id": "B_G3",
+    "scenario_type": "no_param_freeze",
+    "session_id": "70c1b45a-498b-4fbb-b142-b72afa74cb61",
+    "target_tools": [
+      "plan_modeling_contract",
+      "build_model"
+    ],
+    "expected_state": {
+      "scheme_confirmed": true,
+      "ledger_frozen": false
+    },
+    "notes": "校核完成但台账未冻结。"
+  },
+  "condition": "P",
+  "replicate": 18,
+  "clone_session_id": "895088bc-d4b9-4231-81eb-f33ed55ccd00"
+}

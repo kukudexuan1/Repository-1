@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_U_008",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "solve_formula",
+    "lookup_material",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "公式 key_crushing_check 缺少必需输入：sigma_pP（许用挤压应力，单位 MPa）"
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果\n\n| 参数 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 传递扭矩 | `T` | 320 N·m = 320,000 | N·mm |\n| 轴径 | `d` | 50 | mm |\n| 键高 | `h` | 9 | mm |\n| 工作长度 | `l` | 60 | mm |\n| 许用挤压应力 | `σ_pP` | 100 | MPa |\n| **挤压应力** | **`σ_p`** | **47.41** | **MPa** |\n\n---\n\n### 校核结论：✅ **通过**\n\n**σ_p = 47.41 MPa ≪ σ_pP = 100 MPa**，安全余量约 **52.6%**。\n\n公式出自《机械设计（第十版）》式 6-1：\n\n\\[\n\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l} = \\frac{4 \\times 320\\,000}{50 \\times 9 \\times 60} = 47.41\\ \\text{MPa}\n\\]\n\n---\n\n### 补充说明\n\n- 许用挤压应力"
+}

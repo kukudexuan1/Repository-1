@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_003",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "lookup_material",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 键挤压强度校核结果\n\n| 项目 | 数值 |\n|------|------|\n| 传递扭矩 T | 420 N·m = 420000 N·mm |\n| 轴径 d | 55 mm |\n| 键高 h | 9 mm |\n| 工作长度 l_w | 60 mm |\n| **计算挤压应力 σ_p** | **56.57 MPa** |\n| 许用挤压应力 σ_pP | 120 MPa（暂按钢轮毂静载） |\n| **判据：σ_p ≤ σ_pP** | ✅ **通过** |\n| **安全余量** | **52.9%** |\n\n---\n\n### ⚠️ 需要你确认的两个假设\n\n1. **扭矩 T = 420 的单位**：我按 **N·m** 代入。若为 420 N·m，则 56.57 MPa，余量充裕。若为 420 **kgf·m**（≈ 4120 N·m），挤压应力会飙到 ~555 MPa，远超许用值——请确认单位。\n\n2. **许用挤压应力 σ_pP = 120 MPa**：这是按钢制轮毂、静载荷取的工程惯用值。若轮毂为铸铁，许用值仅 70~80 MPa，但仍能通过（余量约 24%）。若"
+}

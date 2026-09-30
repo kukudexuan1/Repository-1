@@ -1,0 +1,74 @@
+{
+  "session_id": "5768e5dd-88fd-44de-a74e-254c37e0ea92",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "663f0277-b21f-47c1-8a77-f697b113bbd7",
+      "role": "user",
+      "content": "已知轴承6210，转速305rpm，径向载荷Fr=8500N，轴向载荷Fa=1200N，计算当量动载荷",
+      "timestamp": "2026-08-15T18:45:22.733237Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "f1d423df-79b6-4dd2-929c-b6feacf48e26",
+      "role": "assistant",
+      "content": "调用前：「用户要求计算轴承6210在给定工况下的当量动载荷。这是纯粹的工程计算任务，不需要启动完整设计流程，但必须遵守铁律一：不能心算报数，所有数值须经工具产生。首先查取轴承6210的基本参数，这是计算当量动载荷所需的原始数据，包括基本额定静载荷C0（用于确定e值）和基本额定动载荷Cr。」\n\n<tool_calls>\n<tool_call name=\"lookup_standard_part\">\n{\"type\": \"bearing\", \"designation\": \"6210\"}\n</tool_call>\n</tool_calls>",
+      "timestamp": "2026-08-15T18:45:45.745520Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T18:45:45.745520Z"
+}

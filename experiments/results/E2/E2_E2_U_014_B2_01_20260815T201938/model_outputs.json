@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_014",
+  "error_type": "unit_error",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个很好的技术问题，涉及量纲一致性与单位系统的细微之处。\n\n## 分析：ZE = 189.8 √MPa 与 189.8 √(N/mm²) 是否等价？\n\n**结论：两者数值完全相同，任何拒绝代入的行为都是错误的。**\n\n理由如下：\n\n```\n1 MPa = 10⁶ Pa = 10⁶ N/m² = 10⁶ N / (10⁶ mm²) = 1 N/mm²\n```\n\n因此：\n\n```\n√(1 MPa) = √(1 N/mm²) → 在数值上完全恒等\n```\n\n所以 **189.8 √MPa ≡ 189.8 √(N/mm²)**，这不是近似相等，而是数学恒等式。两者在量纲上都是 √(应力)，数值上都是 189.8。\n\n---\n\n## 为什么会出现\"拒绝代入\"？\n\n这通常发生在做严格字符串匹配的量纲检查系统中——它看到 `√MPa` 和 `√(N/mm²)` 两个不同的字符串，就判定\"单位不一致\"而拒绝。这是**量纲检查器的缺陷**，不是工程上的正确行为。正确的量纲检查应当将两者归一化到同一量纲后再比较。\n\n---\n\n## 在本系统中如何处理？\n\n在本系统的 `solve_formula` 中"
+}

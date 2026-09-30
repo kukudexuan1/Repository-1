@@ -1,0 +1,108 @@
+{
+  "session_id": "104d36f7-8622-4b77-86d4-bdcf4b755cae",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "轴承寿命载荷比计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "ratio": {
+          "value": 3.764705882352941,
+          "unit": "无量纲"
+        },
+        "ratio_cubed": {
+          "value": 53.357215550580094,
+          "unit": "无量纲"
+        },
+        "L10h_coefficient": {
+          "value": 889286.9258430016,
+          "unit": "hour·r/min"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 13-5",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "C_r = 32000.0  # N\nP_eq = 8500.0  # N\nepsilon = 3.0  # 球轴承\nf_t = 1.0      # 温度系数，常温\n\nratio = f_t * C_r / P_eq\nratio_cubed = ratio ** epsilon\n\noutputs['ratio'] = ratio\noutputs['ratio_cubed'] = ratio_cubed\noutputs['L10h_coefficient'] = 1e6 / 60.0 * ratio_cubed",
+      "created_at": "2026-08-15T21:11:28.093403Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "4feeda24-d780-411d-8f7d-87fc4ecd7b9c",
+      "role": "user",
+      "content": "校核轴承寿命，只给了额定动载荷C=32000N，载荷P=8500N，未给转速",
+      "timestamp": "2026-08-15T21:10:52.615609Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "3d36752d-ff20-4e69-9741-30d948f39701",
+      "role": "assistant",
+      "content": "计算结果出来了。把公式拆开来看：\n\n---\n\n## 轴承寿命校核 —— 当前进度\n\n**已知条件：**\n- 基本额定动载荷 C_r = 32 000 N\n- 当量动载荷 P_eq = 8 500 N\n- 温度系数 f_t = 1.0（常温，默认）\n- 寿命指数 ε = 3.0（球轴承）\n\n**载荷比：**\n$$\\frac{C_r}{P_{eq}} = \\frac{32000}{8500} = 3.765$$\n\n$$\\left(\\frac{C_r}{P_{eq}}\\right)^3 = 53.36$$\n\n**寿命表达式：**\n$$L_{10h} = \\frac{10^6}{60 \\cdot n} \\times 53.36 = \\frac{889\\,287}{n} \\quad \\text{(小时)}$$\n\n---\n\n## 还需要你补充两个参数\n\n| # | 参数 | 符号 | 说明 |\n|---|------|------|------|\n| 1 | **轴承转速** | n (r/min) | 给定后 L_10h 就能直接算出 |\n| 2 | **要求寿命** | L_h_required (h) | 判据——比如通用减速器一般 8 000~30 000 h，矿山机械 5 000~10 000 h，铁路车辆 100 万 km 等效 |\n\n---\n\n举个例子方便你判断：如果 n = 960 r/min，则 L_10h ≈ 889 287 / 960 ≈ **926 小时**——这个数对一般工业设备偏短。如果 n = 200 r/min，则 L_10h ≈ **4 446 小时**。\n\n请给出转速和要求寿命，我马上完成校核。",
+      "timestamp": "2026-08-15T21:11:40.833706Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:11:40.833706Z"
+}

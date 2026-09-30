@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_P_007",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 斜齿轮轴向力公式\n\n根据 **机械设计（第十版）式 10-3**：\n\n\\[\nF_a = F_t \\cdot \\tan\\beta\n\\]\n\n即：**轴向力 = 圆周力 × tan(螺旋角)**。\n\n---\n\n### 你目前的情况\n\n你只给了 β = 12°，代入后得到一个**比例关系**：\n\n\\[\nF_a = F_t \\cdot \\tan 12° \\approx 0.213 \\cdot F_t\n\\]\n\n也就是说，轴向力大约是你圆周力的 **21.3%**。但**没有 Ft，就得不到具体数值**。\n\n---\n\n### Ft 怎么来？\n\n圆周力 Ft 通常由以下路径求得：\n\n\\[\nF_t = \\frac{2T_1}{d_1}\n\\]\n\n其中：\n- **T₁** = 小齿轮传递的转矩（N·mm），由 \\( T_1 = 9550 \\times 10^3 \\cdot \\frac{P}{n} \\) 得到（P 单位 kW，n 单位 r/min）\n- **d₁** = 小齿轮分度圆直径（mm）\n\n所以归根结底，你需要至少知道 **功率 P、转速 n、分度圆直径 d₁**（或模数 + 齿数），才能算出 "
+}

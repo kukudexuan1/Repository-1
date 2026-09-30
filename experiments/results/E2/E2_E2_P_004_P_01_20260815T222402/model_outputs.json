@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_P_004",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "list_design_families",
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "set_design_scope",
+    "start_design",
+    "update_design_spec",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "好的，现在情况清楚了。让我把问题摊开来说。\n\n---\n\n## 当前状态\n\n你给的条件是：**45钢调质轴，M=180 N·m，要做疲劳安全系数校核**。但疲劳精确校核（《机械设计》§15.3 的弯扭复合疲劳安全系数校核）需要的输入远不止这些。下面是缺失清单：\n\n---\n\n### 做疲劳安全系数校核，还需要以下信息：\n\n| # | 缺失项 | 为什么需要 | \n|---|--------|-----------|\n| ① | **扭矩 T** | 疲劳校核是弯扭复合的：S_σ 算弯曲、S_τ 算扭转，再合成综合安全系数 S。没有 T 只能做纯弯曲疲劳校核，无法做复合校核 |\n| ② | **危险截面轴径 d** | 计算抗弯/抗扭截面系数必须用（W = πd³/32，W_T = πd³/16） |\n| ③ | **应力集中源** | 键槽？圆角过渡？过盈配合？横向孔？——不同结构对应不同的 k_σ、k_τ，差异可达 1.5~3 倍，对安全系数影响极大 |\n| ④ | **弯矩和扭矩各自的变化性质** | 对称循环？脉动循环？——决定 σ_a/σ_m 和 τ_a/τ_m 的分配，以及平均应"
+}

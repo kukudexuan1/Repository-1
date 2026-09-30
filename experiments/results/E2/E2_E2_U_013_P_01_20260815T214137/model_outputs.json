@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_013",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下：\n\n---\n\n## 轴承当量动载荷计算\n\n**公式**（机械设计（第十版）式 13-8a）：\n\n\\[\nP_{eq} = f_p \\cdot (X \\cdot F_r + Y \\cdot F_a)\n\\]\n\n| 符号 | 含义 | 取值 | 来源 |\n|------|------|------|------|\n| **f_p** | 载荷系数 | **1.2** | 默认值（轻微冲击），你未提供 |\n| **X** | 径向载荷系数 | **0.56** | 你给定 |\n| **Y** | 轴向载荷系数 | **1.45** | 你给定 |\n| **F_r** | 径向载荷 | **8500 N** | 你给定 |\n| **F_a** | 轴向载荷 | **1200 N** | 你给定（1.2 kN 统一为 N） |\n\n代入过程：\n\n\\[\n\\begin{aligned}\nX \\cdot F_r &= 0.56 \\times 8500 = 4760 \\text{ N} \\\\\nY \\cdot F_a &= 1.45 \\times 1200 = 1740 \\text{ N} \\\\\n"
+}

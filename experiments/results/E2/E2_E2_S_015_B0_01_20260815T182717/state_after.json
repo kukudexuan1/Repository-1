@@ -1,0 +1,74 @@
+{
+  "session_id": "2e7d27f9-bed5-4f0a-bfb1-76290ffd213b",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "ed7e612f-d98b-4a18-8e2d-c0644b8ec7b2",
+      "role": "user",
+      "content": "斜齿轮法向齿形系数YFn查表时用端面压力角αt而非法向压力角αn",
+      "timestamp": "2026-08-15T18:27:23.753525Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "4a7eb4ae-8d81-4e0b-add7-b8c303721e95",
+      "role": "assistant",
+      "content": "这是一个很好的问题，涉及到斜齿轮强度计算中齿形系数查表时的一个关键细节。\n\n**结论：用端面压力角 αt 查取法向齿形系数 YFn，是正确的，也是必需的。**\n\n这是因为齿形系数本质上反映的是齿根弯曲应力与齿形几何的关系，而斜齿轮的弯曲强度计算，虽然名义上是按“法面”当量齿轮来近似，但**当量齿轮的齿形是依据端面参数确定的**。\n\n具体解释如下：\n\n1.  **当量齿轮的建立基础**  \n    斜齿轮在法向剖切时，齿廓并非渐开线。为了能用直齿轮的齿形系数表，我们引入**当量齿轮**的概念：以斜齿轮的法面参数（mn、αn）为基准，虚构一个直齿轮，其齿数等于当量齿数 zv = z / cos³β。  \n    这个当量齿轮的模数是 mn，**压力角仍然是法向压力角 αn**。所以，在法面当量齿轮上，齿形系数似乎应该用 αn 查？\n\n2.  **为什么实际查表用 αt 而不是 αn？**  \n    这里的关键在于：**标准齿形系数表（如 GB/T 3480 或 AGMA 标准）在编制时，用于实验或理论计算的基准齿条，其压力角就是端面压力角 αt，而不是 αn。**  \n    或者说，斜齿轮的齿根应力分布，更直接地受到端面齿廓形状的影响。端面齿廓是真正的渐开线，其压力角为 αt，齿根圆角半径等几何参数也直接由端面刀具（如端面齿条）决定。因此，用端面压力角 αt 查取的齿形系数，能更准确地反映斜齿轮实际齿根处的应力集中和弯曲力臂。\n\n3.  **学术与工程依据**  \n    -   **ISO 6336 / GB/T 3480**：在计算齿根应力时，明确使用**当量齿数 zv** 和**端面压力角 αt** 来查取齿形系数 YFa（或 YF）。  \n    -   **逻辑统一**：斜齿轮的端面啮合是真正的渐开线啮合，力作用在端面齿廓上，齿根危险截面的位置也由端面齿形决定。法面参数只是用于定义刀具和标准化，但应力分析必须回归到端面。\n\n4.  **一个常见的误解**  \n    很多初学者会认为“既然是法向齿形系数，就应该用法向压力角查”。实际上，这里的“法向”是指“法向模数”体系下的齿形系数，而不是指查表用的压力角。为了与直齿轮兼容，查表时统一用当量齿数 zv 和端面压力角 αt。\n\n**总结**：  \n斜齿轮法向齿形系数 YFn 查表时使用 αt 是标准计算方法的规定，因为当量齿轮的齿形由端面压力角决定，这样做能正确反映弯曲强度。如果你在进行设计计算，请务必确认你所查的图表或公式中，自变量是 zv 和 αt。",
+      "timestamp": "2026-08-15T18:27:39.788566Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T18:27:39.788566Z"
+}

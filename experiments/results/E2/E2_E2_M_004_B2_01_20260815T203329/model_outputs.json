@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_004",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下（记录 ID：**calc#1**，依据 ISO 281 / GB/T 6391）：\n\n---\n\n## 轴承寿命计算结果\n\n| 参数 | 数值 |\n|------|------|\n| C/P 比 | 3.478 |\n| 基本额定寿命（球轴承，ε=3） | 4.21×10⁷ 转 |\n| **L₁₀h（球轴承）** | **≈ 1 461 小时** |\n| 基本额定寿命（滚子轴承，ε=10/3） | 6.38×10⁷ 转 |\n| **L₁₀h（滚子轴承）** | **≈ 2 214 小时** |\n\n---\n\n### 简要分析\n\n寿命公式：\\( L_{10h} = \\dfrac{10^6}{60n} \\left( \\dfrac{C}{P} \\right)^\\varepsilon \\)\n\n- **球轴承（ε=3）**：约 **1 461 小时**，对于一般工业设备（通常期望 8 000~20 000 小时）偏短，大约相当于每天 8 小时运行不到 6 个月。\n- **滚子轴承（ε=10/3）**：约 **2 214 小时**，同样偏低。\n\n**结论：** C/P = 3.48 的余量"
+}

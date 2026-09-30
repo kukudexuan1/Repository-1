@@ -1,0 +1,42 @@
+# 普通 V 带传动的查表参数与结构尺寸
+# 依据：GB/T 11544-2012；机械设计课程设计手册第五版第八章
+# P0/delta_P0 为课程设计初选示例范围，最终应按制造商目录和工况修正。
+part_families:
+  - id: v_belt
+    name: 普通 V 带
+    standard: GB/T 11544-2012
+    select_by: belt_type
+    columns: [section, top_width, height, area, mass_per_length, min_reference_diameter, max_speed]
+    units: { top_width: mm, height: mm, area: mm**2, mass_per_length: kg/m, min_reference_diameter: mm, max_speed: m/s }
+    notes: 带型需结合计算功率、主动轮转速和最小基准直径选择；额定功率必须按具体目录、带长和修正系数确定
+    items:
+      - { section: "O", belt_type: "O", top_width: 10, height: 6, area: 47, mass_per_length: 0.06, min_reference_diameter: 63, max_speed: 25 }
+      - { section: "A", belt_type: "A", top_width: 13, height: 8, area: 81, mass_per_length: 0.105, min_reference_diameter: 75, max_speed: 25 }
+      - { section: "B", belt_type: "B", top_width: 17, height: 11, area: 138, mass_per_length: 0.18, min_reference_diameter: 125, max_speed: 25 }
+      - { section: "C", belt_type: "C", top_width: 22, height: 14, area: 230, mass_per_length: 0.30, min_reference_diameter: 200, max_speed: 25 }
+      - { section: "D", belt_type: "D", top_width: 32, height: 19, area: 476, mass_per_length: 0.55, min_reference_diameter: 355, max_speed: 30 }
+      - { section: "E", belt_type: "E", top_width: 38, height: 23, area: 669, mass_per_length: 0.80, min_reference_diameter: 500, max_speed: 30 }
+
+  - id: v_belt_power_rating
+    name: 普通 V 带单根额定功率初选数据
+    standard: 机械设计课程设计手册第五版表 8-4、表 8-5（示例查表数据）
+    select_by: belt_type
+    columns: [belt_type, speed_min, speed_max, diameter_min, diameter_max, rated_power, extra_power, wrap_factor, length_factor]
+    units: { speed_min: r/min, speed_max: r/min, diameter_min: mm, diameter_max: mm, rated_power: kW, extra_power: kW }
+    notes: 仅用于初选演示；实际工程必须按供应商目录以速度、基准直径、包角和长度逐项查取
+    items:
+      - { belt_type: "A", speed_min: 1200, speed_max: 1800, diameter_min: 90, diameter_max: 112, rated_power: 1.32, extra_power: 0.17, wrap_factor: 0.92, length_factor: 1.02 }
+      - { belt_type: "B", speed_min: 1200, speed_max: 1800, diameter_min: 125, diameter_max: 160, rated_power: 2.35, extra_power: 0.30, wrap_factor: 0.92, length_factor: 1.02 }
+      - { belt_type: "C", speed_min: 900, speed_max: 1500, diameter_min: 200, diameter_max: 250, rated_power: 4.10, extra_power: 0.45, wrap_factor: 0.93, length_factor: 1.02 }
+
+  - id: v_belt_pulley
+    name: V 带轮结构尺寸初选
+    standard: GB/T 10412-2002；机械设计课程设计手册第五版第八章
+    select_by: belt_type
+    columns: [belt_type, groove_pitch, minimum_edge, upper_height, lower_depth]
+    units: { groove_pitch: mm, minimum_edge: mm, upper_height: mm, lower_depth: mm }
+    notes: 带轮槽形、槽角、基准宽度和轮缘尺寸应按带型标准与制造工艺复核
+    items:
+      - { belt_type: "A", groove_pitch: 15, minimum_edge: 9, upper_height: 2.75, lower_depth: 8.70 }
+      - { belt_type: "B", groove_pitch: 19, minimum_edge: 11, upper_height: 3.50, lower_depth: 11.50 }
+      - { belt_type: "C", groove_pitch: 25.5, minimum_edge: 14, upper_height: 4.60, lower_depth: 15.00 }

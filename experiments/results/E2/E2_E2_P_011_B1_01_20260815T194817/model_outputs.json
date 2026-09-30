@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_P_011",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "公式库中没有覆盖减速器热平衡校核的公式，这属于《机械设计》教材中的经典公式，我可以用 `run_calculation` 来做计算。但在此之前，需要先把缺失的参数说清楚。\n\n---\n\n## 减速器热平衡校核 —— 公式与缺失参数\n\n热平衡校核的基本公式（出自《机械设计》教材，如濮良贵版 §14-6）：\n\n$$\\Delta t = t_o - t_0 = \\frac{P_{loss}}{\\alpha_d \\cdot A} \\leq [\\Delta t]$$\n\n| 符号 | 含义 | 单位 | 你给的 |\n|------|------|------|--------|\n| $P_{loss}$ | 发热功率（齿轮啮合+轴承+搅油损失） | kW → W | ✅ 0.375 kW = 375 W |\n| $\\alpha_d$ | 箱体表面传热系数 | W/(m²·°C) | ❌ 未给，通常取 8~15 |\n| $A$ | 箱体有效散热面积 | m² | ❌ 未给 |\n| $t_0$ | 环境温度 | °C | ❌ 未给 |\n| $[\\Delta t]$ | 许用温升 | °C | ❌ 未给，"
+}

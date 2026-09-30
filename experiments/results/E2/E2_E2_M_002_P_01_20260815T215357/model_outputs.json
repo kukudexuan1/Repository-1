@@ -1,0 +1,15 @@
+{
+  "case_id": "E2_M_002",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "公式库中 `shaft_torsion_diameter` 是基于功率 P 和转速 n 的，而您给的是扭矩 T 和许用切应力 [τ]。我需要用扭转强度公式直接求解：\n\n**公式：** τ = T / W_p，其中实心圆轴 W_p = πd³/16，得 **d ≥ ∛(16T / (π[τ]))**\n\n---\n\n在计算之前，有一个关键问题需要确认\n\n请确认扭矩 T=320 和许用切应力 [τ]=35 的单位。单位不同，结果数量级完全不同。\n\n轴径估算公式 d ≥ ∛(16T/(π[τ])) 对单位敏感。常见工程场景中扭矩单位可能是 N·m 或 N·mm，许用切应力单位通常是 MPa。若 T=320 N·m、[τ]=35 MPa，轴径约 36 mm；若 T=320 N·mm，轴径仅约 3.6 mm，这通常不是传动轴的数量级。\n\n1. T = 320 N·m，[τ] = 35 MPa（最常见的传动轴场景） ← 推荐\n   优点：数量级合理，估算结果约 36 mm，对应中等传动轴\n2. T = 320 N·mm，[τ] = 35 MPa（极小扭矩）\n   缺点：轴径约 3.6 mm，通常不是传"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_M_010",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "查表完成。以下是结果汇总：\n\n---\n\n## 轴肩圆角理论应力集中系数查表\n\n**输入参数：**\n\n| 参数 | 数值 |\n|------|------|\n| 圆角半径 r | 2 mm |\n| 大径 D | 55 mm |\n| 小径 d | 45 mm |\n| r/d | 0.044 |\n| D/d | 1.22 |\n\n**查表结果（计算记录 `calc#1`）：**\n\n依据《机械设计（第十版）》附录 **表9-1**（弯曲）和 **表9-2**（扭转），通过双线性插值（插值区间 D/d=1.20~1.25，r/d=0.04~0.05）得到：\n\n| 系数 | 符号 | 数值 | 用途 |\n|------|------|------|------|\n| 弯曲理论应力集中系数 | **α_σ** | **1.728** | 用于弯扭合成 / 疲劳强度校核中弯曲应力的应力集中 |\n| 扭转理论应力集中系数 | **α_τ** | **1.349** | 用于弯扭合成 / 疲劳强度校核中扭转应力的应力集中 |\n\n---\n\n### ⚠️ 后续使用提醒\n\n以上是**理论应力集中系数**（α），在"
+}

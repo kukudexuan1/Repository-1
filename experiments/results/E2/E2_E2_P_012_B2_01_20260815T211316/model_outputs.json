@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_012",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "## 弯矩图分析 —— 信息不完整，无法直接出图\n\n要做一根轴的弯矩图，核心需要以下几何边界条件，而你提到的这两项恰好是**必须的**：\n\n| 必需信息 | 当前状态 | 对弯矩图的影响 |\n|---|---|---|\n| 齿轮径向力 Fr | ✅ 3800 N | 决定弯矩的**幅值** |\n| 轴承支点跨距 L | ❌ 未知 | 决定弯矩的**量级**（M ∝ L） |\n| 齿轮在轴上的位置（距左支点 a） | ❌ 未知 | 决定弯矩的**分布形状**与最大弯矩位置 |\n\n---\n\n### 一般情况下的弯矩表达式（供参考）\n\n设轴简支于 A、B 两点，跨距为 L，齿轮（集中力 Fr）距左支点 A 为 a，距右支点 B 为 b = L − a：\n\n- **支反力**：\\( R_A = F_r \\cdot \\dfrac{b}{L} \\)，\\( R_B = F_r \\cdot \\dfrac{a}{L} \\)\n- **弯矩图**：在齿轮加载点处弯矩最大，呈**折线形**（集中力作用下的典型形状）\n- **最大弯矩**：\\( M_{\\max} = F_r \\cdot \\dfrac{a \\cd"
+}

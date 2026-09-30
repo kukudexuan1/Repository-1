@@ -1,0 +1,158 @@
+# encoding: utf-8
+# 2026 R1
+SetScriptVersion(Version="26.1.174")
+ClearMessages()
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.SetFile(FilePath="D:/Inventor_Export/stepped_shaft.stp")
+Save(Overwrite=True)
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit(Interactive=False)
+model1.SendCommand(
+    Command=r"""import sys as _sys, io as _io, traceback as _tb, base64 as _b64
+_RP = u'C:/Users/14170/Desktop/研究生课题/ANSYS-Workbench-mcp/scripts/mech_f5195e8f.out'
+class _W(object):
+    def __init__(self): self.lines = []
+    def write(self, s):
+        try:
+            if s is None: return
+            t = s if isinstance(s, unicode) else unicode(str(s))
+            if t and t != u'\n': self.lines.append(t.rstrip(u'\n'))
+        except: pass
+    def flush(self): pass
+_w = _W(); _old = _sys.stdout; _olde = _sys.stderr
+_sys.stdout = _w; _sys.stderr = _w
+_status = u'OK'; _err = u''
+try:
+    _code = _b64.b64decode('bW9kZWwgPSBFeHRBUEkuRGF0YU1vZGVsLlByb2plY3QuTW9kZWwKZ2VvbSA9IG1vZGVsLkdlb21ldHJ5CmJvZGllcyA9IGdlb20uR2V0Q2hpbGRyZW4oRGF0YU1vZGVsT2JqZWN0Q2F0ZWdvcnkuQm9keSwgVHJ1ZSkKcHJpbnQoJ0JPRFlfQ09VTlQ9JyArIHN0cihib2RpZXMuQ291bnQpKQpwcmludCgnVU5JVD0nICsgc3RyKEV4dEFQSS5EYXRhTW9kZWwuUHJvamVjdC5Vbml0U3lzdGVtKSk=').decode('utf-8')
+    exec(_code)
+except Exception:
+    _status = u'ERROR'; _err = _tb.format_exc()
+_sys.stdout = _old; _sys.stderr = _olde
+_f = _io.open(_RP, 'w')
+_f.write(u'STATUS=' + _status + u'\n')
+_f.write(u'---OUTPUT---\n' + u'\n'.join(_w.lines) + u'\n---END---\n')
+if _err:
+    _f.write(u'---ERROR---\n' + _err + u'\n---END---\n')
+_f.close()
+""",
+    Language="Python")
+model1.SendCommand(
+    Command=r"""import sys as _sys, io as _io, traceback as _tb, base64 as _b64
+_RP = u'C:/Users/14170/Desktop/研究生课题/ANSYS-Workbench-mcp/scripts/mech_0a25cbc9.out'
+class _W(object):
+    def __init__(self): self.lines = []
+    def write(self, s):
+        try:
+            if s is None: return
+            t = s if isinstance(s, unicode) else unicode(str(s))
+            if t and t != u'\n': self.lines.append(t.rstrip(u'\n'))
+        except: pass
+    def flush(self): pass
+_w = _W(); _old = _sys.stdout; _olde = _sys.stderr
+_sys.stdout = _w; _sys.stderr = _w
+_status = u'OK'; _err = u''
+try:
+    _code = _b64.b64decode('bW9kZWwgPSBFeHRBUEkuRGF0YU1vZGVsLlByb2plY3QuTW9kZWwKZ2VvbSA9IG1vZGVsLkdlb21ldHJ5CmJvZGllcyA9IGdlb20uR2V0Q2hpbGRyZW4oRGF0YU1vZGVsT2JqZWN0Q2F0ZWdvcnkuQm9keSwgVHJ1ZSkKcHJpbnQoJ0JPRFlfQ09VTlQ9JyArIHN0cihib2RpZXMuQ291bnQpKQpwcmludCgnVU5JVD0nICsgc3RyKEV4dEFQSS5EYXRhTW9kZWwuUHJvamVjdC5Vbml0U3lzdGVtKSk=').decode('utf-8')
+    exec(_code)
+except Exception:
+    _status = u'ERROR'; _err = _tb.format_exc()
+_sys.stdout = _old; _sys.stderr = _olde
+_f = _io.open(_RP, 'w')
+_f.write(u'STATUS=' + _status + u'\n')
+_f.write(u'---OUTPUT---\n' + u'\n'.join(_w.lines) + u'\n---END---\n')
+if _err:
+    _f.write(u'---ERROR---\n' + _err + u'\n---END---\n')
+_f.close()
+""",
+    Language="Python")
+model1.SendCommand(
+    Command=r"""import sys as _sys, io as _io, traceback as _tb, base64 as _b64
+_RP = u'C:/Users/14170/Desktop/研究生课题/ANSYS-Workbench-mcp/scripts/mech_052633cc.out'
+class _W(object):
+    def __init__(self): self.lines = []
+    def write(self, s):
+        try:
+            if s is None: return
+            t = s if isinstance(s, unicode) else unicode(str(s))
+            if t and t != u'\n': self.lines.append(t.rstrip(u'\n'))
+        except: pass
+    def flush(self): pass
+_w = _W(); _old = _sys.stdout; _olde = _sys.stderr
+_sys.stdout = _w; _sys.stderr = _w
+_status = u'OK'; _err = u''
+try:
+    _code = _b64.b64decode('bW9kZWwgPSBFeHRBUEkuRGF0YU1vZGVsLlByb2plY3QuTW9kZWwKZ2VvbSA9IG1vZGVsLkdlb21ldHJ5CmJvZGllcyA9IGdlb20uR2V0Q2hpbGRyZW4oRGF0YU1vZGVsT2JqZWN0Q2F0ZWdvcnkuQm9keSwgVHJ1ZSkKcHJpbnQoJ0JPRFlfQ09VTlQ9JyArIHN0cihib2RpZXMuQ291bnQpKQpwcmludCgnVU5JVD0nICsgc3RyKEV4dEFQSS5EYXRhTW9kZWwuUHJvamVjdC5Vbml0U3lzdGVtKSk=').decode('utf-8')
+    exec(_code)
+except Exception:
+    _status = u'ERROR'; _err = _tb.format_exc()
+_sys.stdout = _old; _sys.stderr = _olde
+_f = _io.open(_RP, 'w')
+_f.write(u'STATUS=' + _status + u'\n')
+_f.write(u'---OUTPUT---\n' + u'\n'.join(_w.lines) + u'\n---END---\n')
+if _err:
+    _f.write(u'---ERROR---\n' + _err + u'\n---END---\n')
+_f.close()
+""",
+    Language="Python")
+model1.SendCommand(
+    Command=r"""import sys as _sys, io as _io, traceback as _tb, base64 as _b64
+_RP = u'C:/Users/14170/Desktop/研究生课题/ANSYS-Workbench-mcp/scripts/mech_1c22a1f7.out'
+class _W(object):
+    def __init__(self): self.lines = []
+    def write(self, s):
+        try:
+            if s is None: return
+            t = s if isinstance(s, unicode) else unicode(str(s))
+            if t and t != u'\n': self.lines.append(t.rstrip(u'\n'))
+        except: pass
+    def flush(self): pass
+_w = _W(); _old = _sys.stdout; _olde = _sys.stderr
+_sys.stdout = _w; _sys.stderr = _w
+_status = u'OK'; _err = u''
+try:
+    _code = _b64.b64decode('bW9kZWwgPSBFeHRBUEkuRGF0YU1vZGVsLlByb2plY3QuTW9kZWwKZ2VvbSA9IG1vZGVsLkdlb21ldHJ5CmJvZGllcyA9IGdlb20uR2V0Q2hpbGRyZW4oRGF0YU1vZGVsT2JqZWN0Q2F0ZWdvcnkuQm9keSwgVHJ1ZSkKcHJpbnQoJ0JPRFlfQ09VTlQ9JyArIHN0cihib2RpZXMuQ291bnQpKQpwcmludCgnVU5JVD0nICsgc3RyKEV4dEFQSS5EYXRhTW9kZWwuUHJvamVjdC5Vbml0U3lzdGVtKSk=').decode('utf-8')
+    exec(_code)
+except Exception:
+    _status = u'ERROR'; _err = _tb.format_exc()
+_sys.stdout = _old; _sys.stderr = _olde
+_f = _io.open(_RP, 'w')
+_f.write(u'STATUS=' + _status + u'\n')
+_f.write(u'---OUTPUT---\n' + u'\n'.join(_w.lines) + u'\n---END---\n')
+if _err:
+    _f.write(u'---ERROR---\n' + _err + u'\n---END---\n')
+_f.close()
+""",
+    Language="Python")
+model1.SendCommand(
+    Command=r"""import sys as _sys, io as _io, traceback as _tb, base64 as _b64
+_RP = u'C:/Users/14170/Desktop/研究生课题/ANSYS-Workbench-mcp/scripts/mech_1ee1149c.out'
+class _W(object):
+    def __init__(self): self.lines = []
+    def write(self, s):
+        try:
+            if s is None: return
+            t = s if isinstance(s, unicode) else unicode(str(s))
+            if t and t != u'\n': self.lines.append(t.rstrip(u'\n'))
+        except: pass
+    def flush(self): pass
+_w = _W(); _old = _sys.stdout; _olde = _sys.stderr
+_sys.stdout = _w; _sys.stderr = _w
+_status = u'OK'; _err = u''
+try:
+    _code = _b64.b64decode('bW9kZWwgPSBFeHRBUEkuRGF0YU1vZGVsLlByb2plY3QuTW9kZWwKZ2VvbSA9IG1vZGVsLkdlb21ldHJ5CmJvZGllcyA9IGdlb20uR2V0Q2hpbGRyZW4oRGF0YU1vZGVsT2JqZWN0Q2F0ZWdvcnkuQm9keSwgVHJ1ZSkKcHJpbnQoJ0JPRFlfQ09VTlQ9JyArIHN0cihib2RpZXMuQ291bnQpKQpwcmludCgnVU5JVD0nICsgc3RyKEV4dEFQSS5EYXRhTW9kZWwuUHJvamVjdC5Vbml0U3lzdGVtKSk=').decode('utf-8')
+    exec(_code)
+except Exception:
+    _status = u'ERROR'; _err = _tb.format_exc()
+_sys.stdout = _old; _sys.stderr = _olde
+_f = _io.open(_RP, 'w')
+_f.write(u'STATUS=' + _status + u'\n')
+_f.write(u'---OUTPUT---\n' + u'\n'.join(_w.lines) + u'\n---END---\n')
+if _err:
+    _f.write(u'---ERROR---\n' + _err + u'\n---END---\n')
+_f.close()
+""",
+    Language="Python")

@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_M_013",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "lookup_standard_part"
+  ],
+  "tool_events": [
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "标准库数据出来了，和你提供的有一处需要核对：\n\n| 参数 | 你提供的数据 | GB/T 276-2013 标准值 | 是否一致 |\n|------|------------|---------------------|---------|\n| 代号 | 6210 | 6210 | ✅ |\n| 内径 d | 50 mm | 50 mm | ✅ |\n| 外径 D | 90 mm | 90 mm | ✅ |\n| 宽度 B | 20 mm | 20 mm | ✅ |\n| 动载荷 Cr | 35,000 N | 35,000 N | ✅ |\n| **静载荷 C0r** | **19,800 N** | **23,200 N** | ⚠️ **不一致** |\n| 脂润滑极限转速 | 未提供 | 6,700 r/min | — |\n\n**C0r 差了约 17%**——你提供的 19,800 N 可能是旧标准（GB/T 276-1994）的数据，现行 GB/T 276-2013 中 6210 的 C0r 已更新为 23,200 N。如果后续要做静强度校核，建议以现行标准 23,200 N 为准。\n\n"
+}

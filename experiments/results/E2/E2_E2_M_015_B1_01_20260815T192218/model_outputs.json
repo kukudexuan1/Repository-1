@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_015",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "计算结果如下。\n\n---\n\n## 平键剪切强度校核\n\n**公式**：τₖ = 2T / (d · b · l)（《机械设计手册》）\n\n**代入**（⚠️ 假设 T=420 N·m，若单位不同请纠正）：\n\n| 参数 | 数值 | 单位 |\n|------|------|------|\n| T | 420 → 420×10³ | N·mm |\n| d | 55 | mm |\n| b | 16 | mm |\n| l | 60 | mm |\n\n**计算**：\n\nτₖ = 2 × 420 000 / (55 × 16 × 60) = 840 000 / 52 800 ≈ **15.91 MPa**\n\n---\n\n### 判据参考\n\n平键常用材料及许用剪切应力 [τ]（静连接，轻微冲击）：\n\n| 键材料 | [τ] (MPa) |\n|--------|-----------|\n| 45 钢 | 120 |\n| Q235 | 80~100 |\n\nτₖ = 15.91 MPa，远低于常用许用值，**剪切强度满足要求**。\n\n---\n\n### ⚠️ 重要提醒\n\n1. **单位假设**：T=420 未注明单"
+}

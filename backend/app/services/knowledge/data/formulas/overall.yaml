@@ -1,0 +1,91 @@
+# 传动装置总体设计公式
+# 出处：濮良贵《机械设计》第十版；吴宗泽《机械设计课程设计手册》第五版
+formulas:
+  - id: total_efficiency
+    name: 传动装置总效率
+    category: overall
+    source: 机械设计课程设计手册（第五版）表 2-4
+    expression: "eta_total = eta_coupling * eta_gear * eta_bearing ** n_bearing_pairs"
+    symbols:
+      eta_total:        { desc: 传动装置总效率, role: output }
+      eta_coupling:     { desc: 联轴器效率, role: input, default: 0.99, typical: [0.99, 0.995] }
+      eta_gear:         { desc: 齿轮传动效率, role: input, typical: [0.96, 0.98], note: "8级精度闭式圆柱齿轮取 0.97" }
+      eta_bearing:      { desc: 单对滚动轴承效率, role: input, default: 0.99, typical: [0.98, 0.995] }
+      n_bearing_pairs:  { desc: 滚动轴承对数, role: input }
+    applicability: 串联式传动装置，各级效率连乘
+    tags: [效率, 总体设计, 电机选择]
+
+  - id: motor_required_power
+    name: 电动机所需功率
+    category: overall
+    source: 机械设计课程设计手册（第五版）式 2-2
+    expression: "P_motor = P_work / eta_total"
+    symbols:
+      P_motor:   { desc: 电动机所需工作功率, unit: kW, role: output }
+      P_work:    { desc: 工作机所需功率, unit: kW, role: input }
+      eta_total: { desc: 传动装置总效率, role: input }
+    notes: 算得功率后需在电动机产品目录中选取额定功率不小于此值的型号，通常留 5%~10% 余量
+    tags: [电动机, 功率, 总体设计]
+
+  - id: shaft_torque_from_power
+    name: 由功率与转速求转矩
+    category: overall
+    source: 机械设计（第十版）式 15-1
+    expression: "T = 9550000 * P / n"
+    symbols:
+      T: { desc: 轴传递的转矩, unit: N*mm, role: output }
+      P: { desc: 轴传递的功率, unit: kW, role: input }
+      n: { desc: 轴的转速, unit: r/min, role: input }
+    applicability: 系数 9550000 对应 P 以 kW、n 以 r/min、T 以 N·mm 计
+    tags: [转矩, 各轴参数]
+
+  - id: gear_ratio_error
+    name: 实际传动比误差
+    category: overall
+    source: 机械设计课程设计手册（第五版）§2.4
+    expression: "error_percent = 100 * (i_actual - i_required) / i_required"
+    symbols:
+      error_percent: { desc: 传动比相对误差, unit: percent, role: output }
+      i_actual:      { desc: 齿数比算得的实际传动比, role: input }
+      i_required:    { desc: 设计要求的传动比, role: input }
+    criterion: "abs(error_percent) <= 5"
+    criterion_expr: "abs(error_percent) <= tolerance_percent"
+    is_check: true
+    notes: 一般传动允许 ±5%，输送机类允许 ±5%，精密传动应更严
+    tags: [传动比, 校核]
+
+  - id: output_shaft_speed
+    name: 输出轴转速
+    category: overall
+    source: 机械设计课程设计手册（第五版）§2.4
+    expression: "n_out = n_in / i_actual"
+    symbols:
+      n_out:    { desc: 输出轴转速, unit: r/min, role: output }
+      n_in:     { desc: 输入轴转速, unit: r/min, role: input }
+      i_actual: { desc: 实际传动比, role: input }
+    tags: [转速, 各轴参数]
+
+  - id: stress_cycles
+    name: 应力循环次数
+    category: overall
+    source: 机械设计（第十版）式 10-13
+    expression: "N = 60 * n * j * L_h"
+    symbols:
+      N:   { desc: 应力循环次数, role: output }
+      n:   { desc: 齿轮转速, unit: r/min, role: input }
+      j:   { desc: 齿轮每转一周同侧齿面啮合次数, role: input, default: 1.0 }
+      L_h: { desc: 齿轮工作寿命, unit: hour, role: input }
+    notes: L_h = 每天工作小时数 × 年工作天数 × 使用年限；用于查取寿命系数 K_HN / K_FN
+    tags: [寿命, 应力循环, 齿轮]
+
+  - id: design_life_hours
+    name: 设计工作寿命
+    category: overall
+    source: 机械设计课程设计手册（第五版）§2.2
+    expression: "L_h = daily_hours * days_per_year * years"
+    symbols:
+      L_h:           { desc: 设计工作寿命, unit: hour, role: output }
+      daily_hours:   { desc: 每天工作小时数, unit: hour, role: input }
+      days_per_year: { desc: 每年工作天数, role: input, default: 300.0 }
+      years:         { desc: 使用年限, role: input }
+    tags: [寿命, 设计输入]

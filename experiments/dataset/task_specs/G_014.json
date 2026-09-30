@@ -1,0 +1,36 @@
+{
+  "task_id": "G_014",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "test",
+  "description": "设计一台单级斜齿圆柱齿轮减速器，用于造纸机传动，均匀载荷，工作24h/天，要求长寿命低维护。",
+  "explicit_inputs": {
+    "input_power_kW": 11.0,
+    "input_speed_rpm": 1450,
+    "transmission_ratio": 3.15,
+    "design_life_h": 50000,
+    "load_type": "均匀载荷",
+    "working_hours_per_day": 24,
+    "ambient_temperature_C": 28
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "轴功率", "扭矩", "轴弯扭合成"],
+    "material_candidates": ["20CrMnTi渗碳淬火", "42CrMo调质"],
+    "standard_series": ["模数系列GB/T1357", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承", "圆锥滚子轴承", "平键"]
+  },
+  "decisions_required": ["硬齿面材料选择（长寿命）", "润滑方式（强制润滑）", "精度等级", "轴承选型"],
+  "expert_reference": {
+    "reference_module": "G_014",
+    "key_param_ranges": {
+      "module_mm": [2.5, 4],
+      "z1_teeth": [22, 38],
+      "helix_angle_deg": [10, 18],
+      "face_width_mm": [70, 130],
+      "center_distance_mm": [110, 200]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴疲劳安全系数", "轴承寿命50000h", "热平衡"],
+    "forbidden_errors": ["连续运转未核算热平衡", "轴承寿命不足设计寿命", "模数未取标准值"]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

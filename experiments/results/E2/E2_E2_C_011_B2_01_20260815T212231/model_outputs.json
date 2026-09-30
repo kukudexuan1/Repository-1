@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_C_011",
+  "error_type": "criterion_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 校核结果：**两齿轮均不通过** ❌\n\n你说\"小齿轮通过\"——但计算结果显示并非如此。\n\n| 项目 | 计算接触应力 | 许用接触应力 | 判据 | 余量 | 结论 |\n|------|:----------:|:----------:|------|:-----:|:----:|\n| **小齿轮** | σH = 625 MPa | [σH1] = 620 MPa | σH ≤ [σH1] | **−0.81%** | ❌ 不通过 |\n| **大齿轮** | σH = 625 MPa | [σH2] = 610 MPa | σH ≤ [σH2] | **−2.46%** | ❌ 不通过 |\n| **整体** | — | [σH] = 610 MPa | σH ≤ [σH] | — | ❌ 不通过 |\n\n### 分析\n\n- 小齿轮超了 0.81%（625 > 620），虽然超得不多，但严格判就是不通过。\n- 大齿轮超了 2.46%（625 > 610），超得更多，问题更大。\n\n### 常规应对方向\n\n接触应力超标，通常从以下几方面调整（按工程习惯排序）：\n\n1. **增大齿宽 b"
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_U_008",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "lookup_material",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 键挤压应力校核结果\n\n| 项目 | 数值 |\n|---|---|\n| **公式** | σ_p = 4T / (d·h·l)，机械设计（第十版）式 6-1 |\n| **传递扭矩 T** | 320 N·m = 320,000 N·mm |\n| **轴径 d** | 50 mm |\n| **键高 h** | 9 mm |\n| **工作长度 l** | 60 mm |\n| **计算挤压应力 σ_p** | **47.41 MPa** |\n| **许用挤压应力 σ_pP** | 100 MPa（钢-钢静连接，轻微冲击） |\n| **判据** | ✅ **通过**，余量 52.6% |\n\n---\n\n**解读**：挤压应力 47.41 MPa，仅为许用值 100 MPa 的不到一半，强度充裕。如果后续需要优化可以适当缩短键长或减小键截面，但当前尺寸下安全无虞。\n\n> 计算记录 ID：`calc#1`，若后续任何输入参数（T、d、h、l）发生变化，需要回代重算。"
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_020",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个很常见的工程计算单位陷阱，值得专门说清楚。\n\n---\n\n## 问题本质：GPa 与 MPa 差 1000 倍\n\n弹性模量 E = 206 GPa 的正确换算：\n\n| 单位 | 数值 |\n|------|------|\n| Pa | 206 × 10⁹ = 206,000,000,000 |\n| MPa | 206 × 10³ = **206,000** |\n| GPa | 206 |\n\n所以，**如果应力用 MPa，E 必须代入 206,000（不是 206）**。\n\n---\n\n## 典型翻车现场\n\n比如一个简单的拉压杆变形计算：\n\n$$\\Delta l = \\frac{Fl}{EA}$$\n\n- 力 F = 10000 N\n- 长度 l = 500 mm\n- 截面积 A = 100 mm²\n- E = 206 GPa，**错误代入 206**\n\n$$\\Delta l = \\frac{10000 \\times 500}{206 \\times 100} = 242.7 \\text{ mm}$$\n\n这显然荒谬——一根半米长的钢杆拉伸 242 mm，比杆本身还长。\n\n正确做法：E = "
+}

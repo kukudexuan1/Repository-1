@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_022",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n| 输出 | 值 | 单位 |\n|------|------|------|\n| a（中心距） | **240** | mm |\n| a（中心距） | **0.24** | m |\n\n计算记录已生成：`calc#1`。\n\n---\n\n## ⚠️ 关于\"隐式变成 m\"的警告\n\n你提到了 \"用 a=0.24 继续计算（单位隐式变成 m）\"——**请务必停止这种做法。** \n\n在工程计算中，隐式单位转换是造成量级错误的首要原因。以你这个场景为例：\n\n- 240 mm 和 0.24 m 在物理上等价\n- 但如果后续公式中其他量是 **mm 体系**（比如力用 N → 应力用 MPa = N/mm²），而你悄悄把 a 从 240 mm 换成 0.24 m 丢进去，结果就是 **1000 倍的偏差**\n- 反之，如果公式在 **m 体系**（比如 SI 基本单位），用 240 mm 不转换同样出错\n\n**正确做法**：每次传值都显式标注单位，让系统做量纲检查。不要自己心里换算后裸传数字。\n\n---\n\n## 接下来？\n\n你只给了一个中心距计算，但我不知道你的整体设计意图是什么。请告诉"
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_M_014",
+  "error_type": "unit_missing",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下（calc#1）：\n\n---\n\n## β = 12° 时 YFt 与 YFa 的换算关系\n\n| 量 | 值 |\n|---|---|\n| cos β | 0.9781 |\n| cos² β | 0.9568 |\n| **换算系数** YFt / YFa | **1.0452** |\n\n依据《机械设计（第十版）》斜齿轮弯曲强度端面参数表达：\n\n> **YFt = YFa / cos²β**\n\n即 β=12° 时，端面齿形系数 YFt 等于法面齿形系数 YFa 乘以 **1.045**。\n\n---\n\n### 重要说明\n\n**YFt 不能仅由 β 单独决定。** 完整的计算链是：\n\n1. 先由当量齿数 **zv = z / cos³β** 查表得到法面齿形系数 **YFa**\n2. 再通过 **YFt = YFa / cos²β** 换算到端面\n\n如果你已有齿轮的齿数 z，我可以继续：\n- 计算当量齿数 zv\n- 结合齿形系数表确定 YFa\n- 最终给出 YFt 的具体数值\n\n要把具体齿数给我吗？"
+}

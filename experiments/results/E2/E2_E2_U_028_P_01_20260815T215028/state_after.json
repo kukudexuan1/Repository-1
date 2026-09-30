@@ -1,0 +1,109 @@
+{
+  "session_id": "03c0c10a-478a-4625-918e-5d4f354e304b",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "减速器箱体散热热流密度计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "Ks": {
+          "value": 15.0,
+          "unit": "W/(m²*K)"
+        },
+        "delta_T": {
+          "value": 35.0,
+          "unit": "K"
+        }
+      },
+      "substitution": "Ks=15 W/(m²*K)；delta_T=35 K",
+      "result": {
+        "q": {
+          "value": 525.0,
+          "unit": "W/m²"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（濮良贵）热平衡计算章节：q = Ks × ΔT，Ks 取 15 W/(m²·K) 为通风良好工况惯用值",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 减速器热平衡 —— 热流密度\n# q = Ks × ΔT\nKs = 15.0\ndelta_T = 35.0\nq = Ks * delta_T\n\noutputs = {'q': q}",
+      "created_at": "2026-08-15T21:51:14.289832Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "5f2c2a4f-df0c-4bd5-aab5-a3fcaffbabda",
+      "role": "user",
+      "content": "计算减速器箱体散热面积，散热系数Ks=15W/(m²·K)，温差ΔT=35°C，热流密度q=Ks×ΔT=15×35=525（单位漏写W/m²）",
+      "timestamp": "2026-08-15T21:50:34.562272Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "fb008fec-9cd6-46ee-8232-2919ec6f1d4d",
+      "role": "assistant",
+      "content": "计算完成，结果如下：\n\n---\n\n## 箱体散热热流密度 | 计算记录 calc#1\n\n| 参数 | 符号 | 数值 | 单位 | 来源 |\n|------|------|------|------|------|\n| 散热系数 | Ks | 15 | W/(m²·K) | 通风良好工况惯用值 |\n| 温差 | ΔT | 35 | K | 用户给定 |\n| **热流密度** | **q** | **525** | **W/m²** | q = Ks × ΔT |\n\n**计算依据**：机械设计（濮良贵）热平衡章节，`q = Ks × ΔT`。\n\n---\n\n### 几点说明\n\n1. **单位**：你原来漏写的单位是 **W/m²**（瓦每平方米），现已补全。\n2. **这个数字的含义**：在 35°C 温差下，箱体每平方米外表面可以向周围空气散出 525 W 的热量。这是减速器热平衡校核中的关键中间量——后续用它除以总功率损耗，即可得出所需的**最小散热面积**：`A_min = P_loss / q`。\n3. **注意**：Ks = 15 W/(m²·K) 是通风良好、无强制冷却的惯用值。若车间通风条件差或需要加装风扇/散热片，Ks 的取值会不同（带风扇可到 23~28 W/(m²·K)）。\n\n---\n\n如果你接下来要做完整的热平衡校核（需要知道齿轮啮合功率损耗 `P_loss`），或者需要我把这个热流密度 `q` 写入参数台账，随时告诉我。",
+      "timestamp": "2026-08-15T21:51:24.595291Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:51:24.595291Z"
+}

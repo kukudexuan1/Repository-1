@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_007",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 外伸梁弯矩图计算结果\n\n**计算模型与假设：**\n\n| 参数 | 符号 | 值 | 单位 |\n|------|------|-----|------|\n| 铰支 A 支反力 | FRA | 3200 | N |\n| 支座跨距 AB | L | 280 | mm |\n| 悬臂长 BC | l | 60 | mm |\n\n假设结构为：**A（铰支）—— L=280 —— B（铰支）—— l=60 —— C（悬臂自由端）**，载荷 P 作用于悬臂端 C 向下。\n\n---\n\n### 计算结果（calc#1）\n\n对 B 点取矩，反推悬臂端载荷：\n\n$$P = \\frac{F_{RA} \\cdot L}{l} = \\frac{3200 \\times 280}{60} = 14\\,933.3\\ \\text{N}$$\n\n竖向力平衡得 B 支反力：\n\n$$F_{RB} = P - F_{RA} = 14\\,933.3 - 3200 = 11\\,733.3\\ \\text{N}$$\n\n---\n\n### 弯矩图\n\nAB 段为线性增长，BC 段为线性衰减：\n\n| 位置 x (mm) | 弯矩 M (N·mm"
+}

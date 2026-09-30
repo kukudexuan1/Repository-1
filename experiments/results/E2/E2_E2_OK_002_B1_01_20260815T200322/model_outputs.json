@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_OK_002",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "lookup_standard_part",
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "lookup_standard_part",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n### 完整推导过程\n\n**第一步：判断系数 e**\n\n按 GB/T 276-2013 配套的深沟球轴承 X/Y 系数表（机械设计第十版 表13-5）：\n\n$$\n\\frac{F_a}{C_{0r}} = \\frac{1200}{23200} = 0.0517\n$$\n\n线性插值（介于 0.04 和 0.07 之间）：\n\n| Fa/C₀r | e | Y |\n|--------|------|------|\n| 0.04 | 0.24 | 1.8 |\n| **0.0517** | **≈ 0.252** | **≈ 1.72** |\n| 0.07 | 0.27 | 1.6 |\n\n**第二步：判断 X / Y**\n\n$$\n\\frac{F_a}{F_r} = \\frac{1200}{8500} = 0.141\n$$\n\n0.141 < 0.252，即 **Fa/Fr ≤ e**，轴向力可忽略：\n\n> **X = 1.0，Y = 0**\n\n**第三步：当量动载荷**\n\n载荷系数取 **fp = 1.2**（中等冲击工况，工程惯用值）：\n\n$$\nP_{eq} = f_p \\cdot"
+}

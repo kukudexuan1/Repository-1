@@ -1,0 +1,125 @@
+{
+  "session_id": "6d1b40d3-9119-4313-88e9-5db4ef2784f3",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "滚动轴承基本额定寿命校核",
+      "formula_id": "bearing_life_check",
+      "expression": "L_10h = 1000000 / (60 * n) * (f_t * C_r / P_eq) ** epsilon",
+      "inputs": {
+        "n": {
+          "value": 305.0,
+          "unit": "r/min"
+        },
+        "f_t": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "C_r": {
+          "value": 32000.0,
+          "unit": "N"
+        },
+        "P_eq": {
+          "value": 8500.0,
+          "unit": "N"
+        },
+        "epsilon": {
+          "value": 3.0,
+          "unit": ""
+        },
+        "L_h_required": {
+          "value": 0.0,
+          "unit": "hour"
+        }
+      },
+      "substitution": "n=305 r/min；f_t=1；C_r=3.2e+04 N；P_eq=8500 N；epsilon=3；L_h_required=0 hour",
+      "result": {
+        "L_10h": {
+          "value": 2915.694838829513,
+          "unit": "hour"
+        }
+      },
+      "criterion": "L_10h >= L_h_required",
+      "verdict": "pass",
+      "margin_percent": 100.0,
+      "source": "机械设计（第十版）式 13-5；GB/T 6391-2010",
+      "engine": "formula_lib",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "不满足时按顺序考虑：加大轴承尺寸系列、改用滚子轴承、降低载荷系数假设、缩短维护周期",
+      "script": "",
+      "created_at": "2026-08-15T21:33:32.360850Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "e11bee06-36a6-4f7a-85f2-d321f6b8d941",
+      "role": "user",
+      "content": "轴承额定动载荷C=32000 N，转速n=305 rpm，计算轴承寿命，载荷P=8.5 kN（N与kN混用）",
+      "timestamp": "2026-08-15T21:32:55.297970Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "860899da-73e9-44b9-8a91-cd0263f1dc86",
+      "role": "assistant",
+      "content": "## 计算结果\n\n轴承基本额定寿命计算完成，结果如下：\n\n| 参数 | 符号 | 数值 | 来源 |\n|------|------|------|------|\n| 额定动载荷 | C | 32,000 N | 用户给定 |\n| 当量动载荷 | P | 8,500 N | 用户给定（8.5 kN 换算） |\n| 转速 | n | 305 r/min | 用户给定 |\n| 温度系数 | f_t | 1.0 | 默认（常温工作） |\n| 寿命指数 | ε | 3.0 | 球轴承默认 |\n\n**L₁₀h = 2,916 小时**（计算记录 `calc#1`）\n\n计算依据：GB/T 6391-2010，机械设计（第十版）式 13-5：\n\n\\[\nL_{10h} = \\frac{10^6}{60n} \\left( \\frac{f_t C}{P} \\right)^\\varepsilon\n= \\frac{10^6}{60 \\times 305} \\left( \\frac{32000}{8500} \\right)^3\n\\approx 2,916 \\text{ h}\n\\]\n\n---\n\n### 工程判断（此为粗估，供参考）\n\n2,916 小时 ≈ 约 **4 个月**连续运转。对比常见设计要求：\n\n- 一般机械（8 h/天，5 年）：~10,000 h → **不满足**\n- 连续运转设备（24 h/天，1 年）：~8,760 h → **不满足**\n- 间歇/轻载工况：视具体需求而定\n\n如果这是设计任务，需要你给出**要求的工作寿命 L_h_required**，我好做完整的校核判定。另外，若实际载荷以径向力为主、无轴向力，P_eq 直接取 P 是合理的；若有轴向力，需要进一步确认当量动载荷计算方式。",
+      "timestamp": "2026-08-15T21:33:48.440466Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:33:48.440466Z"
+}

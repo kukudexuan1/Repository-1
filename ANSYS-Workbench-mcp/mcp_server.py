@@ -1,0 +1,1284 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""MCP bridge for Ansys Workbench automation.
+
+The server supports two modes:
+
+1. File-IPC bridge mode, similar to Abaqus MCP:
+   mcp_server.py writes command JSON files and ansys_workbench_bridge.wbjn
+   runs inside Workbench to execute them.
+2. Direct batch mode:
+   mcp_server.py invokes RunWB2/MAPDL directly for one-shot jobs.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+import shlex
+import subprocess
+import time
+import uuid
+from pathlib import Path
+from typing import Any
+
+from mcp.server.fastmcp import FastMCP
+
+
+__version__ = "0.2.0"
+
+SERVER_ROOT = Path(__file__).resolve().parent
+DEFAULT_MCP_HOME = SERVER_ROOT
+MCP_HOME = Path(os.environ.get("ANSYS_WORKBENCH_MCP_HOME", DEFAULT_MCP_HOME)).expanduser().resolve()
+
+COMMANDS_DIR = MCP_HOME / "commands"
+RESULTS_DIR = MCP_HOME / "results"
+SCRIPTS_DIR = MCP_HOME / "scripts"
+RUNS_DIR = MCP_HOME / "runs"
+STATUS_FILE = MCP_HOME / "status.json"
+STOP_FILE = MCP_HOME / "stop.flag"
+LOG_FILE = MCP_HOME / "mcp.log"
+BRIDGE_JOURNAL = SERVER_ROOT / "ansys_workbench_bridge.wbjn"
+
+def _discover_ansys_root() -> tuple[Path | None, str]:
+    """Locate an installed Ansys version root, e.g. ...\\ANSYS Inc\\v252.
+
+    Hardcoding one version/drive makes check_ansys_installation report missing
+    executables on any other machine, so probe the common install roots and
+    prefer the newest version found. Returns (root, version_digits).
+    """
+    bases = [
+        Path(r"C:\Program Files\ANSYS Inc"),
+        Path(r"C:\Program Files\ANSYS Inc\ANSYS Student"),
+        Path(r"D:\Program Files\ANSYS Inc"),
+        Path(r"D:\Program Files\ANSYS Inc\ANSYS Student"),
+    ]
+    found: list[tuple[int, Path, str]] = []
+    for base in bases:
+        try:
+            if not base.is_dir():
+                continue
+            for child in base.iterdir():
+                name = child.name.lower()
+                if not (child.is_dir() and name.startswith("v") and name[1:].isdigit()):
+                    continue
+                if (child / "Framework" / "bin" / "Win64" / "RunWB2.exe").exists():
+                    found.append((int(name[1:]), child, name[1:]))
+        except OSError:
+            continue
+    if not found:
+        return None, "251"
+    found.sort(key=lambda item: item[0], reverse=True)
+    _, root, digits = found[0]
+    return root, digits
+
+
+_ANSYS_ROOT, _ANSYS_VER = _discover_ansys_root()
+_FALLBACK_ROOT = Path(r"D:\Program Files\ANSYS Inc\v251")
+_ROOT = _ANSYS_ROOT or _FALLBACK_ROOT
+
+DEFAULT_RUNWB2 = str(_ROOT / "Framework" / "bin" / "Win64" / "RunWB2.exe")
+DEFAULT_MECHANICAL = str(_ROOT / "aisol" / "bin" / "winx64" / "AnsysWBU.exe")
+DEFAULT_MAPDL = str(_ROOT / "ansys" / "bin" / "winx64" / f"ANSYS{_ANSYS_VER}.exe")
+DEFAULT_FLUENT = str(_ROOT / "fluent" / "ntbin" / "win64" / "fluent.exe")
+DEFAULT_CFX_SOLVE = str(_ROOT / "CFX" / "bin" / "cfx5solve.exe")
+DEFAULT_CFX_PRE = str(_ROOT / "CFX" / "bin" / "cfx5pre.exe")
+
+RUNWB2 = Path(os.environ.get("ANSYS_RUNWB2", DEFAULT_RUNWB2))
+MECHANICAL = Path(os.environ.get("ANSYS_MECHANICAL", DEFAULT_MECHANICAL))
+MAPDL = Path(os.environ.get("ANSYS_MAPDL", DEFAULT_MAPDL))
+FLUENT = Path(os.environ.get("ANSYS_FLUENT", DEFAULT_FLUENT))
+CFX_SOLVE = Path(os.environ.get("ANSYS_CFX_SOLVE", DEFAULT_CFX_SOLVE))
+CFX_PRE = Path(os.environ.get("ANSYS_CFX_PRE", DEFAULT_CFX_PRE))
+
+DEFAULT_TIMEOUT = float(os.environ.get("ANSYS_BRIDGE_TIMEOUT", "60"))
+# Workbench 冷启动通常需要 1-2 分钟，默认给到 180s，可用环境变量放宽
+BRIDGE_START_WAIT = int(os.environ.get("ANSYS_BRIDGE_START_WAIT", "180"))
+# 求解日志 marker 的封顶等待（秒），覆盖原先硬编码的 120/180
+LOG_MARKER_WAIT_CAP = int(os.environ.get("ANSYS_LOG_MARKER_WAIT", "1800"))
+
+WORKBENCH_ANALYSIS_TEMPLATES: dict[str, list[dict[str, str]]] = {
+    "steady_state_thermal": [{"template_name": "Steady-State Thermal", "solver": "ANSYS"}],
+    "transient_thermal": [{"template_name": "Transient Thermal", "solver": "ANSYS"}],
+    "static_structural": [{"template_name": "Static Structural", "solver": "ANSYS"}],
+    "transient_structural": [{"template_name": "Transient Structural", "solver": "ANSYS"}],
+    "modal": [{"template_name": "Modal", "solver": "ANSYS"}],
+    "harmonic_response": [{"template_name": "Harmonic Response", "solver": "ANSYS"}],
+    "response_spectrum": [{"template_name": "Response Spectrum", "solver": "ANSYS"}],
+    "random_vibration": [{"template_name": "Random Vibration", "solver": "ANSYS"}],
+    "cfx": [{"template_name": "Fluid Flow (CFX)", "solver": ""}, {"template_name": "CFX", "solver": ""}],
+    "fluent": [{"template_name": "Fluid Flow (Fluent)", "solver": ""}, {"template_name": "Fluent", "solver": ""}],
+}
+
+WORKBENCH_DEFAULT_PROJECT_NAMES: dict[str, str] = {
+    "steady_state_thermal": "steady_state_thermal",
+    "transient_thermal": "transient_thermal",
+    "static_structural": "static_structural",
+    "transient_structural": "transient_structural",
+    "modal": "modal_analysis",
+    "harmonic_response": "harmonic_response",
+    "response_spectrum": "response_spectrum",
+    "random_vibration": "random_vibration",
+    "cfx": "cfx_flow",
+    "fluent": "fluent_flow",
+}
+
+mcp = FastMCP("ansys-workbench-mcp")
+
+
+def _ensure_dirs() -> None:
+    for path in [COMMANDS_DIR, RESULTS_DIR, SCRIPTS_DIR, RUNS_DIR]:
+        path.mkdir(parents=True, exist_ok=True)
+
+
+def _as_path(value: str | Path) -> Path:
+    return Path(value).expanduser().resolve()
+
+
+def _json(data: dict[str, Any]) -> str:
+    return json.dumps(data, indent=2, ensure_ascii=False)
+
+
+def _split_extra_args(extra_args: str) -> list[str]:
+    if not extra_args.strip():
+        return []
+    return shlex.split(extra_args, posix=False)
+
+
+def _analysis_key(value: str) -> str:
+    return value.strip().lower().replace("-", "_").replace(" ", "_")
+
+
+def _analysis_candidates(analysis_type: str, template_name: str = "", solver: str = "") -> list[dict[str, str]]:
+    if template_name:
+        return [{"template_name": template_name, "solver": solver}]
+    key = _analysis_key(analysis_type)
+    candidates = WORKBENCH_ANALYSIS_TEMPLATES.get(key)
+    if not candidates:
+        supported = ", ".join(sorted(WORKBENCH_ANALYSIS_TEMPLATES))
+        raise ValueError(f"Unsupported analysis_type {analysis_type!r}. Supported values: {supported}")
+    return candidates
+
+
+def _default_project_name(analysis_type: str, fallback: str = "workbench_analysis") -> str:
+    return WORKBENCH_DEFAULT_PROJECT_NAMES.get(_analysis_key(analysis_type), fallback)
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    tmp.replace(path)
+
+
+def _run_process(args: list[str], cwd: Path, timeout_seconds: int) -> dict[str, Any]:
+    started = time.time()
+    proc = subprocess.run(
+        args,
+        cwd=str(cwd),
+        text=True,
+        capture_output=True,
+        timeout=timeout_seconds,
+        check=False,
+    )
+    return {
+        "returncode": proc.returncode,
+        "elapsed_seconds": round(time.time() - started, 3),
+        "stdout": proc.stdout[-12000:],
+        "stderr": proc.stderr[-12000:],
+    }
+
+
+def _workbench_command(journal_path: Path, batch: bool) -> list[str]:
+    args = [str(RUNWB2)]
+    if batch:
+        args.append("-B")
+    args.extend(["-R", str(journal_path)])
+    return args
+
+
+def _read_status() -> dict[str, Any]:
+    return _read_json(STATUS_FILE)
+
+
+# 心跳判活门限：bridge 每 2s 刷新一次 status.json，超过该阈值视为心跳停滞
+BRIDGE_HEARTBEAT_STALE = float(os.environ.get("ANSYS_BRIDGE_HEARTBEAT_STALE", "15"))
+
+
+def _pid_alive(pid: int) -> bool:
+    if not pid or pid <= 0:
+        return False
+    if os.name == "nt":
+        try:
+            out = subprocess.run(
+                ["tasklist", "/FI", f"PID eq {int(pid)}", "/NH"],
+                text=True,
+                capture_output=True,
+                timeout=10,
+                check=False,
+            ).stdout
+            return str(int(pid)) in out
+        except Exception:
+            return True  # 判活失败时不误杀，交由心跳判断
+    try:
+        os.kill(int(pid), 0)
+        return True
+    except Exception:
+        return False
+
+
+def _bridge_liveness() -> dict[str, Any]:
+    """Return an assessment of whether the Workbench bridge is actually alive.
+
+    Combines status.json presence, heartbeat freshness, and PID existence so
+    callers can fail fast instead of blocking until a long timeout.
+    """
+    status = _read_status()
+    if not status:
+        return {"alive": False, "reason": "status.json not found", "status": {}}
+    if status.get("status") != "running":
+        return {"alive": False, "reason": f"status is {status.get('status')!r}", "status": status}
+    age = time.time() - float(status.get("timestamp", 0) or 0)
+    if age > BRIDGE_HEARTBEAT_STALE and not _pid_alive(int(status.get("pid", 0) or 0)):
+        return {
+            "alive": False,
+            "reason": f"heartbeat stale ({int(age)}s > {int(BRIDGE_HEARTBEAT_STALE)}s)",
+            "status": status,
+        }
+    pid = int(status.get("pid", 0) or 0)
+    if not _pid_alive(pid):
+        return {"alive": False, "reason": f"bridge pid {pid} not running", "status": status}
+    return {"alive": True, "reason": "heartbeat fresh and pid alive", "status": status}
+
+
+def _send_command(cmd_type: str, timeout: float = DEFAULT_TIMEOUT, **kwargs: Any) -> dict[str, Any]:
+    _ensure_dirs()
+
+    # 命令投递前先判活，避免把命令写进无人消费的队列而白等到超时
+    live = _bridge_liveness()
+    if not live["alive"]:
+        return {
+            "success": False,
+            "error": (
+                "Workbench bridge 不可用: " + live["reason"] +
+                "。请调用 start_workbench_bridge 启动，或确认 Workbench 会话仍在运行。"
+            ),
+            "bridge_alive": False,
+            "status": live["status"],
+        }
+
+    cmd_id = uuid.uuid4().hex[:8]
+    command = {"id": cmd_id, "type": cmd_type, "timestamp": time.time(), **kwargs}
+    cmd_path = COMMANDS_DIR / f"cmd_{cmd_id}.json"
+    result_path = RESULTS_DIR / f"{cmd_id}.json"
+
+    _write_json(cmd_path, command)
+    deadline = time.time() + float(timeout)
+    last_alive_check = time.time()
+    while time.time() < deadline:
+        if result_path.exists():
+            result = _read_json(result_path)
+            try:
+                result_path.unlink()
+            except Exception:
+                pass
+            return result
+        # 等待期间只在 bridge 进程真正消失时中止。bridge 单线程轮询，执行打开
+        # Mechanical / 求解等长耗时命令时会阻塞心跳，此时心跳停滞属正常，不据此判死。
+        _do_check = time.time() - last_alive_check >= 3.0
+        _pid_now = int(_read_status().get("pid", 0) or 0) if _do_check else 0
+        if _do_check:
+            last_alive_check = time.time()
+        if _do_check and _pid_now and not _pid_alive(_pid_now):
+            try:
+                cmd_path.unlink()
+            except Exception:
+                pass
+            return {
+                "success": False,
+                "error": (
+                    f"Workbench bridge 进程 (pid {_pid_now}) 在处理 {cmd_type} 期间已退出，"
+                    "可能已崩溃。请重启 bridge 后重试。"
+                ),
+                "bridge_alive": False,
+            }
+        time.sleep(0.05)
+
+    try:
+        cmd_path.unlink()
+    except Exception:
+        pass
+    return {"success": False, "error": f"Timeout: no response from Workbench bridge in {timeout}s"}
+
+
+def _format_bridge_result(result: dict[str, Any]) -> str:
+    if result.get("success"):
+        data = result.get("data")
+        output = result.get("output", "")
+        if data is not None:
+            return _json(data if isinstance(data, dict) else {"data": data, "output": output})
+        return output if output else "(Command executed successfully, no output)"
+    error = result.get("error", "Unknown error")
+    tb = result.get("traceback", "")
+    if error == "Unknown error" and not tb:
+        return f"Error: {error}\nRaw result: {_json(result)}"
+    return f"Error: {error}\n{tb}".strip()
+
+
+def _wait_for_log_marker(log_path: Path, marker: str, timeout_seconds: int) -> bool:
+    deadline = time.time() + timeout_seconds
+    while time.time() < deadline:
+        if log_path.exists():
+            try:
+                if marker in log_path.read_text(encoding="utf-8", errors="replace"):
+                    return True
+            except OSError:
+                pass
+        time.sleep(0.5)
+    return False
+
+
+@mcp.resource("ansys-workbench://status")
+def workbench_status_resource() -> str:
+    """Current Ansys Workbench bridge status."""
+    status = _read_status()
+    if not status:
+        return _json({"connected": False, "detail": "status.json not found", "mcp_home": str(MCP_HOME)})
+    return _json(status)
+
+
+@mcp.resource("ansys-workbench://installation")
+def installation_resource() -> str:
+    """Configured Ansys executable paths for this MCP server."""
+    return check_ansys_installation()
+
+
+@mcp.tool()
+def check_ansys_installation() -> str:
+    """Check configured Workbench, Mechanical, MAPDL, and bridge paths."""
+    data = {
+        "version": __version__,
+        "runwb2": str(RUNWB2),
+        "runwb2_exists": RUNWB2.exists(),
+        "mechanical": str(MECHANICAL),
+        "mechanical_exists": MECHANICAL.exists(),
+        "mapdl": str(MAPDL),
+        "mapdl_exists": MAPDL.exists(),
+        "fluent": str(FLUENT),
+        "fluent_exists": FLUENT.exists(),
+        "cfx_solve": str(CFX_SOLVE),
+        "cfx_solve_exists": CFX_SOLVE.exists(),
+        "cfx_pre": str(CFX_PRE),
+        "cfx_pre_exists": CFX_PRE.exists(),
+        "bridge_journal": str(BRIDGE_JOURNAL),
+        "bridge_journal_exists": BRIDGE_JOURNAL.exists(),
+        "mcp_home": str(MCP_HOME),
+        "server_root": str(SERVER_ROOT),
+    }
+    return _json(data)
+
+
+@mcp.tool()
+def start_workbench_bridge(batch: bool = True, wait_seconds: int = 0) -> str:
+    """Launch Workbench with the file-IPC bridge journal loaded.
+
+    The bridge journal keeps Workbench alive and polls commands/*.json.
+    Use stop_workbench_bridge to stop it.
+    """
+    if not RUNWB2.exists():
+        return _json({"ok": False, "error": f"RunWB2 not found: {RUNWB2}"})
+    if not BRIDGE_JOURNAL.exists():
+        return _json({"ok": False, "error": f"Bridge journal not found: {BRIDGE_JOURNAL}"})
+
+    status = _read_status()
+    if status.get("status") == "running":
+        ping_result = _send_command("ping", timeout=5.0)
+        if ping_result.get("success"):
+            return _json({"ok": True, "already_running": True, "status": status, "ping": ping_result})
+
+    _ensure_dirs()
+    try:
+        if STOP_FILE.exists():
+            STOP_FILE.unlink()
+    except Exception:
+        pass
+
+    env = os.environ.copy()
+    env["ANSYS_WORKBENCH_MCP_HOME"] = str(MCP_HOME)
+    proc = subprocess.Popen(
+        _workbench_command(BRIDGE_JOURNAL, batch=batch),
+        cwd=str(SERVER_ROOT),
+        env=env,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+    deadline = time.time() + max(1, int(wait_seconds) if int(wait_seconds) > 0 else BRIDGE_START_WAIT)
+    ping_result: dict[str, Any] = {}
+    while time.time() < deadline:
+        status = _read_status()
+        if status.get("status") == "running":
+            ping_result = _send_command("ping", timeout=5.0)
+            if ping_result.get("success"):
+                return _json({"ok": True, "pid": proc.pid, "status": status, "ping": ping_result})
+        time.sleep(0.5)
+
+    return _json({"ok": False, "pid": proc.pid, "status": _read_status(), "detail": "Bridge did not answer before timeout"})
+
+
+@mcp.tool()
+def stop_workbench_bridge(timeout_seconds: int = 10) -> str:
+    """Signal the Workbench bridge loop to stop."""
+    result = _send_command("stop", timeout=min(float(timeout_seconds), 5.0))
+    if not result.get("success"):
+        try:
+            STOP_FILE.write_text("stop", encoding="utf-8")
+        except Exception:
+            pass
+
+    deadline = time.time() + max(1, int(timeout_seconds))
+    while time.time() < deadline:
+        status = _read_status()
+        if status.get("status") in {"stopped", "ready"}:
+            return _json({"ok": True, "status": status, "command_result": result})
+        time.sleep(0.25)
+
+    return _json({"ok": False, "status": _read_status(), "command_result": result})
+
+
+@mcp.tool()
+def check_workbench_connection() -> str:
+    """Check whether the Workbench bridge journal is running and responding."""
+    status = _read_status()
+    if not status:
+        return "Workbench bridge status not found. Run start_workbench_bridge() or load ansys_workbench_bridge.wbjn in Workbench."
+
+    if status.get("status") != "running":
+        return f"Workbench bridge is not running: {_json(status)}"
+    live = _bridge_liveness()
+    if not live["alive"]:
+        return f"Workbench bridge 不在线 ({live['reason']}): {_json(status)}"
+
+    result = _send_command("ping", timeout=10.0)
+    if result.get("success"):
+        data = result.get("data", {})
+        version = data.get("version", "?") if isinstance(data, dict) else "?"
+        return f"Connected to Ansys Workbench bridge v{version}.\nStatus: {_json(status)}"
+    return f"Workbench bridge status exists but ping failed: {_json(result)}"
+
+
+@mcp.tool()
+def execute_workbench_script(script: str, timeout_seconds: int = 60) -> str:
+    """Execute Workbench PROJECT-LEVEL journal code in the running bridge.
+
+    This runs at the Workbench project scope: GetTemplate, CreateSystem,
+    GetContainer, Save, Update are available. ExtAPI / DataModel are NOT
+    available here. For materials, mesh, loads, boundary conditions, solving
+    and result extraction, use execute_mechanical_script instead.
+    """
+    result = _send_command("execute_script", timeout=float(timeout_seconds), script=script)
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def execute_mechanical_script(script: str, system_name: str = "", timeout_seconds: int = 300) -> str:
+    """Execute a script INSIDE the Mechanical editor of an analysis system.
+
+    Use this (not execute_workbench_script) for anything that touches the
+    Mechanical data model: materials, mesh controls, named selections, loads,
+    boundary conditions, solving, and result extraction. Inside the script the
+    Mechanical scripting API is available (ExtAPI, DataModel, Model, etc.).
+
+    system_name optionally targets a specific system by name/display text;
+    empty picks the first system that has a Model component.
+    """
+    result = _send_command(
+        "execute_mechanical_script",
+        timeout=float(timeout_seconds),
+        script=script,
+        system_name=system_name,
+        wait_seconds=max(30, int(timeout_seconds) - 15),
+    )
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def get_project_info(timeout_seconds: int = 30) -> str:
+    """Get project/system/component information from the running Workbench bridge."""
+    result = _send_command("get_project_info", timeout=float(timeout_seconds))
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def open_project(project_file: str, timeout_seconds: int = 120) -> str:
+    """Open a Workbench project in the running Workbench bridge."""
+    result = _send_command("open_project", timeout=float(timeout_seconds), project_file=project_file)
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def save_project(project_file: str = "", overwrite: bool = True, timeout_seconds: int = 120) -> str:
+    """Save the current Workbench project through the running bridge."""
+    result = _send_command(
+        "save_project",
+        timeout=float(timeout_seconds),
+        project_file=project_file,
+        overwrite=overwrite,
+    )
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def update_project(timeout_seconds: int = 600) -> str:
+    """Run Workbench Update() in the running bridge."""
+    result = _send_command("update_project", timeout=float(timeout_seconds))
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def probe_workbench_analysis_templates_live(timeout_seconds: int = 60) -> str:
+    """Check Workbench template availability for the supported analysis wrappers."""
+    result = _send_command(
+        "probe_analysis_templates",
+        timeout=float(timeout_seconds),
+        analysis_templates=WORKBENCH_ANALYSIS_TEMPLATES,
+    )
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def create_workbench_analysis_system_live(
+    analysis_type: str,
+    project_dir: str,
+    project_name: str = "",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    reset_project: bool = True,
+    template_name: str = "",
+    solver: str = "",
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Workbench analysis system in the running bridge.
+
+    Supported analysis_type values include steady_state_thermal,
+    transient_thermal, static_structural, transient_structural, modal,
+    harmonic_response, response_spectrum, random_vibration, cfx, and fluent.
+    template_name/solver can override the built-in mapping.
+    """
+    try:
+        candidates = _analysis_candidates(analysis_type, template_name, solver)
+    except ValueError as exc:
+        return _json({"ok": False, "error": str(exc)})
+    result = _send_command(
+        "create_analysis_system",
+        timeout=float(timeout_seconds),
+        analysis_type=_analysis_key(analysis_type),
+        project_dir=project_dir,
+        project_name=project_name or _default_project_name(analysis_type),
+        geometry_file=geometry_file,
+        refresh_model=refresh_model,
+        reset_project=reset_project,
+        template_candidates=candidates,
+    )
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def create_steady_state_thermal_system_live(
+    project_dir: str,
+    project_name: str = "steady_state_thermal",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Steady-State Thermal system in the running Workbench bridge."""
+    result = _send_command(
+        "create_steady_state_thermal_system",
+        timeout=float(timeout_seconds),
+        project_dir=project_dir,
+        project_name=project_name,
+        geometry_file=geometry_file,
+        refresh_model=refresh_model,
+    )
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def create_transient_thermal_system_live(
+    project_dir: str,
+    project_name: str = "transient_thermal",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Transient Thermal system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "transient_thermal",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_static_structural_system_live(
+    project_dir: str,
+    project_name: str = "static_structural",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Static Structural system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "static_structural",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_transient_structural_system_live(
+    project_dir: str,
+    project_name: str = "transient_structural",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Transient Structural dynamics system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "transient_structural",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_modal_analysis_system_live(
+    project_dir: str,
+    project_name: str = "modal_analysis",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Modal dynamics system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "modal",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_harmonic_response_system_live(
+    project_dir: str,
+    project_name: str = "harmonic_response",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Harmonic Response dynamics system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "harmonic_response",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_response_spectrum_system_live(
+    project_dir: str,
+    project_name: str = "response_spectrum",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Response Spectrum dynamics system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "response_spectrum",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_random_vibration_system_live(
+    project_dir: str,
+    project_name: str = "random_vibration",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Random Vibration dynamics system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "random_vibration",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_cfx_flow_system_live(
+    project_dir: str,
+    project_name: str = "cfx_flow",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Create a Fluid Flow (CFX) system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "cfx",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_fluent_flow_system_live(
+    project_dir: str,
+    project_name: str = "fluent_flow",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 180,
+) -> str:
+    """Try to create a Fluid Flow (Fluent) system in the running Workbench bridge."""
+    return create_workbench_analysis_system_live(
+        "fluent",
+        project_dir,
+        project_name,
+        geometry_file,
+        refresh_model,
+        True,
+        timeout_seconds=timeout_seconds,
+    )
+
+
+@mcp.tool()
+def create_thermal_bar_demo_live(
+    project_dir: str = r"D:\ansys-workbench-mcp\runs\thermal_bar_demo_live",
+    timeout_seconds: int = 600,
+) -> str:
+    """Create and solve a simple thermal bar demo through the running Workbench bridge."""
+    result = _send_command("create_thermal_bar_demo", timeout=float(timeout_seconds), project_dir=project_dir)
+    return _format_bridge_result(result)
+
+
+@mcp.tool()
+def run_workbench_journal(
+    journal_path: str,
+    workdir: str = "",
+    batch: bool = True,
+    timeout_seconds: int = 600,
+) -> str:
+    """Run an Ansys Workbench journal through RunWB2 as a direct batch job."""
+    if not RUNWB2.exists():
+        return _json({"ok": False, "error": f"RunWB2 not found: {RUNWB2}"})
+
+    journal = _as_path(journal_path)
+    if not journal.exists():
+        return _json({"ok": False, "error": f"Journal not found: {journal}"})
+
+    cwd = _as_path(workdir) if workdir else journal.parent
+    cwd.mkdir(parents=True, exist_ok=True)
+
+    try:
+        result = _run_process(_workbench_command(journal, batch=batch), cwd, timeout_seconds)
+        return _json({"ok": result["returncode"] == 0, "journal": str(journal), **result})
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "journal": str(journal)})
+
+
+@mcp.tool()
+def create_workbench_analysis_system(
+    analysis_type: str,
+    project_dir: str,
+    project_name: str = "",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    template_name: str = "",
+    solver: str = "",
+    timeout_seconds: int = 600,
+) -> str:
+    """Create a Workbench analysis system through a direct batch journal.
+
+    This one-shot tool does not require the bridge to be running.
+    """
+    if not RUNWB2.exists():
+        return _json({"ok": False, "error": f"RunWB2 not found: {RUNWB2}"})
+
+    try:
+        candidates = _analysis_candidates(analysis_type, template_name, solver)
+    except ValueError as exc:
+        return _json({"ok": False, "error": str(exc)})
+
+    if geometry_file:
+        geom = _as_path(geometry_file)
+        if not geom.exists():
+            return _json({"ok": False, "error": f"Geometry file not found: {geom}"})
+        geometry_file = str(geom)
+
+    analysis_key = _analysis_key(analysis_type)
+    final_project_name = project_name or _default_project_name(analysis_key)
+    out_dir = _as_path(project_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    project_file = out_dir / f"{final_project_name}.wbpj"
+    journal_file = out_dir / f"{final_project_name}_create_{analysis_key}.wbjn"
+    log_file = out_dir / f"{final_project_name}_create_{analysis_key}.log"
+    marker = "ANSYS_WORKBENCH_MCP_DONE"
+
+    geometry_literal = repr(geometry_file)
+    refresh_line = "        model.Refresh()\n" if refresh_model else ""
+    model_block = refresh_line if refresh_model else "        model = None\n"
+    journal = f"""# encoding: utf-8
+import traceback
+
+log = open({str(log_file)!r}, "w")
+
+def w(message):
+    log.write(str(message) + "\\n")
+    log.flush()
+
+def resolve_template(candidates):
+    errors = []
+    for candidate in candidates:
+        name = candidate.get("template_name", "")
+        solver = candidate.get("solver", "")
+        try:
+            if solver:
+                return GetTemplate(TemplateName=name, Solver=solver), name, solver
+            return GetTemplate(TemplateName=name), name, solver
+        except Exception as e:
+            errors.append(name + "|" + solver + "|" + str(e))
+    raise RuntimeError("No matching Workbench template. Tried: " + "; ".join(errors))
+
+try:
+    Reset()
+    ClearMessages()
+    template, used_name, used_solver = resolve_template({json.dumps(candidates, ensure_ascii=False)})
+    system = template.CreateSystem()
+    if {bool(geometry_file)!r}:
+        geometry = system.GetContainer(ComponentName="Geometry")
+        geometry.SetFile(FilePath={geometry_literal})
+    try:
+        model = system.GetContainer(ComponentName="Model")
+{refresh_line if refresh_model else model_block}    except Exception:
+        model = None
+    Save(FilePath={str(project_file)!r}, Overwrite=True)
+    w("Analysis type: " + {analysis_key!r})
+    w("Template: " + used_name + " (" + used_solver + ")")
+    w("Project saved: " + {str(project_file)!r})
+    for message in GetMessages():
+        try:
+            w("%s: %s" % (message.MessageType, message.Summary))
+        except:
+            w(str(message))
+    w("{marker}")
+except Exception:
+    w("ERROR")
+    w(traceback.format_exc())
+    raise
+finally:
+    log.close()
+"""
+    journal_file.write_text(journal, encoding="utf-8")
+
+    try:
+        process_result = _run_process(_workbench_command(journal_file, batch=True), out_dir, timeout_seconds)
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "journal": str(journal_file)})
+
+    marker_seen = _wait_for_log_marker(log_file, marker, min(timeout_seconds, LOG_MARKER_WAIT_CAP))
+    log_text = log_file.read_text(encoding="utf-8", errors="replace") if log_file.exists() else ""
+    ok = project_file.exists() and marker_seen and "ERROR" not in log_text
+    return _json(
+        {
+            "ok": ok,
+            "analysis_type": analysis_key,
+            "project_file": str(project_file),
+            "journal_file": str(journal_file),
+            "log_file": str(log_file),
+            "marker_seen": marker_seen,
+            "process": process_result,
+            "log_tail": log_text[-8000:],
+        }
+    )
+
+
+@mcp.tool()
+def create_steady_state_thermal_system(
+    project_dir: str,
+    project_name: str = "steady_state_thermal",
+    geometry_file: str = "",
+    refresh_model: bool = False,
+    timeout_seconds: int = 600,
+) -> str:
+    """Create a Workbench Steady-State Thermal system using a direct batch journal.
+
+    This one-shot tool does not require the bridge to be running.
+    """
+    if not RUNWB2.exists():
+        return _json({"ok": False, "error": f"RunWB2 not found: {RUNWB2}"})
+
+    out_dir = _as_path(project_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    project_file = out_dir / f"{project_name}.wbpj"
+    journal_file = out_dir / f"{project_name}_create_steady_thermal.wbjn"
+    log_file = out_dir / f"{project_name}_create_steady_thermal.log"
+
+    geom_line = ""
+    if geometry_file:
+        geom = _as_path(geometry_file)
+        if not geom.exists():
+            return _json({"ok": False, "error": f"Geometry file not found: {geom}"})
+        geom_line = (
+            "geometry = system.GetContainer(ComponentName='Geometry')\n"
+            f"geometry.SetFile(FilePath={str(geom)!r})\n"
+        )
+
+    refresh_line = "model.Refresh()\n" if refresh_model else ""
+    marker = "ANSYS_WORKBENCH_MCP_DONE"
+    journal = f"""# encoding: utf-8
+import traceback
+
+log = open({str(log_file)!r}, "w")
+
+def w(message):
+    log.write(str(message) + "\\n")
+    log.flush()
+
+try:
+    Reset()
+    ClearMessages()
+    template = GetTemplate(TemplateName="Steady-State Thermal", Solver="ANSYS")
+    system = template.CreateSystem()
+{geom_line}    model = system.GetContainer(ComponentName="Model")
+{refresh_line}    Save(FilePath={str(project_file)!r}, Overwrite=True)
+    w("Project saved: " + {str(project_file)!r})
+    for message in GetMessages():
+        try:
+            w("%s: %s" % (message.MessageType, message.Summary))
+        except:
+            w(str(message))
+    w("{marker}")
+except Exception:
+    w("ERROR")
+    w(traceback.format_exc())
+    raise
+finally:
+    log.close()
+"""
+    journal_file.write_text(journal, encoding="utf-8")
+
+    try:
+        process_result = _run_process(_workbench_command(journal_file, batch=True), out_dir, timeout_seconds)
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "journal": str(journal_file)})
+
+    marker_seen = _wait_for_log_marker(log_file, marker, min(timeout_seconds, LOG_MARKER_WAIT_CAP))
+    log_text = log_file.read_text(encoding="utf-8", errors="replace") if log_file.exists() else ""
+    ok = project_file.exists() and marker_seen and "ERROR" not in log_text
+    return _json(
+        {
+            "ok": ok,
+            "project_file": str(project_file),
+            "journal_file": str(journal_file),
+            "log_file": str(log_file),
+            "marker_seen": marker_seen,
+            "process": process_result,
+            "log_tail": log_text[-8000:],
+        }
+    )
+
+
+@mcp.tool()
+def run_mapdl_input(
+    input_file: str,
+    workdir: str = "",
+    job_name: str = "ansys_mcp_job",
+    timeout_seconds: int = 600,
+) -> str:
+    """Run a Mechanical APDL input file with MAPDL."""
+    if not MAPDL.exists():
+        return _json({"ok": False, "error": f"MAPDL not found: {MAPDL}"})
+
+    inp = _as_path(input_file)
+    if not inp.exists():
+        return _json({"ok": False, "error": f"Input file not found: {inp}"})
+
+    cwd = _as_path(workdir) if workdir else inp.parent
+    cwd.mkdir(parents=True, exist_ok=True)
+    out_file = cwd / f"{job_name}.out"
+    args = [str(MAPDL), "-b", "-i", str(inp), "-o", str(out_file), "-j", job_name]
+
+    try:
+        result = _run_process(args, cwd, timeout_seconds)
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "input_file": str(inp)})
+
+    out_tail = out_file.read_text(encoding="utf-8", errors="replace")[-12000:] if out_file.exists() else ""
+    return _json(
+        {
+            "ok": result["returncode"] == 0,
+            "input_file": str(inp),
+            "out_file": str(out_file),
+            "process": result,
+            "out_tail": out_tail,
+        }
+    )
+
+
+@mcp.tool()
+def run_fluent_journal(
+    journal_path: str,
+    workdir: str = "",
+    dimension: str = "3d",
+    precision: str = "double",
+    processors: int = 1,
+    gui: bool = False,
+    extra_args: str = "",
+    timeout_seconds: int = 3600,
+) -> str:
+    """Run an Ansys Fluent journal directly with fluent.exe.
+
+    dimension is 2d or 3d. precision is single or double.
+    extra_args is appended to the Fluent command line for advanced cases.
+    """
+    if not FLUENT.exists():
+        return _json({"ok": False, "error": f"Fluent not found: {FLUENT}"})
+
+    journal = _as_path(journal_path)
+    if not journal.exists():
+        return _json({"ok": False, "error": f"Journal not found: {journal}"})
+
+    cwd = _as_path(workdir) if workdir else journal.parent
+    cwd.mkdir(parents=True, exist_ok=True)
+
+    dim = dimension.strip().lower()
+    if dim not in {"2d", "3d"}:
+        return _json({"ok": False, "error": "dimension must be 2d or 3d"})
+    prec = precision.strip().lower()
+    if prec in {"double", "dp"}:
+        fluent_mode = dim + "dp"
+    elif prec in {"single", "sp"}:
+        fluent_mode = dim
+    else:
+        return _json({"ok": False, "error": "precision must be single or double"})
+
+    args = [str(FLUENT), fluent_mode]
+    if int(processors) > 1:
+        args.append(f"-t{int(processors)}")
+    if not gui:
+        args.append("-g")
+    args.extend(["-i", str(journal)])
+    args.extend(_split_extra_args(extra_args))
+
+    try:
+        result = _run_process(args, cwd, timeout_seconds)
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "journal": str(journal)})
+
+    return _json(
+        {
+            "ok": result["returncode"] == 0,
+            "journal": str(journal),
+            "workdir": str(cwd),
+            "command": args,
+            "process": result,
+        }
+    )
+
+
+@mcp.tool()
+def run_cfx_solver(
+    definition_file: str,
+    workdir: str = "",
+    run_name: str = "",
+    processors: int = 1,
+    double_precision: bool = False,
+    extra_args: str = "",
+    timeout_seconds: int = 3600,
+) -> str:
+    """Run an Ansys CFX solver input file directly with cfx5solve.exe."""
+    if not CFX_SOLVE.exists():
+        return _json({"ok": False, "error": f"CFX solver not found: {CFX_SOLVE}"})
+
+    definition = _as_path(definition_file)
+    if not definition.exists():
+        return _json({"ok": False, "error": f"Definition file not found: {definition}"})
+
+    cwd = _as_path(workdir) if workdir else definition.parent
+    cwd.mkdir(parents=True, exist_ok=True)
+
+    args = [str(CFX_SOLVE), "-batch", "-def", str(definition), "-chdir", str(cwd)]
+    if run_name:
+        args.extend(["-name", run_name])
+    if double_precision:
+        args.append("-double")
+    if int(processors) > 1:
+        args.extend(["-par-local", "-partition", str(int(processors))])
+    args.extend(_split_extra_args(extra_args))
+
+    try:
+        result = _run_process(args, cwd, timeout_seconds)
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "definition_file": str(definition)})
+
+    return _json(
+        {
+            "ok": result["returncode"] == 0,
+            "definition_file": str(definition),
+            "workdir": str(cwd),
+            "command": args,
+            "process": result,
+        }
+    )
+
+
+@mcp.tool()
+def create_and_run_thermal_bar_demo(
+    project_dir: str = r"D:\ansys-workbench-mcp\runs\thermal_bar_demo",
+    timeout_seconds: int = 600,
+) -> str:
+    """Create and solve a small steady thermal bar demo through direct Workbench batch."""
+    out_dir = _as_path(project_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    inp = out_dir / "thermal_bar.dat"
+    result_txt = out_dir / "thermal_nodal_temperatures.txt"
+    wbjn = out_dir / "run_thermal_bar.wbjn"
+    wbpj = out_dir / "thermal_bar_demo.wbpj"
+    log_file = out_dir / "workbench_run.log"
+    marker = "ANSYS_WORKBENCH_MCP_DONE"
+
+    apdl = f"""/TITLE,Workbench MCP thermal bar demo
+/PREP7
+ET,1,SOLID70
+MP,KXX,1,45
+BLOCK,0,0.1,0,0.02,0,0.02
+ESIZE,0.005
+VMESH,ALL
+FINISH
+
+/SOLU
+ANTYPE,STATIC
+NSEL,S,LOC,X,0
+D,ALL,TEMP,100
+NSEL,S,LOC,X,0.1
+D,ALL,TEMP,20
+ALLSEL,ALL
+SOLVE
+FINISH
+
+/POST1
+SET,LAST
+ALLSEL,ALL
+/OUTPUT,{str(result_txt.with_suffix('')).replace(chr(92), '/')!r},txt
+PRNSOL,TEMP
+/OUTPUT
+FINISH
+"""
+    inp.write_text(apdl, encoding="utf-8")
+
+    journal = f"""# encoding: utf-8
+import traceback
+
+log = open({str(log_file)!r}, "w")
+
+def w(message):
+    log.write(str(message) + "\\n")
+    log.flush()
+
+try:
+    Reset()
+    ClearMessages()
+    template = GetTemplate(TemplateName="Mechanical APDL")
+    system = template.CreateSystem()
+    setup = system.GetContainer(ComponentName="Setup")
+    setup.AddInputFile(FilePath={str(inp)!r})
+    Save(FilePath={str(wbpj)!r}, Overwrite=True)
+    Update()
+    Save(FilePath={str(wbpj)!r}, Overwrite=True)
+    w("Project saved: " + {str(wbpj)!r})
+    w("{marker}")
+except Exception:
+    w("ERROR")
+    w(traceback.format_exc())
+    raise
+finally:
+    log.close()
+"""
+    wbjn.write_text(journal, encoding="utf-8")
+
+    try:
+        process_result = _run_process(_workbench_command(wbjn, batch=True), out_dir, timeout_seconds)
+    except subprocess.TimeoutExpired:
+        return _json({"ok": False, "error": f"Timed out after {timeout_seconds}s", "journal": str(wbjn)})
+
+    marker_seen = _wait_for_log_marker(log_file, marker, min(timeout_seconds, LOG_MARKER_WAIT_CAP))
+    log_text = log_file.read_text(encoding="utf-8", errors="replace") if log_file.exists() else ""
+    temp_text = result_txt.read_text(encoding="utf-8", errors="replace") if result_txt.exists() else ""
+    temps: list[float] = []
+    for line in temp_text.splitlines():
+        parts = line.split()
+        if len(parts) == 2 and parts[0].isdigit():
+            try:
+                temps.append(float(parts[1]))
+            except ValueError:
+                pass
+    ok = result_txt.exists() and marker_seen and "ERROR" not in log_text
+    return _json(
+        {
+            "ok": ok,
+            "project_file": str(wbpj),
+            "input_file": str(inp),
+            "journal_file": str(wbjn),
+            "log_file": str(log_file),
+            "result_file": str(result_txt),
+            "node_count": len(temps),
+            "min_temperature": min(temps) if temps else None,
+            "max_temperature": max(temps) if temps else None,
+            "process": process_result,
+            "log_tail": log_text[-8000:],
+        }
+    )
+
+
+if __name__ == "__main__":
+    _ensure_dirs()
+    mcp.run()

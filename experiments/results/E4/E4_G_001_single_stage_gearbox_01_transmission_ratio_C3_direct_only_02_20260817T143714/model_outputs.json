@@ -1,0 +1,566 @@
+{
+  "metrics": {
+    "IR": 0.0417,
+    "invalidation_precision": 1.0,
+    "ORR": 0.4167,
+    "BR": 0.5833,
+    "IRE": 0.9759,
+    "n_gold_stale": 48,
+    "n_predicted_stale": 2,
+    "stale_used_downstream": 20,
+    "recovery_time_s": 159.8223,
+    "tool_calls_after_change": 16,
+    "human_interventions": 0,
+    "orr_violation": true
+  },
+  "run_data": {
+    "predicted_stale_params": [],
+    "predicted_stale_calcs": [
+      "calc#1",
+      "calc#17"
+    ],
+    "gold_stale_params": [
+      "T_out",
+      "a",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "i_actual",
+      "key_coupling_out",
+      "key_gear",
+      "m",
+      "n_out",
+      "z_2"
+    ],
+    "gold_stale_calcs": [
+      "calc#1",
+      "calc#10",
+      "calc#13",
+      "calc#14",
+      "calc#15",
+      "calc#16",
+      "calc#17",
+      "calc#19",
+      "calc#20",
+      "calc#21",
+      "calc#22",
+      "calc#23",
+      "calc#24",
+      "calc#25",
+      "calc#26",
+      "calc#27",
+      "calc#28",
+      "calc#30",
+      "calc#31",
+      "calc#32",
+      "calc#33",
+      "calc#34",
+      "calc#35",
+      "calc#4",
+      "calc#6",
+      "calc#7",
+      "calc#8",
+      "calc#9"
+    ],
+    "stale_params_used_downstream": 20,
+    "stale_calcs_used_downstream": 0,
+    "n_incremental_recalculations": 2,
+    "n_full_recalculations": 83,
+    "recovery_time_s": 159.8223,
+    "tool_calls_after_change": 16,
+    "human_interventions": 0,
+    "change_time_s": 2.0317,
+    "probe_time_s": 2.0443,
+    "leaked_nodes": [
+      "T_out",
+      "a",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "i_actual",
+      "key_coupling_out",
+      "key_gear",
+      "m",
+      "n_out",
+      "z_2"
+    ],
+    "condition_semantics": "C2 marks every existing node stale before bounded recovery",
+    "recovered_stale_params": [],
+    "recovered_stale_calcs": [
+      "calc#1",
+      "calc#17"
+    ],
+    "actual_recalculations": 2,
+    "new_calculation_records": 2,
+    "recovery_tool_calls": [
+      "query_ledger",
+      "query_ledger",
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "commit_parameter",
+      "search_formula",
+      "solve_formula",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "query_ledger",
+      "get_calculation_record"
+    ]
+  },
+  "probe": {
+    "status": "ok",
+    "session_id": "d883c3fa-4b5c-449a-ac01-8ed78a68d019",
+    "entries": [
+      {
+        "symbol": "T_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "a",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_f1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_gear_seat",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "delta_housing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "i_actual",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_gear",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "m",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "n_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "z_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      }
+    ],
+    "records": [
+      {
+        "record_id": "calc#1",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#10",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#13",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#14",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#15",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#16",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#17",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#19",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#20",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#21",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#22",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#23",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#24",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#25",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#26",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#27",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#28",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#30",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#31",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#32",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#33",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#34",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#35",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#4",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#6",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#7",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#8",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#9",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      }
+    ],
+    "report": {
+      "accepted": false,
+      "error": "报告输入包含失效项：parameters=[], calculations=['calc#1', 'calc#17']"
+    },
+    "stale": {
+      "stale_calculations": [
+        "calc#1",
+        "calc#17"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "change_response": {
+    "status": "ok",
+    "session_id": "d883c3fa-4b5c-449a-ac01-8ed78a68d019",
+    "symbol": "i",
+    "value": {
+      "value": 3.15,
+      "unit": ""
+    },
+    "revision": 2,
+    "baseline_was_frozen": true,
+    "propagation_mode": "direct",
+    "stale": {
+      "stale_calculations": [
+        "calc#1",
+        "calc#17"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "recovery_response": {
+    "session_id": "d883c3fa-4b5c-449a-ac01-8ed78a68d019",
+    "reply": "受控恢复已完成。核验结果如下，随后按指令停止，不发起任何决策、不建模、不仿真、不生成报告。\n\n## 受控恢复结论\n\n**1. 异常定位**\n- 台账参数 `i`（总传动比）被误改为 **3.15**（tentative），与设计任务书给定值 **4** 矛盾——basis 自述「设计任务书：传动比 4」，值与依据冲突。\n- 连带导致 2 条计算记录失效：`calc#1`（输出轴转速）、`calc#17`（大齿轮齿数/实际传动比），失效原因均为「i 由 4 改为 3.15」。\n\n**2. 恢复动作**\n| 步骤 | 动作 | 结果 |\n|------|------|------|\n| 1 | `i` 恢复为 4（user_given，revision 3，superseded 3.15） | 与任务书一致 ✓ |\n| 2 | 重算 `n_out` → `calc#36` | 360 r/min ✓ |\n| 3 | 重算 `z_2 / i_actual` → `calc#37` | z₂=96，i_actual=4，误差 0% ✓ |\n| 4 | `n_out`、`z_2`、`i_actual` 依据更新至 `calc#36`/`calc#37` | 台账不再引用失效记录 ✓ |\n\n**3. 最终一致性**\n- **无失效参数**（stale_parameters 为空）；\n- 新记录 `calc#36`、`calc#37` 均为有效（stale=false）；\n- 旧记录 `calc#1`、`calc#17` 保持失效状态，属历史失效记录，已被新记录取代，不再被任何台账参数引用；\n- 重算值与原确认值完全一致（n_out=360 r/min、z₂=96、i_actual=4），**下游齿轮、轴、轴承、键的全部 10 项校核结论不受影响，依然成立**。\n\n**4. 参数状态说明**\n受 revision 更新影响，`i`、`n_out`、`z_2`、`i_actual` 共 4 项当前处于 **tentative**（值均已正确）。轴材料（输入轴 45 钢调质、输出轴 45 钢正火）已记录为 confirmed，未影响任何材料性能计算。\n\n恢复闭环完成，本次停止。",
+    "design_stage": "geometry",
+    "tool_calls_made": [
+      "query_ledger",
+      "query_ledger",
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "commit_parameter",
+      "search_formula",
+      "solve_formula",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "commit_parameter",
+      "query_ledger",
+      "get_calculation_record"
+    ],
+    "tool_events": [
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "experiment_condition": "B3"
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "session_id": "b7891b01-00fb-4593-9892-5f0164892ee1",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "轴承基本额定寿命计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "n": {
+          "value": 305.0,
+          "unit": "r/min"
+        },
+        "C_r": {
+          "value": 32000.0,
+          "unit": "N"
+        },
+        "P_eq": {
+          "value": 8500.0,
+          "unit": "N"
+        },
+        "f_t": {
+          "value": 1.0,
+          "unit": ""
+        },
+        "epsilon": {
+          "value": 3.0,
+          "unit": ""
+        }
+      },
+      "substitution": "n=305 r/min；C_r=3.2e+04 N；P_eq=8500 N；f_t=1；epsilon=3",
+      "result": {
+        "L_10h": {
+          "value": 2915.694838829513,
+          "unit": "hour"
+        },
+        "C_over_P": {
+          "value": 3.764705882352941,
+          "unit": ""
+        },
+        "epsilon": {
+          "value": 3.0,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 13-5；GB/T 6391-2010",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 轴承寿命计算：L_10h = 10^6 / (60*n) * (f_t*C_r/P_eq)^epsilon\n# 机械设计（第十版）式 13-5；GB/T 6391-2010\n\nn = 305       # r/min\nC_r = 32000   # N\nP_eq = 8500   # N  (8.5 kN)\nf_t = 1.0     # 温度系数，常温\nepsilon = 3.0 # 球轴承寿命指数\n\nL_10h = 1e6 / (60 * n) * (f_t * C_r / P_eq) ** epsilon\n\noutputs = {\n    'L_10h': L_10h,\n    'C_over_P': C_r / P_eq,\n    'epsilon': epsilon\n}",
+      "created_at": "2026-08-15T20:10:33.623729Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "6fb1c03d-ff34-4926-bd98-eb1e13d8c6e8",
+      "role": "user",
+      "content": "轴承额定动载荷C=32000 N，转速n=305 rpm，计算轴承寿命，载荷P=8.5 kN（N与kN混用）",
+      "timestamp": "2026-08-15T20:09:49.398968Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "73bf8c6c-e7e5-4f0a-9c5d-d2e5ca536ad5",
+      "role": "assistant",
+      "content": "## 轴承寿命计算结果\n\n**计算依据**：机械设计（第十版）式 13-5 / GB/T 6391-2010\n\n**计算记录**：`calc#1`\n\n| 参数 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 基本额定动载荷 | C | 32 000 | N |\n| 当量动载荷 | P | 8 500 | N（= 8.5 kN） |\n| 转速 | n | 305 | r/min |\n| 温度系数 | f_t | 1.0 | —（常温） |\n| 寿命指数（球轴承） | ε | 3.0 | — |\n| **基本额定寿命** | **L₁₀h** | **≈ 2 916** | **hour** |\n\n**计算过程**：\n\n\\[\nL_{10h} = \\frac{10^6}{60 \\times 305} \\times \\left(\\frac{1.0 \\times 32000}{8500}\\right)^3\n= \\frac{10^6}{18300} \\times (3.765)^3\n= 54.64 \\times 53.33 \\approx 2\\,916\\ \\text{h}\n\\]\n\n---\n\n### ⚠️ 几点说明\n\n1. **C/P = 3.765**，对于球轴承而言这个比值偏小，所以寿命只有约 2 900 小时。作为参考：一般工业齿轮箱轴承期望寿命在 8 000~20 000 h，电动机轴承在 20 000~40 000 h。如果这是实际工况，寿命偏短，可能需要考虑加大轴承规格或改用滚子轴承（ε=10/3，寿命会显著提高）。\n\n2. **未做校核判断**——因为缺少要求的寿命 L_h_required。如果需要判断该轴承是否满足某具体工况，请补充期望寿命。\n\n3. 载荷 P=8.5 kN 若为纯径向载荷且无冲击，则直接作为 P_eq 使用；若存在轴向力或冲击，需先用当量动载荷公式修正。",
+      "timestamp": "2026-08-15T20:10:50.369686Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T20:10:50.369686Z"
+}

@@ -1,0 +1,1069 @@
+# encoding: utf-8
+"""Ansys Workbench side of the ansys-workbench-mcp file IPC bridge."""
+
+import io
+import json
+import os
+import sys
+import time
+import traceback
+import uuid
+from datetime import datetime
+
+__version__ = "0.2.0"
+
+
+def _resolve_mcp_home():
+    env_home = os.environ.get("ANSYS_WORKBENCH_MCP_HOME", "").strip()
+    if env_home:
+        return os.path.abspath(os.path.expanduser(env_home))
+    try:
+        this_file = os.path.abspath(__file__)
+        script_dir = os.path.dirname(this_file)
+        if os.path.exists(os.path.join(script_dir, "mcp_server.py")):
+            return script_dir
+    except Exception:
+        pass
+    return os.path.join(os.path.expanduser("~"), ".ansys-workbench-mcp")
+
+
+MCP_HOME = _resolve_mcp_home()
+COMMANDS_DIR = os.path.join(MCP_HOME, "commands")
+RESULTS_DIR = os.path.join(MCP_HOME, "results")
+SCRIPTS_DIR = os.path.join(MCP_HOME, "scripts")
+RUNS_DIR = os.path.join(MCP_HOME, "runs")
+STATUS_FILE = os.path.join(MCP_HOME, "status.json")
+STOP_FILE = os.path.join(MCP_HOME, "stop.flag")
+LOG_FILE = os.path.join(MCP_HOME, "mcp.log")
+
+
+def _is_ascii(text):
+    """True only if every character is ASCII.
+
+    Paths handed to Mechanical via SendCommand must be pure ASCII: the command
+    string crosses a process boundary through a lossy encoding, so non-ASCII
+    characters arrive mangled and every file operation on them fails silently.
+    """
+    try:
+        if not isinstance(text, unicode):
+            text = text.decode("utf-8", "replace")
+    except Exception:
+        return False
+    try:
+        for ch in text:
+            if ord(ch) > 127:
+                return False
+        return True
+    except Exception:
+        return False
+
+
+def _resolve_ipc_dir():
+    """Pick an ASCII-only directory for Workbench <-> Mechanical file handoff."""
+    candidates = []
+    env_scratch = os.environ.get("ANSYS_WORKBENCH_MCP_SCRATCH", "").strip()
+    if env_scratch:
+        candidates.append(os.path.abspath(os.path.expanduser(env_scratch)))
+    candidates.append(SCRIPTS_DIR)
+    system_drive = os.environ.get("SystemDrive", "C:")
+    candidates.append(os.path.join(system_drive + os.sep, "ansys-wb-mcp", "ipc"))
+    candidates.append(os.path.join(system_drive + os.sep, "Windows", "Temp", "ansys-wb-mcp"))
+    for candidate in candidates:
+        if not _is_ascii(candidate):
+            continue
+        try:
+            if not os.path.exists(candidate):
+                os.makedirs(candidate)
+            probe = os.path.join(candidate, "._wr_probe")
+            with io.open(probe, "w", encoding="utf-8") as f:
+                f.write(u"ok")
+            os.remove(probe)
+            return candidate
+        except Exception:
+            continue
+    return SCRIPTS_DIR
+
+
+IPC_DIR = _resolve_ipc_dir()
+
+STALE_COMMAND_AGE = 120.0
+_mcp_running = False
+_mcp_commands_processed = 0
+_mcp_start_time = None
+_script_output_lines = []
+
+
+def ensure_dirs():
+    for path in [COMMANDS_DIR, RESULTS_DIR, SCRIPTS_DIR, RUNS_DIR]:
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+
+def _log(level, message):
+    try:
+        line = "[%s] %s: %s\n" % (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), level, message)
+        with io.open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(line)
+    except Exception:
+        pass
+
+
+def _write_json(path, data):
+    tmp = path + ".tmp"
+    with io.open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    try:
+        os.replace(tmp, path)
+    except Exception:
+        with io.open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        try:
+            os.remove(tmp)
+        except Exception:
+            pass
+
+
+def _read_json(path):
+    with io.open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def write_status(status, message=""):
+    payload = {
+        "status": status,
+        "message": message,
+        "version": __version__,
+        "timestamp": time.time(),
+        "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "pid": os.getpid(),
+        "mcp_home": MCP_HOME,
+        "commands_processed": _mcp_commands_processed,
+    }
+    try:
+        _write_json(STATUS_FILE, payload)
+    except Exception:
+        pass
+
+
+def _cleanup_stale_commands():
+    now = time.time()
+    try:
+        for name in os.listdir(COMMANDS_DIR):
+            if not name.endswith(".json"):
+                continue
+            path = os.path.join(COMMANDS_DIR, name)
+            try:
+                if now - os.path.getmtime(path) > STALE_COMMAND_AGE:
+                    os.remove(path)
+                    _log("WARN", "Removed stale command: " + name)
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+
+def _stringify(value):
+    try:
+        if value is None:
+            return ""
+        try:
+            return value.ToString()
+        except Exception:
+            pass
+        return str(value)
+    except Exception:
+        return "<unprintable>"
+
+
+def _safe_attr(obj, name):
+    try:
+        return getattr(obj, name)
+    except Exception:
+        return None
+
+
+def _mcp_print(*args):
+    global _script_output_lines
+    _script_output_lines.append(" ".join(_stringify(x) for x in args))
+
+
+class _CaptureWriter(object):
+    def write(self, value):
+        global _script_output_lines
+        text = _stringify(value)
+        if text and text != "\n":
+            _script_output_lines.append(text.rstrip("\n"))
+
+    def flush(self):
+        pass
+
+
+def execute_script(script_content, command_id):
+    global _script_output_lines
+    result = {"id": command_id, "success": False, "output": "", "error": None, "timestamp": time.time()}
+    script_path = os.path.join(SCRIPTS_DIR, "script_" + command_id + ".wbjn")
+    try:
+        with io.open(script_path, "w", encoding="utf-8") as f:
+            f.write(script_content)
+    except Exception as e:
+        result["error"] = str(e)
+        return result
+
+    _script_output_lines = []
+    exec_globals = dict(globals())
+    exec_globals["__name__"] = "__main__"
+    exec_globals["__file__"] = script_path
+    exec_globals["print"] = _mcp_print
+
+    old_stdout = sys.stdout
+    old_stderr = sys.stderr
+    writer = _CaptureWriter()
+    try:
+        sys.stdout = writer
+        sys.stderr = writer
+        with io.open(script_path, "r", encoding="utf-8") as f:
+            code = f.read()
+        exec(compile(code, script_path, "exec"), exec_globals)
+        result["success"] = True
+        result["output"] = "\n".join(_script_output_lines)
+    except Exception as e:
+        result["error"] = str(e)
+        result["traceback"] = traceback.format_exc()
+    try:
+        sys.stdout = old_stdout
+        sys.stderr = old_stderr
+    except Exception:
+        pass
+
+    try:
+        os.remove(script_path)
+    except Exception:
+        pass
+    return result
+
+
+def get_project_info():
+    info = {
+        "mcp_home": MCP_HOME,
+        "systems": [],
+        "messages": [],
+    }
+    try:
+        systems = GetAllSystems()
+        for index, system in enumerate(systems):
+            system_info = {
+                "index": index,
+                "name": _stringify(_safe_attr(system, "Name")),
+                "display_text": _stringify(_safe_attr(system, "DisplayText")),
+                "components": [],
+            }
+            for component_name in ["Engineering Data", "Geometry", "Model", "Setup", "Solution", "Results"]:
+                try:
+                    component = system.GetComponent(Name=component_name)
+                    system_info["components"].append({
+                        "name": component_name,
+                        "exists": True,
+                        "display_text": _stringify(_safe_attr(component, "DisplayText")),
+                    })
+                except Exception:
+                    pass
+            info["systems"].append(system_info)
+    except Exception as e:
+        info["systems_error"] = str(e)
+
+    try:
+        for message in GetMessages():
+            try:
+                info["messages"].append({
+                    "type": _stringify(message.MessageType),
+                    "summary": _stringify(message.Summary),
+                })
+            except Exception:
+                info["messages"].append(_stringify(message))
+    except Exception:
+        pass
+    return info
+
+
+def open_project(project_file):
+    project_file = os.path.abspath(os.path.expanduser(project_file))
+    Open(FilePath=project_file)
+    return {"project_file": project_file, "project_info": get_project_info()}
+
+
+def save_project(project_file="", overwrite=True):
+    if project_file:
+        project_file = os.path.abspath(os.path.expanduser(project_file))
+        Save(FilePath=project_file, Overwrite=bool(overwrite))
+        return {"project_file": project_file, "saved": True}
+    Save()
+    return {"saved": True}
+
+
+def update_project():
+    Update()
+    return {"updated": True, "project_info": get_project_info()}
+
+
+def _resolve_template_candidates(candidates):
+    errors = []
+    for candidate in candidates:
+        name = _stringify(candidate.get("template_name", ""))
+        solver = _stringify(candidate.get("solver", ""))
+        try:
+            if solver:
+                return GetTemplate(TemplateName=name, Solver=solver), name, solver
+            return GetTemplate(TemplateName=name), name, solver
+        except Exception as e:
+            errors.append(name + "|" + solver + "|" + _stringify(e))
+    raise RuntimeError("No matching Workbench template. Tried: " + "; ".join(errors))
+
+
+def probe_analysis_templates(analysis_templates):
+    results = {}
+    for analysis_type in sorted(analysis_templates.keys()):
+        candidates = analysis_templates.get(analysis_type, [])
+        try:
+            template, used_name, used_solver = _resolve_template_candidates(candidates)
+            results[analysis_type] = {
+                "available": True,
+                "template_name": used_name,
+                "solver": used_solver,
+                "template": _stringify(template),
+            }
+        except Exception as e:
+            results[analysis_type] = {
+                "available": False,
+                "error": _stringify(e),
+                "candidates": candidates,
+            }
+    return {"templates": results}
+
+
+def create_analysis_system(
+    project_dir,
+    project_name,
+    analysis_type,
+    template_candidates,
+    geometry_file="",
+    refresh_model=False,
+    reset_project=True,
+):
+    project_dir = os.path.abspath(os.path.expanduser(project_dir))
+    if not os.path.exists(project_dir):
+        os.makedirs(project_dir)
+    if not project_name:
+        project_name = analysis_type or "workbench_analysis"
+    project_file = os.path.join(project_dir, project_name + ".wbpj")
+
+    if reset_project:
+        Reset()
+    ClearMessages()
+    template, used_name, used_solver = _resolve_template_candidates(template_candidates)
+    system = template.CreateSystem()
+
+    if geometry_file:
+        geometry_file = os.path.abspath(os.path.expanduser(geometry_file))
+        geometry = system.GetContainer(ComponentName="Geometry")
+        geometry.SetFile(FilePath=geometry_file)
+
+    model_refreshed = False
+    try:
+        model = system.GetContainer(ComponentName="Model")
+        if refresh_model:
+            model.Refresh()
+            model_refreshed = True
+    except Exception:
+        pass
+
+    Save(FilePath=project_file, Overwrite=True)
+    return {
+        "analysis_type": analysis_type,
+        "template_name": used_name,
+        "solver": used_solver,
+        "project_file": project_file,
+        "geometry_file": geometry_file,
+        "model_refreshed": model_refreshed,
+        "project_info": get_project_info(),
+    }
+
+
+def create_steady_state_thermal_system(project_dir, project_name="steady_state_thermal", geometry_file="", refresh_model=False):
+    project_dir = os.path.abspath(os.path.expanduser(project_dir))
+    if not os.path.exists(project_dir):
+        os.makedirs(project_dir)
+    project_file = os.path.join(project_dir, project_name + ".wbpj")
+
+    Reset()
+    ClearMessages()
+    template = GetTemplate(TemplateName="Steady-State Thermal", Solver="ANSYS")
+    system = template.CreateSystem()
+
+    if geometry_file:
+        geometry_file = os.path.abspath(os.path.expanduser(geometry_file))
+        geometry = system.GetContainer(ComponentName="Geometry")
+        geometry.SetFile(FilePath=geometry_file)
+
+    model = system.GetContainer(ComponentName="Model")
+    if refresh_model:
+        model.Refresh()
+
+    Save(FilePath=project_file, Overwrite=True)
+    return {"project_file": project_file, "project_info": get_project_info()}
+
+
+def create_thermal_bar_demo(project_dir):
+    project_dir = os.path.abspath(os.path.expanduser(project_dir))
+    if not os.path.exists(project_dir):
+        os.makedirs(project_dir)
+
+    input_file = os.path.join(project_dir, "thermal_bar.dat")
+    result_file = os.path.join(project_dir, "thermal_nodal_temperatures.txt")
+    project_file = os.path.join(project_dir, "thermal_bar_demo.wbpj")
+    result_no_ext = os.path.splitext(result_file)[0].replace("\\", "/")
+
+    apdl = """/TITLE,Workbench MCP thermal bar demo
+/PREP7
+ET,1,SOLID70
+MP,KXX,1,45
+BLOCK,0,0.1,0,0.02,0,0.02
+ESIZE,0.005
+VMESH,ALL
+FINISH
+
+/SOLU
+ANTYPE,STATIC
+NSEL,S,LOC,X,0
+D,ALL,TEMP,100
+NSEL,S,LOC,X,0.1
+D,ALL,TEMP,20
+ALLSEL,ALL
+SOLVE
+FINISH
+
+/POST1
+SET,LAST
+ALLSEL,ALL
+/OUTPUT,'%s',txt
+PRNSOL,TEMP
+/OUTPUT
+FINISH
+""" % result_no_ext
+
+    with io.open(input_file, "w", encoding="utf-8") as f:
+        f.write(apdl)
+
+    Reset()
+    ClearMessages()
+    template = GetTemplate(TemplateName="Mechanical APDL")
+    system = template.CreateSystem()
+    setup = system.GetContainer(ComponentName="Setup")
+    setup.AddInputFile(FilePath=input_file)
+    Save(FilePath=project_file, Overwrite=True)
+    Update()
+    Save(FilePath=project_file, Overwrite=True)
+
+    temps = []
+    if os.path.exists(result_file):
+        with io.open(result_file, "r", encoding="utf-8", errors="replace") as f:
+            for line in f:
+                parts = line.split()
+                if len(parts) == 2 and parts[0].isdigit():
+                    try:
+                        temps.append(float(parts[1]))
+                    except Exception:
+                        pass
+
+    return {
+        "project_file": project_file,
+        "input_file": input_file,
+        "result_file": result_file,
+        "node_count": len(temps),
+        "min_temperature": min(temps) if temps else None,
+        "max_temperature": max(temps) if temps else None,
+    }
+
+
+def _find_system_with_model(system_name=""):
+    systems = GetAllSystems()
+    if system_name:
+        for s in systems:
+            try:
+                if _stringify(_safe_attr(s, "Name")) == system_name or _stringify(_safe_attr(s, "DisplayText")) == system_name:
+                    return s
+            except Exception:
+                continue
+        return None
+    for s in systems:
+        try:
+            container = s.GetContainer(ComponentName="Model")
+            if container is not None:
+                return s
+        except Exception:
+            continue
+    return None
+
+
+def execute_mechanical_script(script_content, command_id, system_name=""):
+    """Run a script INSIDE the Mechanical editor, where ExtAPI/DataModel exist.
+
+    Project-level journaling (execute_script) does not expose ExtAPI/DataModel;
+    material/mesh/load/boundary scripts must run in Mechanical. This opens the
+    target system's Model container in batch and sends the script via
+    SendCommand(Language="Python").
+    """
+    result = {"id": command_id, "success": False, "output": "", "error": None, "timestamp": time.time()}
+    try:
+        target = _find_system_with_model(system_name)
+    except Exception as e:
+        result["error"] = "GetAllSystems failed: " + _stringify(e)
+        result["traceback"] = traceback.format_exc()
+        return result
+
+    if target is None:
+        result["error"] = (
+            "No analysis system with a Model container found. "
+            "Create an analysis system (e.g. create_*_system_live) with a geometry first."
+        )
+        return result
+
+    try:
+        container = target.GetContainer(ComponentName="Model")
+    except Exception as e:
+        result["error"] = "GetContainer(Model) failed: " + _stringify(e)
+        result["traceback"] = traceback.format_exc()
+        return result
+
+    try:
+        container.Edit(Interactive=False)
+    except Exception as e:
+        _log("WARN", "Model.Edit(Interactive=False): " + _stringify(e))
+
+    try:
+        out = container.SendCommand(Language="Python", Command=script_content)
+        result["output"] = _stringify(out)
+        result["success"] = True
+    except Exception as e:
+        result["error"] = _stringify(e)
+        result["traceback"] = traceback.format_exc()
+    return result
+
+
+# Helper prelude auto-injected before every execute_mechanical_script payload.
+# Runs INSIDE the Mechanical editor (IronPython 2.7): ExtAPI/DataModel/Model exist.
+# It exposes geometry-agnostic, language-agnostic building blocks so client
+# scripts state intent ("clean, pick end faces, solve") instead of re-deriving
+# fragile API boilerplate each time. Defining functions only; nothing runs here.
+MECH_HELPER_PRELUDE = u'''# --- ansys-workbench-mcp helper prelude (auto-injected) ---
+try:
+    from Ansys.Mechanical.DataModel.Enums import DataModelObjectCategory as _DMOC
+except Exception:
+    _DMOC = None
+
+def mcp_reset_model(index=0):
+    """Idempotent cleanup so a RESIDENT Mechanical session starts from a known
+    clean state. Removes accumulated loads/supports, stale results, and the
+    orphaned mesh controls that otherwise keep Solution UnderDefined."""
+    analysis = Model.Analyses[index]
+    solution = analysis.Solution
+    counts = {"loads_supports": 0, "results": 0, "mesh_controls": 0, "errors": []}
+    for child in list(analysis.Children):
+        child_type = child.GetType().Name
+        if child_type.endswith("AnalysisSettings") or child_type == "Solution":
+            continue
+        try:
+            child.Delete(); counts["loads_supports"] += 1
+        except Exception as e:
+            counts["errors"].append("analysis:" + child_type + ":" + str(e))
+    for r in list(solution.Children):
+        if r.GetType().Name in ("SolutionInformation",):
+            continue
+        try:
+            r.Delete(); counts["results"] += 1
+        except Exception as e:
+            counts["errors"].append("solution:" + r.GetType().Name + ":" + str(e))
+    try:
+        for mc in list(Model.Mesh.Children):
+            try:
+                mc.Delete(); counts["mesh_controls"] += 1
+            except Exception as e:
+                counts["errors"].append("mesh:" + str(e))
+    except Exception as e:
+        counts["errors"].append("mesh_iter:" + str(e))
+    return counts
+
+def mcp_faces(index=0):
+    """Every face as {id, cx, cy, cz, area} in SI. Faces live in GeoData, not
+    the DataModel tree, so this walks Assemblies->Parts->Bodies->Faces."""
+    out = []
+    for asm in ExtAPI.DataModel.GeoData.Assemblies:
+        for part in asm.Parts:
+            for body in part.Bodies:
+                for f in body.Faces:
+                    c = f.Centroid
+                    out.append({"id": f.Id, "cx": c[0], "cy": c[1], "cz": c[2], "area": f.Area})
+    return out
+
+def mcp_axis_end_faces(index=0):
+    """Detect the longest axis from face-centroid spans and return the two end
+    faces along it. Geometry-agnostic: never hardcode an axis or a face id."""
+    faces = mcp_faces(index)
+    if not faces:
+        return None
+    axes = ["cx", "cy", "cz"]
+    spans = {}
+    for a in axes:
+        vals = [f[a] for f in faces]
+        spans[a] = max(vals) - min(vals)
+    axis = max(axes, key=lambda a: spans[a])
+    srt = sorted(faces, key=lambda f: f[axis])
+    return {"axis": axis, "spans": spans, "bottom": srt[0], "top": srt[-1], "n_faces": len(faces)}
+
+def mcp_sel(entity_ids):
+    """Build a geometry selection from entity id(s) for a load/support Location."""
+    if not isinstance(entity_ids, (list, tuple)):
+        entity_ids = [entity_ids]
+    s = ExtAPI.SelectionManager.CreateSelectionInfo(SelectionTypeEnum.GeometryEntities)
+    s.Ids = list(entity_ids)
+    return s
+
+def mcp_ensure_material(index=0):
+    """Assign the first Engineering-Data material to any body lacking one, by
+    NAME, so it works under any UI language (avoids the hardcoded-name COM
+    E_FAIL). No-op when bodies already carry a material."""
+    if _DMOC is None:
+        return {"assigned": 0, "error": "DataModelObjectCategory unavailable"}
+    try:
+        mats = Model.Materials.GetChildren(_DMOC.Material, True)
+        if mats.Count == 0:
+            return {"assigned": 0, "error": "no materials in Engineering Data"}
+        name = mats[0].Name
+        bodies = Model.Geometry.GetChildren(_DMOC.Body, True)
+        assigned = 0
+        for b in bodies:
+            try:
+                cur = b.Material
+                if cur is None or str(cur).strip() == "":
+                    b.Material = name; assigned += 1
+            except Exception:
+                pass
+        return {"assigned": assigned, "material": name, "bodies": bodies.Count}
+    except Exception as e:
+        return {"assigned": 0, "error": str(e)}
+
+def mcp_messages():
+    out = []
+    try:
+        for m in ExtAPI.Application.Messages:
+            out.append({"severity": str(m.Severity), "text": m.DisplayString})
+    except Exception as e:
+        out.append({"severity": "?", "text": "messages unavailable: " + str(e)})
+    return out
+
+def mcp_errors():
+    return [m for m in mcp_messages() if "Error" in m["severity"]]
+
+def mcp_diagnose(index=0):
+    """Read-only snapshot to run BEFORE applying BCs and BEFORE trusting a
+    verdict: detected axis + end faces, every object's ObjectState, leftover
+    mesh controls, and all solver messages."""
+    analysis = Model.Analyses[index]
+    solution = analysis.Solution
+    children = []
+    for child in list(analysis.Children):
+        try:
+            children.append({"name": child.GetType().Name, "state": str(child.ObjectState)})
+        except Exception as e:
+            children.append({"name": child.GetType().Name, "state": "err:" + str(e)})
+    try:
+        mesh_children = [mc.GetType().Name for mc in Model.Mesh.Children]
+    except Exception:
+        mesh_children = []
+    return {
+        "axis_end_faces": mcp_axis_end_faces(index),
+        "analysis_children": children,
+        "solution_state": str(solution.ObjectState),
+        "mesh_controls": mesh_children,
+        "messages": mcp_messages(),
+    }
+
+def mcp_solve(index=0):
+    """Blocking solve. The ONLY success verdict is status == 'Done'. Returns
+    status, the done flag, any exception, and remaining solver errors so the
+    caller never reads UnderDefined/timeout as 'stress = 0 / fail'."""
+    analysis = Model.Analyses[index]
+    solution = analysis.Solution
+    exc = None
+    try:
+        solution.Solve(True)
+    except Exception as e:
+        exc = str(e)
+    status = str(solution.Status)
+    return {"status": status, "done": status.endswith("Done"), "solve_exception": exc, "errors": mcp_errors()}
+# --- end helper prelude ---
+'''
+
+
+def _build_mech_wrapper(result_path_fwd, encoded_b64):
+    return (
+        u"import sys as _sys, io as _io, traceback as _tb, base64 as _b64\n"
+        u"_RP = u'" + result_path_fwd + u"'\n"
+        u"class _W(object):\n"
+        u"    def __init__(self): self.lines = []\n"
+        u"    def write(self, s):\n"
+        u"        try:\n"
+        u"            if s is None: return\n"
+        u"            t = s if isinstance(s, unicode) else unicode(str(s))\n"
+        u"            if t and t != u'\\n': self.lines.append(t.rstrip(u'\\n'))\n"
+        u"        except: pass\n"
+        u"    def flush(self): pass\n"
+        u"_w = _W(); _old = _sys.stdout; _olde = _sys.stderr\n"
+        u"_sys.stdout = _w; _sys.stderr = _w\n"
+        u"_status = u'OK'; _err = u''\n"
+        u"try:\n"
+        u"    _code = _b64.b64decode('" + encoded_b64 + u"').decode('utf-8')\n"
+        u"    exec(_code)\n"
+        u"except Exception:\n"
+        u"    _status = u'ERROR'; _err = _tb.format_exc()\n"
+        u"_sys.stdout = _old; _sys.stderr = _olde\n"
+        u"_f = _io.open(_RP, 'w', encoding='utf-8', errors='replace')\n"
+        u"_f.write(u'STATUS=' + _status + u'\\n')\n"
+        u"_f.write(u'---OUTPUT---\\n' + u'\\n'.join(_w.lines) + u'\\n---END---\\n')\n"
+        u"if _err:\n"
+        u"    _f.write(u'---ERROR---\\n' + _err + u'\\n---END---\\n')\n"
+        u"_f.close()\n"
+    )
+
+
+def _parse_mech_payload(payload):
+    status = "OK"
+    output = ""
+    err = ""
+    try:
+        for line in payload.splitlines():
+            if line.startswith("STATUS="):
+                status = line[len("STATUS="):].strip()
+                break
+        if "---OUTPUT---" in payload and "---END---" in payload:
+            seg = payload.split("---OUTPUT---", 1)[1].split("---END---", 1)[0]
+            output = seg.strip("\n")
+        if "---ERROR---" in payload:
+            err = payload.split("---ERROR---", 1)[1].split("---END---", 1)[0].strip("\n")
+    except Exception:
+        output = payload
+    return status, output, err
+
+
+def _ensure_mechanical_editor(container, wait_seconds):
+    try:
+        already = Mechanical.IsMechanicalEditorRunning(container)
+    except Exception:
+        already = False
+    if not already:
+        try:
+            container.Edit(Interactive=False)
+        except Exception as e:
+            _log("WARN", "Model.Edit(Interactive=False): " + _stringify(e))
+    deadline = time.time() + float(wait_seconds)
+    while time.time() < deadline:
+        try:
+            if Mechanical.IsMechanicalEditorRunning(container):
+                return True
+        except Exception:
+            pass
+        time.sleep(1.0)
+    return False
+
+
+def run_mechanical_script(script_content, command_id, system_name="", wait_seconds=300):
+    result = {"id": command_id, "success": False, "output": "", "error": None, "timestamp": time.time()}
+    try:
+        target = _find_system_with_model(system_name)
+    except Exception as e:
+        result["error"] = "GetAllSystems failed: " + _stringify(e)
+        result["traceback"] = traceback.format_exc()
+        return result
+    if target is None:
+        result["error"] = ("No analysis system with a Model container found. "
+                           "Create an analysis system (create_*_system_live) with a geometry first.")
+        return result
+    try:
+        container = target.GetContainer(ComponentName="Model")
+    except Exception as e:
+        result["error"] = "GetContainer(Model) failed: " + _stringify(e)
+        result["traceback"] = traceback.format_exc()
+        return result
+
+    editor_wait = min(180, int(wait_seconds))
+    if not _ensure_mechanical_editor(container, editor_wait):
+        result["error"] = "Mechanical editor did not become ready within %ss" % editor_wait
+        return result
+
+    if not os.path.exists(IPC_DIR):
+        try:
+            os.makedirs(IPC_DIR)
+        except Exception:
+            pass
+    result_path = os.path.join(IPC_DIR, "mech_" + command_id + ".out")
+    result_path_fwd = result_path.replace("\\", "/")
+    if not _is_ascii(result_path_fwd):
+        result["error"] = (
+            "Cannot hand a non-ASCII path to Mechanical: " + result_path_fwd +
+            ". Set ANSYS_WORKBENCH_MCP_SCRATCH to an ASCII-only directory."
+        )
+        return result
+    try:
+        if os.path.exists(result_path):
+            os.remove(result_path)
+    except Exception:
+        pass
+
+    try:
+        import base64 as _b64
+        mechanical_payload = MECH_HELPER_PRELUDE + u"\n" + script_content
+        encoded = _stringify(_b64.b64encode(mechanical_payload.encode("utf-8")))
+    except Exception as e:
+        result["error"] = "Failed to encode script: " + _stringify(e)
+        return result
+
+    wrapper = _build_mech_wrapper(result_path_fwd, encoded)
+
+    try:
+        container.SendCommand(Language="Python", Command=wrapper)
+    except Exception as e:
+        result["error"] = "SendCommand failed: " + _stringify(e)
+        result["traceback"] = traceback.format_exc()
+        return result
+
+    deadline = time.time() + float(wait_seconds)
+    payload = None
+    while time.time() < deadline:
+        if os.path.exists(result_path):
+            try:
+                with io.open(result_path, "r", encoding="utf-8", errors="replace") as f:
+                    payload = f.read()
+                if payload and "---END---" in payload:
+                    break
+            except Exception:
+                pass
+        time.sleep(0.5)
+
+    if payload is None:
+        result["error"] = ("Mechanical script produced no result file within %ss. The editor may "
+                          "still be busy, or SendCommand did not execute." % int(wait_seconds))
+        return result
+
+    status, output, err = _parse_mech_payload(payload)
+    try:
+        os.remove(result_path)
+    except Exception:
+        pass
+    if status == "OK":
+        result["success"] = True
+        result["output"] = output
+    else:
+        result["success"] = False
+        result["error"] = err or "Mechanical script reported an error"
+        result["output"] = output
+    return result
+
+
+def handle_command(command):
+    cmd_id = command.get("id", uuid.uuid4().hex[:8])
+    cmd_type = command.get("type", "")
+    started = time.time()
+
+    try:
+        if cmd_type == "ping":
+            payload = {
+                "version": __version__,
+                "mcp_home": MCP_HOME,
+                "pid": os.getpid(),
+                "commands_processed": _mcp_commands_processed,
+            }
+            return {"id": cmd_id, "success": True, "data": payload, "timestamp": time.time()}
+        if cmd_type == "execute_script":
+            return execute_script(command.get("script", ""), cmd_id)
+        if cmd_type == "execute_mechanical_script":
+            return run_mechanical_script(command.get("script", ""), cmd_id, command.get("system_name", ""), command.get("wait_seconds", 300))
+        if cmd_type == "get_project_info":
+            return {"id": cmd_id, "success": True, "data": get_project_info(), "timestamp": time.time()}
+        if cmd_type == "open_project":
+            data = open_project(command.get("project_file", ""))
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "save_project":
+            data = save_project(command.get("project_file", ""), command.get("overwrite", True))
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "update_project":
+            data = update_project()
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "probe_analysis_templates":
+            data = probe_analysis_templates(command.get("analysis_templates", {}))
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "create_analysis_system":
+            data = create_analysis_system(
+                command.get("project_dir", ""),
+                command.get("project_name", ""),
+                command.get("analysis_type", ""),
+                command.get("template_candidates", []),
+                command.get("geometry_file", ""),
+                command.get("refresh_model", False),
+                command.get("reset_project", True),
+            )
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "create_steady_state_thermal_system":
+            data = create_steady_state_thermal_system(
+                command.get("project_dir", ""),
+                command.get("project_name", "steady_state_thermal"),
+                command.get("geometry_file", ""),
+                command.get("refresh_model", False),
+            )
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "create_thermal_bar_demo":
+            data = create_thermal_bar_demo(command.get("project_dir", os.path.join(RUNS_DIR, "thermal_bar_demo_live")))
+            return {"id": cmd_id, "success": True, "data": data, "timestamp": time.time()}
+        if cmd_type == "stop":
+            return {"id": cmd_id, "success": True, "data": {"stopping": True}, "timestamp": time.time()}
+        return {"id": cmd_id, "success": False, "error": "Unknown command type: " + cmd_type, "timestamp": time.time()}
+    except Exception as e:
+        return {
+            "id": cmd_id,
+            "success": False,
+            "error": str(e),
+            "traceback": traceback.format_exc(),
+            "elapsed_seconds": round(time.time() - started, 3),
+            "timestamp": time.time(),
+        }
+
+
+def poll_once():
+    global _mcp_commands_processed
+    ensure_dirs()
+    processed = 0
+    try:
+        names = sorted(os.listdir(COMMANDS_DIR))
+    except Exception:
+        return 0
+
+    for name in names:
+        if not name.startswith("cmd_") or not name.endswith(".json"):
+            continue
+        command_path = os.path.join(COMMANDS_DIR, name)
+        try:
+            command = _read_json(command_path)
+        except Exception as e:
+            _log("ERROR", "Failed to read command " + name + ": " + str(e))
+            continue
+
+        cmd_id = command.get("id", name[4:-5])
+        result_path = os.path.join(RESULTS_DIR, cmd_id + ".json")
+        result = handle_command(command)
+        try:
+            _write_json(result_path, result)
+        except Exception as e:
+            _log("ERROR", "Failed to write result " + cmd_id + ": " + str(e))
+
+        try:
+            os.remove(command_path)
+        except Exception:
+            pass
+
+        processed += 1
+        _mcp_commands_processed += 1
+        if command.get("type") == "stop":
+            try:
+                with io.open(STOP_FILE, "w", encoding="utf-8") as f:
+                    f.write("stop")
+            except Exception:
+                pass
+    return processed
+
+
+def mcp_stop():
+    try:
+        with io.open(STOP_FILE, "w", encoding="utf-8") as f:
+            f.write("stop")
+    except Exception:
+        pass
+    write_status("stopped", "Stop requested")
+    print("Workbench MCP: stop requested")
+
+
+def mcp_status():
+    print("")
+    print("=" * 60)
+    print("Ansys Workbench MCP Bridge v" + __version__)
+    print("=" * 60)
+    print("Home:         " + MCP_HOME)
+    print("Commands dir: " + COMMANDS_DIR)
+    print("Results dir:  " + RESULTS_DIR)
+    print("Processed:    " + str(_mcp_commands_processed))
+    if _mcp_start_time:
+        print("Uptime:       " + str(int(time.time() - _mcp_start_time)) + "s")
+    print("")
+    print("Commands:")
+    print("  mcp_loop()    - Start blocking file-IPC loop")
+    print("  poll_once()   - Process one command batch")
+    print("  mcp_stop()    - Stop loop")
+    print("  mcp_status()  - Show this status")
+    print("=" * 60)
+
+
+def mcp_loop(sleep_interval=0.1):
+    global _mcp_running, _mcp_commands_processed, _mcp_start_time
+    ensure_dirs()
+    if os.path.exists(STOP_FILE):
+        try:
+            os.remove(STOP_FILE)
+        except Exception:
+            pass
+
+    _mcp_running = True
+    _mcp_commands_processed = 0
+    _mcp_start_time = time.time()
+    write_status("running", "Polling active")
+    _log("INFO", "Bridge loop started")
+    print("Workbench MCP: listening for commands in " + COMMANDS_DIR)
+
+    last_status_time = 0.0
+    cleanup_time = 0.0
+    try:
+        while True:
+            now = time.time()
+            if now - last_status_time >= 2.0:
+                write_status("running", "Polling active")
+                last_status_time = now
+            if now - cleanup_time >= 30.0:
+                _cleanup_stale_commands()
+                cleanup_time = now
+            if os.path.exists(STOP_FILE):
+                try:
+                    os.remove(STOP_FILE)
+                except Exception:
+                    pass
+                break
+            poll_once()
+            time.sleep(max(0.02, float(sleep_interval)))
+    except KeyboardInterrupt:
+        print("Workbench MCP: stopped by keyboard interrupt")
+    except Exception as e:
+        _log("ERROR", "mcp_loop: " + str(e))
+        _log("ERROR", traceback.format_exc())
+    _mcp_running = False
+    write_status("stopped", "Polling stopped")
+    _log("INFO", "Bridge loop stopped")
+    print("Workbench MCP: loop stopped")
+
+
+ensure_dirs()
+write_status("ready", "Bridge journal loaded")
+print("")
+print("=" * 60)
+print("Ansys Workbench MCP Bridge v" + __version__)
+print("=" * 60)
+print("Home: " + MCP_HOME)
+print("Start: mcp_loop()")
+print("Stop:  mcp_stop()")
+print("=" * 60)
+
+mcp_loop()

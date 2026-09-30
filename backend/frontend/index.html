@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventor 建模 + ANSYS 仿真助手</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div class="brand-text">
+          <strong>设计仿真助手</strong>
+          <span>Inventor · ANSYS</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-view="chat">对话</button>
+        <button class="nav-item" data-view="sessions">历史会话</button>
+        <button class="nav-item" data-view="config">模型与软件配置</button>
+        <button class="nav-item" data-view="templates">模板管理</button>
+      </nav>
+
+      <div class="mode-block">
+        <div class="mode-title">工作模式</div>
+        <button class="mode-item active" data-mode="plan">
+          <span class="mode-name">Plan 模式</span>
+          <span class="mode-desc">全系统流程编排</span>
+        </button>
+        <button class="mode-item" data-mode="modeling">
+          <span class="mode-name">建模 Agent</span>
+          <span class="mode-desc">直接进入建模子 Agent</span>
+        </button>
+        <button class="mode-item" data-mode="simulation">
+          <span class="mode-name">仿真 Agent</span>
+          <span class="mode-desc">直接进入仿真子 Agent</span>
+        </button>
+      </div>
+
+      <div class="status-block">
+        <div class="status-row"><span>后端</span><b id="statusBackend" class="dot">…</b></div>
+        <div class="status-row"><span>阶段</span><b id="statusStage">-</b></div>
+        <div class="status-row"><span>当前 Agent</span><b id="statusAgent">-</b></div>
+        <button id="newSessionBtn" class="ghost-btn">新建会话</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- 对话视图 -->
+      <section class="view active" data-view="chat">
+        <header class="view-head">
+          <h2 id="chatModeTitle">Plan 模式</h2>
+          <p id="chatModeHint">主设计模型编排全流程：需求收敛 → 方案 → 计算 → 建模 → 仿真 → 交付。</p>
+        </header>
+        <div id="messages" class="messages"></div>
+        <div class="composer">
+          <textarea id="input" rows="2" placeholder="描述你的设计需求，或输入 /exit 返回主设计模型…"></textarea>
+          <button id="sendBtn" class="primary-btn">发送</button>
+        </div>
+      </section>
+
+      <!-- 历史会话视图 -->
+      <section class="view" data-view="sessions">
+        <header class="view-head">
+          <h2>历史会话</h2>
+          <p>所有会话及其上下文、参数台账、建模契约、设计说明书均持久化在本地。可继续或删除。</p>
+        </header>
+        <div class="toolbar">
+          <button id="reloadSessionsBtn" class="ghost-btn">刷新</button>
+          <span id="sessionCount" class="muted"></span>
+        </div>
+        <div class="sessions-layout">
+          <div id="sessionList" class="session-list"></div>
+          <div id="sessionDetail" class="session-detail">
+            <p class="muted">选择左侧会话查看详情。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 配置视图 -->
+      <section class="view" data-view="config">
+        <header class="view-head">
+          <h2>模型与软件配置</h2>
+          <p>编辑 backend/.env。保存后立即热重载，无需重启后端。密钥默认脱敏。</p>
+        </header>
+        <div class="toolbar">
+          <button id="reloadConfigBtn" class="ghost-btn">刷新</button>
+          <label class="switch"><input type="checkbox" id="revealSecrets" /> 显示密钥</label>
+          <button id="saveConfigBtn" class="primary-btn">保存全部修改</button>
+        </div>
+        <div id="effectiveModels" class="models-summary"></div>
+        <div id="configForm" class="config-form"></div>
+      </section>
+
+      <!-- 模板视图 -->
+      <section class="view" data-view="templates">
+        <header class="view-head">
+          <h2>模板管理</h2>
+          <p>编辑设计/建模模板（材料库、标准件、公式卡、任务书模板）。不含提示词。</p>
+        </header>
+        <div class="templates-layout">
+          <div id="templateList" class="template-list"></div>
+          <div class="template-editor">
+            <div class="toolbar">
+              <span id="templateName" class="tpl-name">未选择模板</span>
+              <button id="saveTemplateBtn" class="primary-btn" disabled>保存模板</button>
+            </div>
+            <textarea id="templateContent" class="code-area" spellcheck="false" placeholder="选择左侧模板以编辑…"></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="./app.js"></script>
+  <script src="./sessions.js"></script>
+</body>
+</html>

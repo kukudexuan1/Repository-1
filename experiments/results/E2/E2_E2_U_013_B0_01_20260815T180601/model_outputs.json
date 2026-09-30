@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_013",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "好的，我们先把这个轴承当量动载荷算清楚。\n\n**第一步：统一单位**\nFr = 8500 N，Fa = 1.2 kN = 1200 N。单位统一后再代入公式，避免数量级错误。\n\n**第二步：查公式并求解**\n公式 P = X·Fr + Y·Fa 是标准的轴承当量动载荷计算式，我先从知识库确认公式定义，然后代入求解。\n\n调用工具：\n1. `search_formula` —— 确认\"当量动载荷\"公式的符号定义与适用条件\n2. `solve_formula` —— 代入已知值求解 P"
+}

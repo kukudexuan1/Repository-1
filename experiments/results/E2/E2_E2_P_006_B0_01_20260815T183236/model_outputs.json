@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_P_006",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "收到，这是一个典型的轴径快速估算需求。但请注意：**轴的最小直径不仅取决于功率，还强烈依赖于转速和材料许用应力**。在没有转速和材料的情况下，我只能做一个**示例性估算**，不能作为正式设计依据。\n\n估算轴径的常用公式（按扭转强度条件）：\n\\[\nd_{\\min} \\ge A \\cdot \\sqrt[3]{\\frac{P}{n}} \\quad (\\text{mm})\n\\]\n其中 \\(A\\) 是与材料许用扭转剪应力相关的系数，对于常用轴材料（如45钢），\\(A\\) 通常在 110 ~ 135 之间。\n\n我假设一个常见的工况：转速 \\(n=1000\\ \\text{r/min}\\)，材料取 45钢，\\(A\\) 取 120（偏保守），用工具算一下。\n\n调用前：用扭转强度公式估算轴径，功率 P=7.5kW，转速 n=1000rpm，系数 A=120。先查公式获得标准形式，再求解。\n\n<search_formula>\n<query>轴最小直径 扭转强度 功率 转速 系数 A</query>\n</search_formula>"
+}

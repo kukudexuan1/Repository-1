@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_007",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "`solve_formula` 当前不可用，我手动计算，但需标注清楚。\n\n---\n\n## 轴承基本额定寿命计算\n\n**公式**（GB/T 6391-2010，机械设计第十版式 13-5）：\n\n\\[\nL_{10h} = \\frac{10^6}{60 \\cdot n} \\left( \\frac{f_t \\cdot C_r}{P_{eq}} \\right)^{\\varepsilon}\n\\]\n\n**代入参数：**\n\n| 符号 | 含义 | 取值 |\n|------|------|------|\n| \\(n\\) | 转速 | 1450 r/min |\n| \\(C_r\\) | 基本额定动载荷 | 32000 N |\n| \\(P_{eq}\\) | 当量动载荷 | 5200 N |\n| \\(f_t\\) | 温度系数 | 1.0（常温默认） |\n| \\(\\varepsilon\\) | 寿命指数 | 3.0（球轴承默认） |\n\n**计算过程：**\n\n\\[\n\\frac{f_t \\cdot C_r}{P_{eq}} = \\frac{1.0 \\times 32000}{5200} = 6.154\n\\]\n\n\\[\n"
+}

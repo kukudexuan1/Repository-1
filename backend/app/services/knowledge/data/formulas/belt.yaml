@@ -1,0 +1,157 @@
+# 普通 V 带传动设计计算公式
+# 依据：机械设计课程设计手册第五版第八章；GB/T 11544-2012
+formulas:
+  - id: belt_design_power
+    name: V 带计算功率
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-1
+    expression: "P_ca = K_A * P"
+    symbols:
+      P_ca: { desc: V 带计算功率, unit: kW, role: output }
+      K_A: { desc: 工作情况系数, role: input }
+      P: { desc: 传递功率, unit: kW, role: input }
+    applicability: 普通 V 带按工作机载荷性质和每天工作时间修正
+    notes: K_A 应由工作机、原动机和工作制度查表确定，不能静默取值
+    tags: [带传动, 计算功率, 工作情况系数]
+
+  - id: belt_speed
+    name: V 带速度
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-13
+    expression: "v = pi * d_d1 * n_1 / (60 * 1000)"
+    symbols:
+      v: { desc: 带速, unit: m/s, role: output }
+      d_d1: { desc: 主动轮基准直径, unit: mm, role: input }
+      n_1: { desc: 主动轮转速, unit: r/min, role: input }
+    applicability: 普通 V 带传动，基准直径用 mm
+    criterion: 带速不得超过所选带型目录允许值
+    tags: [带传动, 带速, 主动轮]
+
+  - id: belt_driven_diameter
+    name: 从动轮基准直径
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-15a
+    expression: "d_d2 = i * d_d1"
+    symbols:
+      d_d2: { desc: 从动轮计算基准直径, unit: mm, role: output }
+      i: { desc: 要求传动比, role: input }
+      d_d1: { desc: 主动轮基准直径, unit: mm, role: input }
+    applicability: 近似忽略弹性滑动，圆整后必须回代实际传动比
+    tags: [带传动, 传动比, 带轮]
+
+  - id: belt_actual_ratio
+    name: V 带实际传动比
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章
+    expression: "i_actual = d_d2 / d_d1"
+    symbols:
+      i_actual: { desc: 实际传动比, role: output }
+      d_d2: { desc: 从动轮基准直径, unit: mm, role: input }
+      d_d1: { desc: 主动轮基准直径, unit: mm, role: input }
+    tags: [带传动, 传动比, 回代]
+
+  - id: belt_ratio_error
+    name: V 带传动比误差
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章
+    expression: "error_percent = 100 * (i_actual - i_required) / i_required"
+    symbols:
+      error_percent: { desc: 传动比相对误差, unit: percent, role: output }
+      i_actual: { desc: 实际传动比, role: input }
+      i_required: { desc: 要求传动比, role: input }
+      tolerance_percent: { desc: 允许传动比误差, unit: percent, role: input, default: 5 }
+    criterion: 传动比误差绝对值不超过允许误差
+    criterion_expr: "abs(error_percent) <= tolerance_percent"
+    is_check: true
+    symbols_extra:
+      tolerance_percent: { desc: 允许传动比误差, unit: percent, role: input }
+    notes: 实际使用时 tolerance_percent 应按整机要求确定；普通输送机课程设计常取 5%
+    tags: [带传动, 传动比误差, 校核]
+
+  - id: belt_length_from_center
+    name: V 带计算基准长度
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-22
+    expression: "L_d0 = 2 * a_0 + pi / 2 * (d_d1 + d_d2) + (d_d2 - d_d1) ** 2 / (4 * a_0)"
+    symbols:
+      L_d0: { desc: 计算基准长度, unit: mm, role: output }
+      a_0: { desc: 初定中心距, unit: mm, role: input }
+      d_d1: { desc: 主动轮基准直径, unit: mm, role: input }
+      d_d2: { desc: 从动轮基准直径, unit: mm, role: input }
+    applicability: 两轮开口 V 带传动
+    notes: L_d0 计算后必须按基准长度系列圆整，再回算实际中心距
+    tags: [带传动, 基准长度, 中心距]
+
+  - id: belt_center_distance
+    name: V 带实际中心距
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-23
+    expression: "a = a_0 + (L_d - L_d0) / 2"
+    symbols:
+      a: { desc: 实际中心距, unit: mm, role: output }
+      a_0: { desc: 初定中心距, unit: mm, role: input }
+      L_d: { desc: 选定基准长度, unit: mm, role: input }
+      L_d0: { desc: 计算基准长度, unit: mm, role: input }
+    tags: [带传动, 中心距, 张紧]
+
+  - id: belt_wrap_angle
+    name: 主动轮包角
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-24
+    expression: "alpha_1 = 180 - 57.3 * (d_d2 - d_d1) / a"
+    symbols:
+      alpha_1: { desc: 主动轮包角, unit: degree, role: output }
+      d_d1: { desc: 主动轮基准直径, unit: mm, role: input }
+      d_d2: { desc: 从动轮基准直径, unit: mm, role: input }
+      a: { desc: 中心距, unit: mm, role: input }
+      alpha_min: { desc: 最小允许包角, unit: degree, role: input, default: 120 }
+    criterion: 主动轮包角通常不小于 120 degree
+    criterion_expr: "alpha_1 >= alpha_min"
+    is_check: true
+    is_check: true
+    symbols_extra:
+      alpha_min: { desc: 最小允许包角, unit: degree, role: input, default: 120 }
+    tags: [带传动, 包角, 校核]
+
+  - id: belt_count
+    name: V 带根数
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-18
+    expression: "z = P_ca / (P_0 + delta_P_0) / K_alpha / K_L"
+    symbols:
+      z: { desc: 计算带根数, role: output }
+      P_ca: { desc: 计算功率, unit: kW, role: input }
+      P_0: { desc: 单根基本额定功率, unit: kW, role: input }
+      delta_P_0: { desc: 单根功率增量, unit: kW, role: input }
+      K_alpha: { desc: 包角修正系数, role: input }
+      K_L: { desc: 长度修正系数, role: input }
+    notes: 计算结果必须向上取整为实际根数，并按实际根数回代检查传动能力
+    tags: [带传动, 带根数, 承载]
+
+  - id: belt_initial_tension
+    name: V 带单根初拉力
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-19
+    expression: "F_0 = 500 * (2.5 - K_alpha) * P_ca / (K_alpha * z * v) + q * v ** 2"
+    symbols:
+      F_0: { desc: 单根带初拉力, unit: N, role: output }
+      K_alpha: { desc: 包角修正系数, role: input }
+      P_ca: { desc: 计算功率, unit: kW, role: input }
+      z: { desc: 实际带根数, role: input }
+      v: { desc: 带速, unit: m/s, role: input }
+      q: { desc: 单位长度质量, unit: kg/m, role: input }
+    applicability: 普通 V 带传动，P_ca 用 kW、v 用 m/s
+    tags: [带传动, 初拉力, 张紧]
+
+  - id: belt_shaft_force
+    name: V 带压轴力
+    category: belt
+    source: 机械设计课程设计手册（第五版）第八章式 8-21
+    expression: "F_p = 2 * z * F_0 * sin(alpha_1 / 2 * pi / 180)"
+    symbols:
+      F_p: { desc: 带传给轴的压轴力, unit: N, role: output }
+      z: { desc: 实际带根数, role: input }
+      F_0: { desc: 单根带初拉力, unit: N, role: input }
+      alpha_1: { desc: 主动轮包角, unit: degree, role: input }
+    notes: 压轴力应作为主动轴、轴承和键连接受力分析的外载荷
+    tags: [带传动, 压轴力, 轴受力]

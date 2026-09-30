@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_011",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 结论：不能直接除，差了 1000 倍\n\n以 M=100 N·m、d=50 mm 为例，验证结果（calc#1）：\n\n| 路径 | 做法 | 结果 |\n|------|------|------|\n| **A（推荐）** | M 转为 N·mm（×1000），W 保持 mm³ | **8.149 MPa** ✓ |\n| **B** | W 转为 m³（×10⁻⁹），M 保持 N·m，结果再 /10⁶ | **8.149 MPa** ✓ |\n| **C（错误）** | M (N·m) 直接除以 W (mm³) | 0.00815 —— 小了 1000 倍 ✗ |\n\n---\n\n### 为什么差 1000？\n\n因为 N·m 和 mm³ 之间差了 **10³ mm/m**：\n\n\\[\n\\frac{\\text{N·m}}{\\text{mm}^3} = \\frac{\\text{N·}(1000\\ \\text{mm})}{\\text{mm}^3} = 1000 \\cdot \\frac{\\text{N·mm}}{\\text{mm}^3} = 1000\\ \\text{MPa}\n\\]\n\n所以反过来，直接"
+}

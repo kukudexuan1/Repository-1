@@ -1,0 +1,108 @@
+{
+  "session_id": "8aef3c8b-b348-4891-9db5-9a75822b9f8c",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "键连接挤压强度校核判据比较",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "sigma_p": {
+          "value": 85.0,
+          "unit": "MPa"
+        },
+        "sigma_pP": {
+          "value": 120.0,
+          "unit": "MPa"
+        },
+        "margin_percent": {
+          "value": 29.2,
+          "unit": "%"
+        }
+      },
+      "criterion": "σp = 85 MPa ≤ [σp] = 120 MPa，判据：挤压应力不超过许用挤压应力",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 6-1：σp ≤ [σp]",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 已知条件\nsigma_p = 85.0        # 挤压应力，MPa\nsigma_pP = 120.0      # 许用挤压应力，MPa（用户纠正：原误写为120 kPa）\n\n# 判据：σp ≤ [σp]\npassed = sigma_p <= sigma_pP\nmargin = (sigma_pP - sigma_p) / sigma_pP * 100  # 余量百分比\n\noutputs = {\n    'sigma_p': sigma_p,\n    'sigma_pP': sigma_pP,\n    'passed': passed,\n    'margin_percent': round(margin, 1)\n}",
+      "created_at": "2026-08-15T20:22:30.025976Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "0b967b56-7fc9-4548-b83b-189229e29f26",
+      "role": "user",
+      "content": "许用挤压应力[σp]=120 kPa（应为MPa），键连接挤压应力σp=85MPa，判断合格",
+      "timestamp": "2026-08-15T20:22:03.575554Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "15393455-9b99-467e-862a-c3904bbd0be2",
+      "role": "assistant",
+      "content": "## 键连接挤压强度校核结果\n\n**判据：** σp ≤ [σp]（机械设计第十版，式 6-1）\n\n| 项目 | 数值 |\n|------|------|\n| 挤压应力 σp | **85 MPa** |\n| 许用挤压应力 [σp] | **120 MPa**（您已纠正，原误写为 kPa） |\n| 余量 | **29.2%**（35 MPa） |\n\n**结论：合格。** 挤压应力 85 MPa 低于许用值 120 MPa，有约 29% 的余量，键连接挤压强度满足要求。\n\n---\n\n另外提醒：这个校核目前是独立判断，尚未纳入设计台账。如果您当前正在进行一项正式的设计工作，需要我帮您启动设计流程、建立任务书，可以告诉我设计需求，我会按完整流程推进。",
+      "timestamp": "2026-08-15T20:22:36.571819Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T20:22:36.571819Z"
+}

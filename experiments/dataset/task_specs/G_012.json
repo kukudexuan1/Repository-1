@@ -1,0 +1,37 @@
+{
+  "task_id": "G_012",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "test",
+  "description": "设计一台单级斜齿圆柱齿轮减速器，用于污水泵传动，均匀载荷，每天24小时连续运转，防腐蚀要求。",
+  "explicit_inputs": {
+    "input_power_kW": 18.5,
+    "input_speed_rpm": 960,
+    "transmission_ratio": 3.55,
+    "design_life_h": 30000,
+    "load_type": "均匀载荷",
+    "working_hours_per_day": 24,
+    "ambient_temperature_C": 30,
+    "corrosion_environment": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "轴功率", "扭矩", "轴弯扭合成"],
+    "material_candidates": ["40Cr调质", "42CrMo调质"],
+    "standard_series": ["模数系列GB/T1357", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承", "平键", "骨架油封"]
+  },
+  "decisions_required": ["材料（防腐蚀镀层或材料选择）", "密封方式", "精度等级", "润滑油选型"],
+  "expert_reference": {
+    "reference_module": "G_012",
+    "key_param_ranges": {
+      "module_mm": [3, 5],
+      "z1_teeth": [20, 32],
+      "helix_angle_deg": [8, 16],
+      "face_width_mm": [90, 170],
+      "center_distance_mm": [150, 260]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴疲劳安全系数", "轴承寿命", "热平衡"],
+    "forbidden_errors": ["连续运转未核算热平衡", "腐蚀环境未选耐腐蚀密封"]
+  },
+  "_note": "测试集，锁定后不得修改系统配置"
+}

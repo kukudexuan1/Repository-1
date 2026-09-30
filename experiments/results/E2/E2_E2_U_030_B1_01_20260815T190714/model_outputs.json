@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_U_030",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "query_ledger"
+  ],
+  "tool_events": [
+    {
+      "name": "query_ledger",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'query_ledger' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "您指出的完全正确，这是我的错误。\n\n**许用弯曲应力 [σF] 的正确单位是 MPa（即 N/mm²），不是 N/mm。**\n\n回顾计算：\n- σFlim = 380 MPa\n- YST = 2（应力修正系数，无量纲）\n- SF = 1.25（安全系数，无量纲）\n- **[σF] = 380 × 2 / 1.25 = 608 MPa = 608 N/mm²**\n\n写成 N/mm 是漏了一个平方——这差了一个量级，在工程上是不可接受的错误。感谢您及时纠正。\n\n---\n\n回到正题，当前我们的设计任务书还没有建立。在把这个参数正式写入台账之前，我需要先确认：**您要设计的是什么？**\n\n是要做齿轮设计（减速器中的齿轮副、单根齿轮轴等），还是其他零件？请告诉我您的设计需求，我好调用 `list_design_families` 确认零件族，然后 `start_design` 正式启动设计流程。"
+}

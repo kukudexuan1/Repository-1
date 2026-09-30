@@ -1,0 +1,170 @@
+family: belt_drive
+family_label: 普通 V 带传动
+title: 普通 V 带传动设计任务书
+description: |
+  适用于电动机、工作机或其他旋转机械之间的普通 V 带传动设计。
+  设计必须明确功率、转速、传动比、工作制度和安装约束，并完成带型、带轮、中心距、
+  基准长度、包角、带根数、初拉力、压轴力及带轮结构与轴接口设计。
+items:
+  - key: transmitted_power
+    label: 传递功率
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 主动轮传递的功率，单位 kW；应说明是电动机额定功率还是工作轴实际功率
+  - key: driver_speed
+    label: 主动轮转速
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 主动轮转速，单位 r/min
+  - key: driven_speed
+    label: 从动轮目标转速
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 从动轮目标转速，单位 r/min；用于确定实际传动比和转速误差
+  - key: required_ratio
+    label: 要求传动比
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 目标传动比 i=n1/n2；普通 V 带单级通常取 2~4
+  - key: load_character
+    label: 工作情况与载荷性质
+    group: 功能与工况
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 平稳、轻微冲击、中等冲击或强烈冲击；决定工作情况系数 KA
+  - key: daily_hours
+    label: 每天工作时间
+    group: 寿命与可靠性
+    required: true
+    needed_by_stage: spec_gathering
+    hint: 单位 hour/day；多班制需给出每天累计工作时间
+  - key: service_years
+    label: 使用年限
+    group: 寿命与可靠性
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 用于带的疲劳寿命和维护计划；若无要求应显式说明工程假设
+  - key: days_per_year
+    label: 每年工作天数
+    group: 寿命与可靠性
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 常用 300 天，但必须标为工程假设并由用户确认
+  - key: belt_type
+    label: V 带带型
+    group: 方案与标准
+    required: true
+    needed_by_stage: scheme_design
+    hint: O/A/B/C/D/E 型或窄 V 带；根据计算功率与主动轮转速选定
+  - key: belt_standard
+    label: 带的标准与结构
+    group: 方案与标准
+    required: true
+    needed_by_stage: scheme_design
+    hint: 普通 V 带、窄 V 带或同步带；本模板默认普通 V 带，需说明标准依据
+  - key: working_condition_factor
+    label: 工作情况系数 KA
+    group: 方案与标准
+    required: true
+    needed_by_stage: scheme_design
+    hint: 由工作机类型、原动机特性和每天工作时间查表确定
+  - key: driver_pulley_diameter
+    label: 主动轮基准直径
+    group: 带轮与几何
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 mm；必须从带型允许的最小基准直径和标准系列中选取
+  - key: driven_pulley_diameter
+    label: 从动轮基准直径
+    group: 带轮与几何
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 mm；按传动比计算后圆整到标准值，并回代实际传动比
+  - key: center_distance
+    label: 初定中心距
+    group: 带轮与几何
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 mm；需满足带型安装范围、张紧行程和带长约束
+  - key: belt_length
+    label: V 带基准长度
+    group: 带轮与几何
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 mm；按标准基准长度系列选取，选定后回算实际中心距
+  - key: wrap_angle_min
+    label: 最小包角要求
+    group: 带轮与几何
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 degree；普通 V 带主动轮包角通常不得小于 120 degree
+  - key: belt_count
+    label: V 带根数
+    group: 承载与校核
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 根；按计算功率除以单根带额定功率并向上取整
+  - key: belt_speed_max
+    label: 允许最高带速
+    group: 承载与校核
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 m/s；由带型、材料和制造商目录确定
+  - key: initial_tension
+    label: 单根带初拉力
+    group: 承载与校核
+    required: true
+    needed_by_stage: detail_calculation
+    hint: 单位 N；需校核带的摩擦传力条件和轴承压轴力
+  - key: allowable_shaft_load
+    label: 允许压轴力
+    group: 承载与校核
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 单位 N；由主动轴和轴承的受力、寿命及强度共同确定
+  - key: driver_bore_diameter
+    label: 主动轮轮毂孔径
+    group: 接口与结构
+    required: true
+    needed_by_stage: geometry
+    hint: 单位 mm；必须与轴径、键和配合公差匹配
+  - key: driven_bore_diameter
+    label: 从动轮轮毂孔径
+    group: 接口与结构
+    required: true
+    needed_by_stage: geometry
+    hint: 单位 mm；必须与从动轴径、键和轮毂长度匹配
+  - key: key_connection
+    label: 带轮与轴的键连接
+    group: 接口与结构
+    required: true
+    needed_by_stage: geometry
+    hint: 说明键型、b×h×L、材料和挤压/剪切校核依据
+  - key: tensioning_method
+    label: 张紧方式
+    group: 接口与结构
+    required: true
+    needed_by_stage: geometry
+    hint: 电动机底板移动、张紧轮或中心距可调；要保留安装与维护空间
+  - key: guard_requirement
+    label: 防护罩要求
+    group: 安全与环境
+    required: true
+    needed_by_stage: geometry
+    hint: 高速旋转外露带传动必须说明防护罩、通风和检修要求
+  - key: ambient_condition
+    label: 工作环境
+    group: 安全与环境
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 温度、粉尘、油污、潮湿和腐蚀条件；影响带材、张紧和防护选择
+  - key: service_factor
+    label: 带传动安全/服务系数要求
+    group: 验收判据
+    required: false
+    needed_by_stage: detail_calculation
+    hint: 若企业标准或关键设备有额外安全系数，在此明确；不得静默降低目录判据

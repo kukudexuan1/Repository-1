@@ -1,0 +1,37 @@
+{
+  "task_id": "R_002",
+  "family": "R",
+  "family_name": "逆向建模/图纸理解",
+  "split": "val",
+  "description": "从提供的单级减速器箱体工程图中提取安装孔位、轴承座孔径和壁厚等关键尺寸，验证尺寸链闭合。",
+  "explicit_inputs": {
+    "drawing_type": "减速器箱体二维工程图（俯视图+主视图）",
+    "dimension_count_approx": 24,
+    "dimension_chain_levels": 3,
+    "tolerances_provided": true,
+    "surface_roughness_provided": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["尺寸链封闭环计算", "公差累积", "配合公差计算"],
+    "standard_series": ["线性尺寸公差GB/T1800", "形位公差GB/T1182", "孔轴配合GB/T1801"],
+    "standard_parts": []
+  },
+  "decisions_required": ["轴承座孔公差配合确认", "安装孔位尺寸链封闭环识别"],
+  "image_input": {
+    "required": true,
+    "format": "jpg/png",
+    "path_placeholder": "dataset/task_specs/images/R_002_drawing.png",
+    "_note": "图纸文件需单独准备"
+  },
+  "expert_reference": {
+    "reference_module": "R_002",
+    "expected_dimensions": {
+      "bearing_bore_diameters_mm": [],
+      "wall_thickness_range_mm": [8, 15],
+      "mounting_hole_pattern": null
+    },
+    "must_pass_checks": ["轴承座孔径公差等级≥IT6", "尺寸链封闭环误差≤标注公差", "壁厚不低于设计最小值"],
+    "forbidden_errors": ["遗漏轴承座孔配合公差", "封闭环识别错误", "安装孔位尺寸遗漏"]
+  },
+  "_note": "占位模板，需配套工程图纸文件，参考尺寸由专家标注后填入expert_reference"
+}

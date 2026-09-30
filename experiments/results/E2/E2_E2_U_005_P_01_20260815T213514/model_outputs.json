@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_U_005",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果出来了，以下是分析：\n\n---\n\n## 扭转切应力校核（calc#1）\n\n### 前提与单位处理\n\n你给的 `Ip = 1.2×10⁻⁶ m⁴`，换算为 `1.2×10⁶ mm⁴`。我先按这个理解往下算。\n\n⚠️ **一个关键假设**：我假定截面为**实心圆轴**，从 Ip 反推了轴径。如果你的截面是空心轴、花键轴、或其他非圆截面，这个反推就不成立——需要你直接给出**外半径 r_max**（或轴径 d），用 `τ_max = T·r_max / Ip` 直接算。\n\n### 计算过程\n\n| 步骤 | 结果 |\n|------|------|\n| Ip | 1.2×10⁶ mm⁴ |\n| 反推轴径 d（实心圆轴: d = (32·Ip/π)^(1/4)） | **59.1 mm** |\n| 抗扭截面系数 Wt = πd³/16 | 40,590 mm³ |\n| 扭矩 T | 320 N·m = 320,000 N·mm |\n| **τ_max = T / Wt** | **7.88 MPa** |\n\n### 初步判断\n\n7.88 MPa 这个切应力水平很低——对于常见的 45 钢"
+}

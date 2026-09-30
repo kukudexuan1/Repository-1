@@ -1,0 +1,33 @@
+{
+  "task_id": "S_002",
+  "family": "S",
+  "family_name": "阶梯轴",
+  "split": "val",
+  "description": "设计一根二级减速器中间轴（阶梯轴），传递功率7.5kW，同时承受直齿轮齿轮力和斜齿轮轴向力。",
+  "explicit_inputs": {
+    "power_kW": 7.5,
+    "speed_rpm": 430,
+    "design_life_h": 20000,
+    "load_type": "轻微冲击",
+    "keyway_count": 2,
+    "material_grade": "45钢调质"
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴功率与扭矩", "轴最小直径估算A0法", "弯矩合成", "轴疲劳安全系数"],
+    "material_candidates": ["45钢调质", "40Cr调质"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["深沟球轴承", "平键"]
+  },
+  "decisions_required": ["轴径系列圆整", "键槽截面选型", "轴承配合选择"],
+  "expert_reference": {
+    "reference_module": "S_002",
+    "key_param_ranges": {
+      "min_diameter_mm": [35, 55],
+      "critical_section_safety_factor": [1.3, 2.5],
+      "key_section_bh": ["10x8", "12x8", "14x9"]
+    },
+    "must_pass_checks": ["轴疲劳安全系数", "键挤压强度", "轴承寿命"],
+    "forbidden_errors": ["轴径未取标准值", "未考虑键槽引起的应力集中", "弯矩叠加方向错误"]
+  },
+  "_note": "占位模板，参考答案由专家填写后方可用于正式评测"
+}

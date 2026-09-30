@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_020",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个非常典型的工程陷阱，我来把量纲关系理清楚。\n\n---\n\n## 核心结论：不能混用，差了 1000 倍\n\n$$\nE = 206\\ \\text{GPa} = 206 \\times 10^3\\ \\text{MPa} = 206\\,000\\ \\text{MPa}\n$$\n\n如果你在应力为 MPa 的公式里直接代入 $E = 206$（即暗中把 $E$ 当 GPa 用），相当于把弹性模量缩小了 1000 倍，算出来的应变、变形、屈曲临界力等全部差 1000 倍——这是灾难性的。\n\n---\n\n## 为什么有些人「好像可以」直接代 206？\n\n你看到的\"代入 206\"且结果正确的场景，通常是因为**公式中所有长度单位都统一用 mm，力的单位统一用 N**，此时：\n\n- 应力自然以 $\\text{N/mm}^2 = \\text{MPa}$ 输出\n- 弹性模量 $E = 206\\,000\\ \\text{N/mm}^2$ → 代 206000，不是 206\n\n而有些教材或计算表格里写成 $E = 2.06 \\times 10^5\\ \\text{MPa}$，取 $2.06 \\times 10^5$ 数"
+}

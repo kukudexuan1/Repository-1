@@ -1,0 +1,74 @@
+{
+  "session_id": "25dab057-40d7-4dc8-8bc7-7d1d37f363b8",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "2981ebc2-dff1-48ed-870e-9d9a7af78f6c",
+      "role": "user",
+      "content": "轴的当量弯矩Me=√(M²+（αT）²)，M=240，T=320，α=0.6",
+      "timestamp": "2026-08-15T18:18:43.237086Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "e32c9a8c-cc8a-499a-8495-0ea7b18348a0",
+      "role": "assistant",
+      "content": "好的，这是一个明确的计算任务。我先查公式，确认符号定义和适用条件，然后求解。注意，你给的数值没有带单位——在工程语境中这很危险，我暂按常用单位（弯矩和扭矩均为 N·m）处理，但**此假设需要你确认**。\n\n---\n\n**调用前说明：**\n\n查《机械设计手册》中轴的当量弯矩计算公式。这是弯扭合成强度校核的经典公式，用于将弯矩和扭矩合成为一个等效弯矩，以便按弯曲正应力进行强度计算。需要确认公式中各项的符号定义。\n\n---\n\nsearch_formula（查询\"当量弯矩\"公式）",
+      "timestamp": "2026-08-15T18:18:52.140127Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T18:18:52.140127Z"
+}

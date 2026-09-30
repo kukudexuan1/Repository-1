@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_010",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "根据您提供的几何参数（r=2mm, D=55mm, d=45mm, r/d≈0.044, D/d≈1.22），这属于轴肩圆角处的应力集中系数查询。在机械设计手册（如《机械设计手册》成大先版或 Peterson's Stress Concentration Factors）中，该系数通常通过 r/d 和 D/d 查取图表获得。\n\n**粗估参考值（以最终设计手册查图为准）：**\n- 对于**弯曲载荷**：理论应力集中系数 \\( \\alpha_{\\sigma} \\approx 2.3 \\sim 2.5 \\)\n- 对于**扭转载荷**：理论应力集中系数 \\( \\alpha_{\\tau} \\approx 1.8 \\sim 2.0 \\)\n- 若需考虑材料敏感性的有效应力集中系数 \\( K_{\\sigma} \\) 或 \\( K_{\\tau} \\)，还需结合材料强度与缺口敏感系数进一步计算。\n\n**说明：** 以上数值为根据典型图表趋势的粗略估计，并非精确查表结果。在正式设计计算中，请务必以标准手册中的曲线图或数据表为准，并区分载荷类型（弯曲/扭转/拉伸）。\n\n---\n\n如果这是您正在进行的**轴设计"
+}

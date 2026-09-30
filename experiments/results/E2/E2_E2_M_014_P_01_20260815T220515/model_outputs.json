@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_014",
+  "error_type": "unit_missing",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "这个计算目前无法唯一确定，因为 **YFt 不是仅由 β 决定的量**。下面是完整的计算路径：\n\n---\n\n### YFt 的确定路径\n\n1. **当量齿数**：  \n   \\[\n   z_v = \\frac{z}{\\cos^3\\beta}\n   \\]\n   需要 **实际齿数 z**。\n\n2. **查齿形系数**：  \n   由 \\(z_v\\) 在 GB/T 1356 或机械设计手册的齿形系数表（YF / YFa）中查取。这是**查表值**，不是解析公式——公式库里没有直接的 YF=f(zv) 解析表达式。\n\n3. **端面齿形系数**：  \n   \\[\n   Y_{Ft} = \\frac{Y_F}{\\cos^3\\beta}\n   \\]\n   （若 YF 本身已是端面值则不需要此步，取决于你采用的体系）\n\n---\n\n### 你还需要什么\n\n| 缺失项 | 说明 |\n|--------|------|\n| **齿数 z** | 实际齿数，决定当量齿数 zv |\n| **YF 来源** | 你是要我从齿形系数表中插值（需提供 zv 后我用 run_calculation 做线性插值），还"
+}

@@ -1,0 +1,145 @@
+{
+  "session_id": "49f0c49a-9919-4ce8-a445-a1c2b1a6662d",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {
+      "sigma_FP": {
+        "symbol": "sigma_FP",
+        "name": "许用齿根弯曲应力 [σF]",
+        "value": {
+          "value": 608.0,
+          "unit": "MPa"
+        },
+        "source": "calculated",
+        "basis": [
+          "calc#1"
+        ],
+        "rationale": "",
+        "status": "tentative",
+        "group": "齿轮",
+        "revision": 1,
+        "superseded_value": "",
+        "stale_reason": "",
+        "updated_at": "2026-08-15T21:52:46.678080Z"
+      }
+    },
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "许用齿根弯曲应力计算（含 YST）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "sigma_Flim": {
+          "value": 380.0,
+          "unit": "MPa"
+        },
+        "YST": {
+          "value": 2.0,
+          "unit": ""
+        },
+        "SF": {
+          "value": 1.25,
+          "unit": ""
+        }
+      },
+      "substitution": "sigma_Flim=380 MPa；YST=2；SF=1.25",
+      "result": {
+        "sigma_FP": {
+          "value": 608.0,
+          "unit": "MPa"
+        },
+        "sigma_Flim": {
+          "value": 380.0,
+          "unit": "MPa"
+        },
+        "YST": {
+          "value": 2.0,
+          "unit": ""
+        },
+        "SF": {
+          "value": 1.25,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版），σFlim 取齿轮材料弯曲疲劳极限，YST=2.0 为试验齿轮应力修正系数（GB/T 3480），SF=1.25 为弯曲疲劳安全系数",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "sigma_Flim = 380  # MPa (N/mm²)\nYST = 2.0        # 试验齿轮应力修正系数，无量纲\nSF = 1.25         # 弯曲疲劳安全系数，无量纲\n\nsigma_FP = sigma_Flim * YST / SF  # 许用弯曲应力，MPa (N/mm²)\n\noutputs = {\n    'sigma_FP': sigma_FP,\n    'sigma_Flim': sigma_Flim,\n    'YST': YST,\n    'SF': SF\n}",
+      "created_at": "2026-08-15T21:52:38.383929Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "0f97f3d4-6d23-43cb-8577-c617d83e5af9",
+      "role": "user",
+      "content": "许用弯曲应力[σF]=σFlim×YST/SF，σFlim=380MPa，YST=2，SF=1.25，[σF]=380×2/1.25=608MPa，写入台账时单位为N/mm（漏mm）",
+      "timestamp": "2026-08-15T21:51:58.359370Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "602789bd-e300-4ad7-9c28-2216d9f1529f",
+      "role": "assistant",
+      "content": "已落账。总结一下：\n\n| 项目 | 内容 |\n|------|------|\n| **参数** | `sigma_FP` — 许用齿根弯曲应力 [σF] |\n| **数值** | 608 MPa（即 608 N/mm²） |\n| **计算** | calc#1：380 × 2.0 / 1.25 = 608 |\n| **状态** | tentative，待后续回代校核后确认 |\n\n你指出的单位问题很关键：**N/mm 是线载荷量纲**（如齿轮单位齿宽载荷），而弯曲应力是 **N/mm²（即 MPa）**。台账中已正确记录为 `MPa`，后续引用该参数时不会出现量纲错误。",
+      "timestamp": "2026-08-15T21:52:54.250135Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:52:54.250135Z"
+}

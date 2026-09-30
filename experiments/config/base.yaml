@@ -1,0 +1,45 @@
+# 实验全局固定配置
+# 所有实验运行时读取此文件，禁止在运行中途修改
+
+backend:
+  url: "${BACKEND_URL:-http://localhost:8000}"
+  timeout_connect: 10       # 秒
+  timeout_read: 300         # 秒，长流程需要
+  timeout_recovery: 600     # 秒，LLM 恢复 workflow 专用（12 轮 × 最长 50 s/轮）
+  health_endpoint: "/health"
+
+experiment:
+  n_replicates: "${EXP_N_REPLICATES:-5}"
+  random_seed: "${EXP_RANDOM_SEED:-42}"
+  temperature: 0.0
+  results_dir: "${EXP_RESULTS_DIR:-results}"
+
+# 底座模型槽位（记录，不直接调用；backend 内部使用 .env 配置）
+model_slots:
+  main: "deepseek-v4-pro"
+  coder: "qwen3-coder-plus"
+  math: "qwen3.5-plus"
+  vision: "qwen3-vl-plus"
+
+bext:
+  endpoint: "${BEXT_ENDPOINT:-https://dashscope.aliyuncs.com/compatible-mode/v1}"
+  api_key_env: "BEXT_API_KEY"   # 只记录环境变量名，不直接写入 API key
+  model: "${BEXT_MODEL:-deepseek-v4-pro}"
+  temperature: 0.0
+  # B-EXT 不注入工程框架 System Prompt，只给任务描述
+  system_prompt: "你是一名经验丰富的机械设计工程师，请根据用户提供的任务要求完成机械设计。"
+  max_tokens: 8192
+
+annotation:
+  annotator_1_id: "${ANNOTATOR_1_ID:-annotator_A}"
+  annotator_2_id: "${ANNOTATOR_2_ID:-annotator_B}"
+  kappa_threshold: 0.8    # Cohen's kappa 低于此值须返工标注（E4规定）
+
+statistics:
+  ci_level: 0.95
+  primary_endpoints:
+    - ECR      # 证据完整率
+    - ORR      # 过期结果泄漏率
+    - gate_violation_rate
+    - e2e_success_rate
+    - cae_criterion_consistency

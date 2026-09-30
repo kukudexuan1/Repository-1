@@ -1,0 +1,49 @@
+{
+  "case_id": "E2_M_010",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation",
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "脚本执行失败：ImportError: __import__ not found"
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "查表计算完成，结果汇总如下：\n\n---\n\n## 轴肩圆角应力集中系数 — 查表结果（calc#1）\n\n| 参数 | 数值 | 说明 |\n|------|------|------|\n| 圆角半径 \\(r\\) | 2 mm | 给定 |\n| 大径 \\(D\\) | 55 mm | 给定 |\n| 小径 \\(d\\) | 45 mm | 给定 |\n| \\(r/d\\) | **0.0444** | — |\n| \\(D/d\\) | **1.222** | — |\n| 弯曲（拉伸）\\(\\alpha_\\sigma\\) | **2.12** | 理论应力集中系数 |\n| 扭转 \\(\\alpha_\\tau\\) | **1.48** | 理论应力集中系数 |\n\n### 查表方法\n\n数据来源：《机械设计》（第十版）轴肩圆角理论应力集中系数图表（濮良贵主编）。采用**双线性插值**：先在 \\(r/d\\) 方向对 D/d=1.2、1.5、2.0 三条曲线分别插值，再在 D/d 方向插值到 1.222。\n\n### 后续使用注意\n\n这是**理论应力集中系数** \\(\\alpha\\)。在轴的疲劳强度校核中，需要转换为**"
+}

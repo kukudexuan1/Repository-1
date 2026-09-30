@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_011",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "好的，这是一个简单的许用弯曲应力计算，我会严格按照工具调用来完成，确保有据可查。\n\n**调用前**：需要查找许用弯曲应力的标准公式，明确变量定义。  \n**调用后**：求得 [σ₋₁] = σ₋₁ / S = 255 / 1.5 = 170 MPa，但必须通过工具返回的计算记录确认，不能直接写“170”。\n\n------\n\n第一步，检索公式库中关于“许用弯曲应力”的公式。\n\n<search_formula>\n<query>许用弯曲应力 对称循环</query>\n<context>计算轴在对称循环弯曲应力下的许用值，公式为 [σ-1] = σ-1 / S</context>\n</search_formula>"
+}

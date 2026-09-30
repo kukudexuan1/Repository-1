@@ -1,0 +1,74 @@
+{
+  "session_id": "7b20306b-1848-4018-bb61-8c9d47307a70",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "8acb6396-851d-4428-9f13-423c44c4244a",
+      "role": "user",
+      "content": "帮我计算减速器散热，只给了发热功率P_loss=0.375kW，未给箱体外表面积和环境温度",
+      "timestamp": "2026-08-15T21:12:36.535022Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "674c096d-9d6c-4af1-b2b7-8e906e6426d7",
+      "role": "assistant",
+      "content": "公式库未覆盖热平衡计算，这属于非标计算。让我用标准方法来处理。\n\n---\n\n## 减速器热平衡计算 — 方法与现状\n\n### 1. 计算公式（依据《机械设计》教材，热平衡章节）\n\n减速器连续工作时，功率损失 \\(P_{\\text{loss}}\\) 转化为热量，通过箱体表面散发到空气中。热平衡方程为：\n\n\\[\nP_{\\text{loss}} = K_t \\cdot A \\cdot (t_{\\text{oil}} - t_{\\text{amb}})\n\\]\n\n即：\n\n\\[\n\\Delta t = t_{\\text{oil}} - t_{\\text{amb}} = \\frac{P_{\\text{loss}}}{K_t \\cdot A}\n\\]\n\n| 符号 | 含义 | 单位 | 你给了吗 |\n|------|------|------|----------|\n| \\(P_{\\text{loss}}\\) | 发热功率（功率损失） | kW | ✅ 0.375 kW |\n| \\(K_t\\) | 箱体表面散热系数 | W/(m²·°C) | ❌ 需确定 |\n| \\(A\\) | 箱体有效散热面积 | m² | ❌ 未给 |\n| \\(t_{\\text{amb}}\\) | 环境温度 | °C | ❌ 未给 |\n| \\(t_{\\text{oil}}\\) | 油池温度 | °C | 由上式算出 |\n| \\(\\Delta t\\) | 温升 | °C | 算得后判断 |\n\n### 2. 散热系数 \\(K_t\\) 的取值（工程惯用范围）\n\n| 通风条件 | \\(K_t\\) [W/(m²·°C)] |\n|----------|---------------------|\n| 通风良好（车间、户外） | 14 ~ 17.5 |\n| 通风一般（室内） | 10 ~ 14 |\n| 通风不良 | 8 ~ 10 |\n| 有风扇强制冷却 | 20 ~ 23 |\n\n### 3. 你能算到什么程度\n\n目前你只给了 \\(P_{\\text{loss}} = 0.375\\text{ kW}\\)，缺两个关键输入：\n\n- **箱体外表面积 \\(A\\)**：如果你有箱体大致外形尺寸（长×宽×高），我可以估算有效散热面积（通常取与油接触的外表面，不计底面和与地基接触面）。\n- **环境温度 \\(t_{\\text{amb}}\\)**：一般车间取 20~30°C，户外按当地气候。\n\n如果你能补充这两个数，我可以立刻跑出温升 \\(\\Delta t\\) 并判断是否超限（油池许用温度通常 ≤ 70~80°C，即许用温升 ≤ 40~50°C）。\n\n---\n\n**你能提供箱体的大致外形尺寸和环境温度吗？** 或者你希望我取几个工程惯用值先做一轮试算，标为待确认假设？",
+      "timestamp": "2026-08-15T21:13:14.815128Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:13:14.815128Z"
+}

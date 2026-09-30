@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_021",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您指出的完全正确。轴承寿命公式的正确形式是：\n\n$$L_{10h} = \\frac{10^6}{60n} \\left(\\frac{C}{P}\\right)^3$$\n\n分母确实有 **60**，它来自转速单位从 r/min 转换为 r/h 的换算。\n\n代入数值计算：\n\n$$L_{10h} = \\frac{10^6}{60 \\times 960} \\times \\left(\\frac{32000}{8500}\\right)^3 = \\frac{10^6}{57600} \\times 53.35 \\approx 926 \\ \\text{h}$$\n\n这个结果（约 926 h）远小于设计要求的 16000 h，说明该轴承选型不满足寿命要求。\n\n---\n\n不过，当前系统处于全新会话状态，没有任何设计上下文。您提到这个计算，是想：\n\n1. **启动一个新的轴承选型/轴系设计任务**（以 16000 h、960 rpm 为输入条件）？\n2. **继续之前某个被中断的设计**（需要我恢复上下文）？\n3. **只是确认这个计算错误**（那我已经确认了，分母漏乘 60 会导致 L10 虚高 60 倍，是严重"
+}

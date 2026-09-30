@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_S_018",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "公式库中没有收录这条精确表达式，但这确实是 ISO 6336 / GB/T 3480 中齿根弯曲疲劳安全系数的标准公式。需要用 `run_calculation` 在沙箱中执行。\n\n不过，在计算之前，我需要你提供以下输入值：\n\n| 符号 | 含义 | 你的取值 |\n|------|------|----------|\n| **σFlim** | 齿根弯曲疲劳极限（MPa） | ？ |\n| **YST** | 应力修正系数，标准试验齿轮取 **2.0** | 是否用 2.0？ |\n| **σF** | 计算齿根弯曲应力（MPa） | ？ |\n| **YX** | 尺寸系数（与模数相关，按 GB/T 3480 查取） | ？ |\n\n你省略的 **YδrelT**（相对敏感系数）和 **YRrelT**（相对表面状况系数）在常规工程校核中确实常取为 1.0，不影响计算流程。\n\n请给出这四个值，我立刻在沙箱中算出 SF 并给出判据结论。"
+}

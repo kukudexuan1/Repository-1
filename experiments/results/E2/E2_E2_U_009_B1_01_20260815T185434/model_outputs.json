@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_009",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "---\n\n## 这个计算有两个错误，而且错误很严重\n\n### 错误一：概念混淆——把角度当成了 tan 值\n\n公式是 **F_a = F_t · tan(β)**，不是 **F_t · β**。\n\n用户在计算中把 β = 12° 直接代入了乘法，即 **2400 × 12 = 28800**，这等于把 tan(12°) 当成了 12。而实际上：\n\n> tan(12°) ≈ **0.2126**\n\n两者差了约 **56 倍**。tan(12°) 是 12° 这个角度在直角三角形中对边与邻边的比值，它和角度数值 12 没有任何直接关系。\n\n### 错误二：单位混淆——度与弧度\n\n即使公式是 F_a = F_t · β（实际不是），β 也必须以**弧度**为单位才能进行数值乘法。12° = 0.20944 rad ≠ 12。\n\n---\n\n### 正确计算\n\n| 步骤 | 内容 |\n|------|------|\n| 公式 | F_a = F_t · tan(β) |\n| β | 12° = 0.20944 rad |\n| tan(β) | tan(12°) ≈ **0.2126** |\n| "
+}

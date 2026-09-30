@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_015",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果\n\n| 项目 | 符号 | 数值 | \n|------|------|------|\n| 扭矩 | T₁ | 320 N·mm |\n| 分度圆直径 | d₁ | 0.12 m = **120 mm** |\n| **圆周力** | **Fₜ** | **5.333 N** |\n\n---\n\n### 关于单位混用问题的说明\n\n你提的这一点非常关键。`Fₜ = 2T/d` 这个公式里，**T 和 d 必须使用协调的量纲**：\n\n- 若 T 用 **N·mm**，d 必须用 **mm** → Fₜ 得 **N** ✅\n- 若 T 用 **N·m**，d 必须用 **m** → Fₜ 得 **N** ✅\n- 若 T 用 N·mm、d 用 m，直接代入会得到 **0.00533 N**，差 1000 倍 ❌\n\n你给的 0.12 m 换算为 120 mm 后代入，结果正确。但在工程中，**最安全的做法是全部统一到 SI 基本单位或一致的非 SI 单位**，不要混用 N·mm 和 m。\n\n---\n\n还有一点值得注意：**5.33 N 的圆周力非常小**（相当于半公斤的力），扭矩仅"
+}

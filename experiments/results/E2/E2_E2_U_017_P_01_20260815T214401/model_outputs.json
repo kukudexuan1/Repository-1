@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_U_017",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算结果如下（calc#1）：\n\n| 参数 | 原值 | 统一单位后 |\n|------|------|-----------|\n| 扭矩 T | 320 N·m | **320,000 N·mm** |\n| 抗扭截面系数 Wp | 24,543 mm³ | 24,543 mm³ |\n| 扭转切应力 τ | — | **13.04 MPa** |\n\n---\n\n**你的错误出在哪里？**\n\n你直接拿 320 ÷ 24,543 = 0.013，但 **N·m 和 mm³ 不是同一量纲体系**——扭矩单位是 N·m，截面系数单位是 mm³，直接除得到的是 N·m/mm³，这不是 MPa。\n\n正确的做法是先把扭矩换算为 N·mm：\n\n> 320 N·m × 1000 = 320,000 N·mm\n>\n> τ = 320,000 N·mm / 24,543 mm³ = **13.04 N/mm² = 13.04 MPa**\n\n---\n\n如果你正在做轴的设计，这个 τ = 13.04 MPa 的扭转切应力需要与材料的许用扭转切应力 [τ] 对比。需要我帮你查材料许用应力或继续做轴的强度校核吗？"
+}

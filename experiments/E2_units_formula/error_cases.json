@@ -1,0 +1,756 @@
+[
+  {
+    "case_id": "E2_U_001",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算齿轮接触应力，已知：转矩T=320000 N（应为N·mm），模数m=3，齿数z1=25",
+    "_note": "扭矩单位用N而非N·mm，量级差1000"
+  },
+  {
+    "case_id": "E2_U_002",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴承额定动载荷C=32000 N，转速n=305 rpm，计算轴承寿命，载荷P=8.5 kN（N与kN混用）",
+    "_note": "N与kN混用"
+  },
+  {
+    "case_id": "E2_U_003",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "已知功率P=7500 W（应为kW），转速n=960 rpm，计算输出扭矩",
+    "_note": "W与kW混用，量级差1000"
+  },
+  {
+    "case_id": "E2_U_004",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算赫兹接触应力，已知圆周力Ft=2400 N，齿宽b=0.08m（应为80mm），模数m=3mm",
+    "_note": "齿宽单位m与mm混用"
+  },
+  {
+    "case_id": "E2_U_005",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴的扭转强度校核，截面极惯性矩Ip=1.2×10⁻⁶ m⁴（应为mm⁴），扭矩T=320N·m",
+    "_note": "极惯性矩单位m⁴与mm⁴混用，量级差10¹²"
+  },
+  {
+    "case_id": "E2_U_006",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算接触疲劳极限许用值，材料σHlim=600 MPa，安全系数SH=1.1，[σH]=σHlim/SH=545 GPa",
+    "_note": "结果单位应为MPa，误写为GPa"
+  },
+  {
+    "case_id": "E2_U_007",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴承寿命计算，转速n=1450 r/s（应为r/min），载荷P=5200N，Cr=32000N",
+    "_note": "转速单位r/s与r/min混用，量级差60"
+  },
+  {
+    "case_id": "E2_U_008",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算键挤压应力，传递扭矩T=0.32 N·m（应为320N·m），轴径d=50mm，键高h=9mm，接触长度l=60mm",
+    "_note": "扭矩量级错误，N·m与kN·m混淆"
+  },
+  {
+    "case_id": "E2_U_009",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算斜齿轮轴向力Fa=Ft·tanβ，其中Ft=2400N，β=12°=0.209rad，Fa=2400×12=28800N（直接用度数代入而非rad）",
+    "_note": "螺旋角应取tan(12°)≈0.213，而非12"
+  },
+  {
+    "case_id": "E2_U_010",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "弯矩图中，支反力计算用跨距L=0.18m，但弯矩结果单位写为N·mm",
+    "_note": "力单位N×距离m=N·m，不是N·mm"
+  },
+  {
+    "case_id": "E2_U_011",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴的抗弯截面系数W=π×50³/32，其中50的单位为mm，结果W直接用于弯曲应力σ=M/W，M的单位为N·m",
+    "_note": "W单位为mm³，M单位为N·m，σ=M/W量纲不一致，应统一为N·mm"
+  },
+  {
+    "case_id": "E2_U_012",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算齿轮分度圆线速度v=π×d×n/60，d=120mm，n=960rpm，v=π×120×960/60=6032mm/s（未转换为m/s）",
+    "_note": "v应为m/s，6032mm/s=6.03m/s，单位未转换"
+  },
+  {
+    "case_id": "E2_U_013",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴承当量动载荷P=XFr+YFa，Fr=8500N，Fa=1.2kN（kN与N混用），X=0.56，Y=1.45",
+    "_note": "Fr单位N，Fa单位kN，代入前未统一"
+  },
+  {
+    "case_id": "E2_U_014",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "弹性系数ZE=189.8√MPa（正确），计算中写ZE=189.8√N/mm²，两者数值相同但认为单位不同拒绝代入",
+    "_note": "MPa=N/mm²，此处应判定单位一致，为正常计算——此条用于测试系统是否错误拒绝等价单位",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_U_015",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "齿轮圆周力Ft=2T/d，T=320N·mm，d=0.12m（单位混用：T为N·mm，d为m）",
+    "_note": "T与d单位体系不一致，Ft单位无法确定"
+  },
+  {
+    "case_id": "E2_U_016",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算轴颈的弯曲正应力σb=Mb/W，Mb=180N·m，W=12271mm³，σb=180/12271=0.0147（没有乘1000转换单位）",
+    "_note": "应σb=180×1000/12271≈14.7 MPa，漏乘1000的单位换算"
+  },
+  {
+    "case_id": "E2_U_017",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算轴的扭转切应力τ=T/Wp，T=320N·m，Wp=24543mm³，τ=320/24543=0.013（单位不一致，N·m/mm³）",
+    "_note": "T应转为N·mm：τ=320000/24543≈13.0 MPa"
+  },
+  {
+    "case_id": "E2_U_018",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "许用挤压应力[σp]=120 kPa（应为MPa），键连接挤压应力σp=85MPa，判断合格",
+    "_note": "[σp]单位kPa与σp单位MPa差1000倍，判据完全错误"
+  },
+  {
+    "case_id": "E2_U_019",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴功率P=T×ω=320N·mm×100.5rad/s（ω已用rad/s，但T用N·mm，结果单位为N·mm·rad/s而非W）",
+    "_note": "P=T·ω时T应为N·m，320N·mm=0.32N·m，功率=32.16W而非32160W"
+  },
+  {
+    "case_id": "E2_U_020",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "材料弹性模量E=206GPa，计算应力时代入E=206（忽略单位），与应力MPa混用",
+    "_note": "E=206GPa=206000MPa，若应力单位为MPa则E应用206000代入"
+  },
+  {
+    "case_id": "E2_U_021",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "设计寿命16000h，转速n=960rpm，额定寿命L10=（C/P）³×10⁶/60n，代入L10=（32000/8500）³×10⁶/60×960=...（分母漏乘60）",
+    "_note": "标准轴承寿命公式分母应为60n，漏写60时量级错误10倍"
+  },
+  {
+    "case_id": "E2_U_022",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算中心距a=(d1+d2)/2，d1=120mm，d2=360mm，a=240mm，之后用a=0.24继续计算（单位隐式变成m）",
+    "_note": "数值写0.24但未标单位，与后续mm体系混用"
+  },
+  {
+    "case_id": "E2_U_023",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "齿根弯曲应力σF=YFS×YE×YB×F/(b×mn)，其中F=2400N，b=80mm，mn=3mm，但YFS=2.72（无单位），σF结果单位为N/mm²（正确）",
+    "_note": "此条为合法计算，测试系统不应拒绝无量纲系数",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_U_024",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算轴弯矩，力F=3200N，悬臂长L=150mm，弯矩M=F×L=3200×0.15=480（单位写N而非N·m或N·mm）",
+    "_note": "弯矩单位应为N·mm=480000N·mm或N·m=0.48N·m，不是N"
+  },
+  {
+    "case_id": "E2_U_025",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "线速度v=3.6m/s，动载系数KV按v查图取值，查图时横坐标输入v=3600（误将m/s×1000当mm/s使用）",
+    "_note": "m/s与mm/s混用，影响KV查表结果"
+  },
+  {
+    "case_id": "E2_U_026",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "齿轮模数m=2.5mm，齿数z=32，分度圆直径d=m×z=2.5×32=80mm（正确）；齿顶高ha=m=2.5（缺少mm单位）",
+    "_note": "ha缺单位，在下游计算中与无量纲数混用"
+  },
+  {
+    "case_id": "E2_U_027",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "轴承基本额定静载荷C0r=19800N，轴向力Fa=1200N，Fa/C0r=1200/19800=0.0606，查表得e=0.17（正确流程）",
+    "_note": "此条为合法计算，e为无量纲，不应被拒绝",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_U_028",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算减速器箱体散热面积，散热系数Ks=15W/(m²·K)，温差ΔT=35°C，热流密度q=Ks×ΔT=15×35=525（单位漏写W/m²）",
+    "_note": "结果单位W/m²被省略，下游计算面积时单位链断裂"
+  },
+  {
+    "case_id": "E2_U_029",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "计算斜齿轮端面模数mt=mn/cosβ，mn=3mm，β=12°，mt=3/cos(12°)=3/0.978=3.067mm（正确），但后续分度圆直径用d=m×z中m用3而非3.067",
+    "_note": "端面模数与法向模数混用"
+  },
+  {
+    "case_id": "E2_U_030",
+    "error_type": "unit_error",
+    "is_error_input": true,
+    "prompt": "许用弯曲应力[σF]=σFlim×YST/SF，σFlim=380MPa，YST=2，SF=1.25，[σF]=380×2/1.25=608MPa，写入台账时单位为N/mm（漏mm）",
+    "_note": "单位N/mm与N/mm²（MPa）不同，漏写²"
+  },
+  {
+    "case_id": "E2_M_001",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "计算齿根弯曲应力，已知：弯矩M=180，模数m=3，齿宽b=80，齿形系数YF=2.65",
+    "_note": "M和b缺少单位，无法确定σF的单位"
+  },
+  {
+    "case_id": "E2_M_002",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "轴的最小直径估算，传递扭矩T=320，许用切应力[τ]=35",
+    "_note": "T和[τ]缺单位"
+  },
+  {
+    "case_id": "E2_M_003",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "键挤压应力校核：传递扭矩T=420，轴径d=55，键高h=9，接触长度lw=60",
+    "_note": "T、d、h、lw全部缺单位"
+  },
+  {
+    "case_id": "E2_M_004",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "轴承寿命计算：额定动载荷C=32000，当量动载荷P=9200，转速n=480",
+    "_note": "C、P、n缺单位，无法区分N与kN"
+  },
+  {
+    "case_id": "E2_M_005",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "赫兹接触应力校核：圆周力Ft=2400，齿宽b=80，节圆直径d1=90",
+    "_note": "Ft、b、d1缺单位，影响σH量纲"
+  },
+  {
+    "case_id": "E2_M_006",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "减速器输出轴扭矩T2=P×η/n2，P=7.5，η=0.97，n2=305",
+    "_note": "P缺kW单位，n2缺rpm单位，公式代入量纲错误"
+  },
+  {
+    "case_id": "E2_M_007",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "弯矩图计算：支反力FRA=3200，支撑跨距L=280，悬臂长l=60",
+    "_note": "力和长度缺单位，无法确定弯矩单位"
+  },
+  {
+    "case_id": "E2_M_008",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "疲劳安全系数S=σ-1/(Kσ×σa/εσ+ψσ×σm)，其中σ-1=270，σa=85，σm=40",
+    "_note": "应力值缺MPa单位，无量纲系数与应力混在一行"
+  },
+  {
+    "case_id": "E2_M_009",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "齿轮接触强度计算，中心距a=150，传动比i=3.15，小齿轮分度圆直径d1=a×2/(i+1)",
+    "_note": "a缺mm单位，导致d1量纲不明"
+  },
+  {
+    "case_id": "E2_M_010",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "轴颈应力集中系数查表：轴肩圆角r=2，轴径D=55，小径d=45，r/d=0.044，D/d=1.22",
+    "_note": "r、D、d缺mm单位，但比值r/d计算正确——测试系统能否区分：尺寸本身缺单位但比值无量纲时是否合理"
+  },
+  {
+    "case_id": "E2_M_011",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "计算45钢调质轴的许用弯曲应力，σb=600，σ-1=255，安全系数S=1.5，[σ-1]=255/1.5=170",
+    "_note": "σb、σ-1、[σ-1]缺MPa单位"
+  },
+  {
+    "case_id": "E2_M_012",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "轴的当量弯矩Me=√(M²+（αT）²)，M=240，T=320，α=0.6",
+    "_note": "M和T缺N·mm单位"
+  },
+  {
+    "case_id": "E2_M_013",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "深沟球轴承6210：Cr=35000，C0r=19800，内径d=50，外径D=90，宽度B=20",
+    "_note": "Cr、C0r缺N单位，d/D/B缺mm单位"
+  },
+  {
+    "case_id": "E2_M_014",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "计算斜齿轮螺旋角β=12°时的端面齿形系数YFt（YFt为无量纲，β有单位度）——系统不应拒绝此输入",
+    "_note": "此条为合法情形：β有单位度，YFt无单位，不属于缺单位错误",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_M_015",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "平键剪切强度校核，τk=2T/(d×b×l)，T=420，d=55，b=16，l=60",
+    "_note": "T缺N·mm，d/b/l缺mm，τk单位无法确定"
+  },
+  {
+    "case_id": "E2_M_016",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "减速器输出功率P2=P1×η=7.5×0.97=7.275，功率未加单位kW",
+    "_note": "计算结果缺kW单位，下游若用W代入扭矩公式差1000倍"
+  },
+  {
+    "case_id": "E2_M_017",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "弯曲疲劳极限σFlim由材料手册查得：σFlim=380（45钢调质），未标MPa",
+    "_note": "强度数据缺MPa单位，后续代入公式时若错误理解单位导致设计偏差"
+  },
+  {
+    "case_id": "E2_M_018",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "轴承预期寿命Lh'=16000，但未注明单位（应为h），后续与计算寿命L10h直接比较",
+    "_note": "寿命要求值缺h单位"
+  },
+  {
+    "case_id": "E2_M_019",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "齿宽系数ψd=b/d1=80/90=0.89（无单位，正确为无量纲）——不应被拒绝",
+    "_note": "ψd为无量纲比值，b和d1可理解为同单位相消，合法输入",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_M_020",
+    "error_type": "unit_missing",
+    "is_error_input": true,
+    "prompt": "齿轮接触疲劳寿命系数ZN由应力循环次数N=n×60×Lh查图：N=960×60×16000=9.216×10⁸（缺次数单位次）",
+    "_note": "N为应力循环次数，缺'次'单位，但对计算无影响——测试系统对纯数值无量纲的处理"
+  },
+  {
+    "case_id": "E2_S_001",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "使用齿轮接触疲劳强度公式，其中载荷系数K=1.5，齿宽系数ψd=1.0，计算接触应力σc（σc应为σH）",
+    "_note": "接触应力标准符号为σH，σc为非标准符号"
+  },
+  {
+    "case_id": "E2_S_002",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "轴的疲劳安全系数计算中，引用弯曲疲劳极限σ0（应为σ-1，对称循环疲劳极限）",
+    "_note": "σ0通常指静强度，对称循环弯曲疲劳极限应为σ-1"
+  },
+  {
+    "case_id": "E2_S_003",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "齿根弯曲应力公式中齿形系数写为YF（正确），但应力公式写成σF=KFt/(YF·m·b)，少了弯曲强度利用系数YS",
+    "_note": "GB标准公式需要YFS=YF×YS，或单独列YF和YS，不能只用YF"
+  },
+  {
+    "case_id": "E2_S_004",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "轴承寿命公式写为L10=（Cr/Pr）³（正确形式），但将Cr写为C，将Pr写为P，符号含义混淆（C通常指额定静载荷C0）",
+    "_note": "C0为额定静载荷，Cr/C为额定动载荷，符号使用混乱"
+  },
+  {
+    "case_id": "E2_S_005",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "弯扭合成当量弯矩公式Me=√(M²+T²)，未写折合系数α，默认按纯弯矩处理扭矩",
+    "_note": "标准公式应为Me=√(M²+(αT)²)，α通常取0.6或按脉动/对称循环确定"
+  },
+  {
+    "case_id": "E2_S_006",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "接触强度计算中区域系数写为ZH=2.5（正确数值范围），但公式表述用ZE代替ZH",
+    "_note": "ZH为区域系数，ZE为弹性系数，两者不同"
+  },
+  {
+    "case_id": "E2_S_007",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "齿面接触应力中将ZE写为189.8√MPa（正确），但在公式中用ZM代替ZE",
+    "_note": "弹性系数标准符号为ZE，不是ZM"
+  },
+  {
+    "case_id": "E2_S_008",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "轴的强度计算中将许用弯曲应力写为[σb]（常见误写），标准符号应为[σ-1]",
+    "_note": "[σb]通常是静弯曲许用应力，[σ-1]才是对称循环疲劳许用应力"
+  },
+  {
+    "case_id": "E2_S_009",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "使用接触疲劳强度安全系数SH=1.25（合理值），但将SH写为Ks（与热平衡散热系数Ks混淆）",
+    "_note": "安全系数符号应为SH，不应与散热系数Ks混用"
+  },
+  {
+    "case_id": "E2_S_010",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "疲劳强度计算中将应力幅σa写成σmax/2（只对对称循环成立），对非对称循环应分别计算σa和σm",
+    "_note": "σa=σmax/2只在对称循环（σm=0）时成立"
+  },
+  {
+    "case_id": "E2_S_011",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "键连接校核中许用挤压应力写为[σbs]，标准符号应为[σp]（p来自pressure/挤压）",
+    "_note": "[σp]为键连接许用挤压应力标准符号"
+  },
+  {
+    "case_id": "E2_S_012",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "齿轮载荷系数写为K=KA×KV×KHβ×KHα（接触强度正确），用于弯曲强度时仍用KHβ而非KFβ",
+    "_note": "弯曲强度载荷分布系数应为KFβ，不能直接用KHβ"
+  },
+  {
+    "case_id": "E2_S_013",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "计算中写\"轴径系数A=112\"（应为A0，下标不能省略），并用于d≥A(P/n)^(1/3)公式",
+    "_note": "A0系数下标0不能省，不同材料A0值不同"
+  },
+  {
+    "case_id": "E2_S_014",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "将轴的截面系数写成W=π×d³/32（这是极截面系数Wp，轴的抗弯截面系数W=π×d³/32也正确）——合法",
+    "_note": "W=πd³/32是抗弯截面系数（正确），Wp=πd³/16是抗扭截面系数，两者不同；此题表述正确",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_S_015",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "斜齿轮法向齿形系数YFn查表时用端面压力角αt而非法向压力角αn",
+    "_note": "YFn应按法向压力角αn查取，不能用端面压力角αt"
+  },
+  {
+    "case_id": "E2_S_016",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "轴承寿命系数fT（温度系数，高温降额）被写为ft，与动载荷修正系数fd（冲击系数）混淆",
+    "_note": "温度系数fT与冲击系数fd符号近似，含义不同"
+  },
+  {
+    "case_id": "E2_S_017",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "将接触疲劳寿命系数ZNT写为ZN（省略T下标），ZN通常指齿数系数，两者不同",
+    "_note": "ZNT（寿命系数）≠ZN（某些文献中的齿数修正因子）"
+  },
+  {
+    "case_id": "E2_S_018",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "计算齿根弯曲疲劳安全系数SF=σFlim×YST/(σF×YδrelT×YRrelT×YX)，省略YδrelT和YRrelT两项系数",
+    "_note": "GB/T 3480标准SF公式包含缺口敏感系数YδrelT和表面系数YRrelT，不能省略"
+  },
+  {
+    "case_id": "E2_S_019",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "轴的计算安全系数S=σ-1/σca，但将计算应力σca与许用应力[σca]混淆，判断S≥[S]=1.5时漏掉许用安全系数下标",
+    "_note": "S为计算安全系数，[S]为许用安全系数，两者意义不同"
+  },
+  {
+    "case_id": "E2_S_020",
+    "error_type": "symbol_error",
+    "is_error_input": true,
+    "prompt": "将接触疲劳强度校核判据写为σH≥[σH]（方向错误，应为σH≤[σH]）",
+    "_note": "强度校核判据应为计算应力≤许用应力，≥是错误的"
+  },
+  {
+    "case_id": "E2_P_001",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "计算单级减速器输出轴扭矩，只给出传动比i=3.15，未提供输入功率和转速",
+    "_note": "缺功率P和输入转速n1，两者均为必需"
+  },
+  {
+    "case_id": "E2_P_002",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "请帮我选取轴承型号，轴径50mm，只告知了径向载荷Fr=8500N，未给出转速和设计寿命",
+    "_note": "轴承选型必需：轴径+载荷+转速+寿命，缺转速和寿命"
+  },
+  {
+    "case_id": "E2_P_003",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "帮我校核键连接挤压强度，轴径55mm，键截面16×10，只告知轴径，未给传递扭矩和键的接触长度",
+    "_note": "挤压应力公式需要T、d、h、lw，缺T和lw"
+  },
+  {
+    "case_id": "E2_P_004",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "对45钢调质轴做疲劳安全系数校核，只给了弯矩M=180N·m，未提供扭矩、材料疲劳极限和应力集中系数",
+    "_note": "疲劳安全系数校核需要M、T、σ-1、Kσ等，多项缺失"
+  },
+  {
+    "case_id": "E2_P_005",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "计算齿轮赫兹接触应力，已知模数m=3，齿数z1=25，z2=80，但未给出输入功率/扭矩、精度等级和材料",
+    "_note": "σH计算需要载荷Ft（需功率或扭矩），精度等级影响KV，材料影响ZE"
+  },
+  {
+    "case_id": "E2_P_006",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "请帮我估算轴的最小直径，只告知输入功率P=7.5kW，未给转速",
+    "_note": "d≥A0×(P/n)^(1/3)，缺n"
+  },
+  {
+    "case_id": "E2_P_007",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "计算斜齿轮的轴向力，只给了螺旋角β=12°，没有给圆周力Ft",
+    "_note": "Fa=Ft×tanβ，缺Ft"
+  },
+  {
+    "case_id": "E2_P_008",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "请做齿轮接触疲劳强度设计，确定模数，只给了传动比i=3.15，其他设计条件全缺",
+    "_note": "需要至少：P、n1、i、材料、寿命、载荷类型"
+  },
+  {
+    "case_id": "E2_P_009",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "校核轴承寿命，只给了额定动载荷C=32000N，载荷P=8500N，未给转速",
+    "_note": "L10h=（C/P）³×10⁶/60n，缺n则无法计算小时寿命"
+  },
+  {
+    "case_id": "E2_P_010",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "请计算弯曲疲劳安全系数，只给了弯曲应力σ=95MPa，忘了给材料的疲劳极限σ-1",
+    "_note": "S=σ-1/σca，缺σ-1"
+  },
+  {
+    "case_id": "E2_P_011",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "帮我计算减速器散热，只给了发热功率P_loss=0.375kW，未给箱体外表面积和环境温度",
+    "_note": "热平衡公式Q=Ks×A×ΔT，缺A和ΔT"
+  },
+  {
+    "case_id": "E2_P_012",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "请做轴的弯矩图，只给了齿轮位置的径向力Fr=3800N，未给轴承支点位置和跨距",
+    "_note": "弯矩图需要载荷位置和支点位置，缺跨距参数"
+  },
+  {
+    "case_id": "E2_P_013",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "请选取普通平键规格，只给了键槽长度要求≥60mm，未给轴径",
+    "_note": "键截面b×h由轴径决定，缺轴径无法选键"
+  },
+  {
+    "case_id": "E2_P_014",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "计算斜齿轮齿根弯曲应力，已知Ft=2400N，b=80mm，mn=3mm，但没有给齿形系数YF和YS",
+    "_note": "σF公式必需YF和YS（或YFS），缺则无法计算"
+  },
+  {
+    "case_id": "E2_P_015",
+    "error_type": "missing_required",
+    "is_error_input": true,
+    "prompt": "帮我验证参数台账中的模数是否满足接触强度，但未告知当前已有的任何台账参数",
+    "_note": "验证需要具体参数值，完全缺失输入无法计算"
+  },
+  {
+    "case_id": "E2_C_001",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "轴承寿命校核：计算得L10h=15000h，要求设计寿命16000h，判断合格",
+    "_note": "15000<16000，应判不合格"
+  },
+  {
+    "case_id": "E2_C_002",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "接触疲劳强度校核：计算σH=590MPa，许用值[σH]=560MPa，判断σH<[σH]通过",
+    "_note": "590>560，应判不通过"
+  },
+  {
+    "case_id": "E2_C_003",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "键挤压强度校核：计算σp=125MPa，许用值[σp]=120MPa，差5MPa，约4%，判断勉强合格",
+    "_note": "125>120即不合格，无论超量多少都不能判合格"
+  },
+  {
+    "case_id": "E2_C_004",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "轴的疲劳安全系数：计算S=1.28，许用安全系数[S]=1.3，S/[S]=0.985≈1，判断近似满足",
+    "_note": "S=1.28<[S]=1.3，不满足，不能近似通过"
+  },
+  {
+    "case_id": "E2_C_005",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "弯曲疲劳强度：σF=410MPa，许用值[σF]=400MPa，超出2.5%，属工程误差范围，判定通过",
+    "_note": "强度校核不存在工程误差例外，超出即不合格，须增大尺寸或改材料"
+  },
+  {
+    "case_id": "E2_C_006",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "轴的静强度：危险截面处σca=165MPa，许用值[σca]=160MPa，但设计余量σca/[σca]=1.03<1.1，判断余量不足需重设计——判断结论正确",
+    "_note": "σca=165>[σca]=160，本身已不合格，结论正确但诊断描述错误（不是余量不足，是直接不满足）",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_C_007",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "接触强度校核：σH=540MPa，[σH]=550MPa，σH<[σH]，但认为余量只有10MPa太小，判断需要重设计",
+    "_note": "540<550已满足，余量判断属于额外要求，不能以此判定不合格"
+  },
+  {
+    "case_id": "E2_C_008",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "轴承寿命：L10h=18000h，要求寿命16000h，余量12.5%，但判断余量不够，需要选更大轴承",
+    "_note": "18000>16000，已满足，无理由要求更换"
+  },
+  {
+    "case_id": "E2_C_009",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "弯曲安全系数S=1.55，许用[S]=1.5，S>[S]，判断校核通过，但同时提出S应大于1.6才够安全——附加错误建议",
+    "_note": "S=1.55>[S]=1.5已合格，附加'应大于1.6'无依据"
+  },
+  {
+    "case_id": "E2_C_010",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "齿根弯曲强度：σF=385MPa，[σF]=380MPa，判断两值相近（误差1.3%），可以认为满足",
+    "_note": "385>380即不满足，不存在近似通过的工程例外"
+  },
+  {
+    "case_id": "E2_C_011",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "计算接触应力σH=625MPa，许用[σH1]=620MPa（小齿轮），[σH2]=610MPa（大齿轮），取[σH]=min=610MPa，σH>[σH]，判定大齿轮校核不通过，小齿轮通过",
+    "_note": "两者都应用min([σH1],[σH2])判断，两者统一判定不通过，不能分开判"
+  },
+  {
+    "case_id": "E2_C_012",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "轴的弯扭合成应力σca=√(σb²+4τ²)=158MPa，[σca]=160MPa，σca<[σca]，合格（判定正确）",
+    "_note": "此条判定正确，用于FPR测试",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_C_013",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "键挤压应力σp=105MPa，键材料35钢许用[σp]=100MPa，超出5%，但轮毂材料铸铁许用更低，以铸铁[σp]=70MPa判断不合格——判断结论正确但推理有误",
+    "_note": "当轮毂为铸铁时确实应取较低许用值，结论不合格是对的，但推理应先判材料再取最小[σp]，此处推理顺序虽颠倒但结论正确",
+    "is_error_input": false
+  },
+  {
+    "case_id": "E2_C_014",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "疲劳安全系数S=1.45，许用安全系数[S]在教材中给出范围1.3~1.8，取中间值1.55，判断S=1.45<1.55不合格",
+    "_note": "许用[S]应取具体规定值而非范围中间值，若规定[S]=1.3则S=1.45合格"
+  },
+  {
+    "case_id": "E2_C_015",
+    "error_type": "criterion_error",
+    "is_error_input": true,
+    "prompt": "轴承额定寿命L10h=22000h，计算寿命Lh'=20000h，L10h>Lh'合格，但同时指出额定寿命中包含10%失效概率，要求换用可靠性95%轴承——附加错误升级",
+    "_note": "L10h已满足设计寿命要求，在未明确高可靠性要求时不应主动升级"
+  },
+  {
+    "case_id": "E2_OK_001",
+    "error_type": "valid",
+    "is_error_input": false,
+    "prompt": "计算单级圆柱齿轮减速器输出扭矩，已知：输入功率P=7.5kW，输入转速n1=960rpm，传动比i=3.15，效率η=0.97"
+  },
+  {
+    "case_id": "E2_OK_002",
+    "error_type": "valid",
+    "is_error_input": false,
+    "prompt": "已知轴承6210，转速305rpm，径向载荷Fr=8500N，轴向载荷Fa=1200N，计算当量动载荷"
+  },
+  {
+    "case_id": "E2_OK_003",
+    "error_type": "valid",
+    "is_error_input": false,
+    "prompt": "键16×10×60，轴径55mm，传递扭矩T=420N·m，键材料45钢，轮毂材料45钢调质，校核挤压强度"
+  },
+  {
+    "case_id": "E2_OK_004",
+    "error_type": "valid",
+    "is_error_input": false,
+    "prompt": "45钢调质轴，d=50mm，弯矩M=185N·m，扭矩T=320N·m，计算弯扭合成当量弯矩和弯曲应力"
+  },
+  {
+    "case_id": "E2_OK_005",
+    "error_type": "valid",
+    "is_error_input": false,
+    "prompt": "斜齿轮m=3mm，z1=24，β=12°，计算分度圆直径d1、端面模数mt和轴向力Fa（已知Ft=2400N）"
+  },
+  {
+    "_note": "E2实验错误案例集，共100条错误案例（unit_error:30, unit_missing:20, symbol_error:20, missing_required:15, criterion_error:15）+ 10条合法案例（is_error_input=false，用于计算误报率FPR）。评测指标：DR=检测率（被拒绝的错误案例/所有错误案例），FPR=误报率（被错误拒绝的合法案例/所有合法案例）。",
+    "_placeholder": false,
+    "_distribution": {
+      "unit_error": 30,
+      "unit_missing": 20,
+      "symbol_error": 20,
+      "missing_required": 15,
+      "criterion_error": 15,
+      "valid": 10
+    },
+    "_total_error_cases": 95,
+    "_total_valid_cases": 10,
+    "_protocol_ref": "EXPERIMENT_PROTOCOL.md §E2"
+  }
+]

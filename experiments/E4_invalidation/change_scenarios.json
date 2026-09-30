@@ -1,0 +1,52 @@
+{
+  "baselines": [
+    {
+      "sample_id": "G_001_single_stage_gearbox_01",
+      "task_id": "G_001",
+      "session_id": "1e60a568-5dbb-4d0a-8a22-16e7b2d76854",
+      "description": "4 kW、1440 r/min、传动比 4 的单级直齿圆柱齿轮减速器；台账已冻结。",
+      "changes": [
+        {
+          "change_id": "input_power",
+          "changed_param": "P_in",
+          "old_value": 4.0,
+          "new_value": 5.5,
+          "unit": "kW",
+          "rationale": "输入功率提高会改变输入/输出转矩、齿轮强度、轴径、键连接和轴强度校核。"
+        },
+        {
+          "change_id": "input_speed",
+          "changed_param": "n_in",
+          "old_value": 1440.0,
+          "new_value": 960.0,
+          "unit": "r/min",
+          "rationale": "输入转速降低会改变输出转速、转矩、圆周速度、轴径和轴承寿命。"
+        },
+        {
+          "change_id": "transmission_ratio",
+          "changed_param": "i",
+          "old_value": 4.0,
+          "new_value": 3.15,
+          "unit": "",
+          "rationale": "传动比变化会改变齿数配比、输出转速、几何尺寸及下游轴系校核。"
+        },
+        {
+          "change_id": "normal_module",
+          "changed_param": "m",
+          "old_value": 2.0,
+          "new_value": 2.5,
+          "unit": "mm",
+          "rationale": "标准模数变化会改变分度圆、中心距、齿根/齿顶尺寸、箱体和轴截面校核。"
+        },
+        {
+          "change_id": "pinion_teeth",
+          "changed_param": "z_1",
+          "old_value": 24.0,
+          "new_value": 25.0,
+          "unit": "",
+          "rationale": "小齿轮齿数变化会改变齿数配比、实际传动比、几何尺寸和齿形系数。"
+        }
+      ]
+    }
+  ]
+}

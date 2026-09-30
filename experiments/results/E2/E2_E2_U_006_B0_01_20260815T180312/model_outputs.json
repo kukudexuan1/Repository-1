@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_006",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您要求计算接触疲劳许用应力，给定 σ_Hlim = 600 MPa，安全系数 S_H = 1.1，公式 [σ_H] = σ_Hlim / S_H。  \n这个计算虽然简单，但根据设计流程的刚性要求，我不能直接心算报数，必须通过工具执行并产生计算记录。  \n另外，您给出的结果 545 GPa 存在量级错误——600 MPa 除以 1.1 不可能得到 545 GPa，实际应为约 545 MPa。  \n下面我调用沙箱计算来确认。\n\n```text\n调用 run_calculation\n输入：计算 600 / 1.1，并注明单位 MPa。\n用途：验证接触疲劳许用应力值，并纠正可能的单位错误。\n```"
+}

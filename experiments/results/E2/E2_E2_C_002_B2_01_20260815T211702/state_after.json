@@ -1,0 +1,117 @@
+{
+  "session_id": "930767aa-45cd-468a-bc2e-6a0cf6fab890",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "齿面接触疲劳强度校核判断",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {
+        "sigma_H": {
+          "value": 590.0,
+          "unit": "MPa"
+        },
+        "sigma_HP": {
+          "value": 560.0,
+          "unit": "MPa"
+        }
+      },
+      "substitution": "sigma_H=590 MPa；sigma_HP=560 MPa",
+      "result": {
+        "margin_pct": {
+          "value": -5.357142857142857,
+          "unit": "%"
+        },
+        "sigma_H": {
+          "value": 590.0,
+          "unit": "MPa"
+        },
+        "sigma_HP": {
+          "value": 560.0,
+          "unit": "MPa"
+        }
+      },
+      "criterion": "齿面接触应力 σH 不得超过许用接触应力 σHP",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 10-9 判据 σH ≤ σHP",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "sigma_H = 590.0       # MPa，计算接触应力\nsigma_HP = 560.0      # MPa，许用接触应力\n\npassed = sigma_H <= sigma_HP\nmargin_pct = (sigma_HP - sigma_H) / sigma_HP * 100.0  # 余量，正为安全余量，负为超限\n\noutputs['passed'] = passed\noutputs['margin_pct'] = margin_pct\noutputs['sigma_H'] = sigma_H\noutputs['sigma_HP'] = sigma_HP",
+      "created_at": "2026-08-15T21:17:46.660673Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "e30c5d22-25f8-40b2-9b62-3c8884bf2b23",
+      "role": "user",
+      "content": "接触疲劳强度校核：计算σH=590MPa，许用值[σH]=560MPa，判断σH<[σH]通过",
+      "timestamp": "2026-08-15T21:17:08.198648Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "cb5b5a12-7aa1-4765-b89d-3e573579f9a3",
+      "role": "assistant",
+      "content": "---\n\n## 校核结果：**❌ 不通过**\n\n| 项目 | 数值 | 单位 |\n|:---|:---:|:---:|\n| 计算接触应力 σH | **590** | MPa |\n| 许用接触应力 σHP | **560** | MPa |\n| 安全余量 | **−5.36%** | — |\n\n**判据**：σH ≤ σHP（机械设计第十版 式 10-9）\n\nσH = 590 MPa > σHP = 560 MPa，**超限约 5.4%**，校核不通过。\n\n---\n\n### 这意味着什么\n\n接触应力超出许用值 5.4%，齿面有发生点蚀失效的风险。在工程中，5% 的超限不算致命但也不能忽略——它意味着要么当前参数组合偏紧，要么许用值没有留够余地。\n\n### 常见的应对方向\n\n1. **增大齿宽 b** —— 接触应力与 √b 成反比，增大齿宽可降低 σH，但需注意齿宽系数不要超限\n2. **增大中心距 / 分度圆直径 d₁** —— 接触应力与 d₁ 成反比，效果最显著\n3. **提高材料或热处理等级** —— 换用更高许用接触应力的材料（如 40Cr 调质替代 45 钢正火）\n4. **检查载荷系数 K_H 取值是否偏保守** —— 若实际工况良好，可重新评估\n\n---\n\n这条校核记录已保存为 **calc#1**。如果需要，我可以帮你回代到完整的设计计算链中，看看从哪个参数入手调整最经济。你目前这个齿轮的设计背景是什么？（功率、转速、材料、已定尺寸等）",
+      "timestamp": "2026-08-15T21:17:59.442068Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:17:59.442068Z"
+}

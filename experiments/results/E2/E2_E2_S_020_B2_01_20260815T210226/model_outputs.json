@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_S_020",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula",
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "好消息——公式库中的判据方向是**正确的**，没有出现你担心的错误。\n\n经逐一核查，三条齿轮强度校核公式的判据如下：\n\n| 公式 ID | 名称 | 判据 | 方向 |\n|---|---|---|---|\n| `gear_contact_check` | 齿面接触疲劳强度校核 | **σH ≤ σHP** | ✅ 正确 |\n| `gear_bending_check` | 齿根弯曲疲劳强度校核 | **σF ≤ σFP** | ✅ 正确 |\n| `gear_helical_bending_check` | 斜齿轮齿根弯曲疲劳强度校核 | **σF ≤ σFP** | ✅ 正确 |\n\n三条都是\"计算应力 ≤ 许用应力\"，方向正确。如果写反了（σH ≥ [σH]），在 `solve_formula` 执行校核时，判据会颠倒——本该不安全的方案会显示\"通过\"，而安全的方案反而被拒绝，这在工程上是致命的。\n\n你是在担心公式库本身有 bug，还是在实际设计过程中遇到了判据方向异常的情况？如果是后者，可以把具体的计算记录 ID 给我，我帮你定位。"
+}

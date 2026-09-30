@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_M_018",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "list_design_families",
+    "update_design_spec"
+  ],
+  "tool_events": [
+    {
+      "name": "list_design_families",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "update_design_spec",
+      "status": "refused",
+      "error": "",
+      "reason": "尚未建立设计任务书"
+    }
+  ],
+  "reply_snippet": "好的，系统提示必须先建立任务书才能记录参数——这是合理的，因为我还不知道参数该往哪个模板里填。\n\n所以现在最关键的问题是：**你要设计什么？** 请从以下选项中选择：\n\n| 选项 | 设计对象 | 范围 |\n|------|----------|------|\n| **A** | 单级圆柱齿轮减速器（含齿轮、轴、轴承、箱体） | 装配体 |\n| **B** | 单个零件（轴 / 板 / 支架 / 法兰等） | 单零件 |\n\n另外，请一并确认：\n- **Lh' = 16000 h**，单位是小时（h），正确吗？\n- 如果是减速器，请逐步给出：**输入功率、输入转速、传动比**（或输出转速）、**载荷性质**、**每天工作小时数**等。\n\n你给的方向越具体，我越能快速推进。"
+}

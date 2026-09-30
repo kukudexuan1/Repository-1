@@ -1,0 +1,37 @@
+{
+  "task_id": "S_004",
+  "family": "S",
+  "family_name": "阶梯轴",
+  "split": "val",
+  "description": "设计一根单级减速器低速轴（阶梯轴），安装大齿轮和链轮，承受较大扭矩和弯矩，材料自选。",
+  "explicit_inputs": {
+    "power_kW": 7.5,
+    "speed_rpm": 120,
+    "design_life_h": 16000,
+    "load_type": "轻微冲击",
+    "keyway_count": 2,
+    "material_grade": "45钢调质"
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["轴最小直径A0法", "弯矩合成", "轴疲劳安全系数", "当量弯矩法"],
+    "material_candidates": ["45钢调质", "40Cr调质"],
+    "standard_series": ["轴径GB/T2822", "键槽GB/T1095"],
+    "standard_parts": ["圆锥滚子轴承", "平键"]
+  },
+  "decisions_required": ["轴径圆整", "两个键槽布置方向（错开90°）", "圆锥滚子轴承正装/反装"],
+  "expert_reference": {
+    "reference_module": "S_004",
+    "key_param_ranges": {
+      "min_diameter_mm": [45, 70],
+      "critical_section_safety_factor": [1.3, 2.5],
+      "key_section_bh": ["14x9", "16x10", "18x11"]
+    },
+    "must_pass_checks": ["轴疲劳安全系数", "键挤压强度（两处）", "轴承寿命"],
+    "forbidden_errors": [
+      "轴径未取标准值",
+      "两键槽未错开布置",
+      "低速轴扭矩忽略链轮侧弯矩"
+    ]
+  },
+  "_note": "占位模板，参考答案由专家填写后方可用于正式评测"
+}

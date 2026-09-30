@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_006",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "## 工具链受限，无法产生计算记录\n\n当前可用的工具中，`solve_formula` 和 `run_calculation` 均不可用，而这个计算又不在 `search_formula` 的公式库中。按照铁律一，任何进入设计结论的数值必须来自工具调用的返回结果，我无法直接给出这个计算值。\n\n---\n\n不过，让我指出你计算中的问题：\n\n### 单位错误\n\n$$\\sigma_{H\\lim} = 600\\ \\text{MPa},\\quad S_H = 1.1$$\n\n$$[\\sigma_H] = \\frac{600\\ \\text{MPa}}{1.1} \\approx 545.5\\ \\text{MPa}$$\n\n你写的是 **545 GPa**，差了一千倍。GPa = 1000 MPa，545 GPa 相当于 545,000 MPa——这比大多数工程材料的弹性模量还高两个数量级，远远超出任何齿轮材料的许用接触应力。正确单位是 **MPa**。\n\n---\n\n如果你有实际的设计需求（比如设计齿轮、轴、轴承等），请告知具体的设计要求，我会按流程推进。"
+}

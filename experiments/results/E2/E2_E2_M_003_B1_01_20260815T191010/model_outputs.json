@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_003",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "lookup_material",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "## 键挤压应力校核 —— 手工估算结果\n\n> ⚠️ **重要提示**：`solve_formula` 与 `run_calculation` 工具当前均不可用，以下计算为手工估算，**无正式计算记录，不可落账**，仅供你判断方案可行性参考。\n\n---\n\n### 已知条件（你给出的）\n\n| 参数 | 符号 | 数值 | 单位 | 说明 |\n|------|------|------|------|------|\n| 传递扭矩 | T | 420 | **N·m（假设）** | 需你确认单位 |\n| 轴径 | d | 55 | mm | |\n| 键高 | h | 9 | mm | |\n| 工作长度 | l | 60 | mm | 你给的 lw，已假设为工作长度 |\n\n### 公式\n\n**键挤压应力**（机械设计第十版 式 6-1）：\n\n\\[\n\\sigma_p = \\frac{4T}{d \\cdot h \\cdot l}\n\\]\n\n其中 T 单位须为 **N·mm**。\n\n### 计算\n\n\\[\nT = 420\\ \\text{N·m} = 420,000\\ \\text{N·mm}\n\\]\n\n\\["
+}

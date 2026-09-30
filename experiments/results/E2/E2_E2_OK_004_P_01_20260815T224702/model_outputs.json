@@ -1,0 +1,56 @@
+{
+  "case_id": "E2_OK_004",
+  "error_type": "valid",
+  "is_error_input": false,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula",
+    "lookup_material",
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成，以下是完整结果：\n\n---\n\n## 弯扭合成强度校核 — d=50mm 调质 45 钢轴\n\n### 已知条件\n\n| 参数 | 数值 | 来源 |\n|------|------|------|\n| 轴径 d | 50 mm | 用户给定 |\n| 合成弯矩 M | 185 N·m = 185,000 N·mm | 用户给定 |\n| 转矩 T | 320 N·m = 320,000 N·mm | 用户给定 |\n| 折合系数 α | 0.6（脉动循环） | 机械设计式 15-5 默认值 |\n| 材料 | 45 钢调质 | 用户给定 |\n| 对称循环许用弯曲应力 σ₋₁ | 60 MPa | GB/T 699-2015 |\n\n### 计算过程\n\n**第一步：抗弯截面系数**（calc#1）\n\n$$W = \\frac{\\pi d^3}{32} = \\frac{\\pi \\times 50^3}{32} = 12{,}272 \\ \\text{mm}^3$$\n\n**第二步：弯扭合成当量应力**（calc#2）\n\n$$\\sigma_{ca} = \\frac{\\sqrt{M^2 + (\\alpha"
+}

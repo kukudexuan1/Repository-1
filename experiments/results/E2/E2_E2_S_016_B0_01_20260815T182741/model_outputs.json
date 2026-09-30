@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_S_016",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您指出了一个很常见的工程术语混淆问题。这两个系数确实容易搞混，但它们在轴承寿命计算中是完全不同的角色：\n\n---\n\n## 符号澄清\n\n| 符号 | 正式名称 | 作用 | 典型值 |\n|------|----------|------|--------|\n| **f_T** | 温度系数（Temperature factor） | 高温下轴承材料硬度下降，导致许用动载荷降低。环境温度超过 120°C 时需要引入此系数 | ≤120°C：1.0；150°C：0.95；200°C：0.90；250°C：0.75 |\n| **f_d** | 载荷系数 / 冲击系数（Load factor） | 补偿实际使用中冲击、振动等额外动载荷对寿命的影响。平稳运转取小值，强烈冲击取大值 | 平稳：1.0~1.2；中等冲击：1.2~1.5；强烈冲击：1.5~3.0 |\n\n---\n\n## 在轴承寿命公式中的位置\n\nISO 281 标准的轴承寿命基本公式为：\n\n\\[\nL_{10h} = \\frac{10^6}{60n} \\times \\left( \\frac{C}{P} \\right)^p\n\\]\n\n当引入修正"
+}

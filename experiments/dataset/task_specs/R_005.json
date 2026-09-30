@@ -1,0 +1,47 @@
+{
+  "task_id": "R_005",
+  "family": "R",
+  "family_name": "逆向建模/图纸理解",
+  "split": "test",
+  "description": "从提供的减速器输出法兰工程图中提取螺栓孔分布圆直径、中心距、定心止口尺寸和配合公差，重建三维参数模型。",
+  "explicit_inputs": {
+    "drawing_type": "输出法兰盘二维工程图（主视图+剖视图）",
+    "dimension_count_approx": 22,
+    "dimension_chain_levels": 2,
+    "tolerances_provided": true,
+    "surface_roughness_provided": true
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["螺栓孔分布圆计算", "止口配合公差", "尺寸链封闭环计算"],
+    "standard_series": ["线性尺寸公差GB/T1800", "法兰连接GB/T9112", "孔轴配合GB/T1801"],
+    "standard_parts": []
+  },
+  "decisions_required": ["止口配合等级确认", "螺栓孔均布对称度验证"],
+  "image_input": {
+    "required": true,
+    "format": "jpg/png",
+    "path_placeholder": "dataset/task_specs/images/R_005_drawing.png",
+    "_note": "图纸文件需单独准备"
+  },
+  "expert_reference": {
+    "reference_module": "R_005",
+    "expected_dimensions": {
+      "bolt_circle_diameter_mm": null,
+      "bolt_count": null,
+      "pilot_bore_diameter_mm": null,
+      "flange_thickness_mm": null
+    },
+    "must_pass_checks": [
+      "螺栓孔分布圆直径提取正确",
+      "止口配合公差等级≥IT6",
+      "所有标注尺寸已提取",
+      "尺寸链封闭环验证通过"
+    ],
+    "forbidden_errors": [
+      "螺栓孔分布圆与总外径混淆",
+      "止口配合公差遗漏",
+      "法兰厚度尺寸遗漏"
+    ]
+  },
+  "_note": "测试集，需配套工程图纸文件，锁定后不得修改系统配置"
+}

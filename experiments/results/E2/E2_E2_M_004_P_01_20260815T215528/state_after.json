@@ -1,0 +1,108 @@
+{
+  "session_id": "4434c3fe-cbe9-48df-98e5-dd65d8e5194d",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "轴承基本额定寿命计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "L10": {
+          "value": 42.08103887564724,
+          "unit": "10^6 rev"
+        },
+        "L10h": {
+          "value": 1461.1471831821957,
+          "unit": "hour"
+        },
+        "C_over_P": {
+          "value": 3.4782608695652173,
+          "unit": ""
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "GB/T 6391-2010；机械设计（第十版）式 13-5",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 轴承基本额定寿命 L10h\n# 公式：L10h = 10^6 / (60 * n) * (f_t * C_r / P_eq) ** epsilon\n# 出处：GB/T 6391-2010 / 机械设计（第十版）式 13-5\n\nC_r = 32000.0   # N\nP_eq = 9200.0   # N\nn = 480.0       # r/min\nf_t = 1.0       # 温度系数，常温\nepsilon = 3.0   # 球轴承\n\nL10 = (C_r / P_eq) ** epsilon           # 10^6 转为单位\nL10h = 1e6 / (60 * n) * (f_t * C_r / P_eq) ** epsilon  # hour\n\noutputs['L10'] = L10\noutputs['L10h'] = L10h\noutputs['C_over_P'] = C_r / P_eq",
+      "created_at": "2026-08-15T21:56:06.727656Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "d137dd18-2902-4273-aae6-25c8872b7502",
+      "role": "user",
+      "content": "轴承寿命计算：额定动载荷C=32000，当量动载荷P=9200，转速n=480",
+      "timestamp": "2026-08-15T21:55:34.627507Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "53089334-8c22-44e4-b33a-914da41070d6",
+      "role": "assistant",
+      "content": "计算结果如下（**calc#1**）：\n\n---\n\n## 轴承基本额定寿命计算\n\n| 参数 | 符号 | 数值 | 单位 |\n|------|------|------|------|\n| 基本额定动载荷 | $C_r$ | 32 000 | N |\n| 当量动载荷 | $P_{eq}$ | 9 200 | N |\n| 转速 | $n$ | 480 | r/min |\n| 温度系数 | $f_t$ | 1.0（常温） | — |\n| 寿命指数 | $\\varepsilon$ | 3.0（球轴承） | — |\n| **载荷比** | $C_r/P_{eq}$ | **3.478** | — |\n\n### 寿命结果\n\n$$L_{10} = \\left(\\frac{C_r}{P_{eq}}\\right)^\\varepsilon = 3.478^3 = 42.08 \\times 10^6 \\text{ 转}$$\n\n$$L_{10h} = \\frac{10^6}{60 \\times 480} \\times 42.08 = \\mathbf{1\\,461 \\text{ 小时}}$$\n\n---\n\n**解读：** 在 9200 N 当量动载荷、480 r/min 下，该轴承的 $L_{10}$ 基本额定寿命约 **1 461 小时**（约 61 天连续运转）。按 GB/T 6391-2010，$L_{10}$ 意味着 90% 可靠度——该批轴承中有 90% 可达到或超过此寿命。\n\n**注意：** 若这是设计校核，还需要一个 **要求工作寿命 $L_{h\\_required}$** 做判据。比如一般机械按 8 000~20 000 小时，若按 8 000 小时判，则当前 $C/P$ 需提升至约 $\\sqrt[3]{8000 \\times 60 \\times 480 / 10^6} \\approx 6.1$，即需要 $C_r \\geq 6.1 \\times 9200 \\approx 56\\,000$ N 的轴承。需要我帮你按某个目标寿命反选轴承规格吗？",
+      "timestamp": "2026-08-15T21:56:19.186885Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:56:19.186885Z"
+}

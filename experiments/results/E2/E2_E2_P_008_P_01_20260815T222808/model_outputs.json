@@ -1,0 +1,18 @@
+{
+  "case_id": "E2_P_008",
+  "error_type": "missing_required",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "list_design_families",
+    "set_design_scope",
+    "start_design",
+    "update_design_spec",
+    "request_user_decision"
+  ],
+  "tool_events": [],
+  "reply_snippet": "---\n\n## 现状汇总\n\n| 已给 | 值 |\n|------|-----|\n| 传动比 i | 3.15 ✅ |\n\n| 当前阶段必填（缺 5 项） | 为什么非问不可 |\n|---|---|\n| ① 输入功率 P | 决定扭矩 T₁ = 9550·P/n₁，扭矩直接进入齿面接触应力公式 |\n| ② 输入转速 n₁ | 同上；还决定齿轮圆周速度，影响精度等级与润滑方式 |\n| ③ 载荷性质 | 决定载荷系数 K（平稳≈1.0，中等冲击≈1.5），直接影响齿轮尺寸 |\n| ④ 每天工作小时数 | 决定总寿命 Lₕ，影响寿命系数 Zₙ 与许用应力 |\n| ⑤ 使用年限 | 同上 |\n\n这 5 项是齿轮接触疲劳强度公式的**输入端**，缺任何一个都无法启动计算。下面一次性提问。\n\n\n\n齿轮接触疲劳强度设计需要以下 5 项条件，请逐一给出（或选择典型值）\n\n仅凭传动比 i=3.15 无法启动计算。齿面接触应力公式 σH = ZE·ZH·Zε·√(2KT₁(u+1)/(bd₁²u)) 需要：扭矩 T₁（由 P 和 n₁ 算出）、载荷系数 K（由载荷性质决定）、许用应力 [σH]（由材料与寿命决"
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_M_004",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "search_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "公式已确认，但 `solve_formula` 在当前环境下不可用。按铁律一例外条款，这里做手动计算并明确标注。\n\n---\n\n## 轴承基本额定寿命计算\n\n**公式**（GB/T 6391-2010，机械设计第十版式 13-5）：\n\n\\[\nL_{10h} = \\frac{10^6}{60 \\cdot n} \\left( \\frac{f_t \\cdot C_r}{P_{eq}} \\right)^\\varepsilon\n\\]\n\n**已知条件**：\n| 参数 | 符号 | 数值 |\n|------|------|------|\n| 额定动载荷 | \\(C_r\\) | 32 000 N |\n| 当量动载荷 | \\(P_{eq}\\) | 9 200 N |\n| 转速 | \\(n\\) | 480 r/min |\n| 温度系数 | \\(f_t\\) | 1.0（默认） |\n\n---\n\n### ⚠️ 寿命指数 ε 取决于轴承类型，用户未指定，分两种情况给出：\n\n#### 情况一：球轴承（ε = 3.0）\n\n\\[\n\\frac{C_r}{P_{eq}} = \\frac{32000}{9200} = 3.47"
+}

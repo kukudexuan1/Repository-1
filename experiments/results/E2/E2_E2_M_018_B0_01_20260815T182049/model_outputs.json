@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_M_018",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "好的，收到。这是一个非常明确的工程习惯——轴承寿命默认以小时（h）为单位。您给出的 **Lh' = 16000 h** 是设计输入中的\"预期寿命\"要求，后续将与计算得出的基本额定寿命 L10h 做对比校核。\n\n在将此参数正式录入台账之前，我需要先完成当前阶段最优先的事项：**判定设计范围**。\n\n---\n\n### 设计范围判定\n\n您提到\"轴承预期寿命\"，这意味着本项设计至少涉及**轴**和**轴承**两个零件，且需要考虑它们之间的配合与传力关系。这超出了单个独立零件的范畴，属于典型的**装配体**设计。\n\n**判定结论：** 本项设计为 **装配体（assembly）**。\n**判定依据：** 轴承寿命校核意味着存在轴-轴承装配关系，至少涉及两个零件。\n\n我将立即落定设计范围，然后处理您给出的预期寿命参数。\n\n---\n\n**第一步：落定设计范围**\n\n<function_calls>\n<invoke name=\"set_design_scope\">\n<parameter name=\"design_scope\">assembly</parameter>\n</invoke>\n</funct"
+}

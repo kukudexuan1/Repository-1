@@ -1,0 +1,605 @@
+{
+  "metrics": {
+    "IR": 0.0392,
+    "invalidation_precision": 1.0,
+    "ORR": 0.4314,
+    "BR": 0.5686,
+    "IRE": 0.9639,
+    "n_gold_stale": 51,
+    "n_predicted_stale": 2,
+    "stale_used_downstream": 22,
+    "recovery_time_s": 326.4575,
+    "tool_calls_after_change": 18,
+    "human_interventions": 0,
+    "orr_violation": true
+  },
+  "run_data": {
+    "predicted_stale_params": [],
+    "predicted_stale_calcs": [
+      "calc#18",
+      "calc#2"
+    ],
+    "gold_stale_params": [
+      "P_out",
+      "T_in",
+      "T_out",
+      "a",
+      "b_2",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_in_ext",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "key_coupling_in",
+      "key_coupling_out",
+      "key_gear",
+      "m"
+    ],
+    "gold_stale_calcs": [
+      "calc#10",
+      "calc#13",
+      "calc#15",
+      "calc#16",
+      "calc#18",
+      "calc#19",
+      "calc#2",
+      "calc#20",
+      "calc#21",
+      "calc#22",
+      "calc#23",
+      "calc#24",
+      "calc#25",
+      "calc#26",
+      "calc#27",
+      "calc#28",
+      "calc#29",
+      "calc#3",
+      "calc#30",
+      "calc#31",
+      "calc#32",
+      "calc#33",
+      "calc#34",
+      "calc#35",
+      "calc#4",
+      "calc#6",
+      "calc#7",
+      "calc#8",
+      "calc#9"
+    ],
+    "stale_params_used_downstream": 22,
+    "stale_calcs_used_downstream": 0,
+    "n_incremental_recalculations": 3,
+    "n_full_recalculations": 83,
+    "recovery_time_s": 326.4575,
+    "tool_calls_after_change": 18,
+    "human_interventions": 0,
+    "change_time_s": 2.0781,
+    "probe_time_s": 2.0378,
+    "leaked_nodes": [
+      "P_out",
+      "T_in",
+      "T_out",
+      "a",
+      "b_2",
+      "bearing_in",
+      "bearing_out",
+      "d_1",
+      "d_2",
+      "d_f1",
+      "d_in_bearing",
+      "d_in_ext",
+      "d_out_bearing",
+      "d_out_ext",
+      "d_out_gear_seat",
+      "da_1",
+      "da_2",
+      "delta_housing",
+      "key_coupling_in",
+      "key_coupling_out",
+      "key_gear",
+      "m"
+    ],
+    "condition_semantics": "C2 marks every existing node stale before bounded recovery",
+    "recovered_stale_params": [],
+    "recovered_stale_calcs": [
+      "calc#18",
+      "calc#2"
+    ],
+    "actual_recalculations": 3,
+    "new_calculation_records": 3,
+    "recovery_tool_calls": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "commit_parameter",
+      "search_formula",
+      "search_formula",
+      "solve_formula",
+      "solve_formula",
+      "run_calculation",
+      "get_calculation_record",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "query_ledger",
+      "get_calculation_record",
+      "commit_parameter"
+    ]
+  },
+  "probe": {
+    "status": "ok",
+    "session_id": "47f090f5-a226-4305-aa0f-b89e93f70d74",
+    "entries": [
+      {
+        "symbol": "P_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "T_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "T_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "a",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "b_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "bearing_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_f1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_in_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_bearing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_ext",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "d_out_gear_seat",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_1",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "da_2",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "delta_housing",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_in",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_coupling_out",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "key_gear",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      },
+      {
+        "symbol": "m",
+        "status": "confirmed",
+        "stale": false,
+        "accepted": true
+      }
+    ],
+    "records": [
+      {
+        "record_id": "calc#10",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#13",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#15",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#16",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#18",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#19",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#2",
+        "status": "stale",
+        "stale": true,
+        "exists": true
+      },
+      {
+        "record_id": "calc#20",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#21",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#22",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#23",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#24",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#25",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#26",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#27",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#28",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#29",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#3",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#30",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#31",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#32",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#33",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#34",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#35",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#4",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#6",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#7",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#8",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      },
+      {
+        "record_id": "calc#9",
+        "status": "current",
+        "stale": false,
+        "exists": true
+      }
+    ],
+    "report": {
+      "accepted": false,
+      "error": "报告输入包含失效项：parameters=[], calculations=['calc#2', 'calc#18']"
+    },
+    "stale": {
+      "stale_calculations": [
+        "calc#2",
+        "calc#18"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "change_response": {
+    "status": "ok",
+    "session_id": "47f090f5-a226-4305-aa0f-b89e93f70d74",
+    "symbol": "P_in",
+    "value": {
+      "value": 5.5,
+      "unit": "kW"
+    },
+    "revision": 2,
+    "baseline_was_frozen": true,
+    "propagation_mode": "direct",
+    "stale": {
+      "stale_calculations": [
+        "calc#2",
+        "calc#18"
+      ],
+      "stale_parameters": []
+    }
+  },
+  "recovery_response": {
+    "session_id": "47f090f5-a226-4305-aa0f-b89e93f70d74",
+    "reply": "受控恢复已完成。以下是本次变更影响的完整处理结果。\n\n## 受控恢复总结\n\n### 1. 问题识别\n核查台账与计算记录时发现一处**数据不一致**：\n- `P_in` 台账值为 **5.5 kW**（tentative，revision 2），但其依据标注为\"设计任务书：输入功率 4 kW\"，且您已明确选择方案 A（4 kW）。5.5 kW 是方案 B 数值，**无用户依据**。\n- 该悬置变更导致两条计算失效：`calc#2`（输入轴转矩）、`calc#18`（输入轴初估轴径）。\n\n### 2. 回退动作\n| 参数 | 原值 | 回退后 | 依据 |\n|------|------|--------|------|\n| P_in | 5.5 kW（tentative） | **4 kW**（revision 3） | 方案 A，用户已确认 |\n\n### 3. 重算受影响计算（值均复现原值，证明下游不受数值影响）\n| 新记录 | 内容 | 结果 | 取代 |\n|--------|------|------|------|\n| calc#36 | 输入轴转矩 T = 9550P/n | **2.653e+04 N·mm** | calc#2（失效） |\n| calc#37 | 输入轴初估轴径 d = A₀(P/n)^⅓ | **15.74 mm** | calc#18（失效） |\n| calc#38 | 键槽放大 | **16.53 / 28.06 mm** | calc#20（旧链） |\n\n### 4. 修复依据链（basis 更新，值均未变）\n| 参数 | 原 basis | 新 basis |\n|------|----------|----------|\n| T_in | calc#2（失效） | **calc#36** |\n| d_in_ext | calc#18、calc#20 | **calc#37、calc#38** |\n| d_out_ext | calc#19、calc#20 | **calc#19、calc#38** |\n\n### 5. 最终一致性状态\n- **台账 stale 参数：0** ✓\n- **无任何参数引用失效记录 calc#2/calc#18** ✓\n- **10 项校核全部通过**（calc#13~16、25~29、33~34），本次往返变更未改变任何校核数值\n- 下游链（齿轮力→支反力→轴承寿命、键挤压、轴弯扭合成）均引用 `T_in` 参数（值 2.653e+04 未变），**均未失效**\n\n### 6. 当前待确认项（本次恢复涉及，未发起决策）\n受控恢复中重新提交的 4 个参数处于 tentative 状态：`P_in`（4 kW）、`T_in`（2.653e+04 N·mm）、`d_in_ext`（18 mm）、`d_out_ext`（30 mm）。它们的值均为原正确值，仅依据链被修复。\n\n受控恢复到此结束，未建模、未仿真、未生成报告、未发起用户决策。台账已恢复一致，可随时继续后续阶段。",
+    "design_stage": "geometry",
+    "tool_calls_made": [
+      "query_ledger",
+      "get_calculation_record",
+      "get_calculation_record",
+      "commit_parameter",
+      "search_formula",
+      "search_formula",
+      "solve_formula",
+      "solve_formula",
+      "run_calculation",
+      "get_calculation_record",
+      "run_calculation",
+      "commit_parameter",
+      "commit_parameter",
+      "query_ledger",
+      "get_calculation_record",
+      "commit_parameter"
+    ],
+    "tool_events": [
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "search_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "solve_formula",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "error",
+        "error": "入参校验失败，请按 schema 修正后重试",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "run_calculation",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "query_ledger",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "get_calculation_record",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      },
+      {
+        "name": "commit_parameter",
+        "status": "ok",
+        "error": "",
+        "reason": ""
+      }
+    ],
+    "awaiting_decision": false,
+    "decision_id": "",
+    "experiment_condition": "B3"
+  }
+}

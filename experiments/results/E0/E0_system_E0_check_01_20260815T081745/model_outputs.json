@@ -1,0 +1,94 @@
+{
+  "pytest": {
+    "passed": 50,
+    "failed": 0,
+    "errors": 0,
+    "total": 50,
+    "pass_rate": 1.0,
+    "returncode": 0
+  },
+  "health": {
+    "health_ok": true,
+    "software": {
+      "platform": "nt",
+      "inventor": {
+        "installed": true,
+        "path": "C:\\Program Files\\Autodesk\\Inventor 2026\\Bin\\Inventor.exe",
+        "project_extensions": [
+          ".ipt",
+          ".iam",
+          ".idw",
+          ".ipj"
+        ]
+      },
+      "ansys": {
+        "runwb2": "C:/Program Files/ANSYS Inc/v252/Framework/bin/Win64/RunWB2.exe",
+        "runwb2_exists": true,
+        "mapdl": "C:/Program Files/ANSYS Inc/v252/ansys/bin/winx64/ANSYS261.exe",
+        "mapdl_exists": false
+      },
+      "mcp_servers": [
+        {
+          "name": "mcp-cad",
+          "status": "ok",
+          "connected": true,
+          "tool_count": 113
+        },
+        {
+          "name": "ansys-workbench",
+          "status": "ok",
+          "connected": true,
+          "tool_count": 30
+        }
+      ],
+      "ready": true
+    },
+    "models": {
+      "models": [
+        {
+          "slot": "main",
+          "label": "主设计模型",
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+          "api_key": "sk-58d...8550"
+        },
+        {
+          "slot": "coder",
+          "label": "建模子 Agent",
+          "model": "qwen3.7-max",
+          "endpoint": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+          "api_key": "sk-58d...8550"
+        },
+        {
+          "slot": "math",
+          "label": "仿真子 Agent",
+          "model": "qwen3-coder-plus",
+          "endpoint": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+          "api_key": "sk-58d...8550"
+        },
+        {
+          "slot": "vision",
+          "label": "视觉/图纸解析",
+          "model": "qwen3-vl-plus",
+          "endpoint": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+          "api_key": "sk-58d...8550"
+        }
+      ]
+    }
+  },
+  "mcp_stability": {
+    "n_cycles": 10,
+    "success_count": 10,
+    "success_rate": 1.0,
+    "failures": [],
+    "meets_threshold": true
+  },
+  "stateless_probe": {
+    "n_calls": 20,
+    "successes": 20,
+    "success_rate": 1.0,
+    "avg_latency_s": 2.0475,
+    "p95_latency_s": 2.0739,
+    "errors": []
+  }
+}

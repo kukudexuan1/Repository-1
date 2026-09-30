@@ -1,0 +1,120 @@
+{
+  "session_id": "53b1c572-b462-41c9-a7f8-de3319d8320a",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "外伸梁弯矩图计算",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "P": {
+          "value": 14933.333333333334,
+          "unit": "N"
+        },
+        "FRB": {
+          "value": 11733.333333333334,
+          "unit": "N"
+        },
+        "M_A": {
+          "value": 0.0,
+          "unit": "N*mm"
+        },
+        "M_B": {
+          "value": 896000.0,
+          "unit": "N*mm"
+        },
+        "M_C": {
+          "value": 0.0,
+          "unit": "N*mm"
+        },
+        "M_AB_max": {
+          "value": 896000.0,
+          "unit": "N*mm"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "材料力学 外伸梁弯矩分析",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 外伸梁弯矩图计算\n# 结构：A(铰支) -- L=280 -- B(铰支) -- l=60 -- C(自由端，悬臂)\n# 已知：FRA = 3200 N（向上），L=280 mm，l=60 mm\n# 假设载荷 P 在悬臂端 C 向下\n\nFRA = 3200  # N\nL = 280     # mm\nl = 60      # mm\n\n# 对 B 取矩：FRA * L = P * l\nP = FRA * L / l  # 悬臂端载荷，N\n\n# 竖向力平衡：FRA + FRB = P\nFRB = P - FRA\n\n# 弯矩关键点\nM_A = 0.0                    # 铰支端 A\nM_B = FRA * L                # B 处（两侧连续），N·mm\nM_C = 0.0                    # 自由端 C\n\n# AB 段最大弯矩（线性分布，在 B 处最大）\nM_AB_max = M_B\n\n# 弯矩分布（取几个点）\nx_points = [0, 70, 140, 210, 280, 280, 310, 340]\nM_points = []\nfor x in x_points:\n    if x <= L:\n        M = FRA * x\n    else:\n        # BC 段：M(y) = P*(l - y)，y = x - L\n        y = x - L\n        M = P * (l - y)\n    M_points.append(M)\n\noutputs = {\n    'P': P,\n    'FRB': FRB,\n    'M_A': M_A,\n    'M_B': M_B,\n    'M_C': M_C,\n    'M_AB_max': M_AB_max,\n    'x_points_mm': x_points,\n    'M_points_Nmm': M_points\n}",
+      "created_at": "2026-08-15T21:59:37.937732Z"
+    }
+  },
+  "calc_seq": 1,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "676d164b-c3f2-4608-bb66-3336a921c7fa",
+      "role": "user",
+      "content": "弯矩图计算：支反力FRA=3200，支撑跨距L=280，悬臂长l=60",
+      "timestamp": "2026-08-15T21:58:11.575122Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "d87fe7e2-f2bd-4d9b-ab81-dff938e1f65f",
+      "role": "assistant",
+      "content": "## 外伸梁弯矩图计算结果\n\n**计算模型与假设：**\n\n| 参数 | 符号 | 值 | 单位 |\n|------|------|-----|------|\n| 铰支 A 支反力 | FRA | 3200 | N |\n| 支座跨距 AB | L | 280 | mm |\n| 悬臂长 BC | l | 60 | mm |\n\n假设结构为：**A（铰支）—— L=280 —— B（铰支）—— l=60 —— C（悬臂自由端）**，载荷 P 作用于悬臂端 C 向下。\n\n---\n\n### 计算结果（calc#1）\n\n对 B 点取矩，反推悬臂端载荷：\n\n$$P = \\frac{F_{RA} \\cdot L}{l} = \\frac{3200 \\times 280}{60} = 14\\,933.3\\ \\text{N}$$\n\n竖向力平衡得 B 支反力：\n\n$$F_{RB} = P - F_{RA} = 14\\,933.3 - 3200 = 11\\,733.3\\ \\text{N}$$\n\n---\n\n### 弯矩图\n\nAB 段为线性增长，BC 段为线性衰减：\n\n| 位置 x (mm) | 弯矩 M (N·mm) | 弯矩 M (N·m) |\n|:-----------:|:-------------:|:------------:|\n| 0 (A) | 0 | 0 |\n| 70 | 224 000 | 224 |\n| 140 | 448 000 | 448 |\n| 210 | 672 000 | 672 |\n| **280 (B)** | **896 000** | **896** |\n| 310 | 448 000 | 448 |\n| 340 (C) | 0 | 0 |\n\n---\n\n### 弯矩图示意\n\n```\nM (N·m)\n 896 ┤                ●\n     │               / \\\n 672 ┤              /   \\\n     │             /     \\\n 448 ┤            /       \\\n     │           /         \\\n 224 ┤          /           \\\n     │         /             \\\n   0 ┼────────●───────────────●───\n     A        B               C\n     ← 280 mm →← 60 mm →\n```\n\n**关键结论：**\n- **最大弯矩出现在 B 支座处：M_max = 896 N·m**\n- AB 段弯矩线性增大，上侧受拉（若 P 向下）\n- BC 悬臂段弯矩线性减小至零\n- 危险截面在 B 支座\n\n---\n\n⚠️ 以上基于「载荷 P 作用于悬臂端 C」的假设。如果你的实际结构不同（比如均布载荷、多个集中力、或悬臂端不是载荷而是别的约束），请补充说明，我重新计算。",
+      "timestamp": "2026-08-15T21:59:54.730558Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:59:54.730558Z"
+}

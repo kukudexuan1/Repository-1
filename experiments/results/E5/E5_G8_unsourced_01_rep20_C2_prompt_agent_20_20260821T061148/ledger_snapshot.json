@@ -1,0 +1,604 @@
+{
+  "entries": {
+    "P": {
+      "symbol": "P",
+      "name": "输入功率",
+      "value": {
+        "value": 4.0,
+        "unit": "kW"
+      },
+      "source": "user_given",
+      "basis": [],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "n1": {
+      "symbol": "n1",
+      "name": "输入转速",
+      "value": {
+        "value": 1440.0,
+        "unit": "r/min"
+      },
+      "source": "user_given",
+      "basis": [],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "i": {
+      "symbol": "i",
+      "name": "传动比",
+      "value": {
+        "value": 4.0,
+        "unit": ""
+      },
+      "source": "user_given",
+      "basis": [],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "n2": {
+      "symbol": "n2",
+      "name": "输出转速",
+      "value": {
+        "value": 360.0,
+        "unit": "r/min"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#2"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "T1": {
+      "symbol": "T1",
+      "name": "输入轴转矩",
+      "value": {
+        "value": 26527.78,
+        "unit": "N*mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#1"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "T2": {
+      "symbol": "T2",
+      "name": "输出轴转矩",
+      "value": {
+        "value": 102927.79,
+        "unit": "N*mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#17"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "L_req": {
+      "symbol": "L_req",
+      "name": "轴承要求寿命",
+      "value": {
+        "value": 48000.0,
+        "unit": "hour"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#25"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "总体",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "m_n": {
+      "symbol": "m_n",
+      "name": "法向模数",
+      "value": {
+        "value": 2.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1357-2008"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "z1": {
+      "symbol": "z1",
+      "name": "小齿轮齿数",
+      "value": {
+        "value": 22.0,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [],
+      "rationale": "软齿面斜齿轮取 22 齿，保证重合度、避免根切，并使中心距标准化到 112 mm",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "z2": {
+      "symbol": "z2",
+      "name": "大齿轮齿数",
+      "value": {
+        "value": 88.0,
+        "unit": ""
+      },
+      "source": "design_choice",
+      "basis": [],
+      "rationale": "z2 = i·z1 = 88，传动比精确为 4",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "beta": {
+      "symbol": "beta",
+      "name": "螺旋角",
+      "value": {
+        "value": 10.844,
+        "unit": "deg"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#11"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "d1": {
+      "symbol": "d1",
+      "name": "小齿轮分度圆直径",
+      "value": {
+        "value": 44.8,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#11"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "d2": {
+      "symbol": "d2",
+      "name": "大齿轮分度圆直径",
+      "value": {
+        "value": 179.2,
+        "unit": "mm"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#11"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "a": {
+      "symbol": "a",
+      "name": "中心距",
+      "value": {
+        "value": 112.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 2822-2005"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "b2": {
+      "symbol": "b2",
+      "name": "大齿轮齿宽",
+      "value": {
+        "value": 95.0,
+        "unit": "mm"
+      },
+      "source": "user_given",
+      "basis": [
+        "用户明确指定 b=95 mm"
+      ],
+      "rationale": "用户在设计计算完成后明确要求齿宽直接取 95 mm，作为设计输入入账",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 2,
+      "superseded_value": "45 mm",
+      "stale_reason": "",
+      "updated_at": "2026-08-21T06:15:33.491185Z"
+    },
+    "b1": {
+      "symbol": "b1",
+      "name": "小齿轮齿宽",
+      "value": {
+        "value": 100.0,
+        "unit": "mm"
+      },
+      "source": "design_choice",
+      "basis": [
+        "用户指定 b2=95 mm"
+      ],
+      "rationale": "小齿轮齿宽 b1 = b2 + 5 mm，补偿装配轴向误差，保证全齿宽啮合",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 2,
+      "superseded_value": "50 mm",
+      "stale_reason": "",
+      "updated_at": "2026-08-21T06:15:33.491185Z"
+    },
+    "sigma_HP": {
+      "symbol": "sigma_HP",
+      "name": "许用接触应力（大齿轮弱件）",
+      "value": {
+        "value": 550.0,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#4"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "sigma_FP1": {
+      "symbol": "sigma_FP1",
+      "name": "小齿轮许用弯曲应力",
+      "value": {
+        "value": 150.0,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#5"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "sigma_FP2": {
+      "symbol": "sigma_FP2",
+      "name": "大齿轮许用弯曲应力",
+      "value": {
+        "value": 135.7,
+        "unit": "MPa"
+      },
+      "source": "calculated",
+      "basis": [
+        "calc#6"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "sigma_Hlim_gear": {
+      "symbol": "sigma_Hlim_gear",
+      "name": "大齿轮接触疲劳极限（45钢正火）",
+      "value": {
+        "value": 550.0,
+        "unit": "MPa"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 699-2015"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "sigma_Flim_pinion": {
+      "symbol": "sigma_Flim_pinion",
+      "name": "小齿轮弯曲疲劳极限（45钢调质）",
+      "value": {
+        "value": 210.0,
+        "unit": "MPa"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 699-2015"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "sigma_Flim_gear": {
+      "symbol": "sigma_Flim_gear",
+      "name": "大齿轮弯曲疲劳极限（45钢正火）",
+      "value": {
+        "value": 190.0,
+        "unit": "MPa"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 699-2015"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "齿轮",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "d_shaft_in_min": {
+      "symbol": "d_shaft_in_min",
+      "name": "输入轴端最小直径",
+      "value": {
+        "value": 17.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 2822-2005"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "d_shaft_out_min": {
+      "symbol": "d_shaft_out_min",
+      "name": "输出轴端最小直径",
+      "value": {
+        "value": 26.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 2822-2005"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "d_bearing_in": {
+      "symbol": "d_bearing_in",
+      "name": "输入轴轴承 6205 内径",
+      "value": {
+        "value": 25.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "d_bearing_out": {
+      "symbol": "d_bearing_out",
+      "name": "输出轴轴承 6206 内径",
+      "value": {
+        "value": 30.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "Cr_in": {
+      "symbol": "Cr_in",
+      "name": "输入轴轴承 6205 额定动载荷 Cr",
+      "value": {
+        "value": 14000.0,
+        "unit": "N"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "Cr_out": {
+      "symbol": "Cr_out",
+      "name": "输出轴轴承 6206 额定动载荷 Cr",
+      "value": {
+        "value": 19500.0,
+        "unit": "N"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 276-2013"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "轴承",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "key_gear_b": {
+      "symbol": "key_gear_b",
+      "name": "齿轮座键宽（d=35mm）",
+      "value": {
+        "value": 10.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "key_gear_h": {
+      "symbol": "key_gear_h",
+      "name": "齿轮座键高（d=35mm）",
+      "value": {
+        "value": 8.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "key_coup_b": {
+      "symbol": "key_coup_b",
+      "name": "联轴器键宽（d=28mm）",
+      "value": {
+        "value": 8.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    },
+    "key_coup_h": {
+      "symbol": "key_coup_h",
+      "name": "联轴器键高（d=28mm）",
+      "value": {
+        "value": 7.0,
+        "unit": "mm"
+      },
+      "source": "standard_lookup",
+      "basis": [
+        "GB/T 1096-2003"
+      ],
+      "rationale": "",
+      "status": "confirmed",
+      "group": "键",
+      "revision": 1,
+      "superseded_value": "",
+      "stale_reason": "",
+      "updated_at": "2026-08-19T06:10:05.358534Z"
+    }
+  },
+  "frozen_at": null,
+  "freeze_statement": ""
+}

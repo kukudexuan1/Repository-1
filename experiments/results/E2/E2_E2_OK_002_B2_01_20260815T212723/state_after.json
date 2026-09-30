@@ -1,0 +1,164 @@
+{
+  "session_id": "48e27a00-d783-4bfd-a8a7-28e17b1452d1",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {
+    "calc#1": {
+      "record_id": "calc#1",
+      "title": "6210轴承 e 值插值计算（Fa/C0r → e）",
+      "formula_id": "",
+      "expression": "（沙箱脚本，见 script 字段）",
+      "inputs": {},
+      "substitution": "",
+      "result": {
+        "Fa_C0r": {
+          "value": 0.051724,
+          "unit": "无量纲"
+        },
+        "e": {
+          "value": 0.2517,
+          "unit": "无量纲"
+        },
+        "Fa_Fr": {
+          "value": 0.1412,
+          "unit": "无量纲"
+        },
+        "X": {
+          "value": 1.0,
+          "unit": "无量纲"
+        },
+        "Y": {
+          "value": 0.0,
+          "unit": "无量纲"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）表13-5 深沟球轴承系数",
+      "engine": "sympy",
+      "depends_on": [],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "# 深沟球轴承 6210\nC0r = 23200  # N\nFa = 1200    # N\nFr = 8500    # N\n\n# Fa/C0r\nFa_C0r = Fa / C0r\n\n# 表13-5 深沟球轴承：Fa/C0r → e 的插值节点\n# (Fa/C0r, e)\ntable = [\n    (0.025, 0.22),\n    (0.040, 0.24),\n    (0.070, 0.27),\n    (0.130, 0.31),\n    (0.250, 0.37),\n    (0.500, 0.44),\n]\n\n# 线性插值求 e\ne = None\nfor i in range(len(table) - 1):\n    x0, y0 = table[i]\n    x1, y1 = table[i+1]\n    if x0 <= Fa_C0r <= x1:\n        e = y0 + (y1 - y0) * (Fa_C0r - x0) / (x1 - x0)\n        break\n\nif e is None:\n    e = table[-1][1]  # 超出范围取最右\n\n# 判断 X, Y\nFa_Fr = Fa / Fr\n\nif Fa_Fr <= e:\n    X = 1.0\n    Y = 0.0\nelse:\n    # 需要查表取 Y 值（但 Fa/Fr > e 时 Y 也依赖 Fa/C0r）\n    X = 0.56\n    # Y 也需插值，这里先算 e 对应的 Y 近似\n    Y_table = {\n        0.025: 2.0,\n        0.040: 1.8,\n        0.070: 1.6,\n        0.130: 1.4,\n        0.250: 1.2,\n        0.500: 1.0,\n    }\n    # 插值 Y\n    y_keys = sorted(Y_table.keys())\n    Y = None\n    for i in range(len(y_keys) - 1):\n        x0, x1 = y_keys[i], y_keys[i+1]\n        if x0 <= Fa_C0r <= x1:\n            Y = Y_table[x0] + (Y_table[x1] - Y_table[x0]) * (Fa_C0r - x0) / (x1 - x0)\n            break\n    if Y is None:\n        Y = Y_table[y_keys[-1]]\n\noutputs = {\n    'Fa_C0r': round(Fa_C0r, 6),\n    'e': round(e, 4),\n    'Fa_Fr': round(Fa_Fr, 4),\n    'X': X,\n    'Y': Y,\n    'judgment': 'Fa/Fr <= e, X=1, Y=0' if Fa_Fr <= e else 'Fa/Fr > e, X=0.56, Y需插值'\n}",
+      "created_at": "2026-08-15T21:28:07.915800Z"
+    },
+    "calc#2": {
+      "record_id": "calc#2",
+      "title": "滚动轴承当量动载荷",
+      "formula_id": "bearing_equivalent_load",
+      "expression": "P_eq = f_p * (X * F_r + Y * F_a)",
+      "inputs": {
+        "f_p": {
+          "value": 1.2,
+          "unit": "无量纲"
+        },
+        "X": {
+          "value": 1.0,
+          "unit": "无量纲"
+        },
+        "F_r": {
+          "value": 8500.0,
+          "unit": "N"
+        },
+        "Y": {
+          "value": 0.0,
+          "unit": "无量纲"
+        },
+        "F_a": {
+          "value": 1200.0,
+          "unit": "N"
+        }
+      },
+      "substitution": "f_p=1.2；X=1；F_r=8500 N；Y=0；F_a=1200 N",
+      "result": {
+        "P_eq": {
+          "value": 10200.0,
+          "unit": "N"
+        }
+      },
+      "criterion": "",
+      "verdict": "n/a",
+      "margin_percent": null,
+      "source": "机械设计（第十版）式 13-8a",
+      "engine": "formula_lib",
+      "depends_on": [
+        "calc#1"
+      ],
+      "stale": false,
+      "stale_reason": "",
+      "notes": "",
+      "script": "",
+      "created_at": "2026-08-15T21:28:15.835535Z"
+    }
+  },
+  "calc_seq": 2,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "d3779c1d-d626-43c4-8148-ca18d424a032",
+      "role": "user",
+      "content": "已知轴承6210，转速305rpm，径向载荷Fr=8500N，轴向载荷Fa=1200N，计算当量动载荷",
+      "timestamp": "2026-08-15T21:27:29.687762Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "56fef795-bd1e-49f6-affe-9255be8e98da",
+      "role": "assistant",
+      "content": "计算完成。汇总如下：\n\n---\n\n## 6210 深沟球轴承 — 当量动载荷计算\n\n### 已知条件\n\n| 参数 | 符号 | 数值 | \n|------|------|------|\n| 轴承型号 | — | **6210**（GB/T 276-2013） |\n| 基本额定静载荷 | C₀ᵣ | **23 200 N** |\n| 基本额定动载荷 | Cᵣ | **35 000 N** |\n| 转速 | n | 305 r/min |\n| 径向载荷 | Fᵣ | 8 500 N |\n| 轴向载荷 | Fₐ | 1 200 N |\n| 载荷系数 | fₚ | **1.2**（中等冲击惯用值，待确认） |\n\n### 系数判定（依据 GB/T 276 / 机械设计第十版 表13-5）\n\n| 步骤 | 计算 | 结果 |\n|------|------|------|\n| Fₐ / C₀ᵣ | 1200 / 23200 | **0.0517** |\n| 插值求 e | 0.0517 落在 [0.040, 0.070] 区间 | **e = 0.2517** |\n| Fₐ / Fᵣ | 1200 / 8500 | **0.1412** |\n| 判定 | 0.1412 ≤ 0.2517 → **Fₐ/Fᵣ ≤ e** | **X=1.0，Y=0** |\n\n### 当量动载荷\n\n> P_eq = fₚ × (X·Fᵣ + Y·Fₐ) = 1.2 × (1.0 × 8500 + 0 × 1200)\n\n$$\nP_{eq} = \\mathbf{10\\,200\\ N}\n$$\n\n---\n\n### 小结\n\n因为 Fₐ/Fᵣ 远小于 e，轴向载荷对当量动载荷无贡献，6210 在该工况下 **等效为纯径向受载**。当量动载荷 **10 200 N**，约为 Cr（35 000 N）的 29%，余量充裕。如需进一步计算轴承寿命 L₁₀ₕ，可继续。",
+      "timestamp": "2026-08-15T21:28:28.338972Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T21:28:28.338972Z"
+}

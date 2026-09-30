@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_005",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'run_calculation' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "这是一个工程咨询，不涉及正式设计流程，按系统规则我可以直接给出粗估计算（标注为粗估，不入台账）。\n\n---\n\n## 扭转切应力校核 — 粗估计算\n\n### 1. 单位换算\n\n首先厘清你的数据：\n\n| 量 | 你给的值 | 换算到 mm 单位制 |\n|---|---|---|\n| 极惯性矩 \\(I_p\\) | \\(1.2 \\times 10^{-6} \\ \\text{m}^4\\) | \\(1.2 \\times 10^6 \\ \\text{mm}^4\\)（\\(1\\ \\text{m}^4 = 10^{12}\\ \\text{mm}^4\\)）|\n| 扭矩 \\(T\\) | \\(320 \\ \\text{N·m}\\) | \\(3.2 \\times 10^5 \\ \\text{N·mm}\\) |\n\n你标注的「应为 mm⁴」是对的——在轴类计算中极惯性矩习惯用 mm⁴，\\(1.2 \\times 10^{-6}\\ \\text{m}^4\\) 就是 \\(1.2 \\times 10^6\\ \\text{mm}^4\\)。\n\n---\n\n### 2. 反推轴径（假设实心圆轴）\n\n\\[\nI_p = \\frac{\\pi d^4}"
+}

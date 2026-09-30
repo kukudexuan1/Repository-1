@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_010",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您指出的这个问题非常关键。在工程计算中，单位一致性是基础中的基础。\n\n具体来说：若支反力用跨距 L=0.18 m 计算，弯矩的原始结果是 **N·m**。要写成 **N·mm**，必须显式乘以 1000：\n\n\\[\nM = F \\times 0.18\\,\\text{m} = (0.18F)\\,\\text{N·m} = (180F)\\,\\text{N·mm}\n\\]\n\n如果漏掉这个换算，弯矩数值会差三个数量级，后续的弯曲应力 \\(\\sigma = M/W\\) 直接全错——这在真实设计中可能造成严重的欠安全设计。\n\n这也正是本系统铁律三（**单位永远显式**）要防范的问题：每个传给工具的数值都必须带单位，由系统做量纲检查，禁止人工换算后传裸数字。凡涉及单位转换的计算，都必须走 `run_calculation` 或 `solve_formula`，留下完整的代入记录，这样任何单位不一致的问题都能被追溯和发现。\n\n如果这是之前某个计算中实际出现的问题，请告诉我具体涉及哪次计算（calc#N），我立刻调取记录核查并修正。如果这是一个普遍性的提醒，我已经记下了——后续所有计算中，弯矩、应力、力矩等涉"
+}

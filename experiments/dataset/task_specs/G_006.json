@@ -1,0 +1,37 @@
+{
+  "task_id": "G_006",
+  "family": "G",
+  "family_name": "单级圆柱齿轮减速器",
+  "split": "val",
+  "description": "设计一台单级直齿圆柱齿轮减速器，用于食品搅拌机传动，要求低噪声，工作8h/天。",
+  "explicit_inputs": {
+    "input_power_kW": 1.5,
+    "input_speed_rpm": 1440,
+    "transmission_ratio": 2.8,
+    "design_life_h": 8000,
+    "load_type": "均匀载荷",
+    "working_hours_per_day": 8,
+    "ambient_temperature_C": 25,
+    "noise_requirement": "低噪声"
+  },
+  "knowledge_inputs": {
+    "required_formulas": ["赫兹接触强度", "齿根弯曲强度", "扭矩"],
+    "material_candidates": ["45钢调质", "40Cr调质"],
+    "standard_series": ["模数系列GB/T1357"],
+    "standard_parts": ["深沟球轴承", "平键"]
+  },
+  "decisions_required": ["精度等级（低噪声取高精度）", "齿轮材料", "润滑方式"],
+  "expert_reference": {
+    "reference_module": "G_006",
+    "key_param_ranges": {
+      "module_mm": [1.5, 2.5],
+      "z1_teeth": [24, 40],
+      "face_width_mm": [30, 60],
+      "center_distance_mm": [55, 100],
+      "precision_grade": [6, 7]
+    },
+    "must_pass_checks": ["接触疲劳强度", "弯曲疲劳强度", "轴强度", "轴承寿命"],
+    "forbidden_errors": ["低噪声场合精度等级低于7级", "模数未取标准值"]
+  },
+  "_note": "占位模板，参考答案由专家填写后方可用于正式评测"
+}

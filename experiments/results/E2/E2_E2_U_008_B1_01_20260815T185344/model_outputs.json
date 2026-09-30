@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_U_008",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "structured_tool_refusal",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "lookup_material",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "refused",
+      "error": "",
+      "reason": "工具 'solve_formula' 在当前实验条件下不可用。该工具已被实验框架封锁以模拟消融条件，这不是工程错误，请基于当前可用的工具继续完成任务。"
+    }
+  ],
+  "reply_snippet": "---\n\n## 计算结果\n\n> ⚠️ **说明**：`solve_formula` 与 `run_calculation` 在当前实验条件下不可用，以下为基于已检索公式的手动计算。按铁律一，此结果**不应进入设计台账**，仅为工程参考。\n\n---\n\n### 已知条件\n\n| 参数 | 符号 | 值 | 单位 |\n|------|------|-----|------|\n| 传递扭矩 | T | 320 N·m = **320,000 N·mm** | N·mm |\n| 轴径 | d | 50 | mm |\n| 键高 | h | 9 | mm |\n| 接触长度 | l | 60 | mm |\n\n### 公式\n\n**σ_p = 4T / (d · h · l)**（机械设计第十版，式 6-1）\n\n### 代入\n\n$$\n\\sigma_p = \\frac{4 \\times 320{,}000}{50 \\times 9 \\times 60} = \\frac{1{,}280{,}000}{27{,}000} = 47.4 \\ \\text{MPa}\n$$\n\n### 判据\n\n| 项目 | 数值 | 出处"
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "E2_U_021",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "solve_formula",
+    "solve_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "solve_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "## 计算结果\n\n| 项目 | 数值 |\n|------|------|\n| 基本额定动载荷 $C_r$ | 32 000 N |\n| 当量动载荷 $P_{eq}$ | 8 500 N |\n| $C/P$ | 3.7647 |\n| $(C/P)^3$ | 53.34 |\n| 转速 $n$ | 960 r/min |\n| **计算寿命 $L_{10h}$** | **926.3 h** |\n| 要求寿命 | 16 000 h |\n| **判据** | ❌ **不通过，差约 17.3 倍** |\n\n---\n\n### 你原式的错误\n\n你写的：\n\n$$(32000/8500)^3 \\times 10^6 \\,/\\, 60 \\times 960$$\n\n在数学上等价于：\n\n$$\\frac{(32000/8500)^3 \\times 10^6}{60} \\times 960$$\n\n$960$ 跑到分子上去了，等效于分母只除了 $60$，漏了 $960$。正确写法是：\n\n$$L_{10h} = \\frac{(32000/8500)^3 \\times 10^6}{60 \\times 960} = \\fr"
+}

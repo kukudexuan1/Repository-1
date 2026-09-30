@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_S_005",
+  "error_type": "symbol_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "您提到的公式是 **弯扭合成当量弯矩**，完整形式为：\n\n$$\nM_e = \\sqrt{M^2 + (\\alpha T)^2}\n$$\n\n其中：\n- \\(M\\) —— 合成弯矩（\\(M = \\sqrt{M_H^2 + M_V^2}\\)，单位为 N·mm）\n- \\(T\\) —— 扭矩（N·mm）\n- \\(\\alpha\\) —— **折合系数**，也叫“应力循环特性差异折算系数”\n\n---\n\n### α 的物理意义与取值依据\n\n轴同时承受弯矩和扭矩时，弯曲应力 \\(\\sigma_b\\) 为对称循环（转轴），扭转切应力 \\(\\tau_T\\) 的循环特性则取决于扭矩的波动性质。  \n\\(\\alpha\\) 的作用是将 **扭转切应力折算为等效的对称循环弯曲应力**，统一按弯曲疲劳强度校核。\n\n**常用取值（依据《机械设计手册》）：**\n\n| 扭矩性质 | 应力循环特性 | 折合系数 α |\n|----------|--------------|-------------|\n| 稳定不变（静扭矩） | 静应力 | \\([\\sigma_{-1b}] / [\\sigma_{+1b}] \\approx 0"
+}

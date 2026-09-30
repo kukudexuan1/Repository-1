@@ -1,0 +1,70 @@
+# ===================================================================
+# Python — bytecode, caches and packaging artifacts (regenerable)
+# ===================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# ===================================================================
+# Secrets — never commit real credentials; keep the *.example templates
+# ===================================================================
+.env
+.env.*
+!.env.example
+
+# ===================================================================
+# IDE / editor
+# ===================================================================
+.idea/
+.vscode/
+.atl/
+*.swp
+*.swo
+
+# ===================================================================
+# .NET build outputs — regenerate with `dotnet build`; not source.
+# (NuGet-restored third-party DLLs are not redistributed here.)
+# ===================================================================
+mcp-cad/**/bin/
+mcp-cad/**/obj/
+mcp-cad/dist/
+
+# ===================================================================
+# backend — local session database (created from schema.sql at
+# runtime; contains private session data and is not versioned)
+# ===================================================================
+backend/workspace/design_sessions.db
+backend/workspace/design_sessions.db-wal
+backend/workspace/design_sessions.db-shm
+
+# ===================================================================
+# test — CAD–CAE case studies. Only cases "1" and "reducer" are
+# tracked; "2" and "4" are development intermediates. OldVersions are
+# Inventor's automatic backups (versioning is handled by git).
+# Everything else in the cases — including solver outputs file.rst,
+# mechdb, ds.dat and run logs — IS versioned.
+# ===================================================================
+test/2/
+test/4/
+**/OldVersions/
+
+# ===================================================================
+# OS
+# ===================================================================
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store

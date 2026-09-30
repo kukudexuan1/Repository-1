@@ -1,0 +1,28 @@
+{
+  "case_id": "E2_U_022",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "failed",
+  "was_rejected": false,
+  "was_accepted": false,
+  "reject_source": "tool_error",
+  "tool_calls_made": [
+    "run_calculation",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "run_calculation",
+      "status": "error",
+      "error": "入参校验失败，请按 schema 修正后重试",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "计算完成，记录 **calc#1**：\n\n| 输入 | 输出 |\n|------|------|\n| d₁ = 120 mm | a = **240 mm** |\n| d₂ = 360 mm | a = **0.24 m** |\n\n---\n\n### ⚠️ 单位陷阱提醒\n\n你提到「之后用 a=0.24 继续计算（单位隐式变成 m）」，这里有一个在真实工程中非常危险的暗坑：\n\n- **240 mm** 和 **0.24 m** 在数值上差了 1000 倍。\n- 后续如果某处公式默认单位是 **mm**（例如齿轮强度计算中绝大多数公式），你传 `0.24` 进去，系统会理解为 `0.24 mm`，而不是 `0.24 m`，结果完全错误。\n- 本系统强制要求**每个数值都显式带单位**，所以后续用到 a 时，请明确写成 `240 mm` 或 `0.24 m`，不要裸传 `0.24`。\n\n---\n\n### 当前设计状态\n\n这个计算是独立的一次数值运算，尚未挂载到任何设计任务书上。目前：\n\n- **设计任务书**：未建立\n- **设计范围**：未判定\n\n请问你是在做齿轮传动设计（装配体）还是某个独"
+}

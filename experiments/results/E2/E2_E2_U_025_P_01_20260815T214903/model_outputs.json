@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_U_025",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "model_judgment",
+  "tool_calls_made": [
+    "get_design_status"
+  ],
+  "tool_events": [
+    {
+      "name": "get_design_status",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "您指出的这个问题非常典型，是齿轮设计计算中一个经典的\"单位陷阱\"。让我展开说一下：\n\n---\n\n## KV 动载系数查图的单位问题\n\n**正确的做法**：KV 曲线横坐标是 **节圆线速度 v（m/s）**。v = 3.6 m/s 时，横坐标就是 **3.6**，直接查图。\n\n**错误做法**：把 3.6 m/s 心算成 3600 mm/s 后输入横坐标，查 v = 3600 处的 KV 值。\n\n**后果**：KV 曲线在低速段（v < 10 m/s）通常斜率较陡，在高速段趋于平缓。把 3.6 放大到 3600，读出的 KV 值会严重偏大（可能从 1.1~1.2 量级跳到 1.5~1.8 甚至更高），导致：\n\n- 齿面接触疲劳计算中载荷放大，算出的分度圆直径偏大\n- 齿根弯曲疲劳计算同理，模数偏大\n- 最终齿轮尺寸、重量、成本全面膨胀，但实际承载能力并无提升\n\n反过来，如果是高速齿轮（v ≈ 30 m/s），误输成 30000 去查图，KV 可能已经进入接近水平的饱和区，误差反而没那么夸张——所以这个错误对中低速齿轮\"杀伤力\"最大。\n\n---\n\n## 在本系统中的防范\n\n本系统处理这类"
+}

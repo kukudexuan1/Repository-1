@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_011",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "这是一个单位一致性问题，不是设计流程问题，我直接回答。\n\n**你的计算是对的，但单位不能直接混用。**\n\nW = π × 50³ / 32 ≈ 12271.8 mm³\n\n当 M 的单位是 N·m 时，直接 σ = M / W 会得到 N·m/mm³——这不是任何标准应力单位。\n\n**正确的做法：统一单位后再除。**\n\n两种路径，殊途同归：\n\n| 路径 | M | W | 结果 σ |\n|------|-----|-------|--------|\n| ① 全转 N·mm | M × 1000 (N·mm) | 12271.8 mm³ | MPa (即 N/mm²) |\n| ② 全转 m | M (N·m) | 1.2272×10⁻⁵ m³ | Pa |\n\n**推荐路径 ①**，因为工程中弯曲应力习惯用 MPa：\n\n> σ = M(N·m) × 1000 / W(mm³)  → 结果即 MPa\n\n举例：若 M = 200 N·m，则 σ = 200 × 1000 / 12271.8 ≈ **16.3 MPa**。\n\n---\n\n如果你是做轴的强度校核，需要我帮你走正式设计流程（查材料许用应"
+}

@@ -1,0 +1,35 @@
+{
+  "case_id": "E2_C_015",
+  "error_type": "criterion_error",
+  "is_error_input": true,
+  "outcome": "rejected",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "model_judgment",
+  "tool_calls_made": [
+    "search_formula",
+    "search_formula",
+    "run_calculation"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "search_formula",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    },
+    {
+      "name": "run_calculation",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "您这个纠错非常到位，而且恰好触及了轴承寿命校核中最容易被忽略的一层。让我把计算摊开：\n\n---\n\n## 可靠性修正：L10h → L5h（calc#1）\n\n依据 ISO 281 / GB/T 6391-2010 的可靠性寿命修正系数 a₁：\n\n| 可靠度 | a₁ |\n|--------|----|\n| 90%（L10h） | 1.00 |\n| **95%（L5h）** | **0.62** |\n| 99%（L1h） | 0.21 |\n\n代入：\n\n```\nL5h = a₁ × L10h = 0.62 × 22000 = 13640 h\n```\n\n**判据：L5h > Lh' = 20000 h？**\n\n> **不通过。** 13640 < 20000，余量 **-31.8%**——严重不足。\n\n反推：要在 95% 可靠度下满足 20000 h，所需的 L10h 门槛是：\n\n```\nL10h,required = 20000 / 0.62 = 32258 h\n```\n\n也就是说，当前轴承的基本额定寿命只有要求值的 22000/32258 ≈ **68%**。\n\n---\n\n## 这意味着什"
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_M_008",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": true,
+  "was_accepted": false,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "search_formula"
+  ],
+  "tool_events": [
+    {
+      "name": "search_formula",
+      "status": "not_found",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "公式库中未收录该疲劳安全系数公式，需走非标计算路径（`run_calculation`）。但在此之前，有个关键问题：\n\n---\n\n**你给出的公式和已知量：**\n\n\\[\nS = \\frac{\\sigma_{-1}}{\\dfrac{K_\\sigma \\cdot \\sigma_a}{\\varepsilon_\\sigma} + \\psi_\\sigma \\cdot \\sigma_m}\n\\]\n\n| 符号 | 含义 | 已知值 |\n|------|------|--------|\n| σ₋₁ | 材料对称循环疲劳极限 | 270 MPa |\n| σₐ | 应力幅 | 85 MPa |\n| σₘ | 平均应力 | 40 MPa |\n\n**缺失三个关键参数，缺一不可：**\n\n| 符号 | 含义 | 取决于 |\n|------|------|--------|\n| **Kσ** | 有效应力集中系数 | 轴上是否存在键槽、台阶、螺纹、横孔等应力集中源，以及圆角半径 |\n| **εσ** | 尺寸系数 | 轴的危险截面直径（直径越大，εσ 越小，通常 0.6~0.9） |\n| **ψσ** | 平均应力影"
+}

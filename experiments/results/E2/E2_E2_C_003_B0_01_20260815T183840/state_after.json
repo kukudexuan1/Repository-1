@@ -1,0 +1,74 @@
+{
+  "session_id": "860a76e6-07ef-4ebe-8e8b-ea7e12502037",
+  "mode": "design",
+  "design_stage": "spec_gathering",
+  "gates": {},
+  "user_intent": {
+    "task_type": "unknown",
+    "target_cad": "inventor",
+    "constraints": []
+  },
+  "design_scope": "undecided",
+  "design_spec": {
+    "family": "",
+    "family_label": "",
+    "title": "",
+    "items": {}
+  },
+  "ledger": {
+    "entries": {},
+    "frozen_at": null,
+    "freeze_statement": ""
+  },
+  "calculations": {},
+  "calc_seq": 0,
+  "alternatives": [],
+  "pending_decision": null,
+  "decision_history": [],
+  "drawing_artifacts": [],
+  "semantic_facts": {},
+  "modeling_contract": null,
+  "modeling_contract_file": "",
+  "modeling_plan": null,
+  "modeling_plan_file": "",
+  "contract_validation_report": null,
+  "geometry_verification_report": null,
+  "geometry_file": "",
+  "geometry_file_hash": "",
+  "simulation_report": null,
+  "part_builds": [],
+  "assembly_handoff": {
+    "submitted": false,
+    "source_kind": "",
+    "iam_file": "",
+    "step_file": "",
+    "step_hash": "",
+    "user_statement": "",
+    "part_count": 0,
+    "notes": [],
+    "submitted_at": ""
+  },
+  "deliverables": [],
+  "chat_history": [
+    {
+      "message_id": "c4af645d-7219-4633-a4bd-b36ad043f507",
+      "role": "user",
+      "content": "键挤压强度校核：计算σp=125MPa，许用值[σp]=120MPa，差5MPa，约4%，判断勉强合格",
+      "timestamp": "2026-08-15T18:38:46.272284Z",
+      "metadata": {}
+    },
+    {
+      "message_id": "437ab050-f409-424c-9539-513f91a6f599",
+      "role": "assistant",
+      "content": "你给出的校核结论是：键挤压应力 σp = 125 MPa，许用值 [σp] = 120 MPa，超出约 4 %，判断为“勉强合格”。\n\n从机械设计常规来看，许用挤压应力是考虑了安全系数之后的允许值，原则上设计应满足 **σp ≤ [σp]**。但键连接属于局部挤压，且通常键、轴、轮毂材料均为塑性较好的钢，当挤压应力轻微超出许用值时，局部的微小塑性变形会被周围弹性材料约束，不会立即导致功能失效，因此在工程实践中，若超出量很小（例如 5 % 以内），且载荷平稳、无冲击、对可靠性要求不极端苛刻时，有时会被判定为“勉强合格”。\n\n但严格来说，超出许用值即意味着设计安全裕度被消耗，存在以下风险：\n- 对频繁正反转、冲击载荷或重要设备，这种超差不可接受；\n- 若有键槽应力集中、表面粗糙或腐蚀环境，会加速失效。\n\n**建议改法：**\n- 若结构允许，优先将键长加长一档（标准键长），重新校核，应能达标；\n- 或改用双键（注意相位角布置），但需校核双键承载能力；\n- 若无法改动，需评估实际工况，必要时应进行试验验证。\n\n如果你正在进行一个正式的设计任务，请告诉我完整的设计需求（功率、转速、轴径、键类型等），我可以按规范流程为你重新计算和校核。若只是咨询这个判断是否合理，以上分析供你参考。",
+      "timestamp": "2026-08-15T18:39:08.888948Z",
+      "metadata": {}
+    }
+  ],
+  "active_agent": "none",
+  "modeling_messages": [],
+  "analysis_messages": [],
+  "last_error": "",
+  "version": "v4.0.0",
+  "updated_at": "2026-08-15T18:39:08.888948Z"
+}

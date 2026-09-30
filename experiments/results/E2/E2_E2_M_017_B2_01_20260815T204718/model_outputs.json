@@ -1,0 +1,21 @@
+{
+  "case_id": "E2_M_017",
+  "error_type": "unit_missing",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [
+    "lookup_material"
+  ],
+  "tool_events": [
+    {
+      "name": "lookup_material",
+      "status": "ok",
+      "error": "",
+      "reason": ""
+    }
+  ],
+  "reply_snippet": "手册查到的数据与你提供的数值存在差异，需要指出。\n\n---\n\n## 45 钢调质 — 弯曲疲劳极限 σFlim 对比\n\n| 来源 | σFlim |\n|------|-------|\n| **你提供** | 380（未标单位，推测为 MPa） |\n| **系统手册**（GB/T 699-2015） | **210 MPa** |\n\n两个数值相差近一倍，这不是小差异。手册中 45 钢调质的其他关键数据供参考：\n\n- σb（抗拉强度）= 640 MPa\n- σs（屈服强度）= 355 MPa\n- σHlim（接触疲劳极限）= 600 MPa\n- 硬度 = 217~255 HBW\n\n---\n\n## 380 MPa 可能是什么？\n\n380 MPa 这个数值，放在齿轮材料中，更接近以下情况：\n\n- **40Cr 调质**的弯曲疲劳极限（约 350~380 MPa 量级）\n- **45 钢表面淬火**的弯曲疲劳极限\n- 某些老版教材中采用了不同的安全系数折减后的**许用值**，而非极限值 σFlim\n\n---\n\n## 建议\n\n在齿轮弯曲疲劳强度计算中，σFlim 是直接参与校核判据的基础数据，差了"
+}

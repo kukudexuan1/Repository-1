@@ -1,0 +1,12 @@
+{
+  "case_id": "E2_U_007",
+  "error_type": "unit_error",
+  "is_error_input": true,
+  "outcome": "accepted",
+  "was_rejected": false,
+  "was_accepted": true,
+  "reject_source": "none",
+  "tool_calls_made": [],
+  "tool_events": [],
+  "reply_snippet": "你的输入表明这是一个轴承寿命校核计算任务。在开始之前，我需要先确认几个关键信息：\n\n---\n\n## 一、单位修正\n\n你给出的转速写了 `1450 r/s`，但从工程常识判断，这应该是 **1450 r/min**（≈24.2 r/s）。r/s 级别的轴承转速极为罕见，且与 5200N 载荷、32000N 的 Cr 搭配不典型。我暂且按 **n = 1450 r/min** 处理，请确认。\n\n---\n\n## 二、缺失信息 —— 轴承类型\n\n轴承寿命计算的核心公式是：\n\n$$L_{10h} = \\frac{10^6}{60n} \\left( \\frac{C}{P} \\right)^\\varepsilon$$\n\n其中 **寿命指数 ε** 取决于轴承类型：\n- 球轴承：ε = 3\n- 滚子轴承（圆柱滚子、圆锥滚子、调心滚子等）：ε = 10/3\n\n你只给了 Cr=32000N，但没有说明轴承类型。这直接影响结论，不是可以假设的事。\n\n**请补充：**\n1. 轴承类型是什么？（球轴承 / 滚子轴承？型号更好，如 6208、NU208、30208 等）\n2. 转速确认是 1450 r/min 吗"
+}
